@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMBA Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="logo">
+        <span class="logo-text">SMBA</span>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-header">Menu</div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <i class="bi bi-grid"></i>
+              Overview
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-bar-chart"></i>
+              Statistics
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-people"></i>
+              Customers
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-box"></i>
+              Products
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-chat"></i>
+              Messages
+              <span class="badge">8</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-receipt"></i>
+              Transactions
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section mt-auto">
+        <div class="nav-divider"></div>
+        <div class="logout-section">
+          <div class="user-info">
+            <div class="user-avatar">J</div>
+            <div class="user-details">
+              <div class="user-name">Jane Doe</div>
+            </div>
+          </div>
+          <a class="logout-link" href="#" title="Logout">
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <div class="d-flex align-items-center gap-3">
+            <button class="header-icon d-lg-none">
+              <i class="bi bi-list"></i>
+            </button>
+            <div class="search-wrapper">
+              <i class="bi bi-search"></i>
+              <input type="text" class="search-input" placeholder="Search...">
+            </div>
+          </div>
+
+          <div class="header-actions">
+            <div class="action-group">
+              <button class="header-icon" title="Refresh">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+              <button class="header-icon" title="Notifications">
+                <i class="bi bi-bell"></i>
+                <span class="badge">3</span>
+              </button>
+              <button class="header-icon" title="Messages">
+                <i class="bi bi-chat"></i>
+                <span class="badge">5</span>
+              </button>
+            </div>
+            <div class="user-profile">
+              <div class="user-avatar">J</div>
+              <div class="user-details">
+                <div class="user-name">Jane Doe</div>
+                <div class="user-role">Admin</div>
+              </div>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <div class="page-header">
+          <div class="nav-tabs-wrapper">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <i class="bi bi-grid"></i>
+                  Overview
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="bi bi-cart"></i>
+                  Orders
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="bi bi-graph-up"></i>
+                  Sales
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="header-actions">
+            <div class="period-select">
+              <i class="bi bi-calendar3"></i>
+              <select class="form-select">
+                <option>Monthly</option>
+                <option>Weekly</option>
+                <option>Daily</option>
+              </select>
+            </div>
+            <button class="download-btn">
+              <i class="bi bi-download"></i>
+              Download
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">NEW NET INCOME</span>
+              <button class="btn btn-link p-0">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+            </div>
+            <div class="stat-value">$54,654</div>
+            <div class="stat-footer">
+              <div class="stat-change positive">
+                <i class="bi bi-arrow-up-right"></i>
+                10.5%
+              </div>
+              <div class="stat-comparison">+$4,245</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">AVERAGE SALES</span>
+              <button class="btn btn-link p-0">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+            </div>
+            <div class="stat-value">$14,670</div>
+            <div class="stat-footer">
+              <div class="stat-change positive">
+                <i class="bi bi-arrow-up-right"></i>
+                8.2%
+              </div>
+              <div class="stat-comparison">+$1,950</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">TOTAL ORDER</span>
+              <button class="btn btn-link p-0">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+            </div>
+            <div class="stat-value">12,390</div>
+            <div class="stat-footer">
+              <div class="stat-change positive">
+                <i class="bi bi-arrow-up-right"></i>
+                12.5%
+              </div>
+              <div class="stat-comparison">+1,240</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">IMPRESSION</span>
+              <button class="btn btn-link p-0">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+            </div>
+            <div class="stat-value">564K</div>
+            <div class="stat-footer">
+              <div class="stat-change positive">
+                <i class="bi bi-arrow-up-right"></i>
+                9.1%
+              </div>
+              <div class="stat-comparison">+48K</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-section">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title-wrapper">
+                <div class="chart-title">
+                  <i class="bi bi-graph-up"></i>
+                  OVERALL SALES
+                </div>
+                <div class="chart-actions">
+                  <button class="chart-action-btn" title="Download Report">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button class="chart-action-btn" title="Refresh Data">
+                    <i class="bi bi-arrow-repeat"></i>
+                  </button>
+                  <button class="chart-action-btn" title="More Options">
+                    <i class="bi bi-three-dots"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="chart-value">
+                <span class="chart-value-currency">$</span>
+                80,225
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: var(--primary-color)"></div>
+                  This Period
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: var(--primary-light)"></div>
+                  Last Period
+                </div>
+              </div>
+            </div>
+            <div class="chart-content">
+              <canvas id="salesChart"></canvas>
+            </div>
+          </div>
+
+          <div class="conversion-card">
+            <div class="conversion-header">
+              <div class="conversion-title">
+                <i class="bi bi-funnel"></i>
+                CONVERSION RATE
+              </div>
+              <div class="stat-change positive">
+                <i class="bi bi-arrow-up-right"></i>
+                10.5%
+              </div>
+            </div>
+
+            <div class="funnel-steps">
+              <div class="funnel-step">
+                <div class="funnel-label">
+                  <span>Product Views</span>
+                  <span class="funnel-value">15%</span>
+                </div>
+                <div class="funnel-progress">
+                  <div class="funnel-progress-bar" style="width: 100%"></div>
+                </div>
+                <small class="text-secondary">5,645 visitors</small>
+              </div>
+
+              <div class="funnel-step">
+                <div class="funnel-label">
+                  <span>Add to Cart</span>
+                  <span class="funnel-value">12%</span>
+                </div>
+                <div class="funnel-progress">
+                  <div class="funnel-progress-bar" style="width: 80%"></div>
+                </div>
+                <small class="text-secondary">4,564 items</small>
+              </div>
+
+              <div class="funnel-step">
+                <div class="funnel-label">
+                  <span>Checkout</span>
+                  <span class="funnel-value">5%</span>
+                </div>
+                <div class="funnel-progress">
+                  <div class="funnel-progress-bar" style="width: 33%"></div>
+                </div>
+                <small class="text-secondary">1,846 sessions</small>
+              </div>
+
+              <div class="funnel-step">
+                <div class="funnel-label">
+                  <span>Purchased</span>
+                  <span class="funnel-value">3.75%</span>
+                </div>
+                <div class="funnel-progress">
+                  <div class="funnel-progress-bar" style="width: 25%"></div>
+                </div>
+                <small class="text-secondary">1,400 orders</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-table">
+          <div class="table-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-box text-primary"></i>
+                <h6 class="table-title mb-0">Product List</h6>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <div class="search-wrapper">
+                  <i class="bi bi-search"></i>
+                  <input type="text" class="form-control form-control-sm" placeholder="Search products...">
+                </div>
+                <div class="filter-wrapper">
+                  <i class="bi bi-funnel"></i>
+                  <select class="form-select form-select-sm">
+                    <option>All Status</option>
+                    <option>Active</option>
+                    <option>Sold Out</option>
+                    <option>Re-Stock</option>
+                  </select>
+                </div>
+                <div class="period-wrapper">
+                  <i class="bi bi-calendar3"></i>
+                  <select class="form-select form-select-sm">
+                    <option>This Week</option>
+                    <option>This Month</option>
+                    <option>This Year</option>
+                  </select>
+                </div>
+                <button class="btn btn-sm btn-primary">
+                  <i class="bi bi-plus-lg"></i>
+                  Add Product
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="product-col">Product Info</th>
+                  <th class="amount-col">Order Amount</th>
+                  <th class="stock-col">Stock</th>
+                  <th class="sold-col">Sold</th>
+                  <th class="status-col">Status</th>
+                  <th class="action-col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="product-info">
+                      <div class="product-img">
+                        <i class="bi bi-watch"></i>
+                      </div>
+                      <div class="product-details">
+                        <div class="product-name">Apple Watch</div>
+                        <div class="product-category">Electronics</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="amount-value">$1,250</div>
+                    <div class="amount-change positive">
+                      <i class="bi bi-arrow-up-right"></i>
+                      12.5%
+                    </div>
+                  </td>
+                  <td>
+                    <div class="stock-value">00</div>
+                    <div class="stock-label">items</div>
+                  </td>
+                  <td>
+                    <div class="sold-value">950</div>
+                    <div class="sold-label">units</div>
+                  </td>
+                  <td>
+                    <span class="status-badge sold-out">
+                      <i class="bi bi-x-circle"></i>
+                      Sold Out
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-sm btn-icon" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-icon" title="Delete">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                      <button class="btn btn-sm btn-icon" title="View Details">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product-info">
+                      <div class="product-img">
+                        <i class="bi bi-shirt"></i>
+                      </div>
+                      <div class="product-details">
+                        <div class="product-name">T-Shirt</div>
+                        <div class="product-category">Apparel</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="amount-value">$450</div>
+                    <div class="amount-change positive">
+                      <i class="bi bi-arrow-up-right"></i>
+                      8.2%
+                    </div>
+                  </td>
+                  <td>
+                    <div class="stock-value">50</div>
+                    <div class="stock-label">items</div>
+                  </td>
+                  <td>
+                    <div class="sold-value">250</div>
+                    <div class="sold-label">units</div>
+                  </td>
+                  <td>
+                    <span class="status-badge active">
+                      <i class="bi bi-check-circle"></i>
+                      Active
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-sm btn-icon" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-icon" title="Delete">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                      <button class="btn btn-sm btn-icon" title="View Details">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product-info">
+                      <div class="product-img">
+                        <i class="bi bi-suit-heart"></i>
+                      </div>
+                      <div class="product-details">
+                        <div class="product-name">Blazer</div>
+                        <div class="product-category">Apparel</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="amount-value">$1,450</div>
+                    <div class="amount-change negative">
+                      <i class="bi bi-arrow-down-right"></i>
+                      2.5%
+                    </div>
+                  </td>
+                  <td>
+                    <div class="stock-value">15</div>
+                    <div class="stock-label">items</div>
+                  </td>
+                  <td>
+                    <div class="sold-value">350</div>
+                    <div class="sold-label">units</div>
+                  </td>
+                  <td>
+                    <span class="status-badge active">
+                      <i class="bi bi-check-circle"></i>
+                      Active
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-sm btn-icon" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-icon" title="Delete">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                      <button class="btn btn-sm btn-icon" title="View Details">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product-info">
+                      <div class="product-img">
+                        <i class="bi bi-shoe"></i>
+                      </div>
+                      <div class="product-details">
+                        <div class="product-name">Nike Shoe</div>
+                        <div class="product-category">Footwear</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="amount-value">$2,250</div>
+                    <div class="amount-change positive">
+                      <i class="bi bi-arrow-up-right"></i>
+                      15.8%
+                    </div>
+                  </td>
+                  <td>
+                    <div class="stock-value">13</div>
+                    <div class="stock-label">items</div>
+                  </td>
+                  <td>
+                    <div class="sold-value">250</div>
+                    <div class="sold-label">units</div>
+                  </td>
+                  <td>
+                    <span class="status-badge restock">
+                      <i class="bi bi-exclamation-circle"></i>
+                      Re-Stock
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-sm btn-icon" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-icon" title="Delete">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                      <button class="btn btn-sm btn-icon" title="View Details">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>
+
