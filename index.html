@@ -36,12 +36,12 @@
               Shop Status
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="billing.html">
               <i class="bi bi-receipt"></i>
               Billing Performance
             </a>
-          </li>
+          </li> -->
         </ul>
       </div>
 
@@ -104,7 +104,7 @@
 
       <!-- Content -->
       <div class="content">
-        <div class="page-header">
+        <!-- <div class="page-header">
           <div class="nav-tabs-wrapper">
             <ul class="nav nav-tabs">
               <li class="nav-item">
@@ -156,38 +156,16 @@
               Export Report
             </button>
           </div>
-        </div>
+        </div> -->
 
         <!-- Quick Stats -->
         <div class="quick-stats">
+          <!-- Shop Status Summary -->
           <div class="stat-card">
             <div class="stat-header">
               <div class="stat-title">
-                <i class="bi bi-currency-dollar"></i>
-                Revenue
-              </div>
-              <div class="stat-trend positive">
-                <i class="bi bi-arrow-up-right"></i>
-                12.5%
-              </div>
-            </div>
-            <div class="stat-content">
-              <div class="stat-value">$124,563</div>
-              <div class="stat-comparison">
-                <span class="comparison-value">$98,234</span>
-                <span class="comparison-label">prev</span>
-              </div>
-            </div>
-            <div class="stat-chart">
-              <canvas id="revenueChart"></canvas>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-header">
-              <div class="stat-title">
-                <i class="bi bi-cart"></i>
-                Orders
+                <i class="bi bi-shop"></i>
+                Total SV
               </div>
               <div class="stat-trend positive">
                 <i class="bi bi-arrow-up-right"></i>
@@ -195,45 +173,22 @@
               </div>
             </div>
             <div class="stat-content">
-              <div class="stat-value">2,845</div>
+              <div class="stat-value">27</div>
               <div class="stat-comparison">
-                <span class="comparison-value">2,156</span>
+                <span class="comparison-value">25</span>
                 <span class="comparison-label">prev</span>
               </div>
             </div>
             <div class="stat-chart">
-              <canvas id="ordersChart"></canvas>
+              <canvas id="totalSVChart"></canvas>
             </div>
           </div>
 
           <div class="stat-card">
             <div class="stat-header">
               <div class="stat-title">
-                <i class="bi bi-people"></i>
-                Customers
-              </div>
-              <div class="stat-trend positive">
-                <i class="bi bi-arrow-up-right"></i>
-                15.8%
-              </div>
-            </div>
-            <div class="stat-content">
-              <div class="stat-value">1,234</div>
-              <div class="stat-comparison">
-                <span class="comparison-value">987</span>
-                <span class="comparison-label">prev</span>
-              </div>
-            </div>
-            <div class="stat-chart">
-              <canvas id="customersChart"></canvas>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-header">
-              <div class="stat-title">
-                <i class="bi bi-graph-up"></i>
-                Conversion
+                <i class="bi bi-exclamation-circle"></i>
+                Past Due
               </div>
               <div class="stat-trend negative">
                 <i class="bi bi-arrow-down-right"></i>
@@ -241,528 +196,435 @@
               </div>
             </div>
             <div class="stat-content">
-              <div class="stat-value">3.42%</div>
+              <div class="stat-value">2</div>
               <div class="stat-comparison">
-                <span class="comparison-value">3.51%</span>
+                <span class="comparison-value">3</span>
                 <span class="comparison-label">prev</span>
               </div>
             </div>
             <div class="stat-chart">
-              <canvas id="conversionChart"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <!-- Main Charts -->
-        <div class="chart-grid">
-          <div class="chart-card">
-            <div class="chart-header">
-              <div class="chart-title">
-                <i class="bi bi-graph-up"></i>
-                Revenue Overview
-              </div>
-              <div class="chart-actions">
-                <button class="chart-action-btn" title="Download">
-                  <i class="bi bi-download"></i>
-                </button>
-                <button class="chart-action-btn" title="Refresh">
-                  <i class="bi bi-arrow-repeat"></i>
-                </button>
-              </div>
-            </div>
-            <div class="chart-content">
-              <canvas id="revenueOverviewChart"></canvas>
-            </div>
-            <div class="chart-footer">
-              <div class="chart-legend">
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: var(--primary-color)"></div>
-                  This Period
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: var(--primary-light)"></div>
-                  Last Period
-                </div>
-              </div>
-              <div class="chart-summary">
-                <div class="summary-item">
-                  <div class="summary-label">Total</div>
-                  <div class="summary-value">$124,563</div>
-                </div>
-                <div class="summary-item">
-                  <div class="summary-label">Growth</div>
-                  <div class="summary-value positive">+12.5%</div>
-                </div>
-              </div>
+              <canvas id="pastDueChart"></canvas>
             </div>
           </div>
 
-          <div class="chart-card">
-            <div class="chart-header">
-              <div class="chart-title">
-                <i class="bi bi-pie-chart"></i>
-                Sales by Category
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-title">
+                <i class="bi bi-clock"></i>
+                Upcoming
               </div>
-              <div class="chart-actions">
-                <button class="chart-action-btn" title="Download">
-                  <i class="bi bi-download"></i>
-                </button>
-                <button class="chart-action-btn" title="Refresh">
-                  <i class="bi bi-arrow-repeat"></i>
-                </button>
+              <div class="stat-trend positive">
+                <i class="bi bi-arrow-up-right"></i>
+                15.8%
               </div>
             </div>
-            <div class="chart-content">
-              <canvas id="categoryChart"></canvas>
-            </div>
-            <div class="chart-footer">
-              <div class="chart-legend">
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #4f46e5"></div>
-                  Electronics (42%)
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #10b981"></div>
-                  Apparel (28%)
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #f59e0b"></div>
-                  Accessories (30%)
-                </div>
+            <div class="stat-content">
+              <div class="stat-value">5</div>
+              <div class="stat-comparison">
+                <span class="comparison-value">4</span>
+                <span class="comparison-label">prev</span>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Performance Metrics -->
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-header">
-              <div class="metric-title">
-                <i class="bi bi-speedometer2"></i>
-                Performance
-              </div>
-              <div class="metric-period">Last 30 Days</div>
-            </div>
-            <div class="metric-content">
-              <div class="metric-row">
-                <div class="metric-item">
-                  <div class="metric-label">AOV</div>
-                  <div class="metric-value">$43.82</div>
-                  <div class="metric-change positive">
-                    <i class="bi bi-arrow-up-right"></i>
-                    5.2%
-                  </div>
-                </div>
-                <div class="metric-item">
-                  <div class="metric-label">CLV</div>
-                  <div class="metric-value">$1,245</div>
-                  <div class="metric-change positive">
-                    <i class="bi bi-arrow-up-right"></i>
-                    8.7%
-                  </div>
-                </div>
-              </div>
-              <div class="metric-row">
-                <div class="metric-item">
-                  <div class="metric-label">Returns</div>
-                  <div class="metric-value">2.8%</div>
-                  <div class="metric-change negative">
-                    <i class="bi bi-arrow-down-right"></i>
-                    1.2%
-                  </div>
-                </div>
-                <div class="metric-item">
-                  <div class="metric-label">Retention</div>
-                  <div class="metric-value">78.5%</div>
-                  <div class="metric-change positive">
-                    <i class="bi bi-arrow-up-right"></i>
-                    3.4%
-                  </div>
-                </div>
-              </div>
-              <div class="metric-row">
-                <div class="metric-item">
-                  <div class="metric-label">Abandonment</div>
-                  <div class="metric-value">24.3%</div>
-                  <div class="metric-change negative">
-                    <i class="bi bi-arrow-down-right"></i>
-                    2.1%
-                  </div>
-                </div>
-                <div class="metric-item">
-                  <div class="metric-label">Session</div>
-                  <div class="metric-value">4m 32s</div>
-                  <div class="metric-change positive">
-                    <i class="bi bi-arrow-up-right"></i>
-                    12.5%
-                  </div>
-                </div>
-              </div>
+            <div class="stat-chart">
+              <canvas id="upcomingChart"></canvas>
             </div>
           </div>
 
-          <div class="metric-card">
-            <div class="metric-header">
-              <div class="metric-title">
-                <i class="bi bi-geo-alt"></i>
-                Top Locations
-              </div>
-              <div class="metric-period">By Revenue</div>
-            </div>
-            <div class="metric-content">
-              <div class="location-item">
-                <div class="location-info">
-                  <div class="location-name">US</div>
-                  <div class="location-value">$45,234</div>
-                  <div class="location-change positive">
-                    <i class="bi bi-arrow-up-right"></i>
-                    8.2%
-                  </div>
-                </div>
-                <div class="location-bar">
-                  <div class="bar-fill" style="width: 75%"></div>
-                </div>
-              </div>
-              <div class="location-item">
-                <div class="location-info">
-                  <div class="location-name">UK</div>
-                  <div class="location-value">$32,156</div>
-                  <div class="location-change positive">
-                    <i class="bi bi-arrow-up-right"></i>
-                    5.4%
-                  </div>
-                </div>
-                <div class="location-bar">
-                  <div class="bar-fill" style="width: 55%"></div>
-                </div>
-              </div>
-              <div class="location-item">
-                <div class="location-info">
-                  <div class="location-name">DE</div>
-                  <div class="location-value">$28,945</div>
-                  <div class="location-change negative">
-                    <i class="bi bi-arrow-down-right"></i>
-                    1.8%
-                  </div>
-                </div>
-                <div class="location-bar">
-                  <div class="bar-fill" style="width: 45%"></div>
-                </div>
-              </div>
-              <div class="location-item">
-                <div class="location-info">
-                  <div class="location-name">FR</div>
-                  <div class="location-value">$22,678</div>
-                  <div class="location-change positive">
-                    <i class="bi bi-arrow-up-right"></i>
-                    3.7%
-                  </div>
-                </div>
-                <div class="location-bar">
-                  <div class="bar-fill" style="width: 35%"></div>
-                </div>
-              </div>
-              <div class="location-item">
-                <div class="location-info">
-                  <div class="location-name">CA</div>
-                  <div class="location-value">$18,923</div>
-                  <div class="location-change positive">
-                    <i class="bi bi-arrow-up-right"></i>
-                    6.9%
-                  </div>
-                </div>
-                <div class="location-bar">
-                  <div class="bar-fill" style="width: 30%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="activity-card">
-          <div class="activity-header">
-            <div class="activity-title">
-              <i class="bi bi-clock-history"></i>
-              Recent Activity
-            </div>
-            <button class="btn btn-sm btn-link">View All</button>
-          </div>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon success">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-title">
                 <i class="bi bi-check-circle"></i>
+                No Due
               </div>
-              <div class="activity-content">
-                <div class="activity-text">Order #1234 from John Doe</div>
-                <div class="activity-time">2m ago</div>
+              <div class="stat-trend positive">
+                <i class="bi bi-arrow-up-right"></i>
+                12.5%
               </div>
-              <div class="activity-value">$245.00</div>
             </div>
-            <div class="activity-item">
-              <div class="activity-icon warning">
-                <i class="bi bi-exclamation-circle"></i>
+            <div class="stat-content">
+              <div class="stat-value">20</div>
+              <div class="stat-comparison">
+                <span class="comparison-value">18</span>
+                <span class="comparison-label">prev</span>
               </div>
-              <div class="activity-content">
-                <div class="activity-text">Low stock: Product X</div>
-                <div class="activity-time">15m ago</div>
-              </div>
-              <div class="activity-value">5 left</div>
             </div>
-            <div class="activity-item">
-              <div class="activity-icon primary">
-                <i class="bi bi-person-plus"></i>
-              </div>
-              <div class="activity-content">
-                <div class="activity-text">New customer registered</div>
-                <div class="activity-time">1h ago</div>
-              </div>
-              <div class="activity-value">Premium</div>
+            <div class="stat-chart">
+              <canvas id="noDueChart"></canvas>
             </div>
           </div>
         </div>
 
-        <div class="product-table">
-          <div class="table-header">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-box text-primary"></i>
-                <h6 class="table-title mb-0">Product List</h6>
+        <!-- Billing Performance Section -->
+        <div class="row g-3 mb-1">
+          <!-- Summary Cards -->
+          <div class="col-12">
+            <div class="summary-cards">
+              <div class="row g-2">
+                <div class="col-xl-3 col-md-6">
+                  <div class="summary-card">
+                    <div class="summary-icon">
+                      <i class="bi bi-receipt-cutoff"></i>
+                    </div>
+                    <div class="summary-info">
+                      <div class="summary-label">Invoices</div>
+                      <div class="summary-value">2,845</div>
+                      <div class="summary-trend positive">
+                        +8.2% <span class="trend-period">vs prev</span>
+                      </div>
+                    </div>
+                    <div class="summary-chart">
+                      <canvas id="invoicesChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                  <div class="summary-card">
+                    <div class="summary-icon warning">
+                      <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div class="summary-info">
+                      <div class="summary-label">Pending</div>
+                      <div class="summary-value">$45.2k</div>
+                      <div class="summary-trend negative">
+                        +12.5% <span class="trend-period">vs prev</span>
+                      </div>
+                    </div>
+                    <div class="summary-chart">
+                      <canvas id="pendingBillingChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                  <div class="summary-card">
+                    <div class="summary-icon success">
+                      <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div class="summary-info">
+                      <div class="summary-label">Paid</div>
+                      <div class="summary-value">$124.5k</div>
+                      <div class="summary-trend positive">
+                        +15.8% <span class="trend-period">vs prev</span>
+                      </div>
+                    </div>
+                    <div class="summary-chart">
+                      <canvas id="paidBillingChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                  <div class="summary-card">
+                    <div class="summary-icon danger">
+                      <i class="bi bi-exclamation-circle"></i>
+                    </div>
+                    <div class="summary-info">
+                      <div class="summary-label">Overdue</div>
+                      <div class="summary-value">$12.4k</div>
+                      <div class="summary-trend negative">
+                        -2.5% <span class="trend-period">vs prev</span>
+                      </div>
+                    </div>
+                    <div class="summary-chart">
+                      <canvas id="overdueBillingChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeliness Chart -->
+          <div class="col-lg-8">
+            <div class="chart-container mb-3">
+              <div class="chart-header mb-2 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                  <h2 class="chart-title d-flex align-items-center m-0">
+                    <i class="bi bi-graph-up me-2"></i>
+                    Timeliness
+                  </h2>
+                  <div class="chart-legend d-flex border-start ps-3">
+                    <div class="legend-item d-flex align-items-center me-3">
+                      <span class="legend-dot d-inline-block me-1" style="width:6px;height:6px;border-radius:50%;background:var(--primary-color)"></span>
+                      <span class="small">Monthly</span>
+                    </div>
+                    <div class="legend-item d-flex align-items-center">
+                      <span class="legend-dot d-inline-block me-1" style="width:6px;height:6px;border-radius:50%;background:var(--success-color)"></span>
+                      <span class="small">Trend</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="chart-actions d-flex gap-1">
+                  <button class="chart-action-btn" title="Download">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button class="chart-action-btn" title="Refresh">
+                    <i class="bi bi-arrow-repeat"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row g-2 mb-2">
+                <div class="col-4">
+                  <div class="bg-light rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="small text-muted">Average</span>
+                      <span class="badge bg-success-subtle text-success">+15.3%</span>
+                    </div>
+                    <div class="h5 mb-0">48.6</div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="bg-light rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="small text-muted">Peak</span>
+                      <span class="badge bg-primary-subtle text-primary">Jun'23</span>
+                    </div>
+                    <div class="h5 mb-0">113</div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="bg-light rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="small text-muted">Latest</span>
+                      <span class="badge bg-danger-subtle text-danger">-33.3%</span>
+                    </div>
+                    <div class="h5 mb-0">50</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chart-wrapper" style="height: 180px;">
+                <canvas id="timelinessOverviewChart"></canvas>
+              </div>
+
+              <div class="chart-footer mt-2 pt-2 border-top">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="chart-insight small text-muted">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Showing upward trend in recent months</span>
+                  </div>
+                  <div class="small">
+                    <a href="billing.html" class="text-decoration-none">View Details <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delay Analysis -->
+          <div class="col-lg-4">
+            <div class="chart-container mb-3">
+              <div class="chart-header mb-2 d-flex justify-content-between align-items-center">
+                <h2 class="chart-title d-flex align-items-center m-0">
+                  <i class="bi bi-pie-chart-fill me-2"></i>
+                  Delay Analysis
+                </h2>
+                <div class="chart-actions d-flex gap-1">
+                  <button class="chart-action-btn" title="Download">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button class="chart-action-btn" title="Refresh">
+                    <i class="bi bi-arrow-repeat"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row g-2 mb-2">
+                <div class="col-6">
+                  <div class="bg-light rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="small text-muted">Total Delays</span>
+                      <span class="badge bg-danger-subtle text-danger">+15.2%</span>
+                    </div>
+                    <div class="h5 mb-0">110</div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="bg-light rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="small text-muted">Most Common</span>
+                      <span class="badge bg-primary-subtle text-primary">41%</span>
+                    </div>
+                    <div class="h5 mb-0">Capacity</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-lg-6">
+                  <div class="chart-wrapper" style="height: 180px;">
+                    <canvas id="delayReasonsOverviewChart"></canvas>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="delay-stats bg-light rounded">
+                    <div class="delay-item d-flex align-items-center p-2 border-bottom">
+                      <div class="delay-color me-2" style="width:8px;height:8px;border-radius:50%;background:#4f46e5"></div>
+                      <div class="delay-name flex-grow-1 small">Capacity</div>
+                      <div class="delay-value small fw-medium">45</div>
+                      <div class="delay-percent ms-2 small text-muted">41%</div>
+                    </div>
+                    <div class="delay-item d-flex align-items-center p-2 border-bottom">
+                      <div class="delay-color me-2" style="width:8px;height:8px;border-radius:50%;background:#10b981"></div>
+                      <div class="delay-name flex-grow-1 small">Customer</div>
+                      <div class="delay-value small fw-medium">30</div>
+                      <div class="delay-percent ms-2 small text-muted">27%</div>
+                    </div>
+                    <div class="delay-item d-flex align-items-center p-2 border-bottom">
+                      <div class="delay-color me-2" style="width:8px;height:8px;border-radius:50%;background:#f59e0b"></div>
+                      <div class="delay-name flex-grow-1 small">Volume</div>
+                      <div class="delay-value small fw-medium">14</div>
+                      <div class="delay-percent ms-2 small text-muted">13%</div>
+                    </div>
+                    <div class="delay-item d-flex align-items-center p-2">
+                      <div class="delay-color me-2" style="width:8px;height:8px;border-radius:50%;background:#6b7280"></div>
+                      <div class="delay-name flex-grow-1 small">Other</div>
+                      <div class="delay-value small fw-medium">21</div>
+                      <div class="delay-percent ms-2 small text-muted">19%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chart-footer mt-2 pt-2 border-top">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="chart-insight small text-muted">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Resource capacity is the primary delay factor</span>
+                  </div>
+                  <div class="small">
+                    <a href="billing.html" class="text-decoration-none">View Details <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shop Status Table Section -->
+        <div class="table-section mb-4">
+          <div class="table-header mb-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <div class="d-flex align-items-center gap-3">
+                <h2 class="table-title m-0">Shop Status Overview</h2>
+                <div class="badge bg-primary-subtle text-primary">27 Total Shops</div>
               </div>
               <div class="d-flex align-items-center gap-3">
-                <div class="search-wrapper">
-                  <i class="bi bi-search"></i>
-                  <input type="text" class="form-control form-control-sm" placeholder="Search products...">
+                <div class="input-group input-group-sm" style="width: 200px;">
+                  <span class="input-group-text bg-light border-end-0">
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input type="text" class="form-control border-start-0" id="shopSearch" placeholder="Search shops...">
                 </div>
-                <div class="filter-wrapper">
-                  <i class="bi bi-funnel"></i>
-                  <select class="form-select form-select-sm">
-                    <option>All Status</option>
-                    <option>Active</option>
-                    <option>Sold Out</option>
-                    <option>Re-Stock</option>
-                  </select>
+                <div class="queue-tabs">
+                  <div class="queue-tab active" data-queue="my">
+                    <i class="bi bi-person"></i>
+                    My Queue
+                  </div>
+                  <div class="queue-tab" data-queue="overall">
+                    <i class="bi bi-people"></i>
+                    Overall Queue
+                  </div>
                 </div>
-                <div class="period-wrapper">
-                  <i class="bi bi-calendar3"></i>
-                  <select class="form-select form-select-sm">
-                    <option>This Week</option>
-                    <option>This Month</option>
-                    <option>This Year</option>
-                  </select>
-                </div>
-                <button class="btn btn-sm btn-primary">
-                  <i class="bi bi-plus-lg"></i>
-                  Add Product
-                </button>
               </div>
             </div>
+            <div class="table-filters mt-2 d-flex gap-2">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-light active" data-filter="all">All</button>
+                <button type="button" class="btn btn-light" data-filter="past-due">Past Due (2)</button>
+                <button type="button" class="btn btn-light" data-filter="upcoming">Upcoming (5)</button>
+                <button type="button" class="btn btn-light" data-filter="no-due">No Due (20)</button>
+              </div>
+              <button class="btn btn-sm btn-light" title="Refresh Data">
+                <i class="bi bi-arrow-clockwise"></i>
+              </button>
+              <button class="btn btn-sm btn-light" title="Download Report">
+                <i class="bi bi-download"></i>
+              </button>
+            </div>
           </div>
-
-          <div class="table-responsive">
-            <table class="table">
+          <div class="table-container">
+            <table id="shopStatusOverviewTable" class="table table-hover">
               <thead>
                 <tr>
-                  <th class="product-col">Product Info</th>
-                  <th class="amount-col">Order Amount</th>
-                  <th class="stock-col">Stock</th>
-                  <th class="sold-col">Sold</th>
-                  <th class="status-col">Status</th>
-                  <th class="action-col">Actions</th>
+                  <th style="width: 20%">Shop</th>
+                  <th style="width: 15%">Total SV</th>
+                  <th style="width: 15%">Past Due</th>
+                  <th style="width: 15%">Upcoming</th>
+                  <th style="width: 15%">No Due</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
-                    <div class="product-info">
-                      <div class="product-img">
-                        <i class="bi bi-watch"></i>
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="shop-icon">
+                        <i class="bi bi-shop"></i>
                       </div>
-                      <div class="product-details">
-                        <div class="product-name">Apple Watch</div>
-                        <div class="product-category">Electronics</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="amount-value">$1,250</div>
-                    <div class="amount-change positive">
-                      <i class="bi bi-arrow-up-right"></i>
-                      12.5%
-                    </div>
-                  </td>
-                  <td>
-                    <div class="stock-value">00</div>
-                    <div class="stock-label">items</div>
-                  </td>
-                  <td>
-                    <div class="sold-value">950</div>
-                    <div class="sold-label">units</div>
-                  </td>
-                  <td>
-                    <span class="status-badge sold-out">
-                      <i class="bi bi-x-circle"></i>
-                      Sold Out
-                    </span>
-                  </td>
-                  <td>
-                    <div class="action-buttons">
-                      <button class="btn btn-sm btn-icon" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button class="btn btn-sm btn-icon" title="Delete">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                      <button class="btn btn-sm btn-icon" title="View Details">
-                        <i class="bi bi-eye"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="product-info">
-                      <div class="product-img">
-                        <i class="bi bi-shirt"></i>
-                      </div>
-                      <div class="product-details">
-                        <div class="product-name">T-Shirt</div>
-                        <div class="product-category">Apparel</div>
+                      <div>
+                        <div class="fw-medium">Shop1</div>
+                        <div class="small text-muted">ID: SH001</div>
                       </div>
                     </div>
                   </td>
                   <td>
-                    <div class="amount-value">$450</div>
-                    <div class="amount-change positive">
-                      <i class="bi bi-arrow-up-right"></i>
-                      8.2%
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="fw-medium">27</span>
+                      <span class="badge bg-success-subtle text-success small">+8.2%</span>
                     </div>
                   </td>
                   <td>
-                    <div class="stock-value">50</div>
-                    <div class="stock-label">items</div>
-                  </td>
-                  <td>
-                    <div class="sold-value">250</div>
-                    <div class="sold-label">units</div>
-                  </td>
-                  <td>
-                    <span class="status-badge active">
-                      <i class="bi bi-check-circle"></i>
-                      Active
-                    </span>
-                  </td>
-                  <td>
-                    <div class="action-buttons">
-                      <button class="btn btn-sm btn-icon" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button class="btn btn-sm btn-icon" title="Delete">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                      <button class="btn btn-sm btn-icon" title="View Details">
-                        <i class="bi bi-eye"></i>
-                      </button>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge bg-danger">2</span>
+                      <span class="small text-danger">Urgent</span>
                     </div>
                   </td>
-                </tr>
-                <tr>
                   <td>
-                    <div class="product-info">
-                      <div class="product-img">
-                        <i class="bi bi-suit-heart"></i>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge bg-warning">5</span>
+                      <span class="small text-warning">This Week</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge bg-success">20</span>
+                      <span class="small text-success">On Track</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <a href="shop.html" class="btn btn-sm btn-primary">View Details</a>
+                      <div class="dropdown">
+                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                          <i class="bi bi-three-dots"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i>Set Alert</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-exclamation-circle me-2"></i>Report Issue</a></li>
+                        </ul>
                       </div>
-                      <div class="product-details">
-                        <div class="product-name">Blazer</div>
-                        <div class="product-category">Apparel</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="amount-value">$1,450</div>
-                    <div class="amount-change negative">
-                      <i class="bi bi-arrow-down-right"></i>
-                      2.5%
-                    </div>
-                  </td>
-                  <td>
-                    <div class="stock-value">15</div>
-                    <div class="stock-label">items</div>
-                  </td>
-                  <td>
-                    <div class="sold-value">350</div>
-                    <div class="sold-label">units</div>
-                  </td>
-                  <td>
-                    <span class="status-badge active">
-                      <i class="bi bi-check-circle"></i>
-                      Active
-                    </span>
-                  </td>
-                  <td>
-                    <div class="action-buttons">
-                      <button class="btn btn-sm btn-icon" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button class="btn btn-sm btn-icon" title="Delete">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                      <button class="btn btn-sm btn-icon" title="View Details">
-                        <i class="bi bi-eye"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="product-info">
-                      <div class="product-img">
-                        <i class="bi bi-shoe"></i>
-                      </div>
-                      <div class="product-details">
-                        <div class="product-name">Nike Shoe</div>
-                        <div class="product-category">Footwear</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="amount-value">$2,250</div>
-                    <div class="amount-change positive">
-                      <i class="bi bi-arrow-up-right"></i>
-                      15.8%
-                    </div>
-                  </td>
-                  <td>
-                    <div class="stock-value">13</div>
-                    <div class="stock-label">items</div>
-                  </td>
-                  <td>
-                    <div class="sold-value">250</div>
-                    <div class="sold-label">units</div>
-                  </td>
-                  <td>
-                    <span class="status-badge restock">
-                      <i class="bi bi-exclamation-circle"></i>
-                      Re-Stock
-                    </span>
-                  </td>
-                  <td>
-                    <div class="action-buttons">
-                      <button class="btn btn-sm btn-icon" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button class="btn btn-sm btn-icon" title="Delete">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                      <button class="btn btn-sm btn-icon" title="View Details">
-                        <i class="bi bi-eye"></i>
-                      </button>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="table-footer mt-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="table-info small text-muted">
+                Showing <span class="fw-medium">1</span> of <span class="fw-medium">27</span> shops
+              </div>
+              <div class="table-actions">
+                <button class="btn btn-sm btn-light" disabled>
+                  <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="btn btn-sm btn-light">
+                  <i class="bi bi-chevron-right"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -775,6 +637,296 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Custom JS -->
   <script src="script.js"></script>
+
+  <!-- Add new mini charts for summary cards -->
+  <script>
+    const createMiniChart = (ctx, data, color) => {
+      // ... existing createMiniChart function ...
+    };
+
+    // Initialize mini charts for billing section
+    createMiniChart(document.getElementById('invoicesChart').getContext('2d'), 
+      [30, 35, 25, 45, 30, 55, 45], 
+      '#4f46e5'
+    );
+    createMiniChart(document.getElementById('pendingBillingChart').getContext('2d'), 
+      [25, 30, 35, 40, 35, 45, 40], 
+      '#f59e0b'
+    );
+    createMiniChart(document.getElementById('paidBillingChart').getContext('2d'), 
+      [45, 50, 40, 60, 45, 70, 60], 
+      '#10b981'
+    );
+    createMiniChart(document.getElementById('overdueBillingChart').getContext('2d'), 
+      [15, 20, 25, 15, 20, 10, 15], 
+      '#ef4444'
+    );
+
+    // Delay Reasons Analysis Chart
+    const delayReasonsOverviewCtx = document.getElementById('delayReasonsOverviewChart').getContext('2d');
+    new Chart(delayReasonsOverviewCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Capacity', 'Customer', 'Volume', 'Other'],
+        datasets: [{
+          data: [45, 30, 14, 21],
+          backgroundColor: [
+            '#4f46e5',
+            '#10b981',
+            '#f59e0b',
+            '#6b7280'
+          ],
+          borderWidth: 0,
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '75%',
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            backgroundColor: 'white',
+            titleColor: '#1e293b',
+            bodyColor: '#1e293b',
+            borderColor: '#e2e8f0',
+            borderWidth: 1,
+            padding: 8,
+            boxPadding: 4,
+            usePointStyle: true,
+            callbacks: {
+              label: function(context) {
+                const value = context.raw;
+                const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${context.label}: ${value} (${percentage}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Month over Month Timeliness Chart
+    const timelinessOverviewCtx = document.getElementById('timelinessOverviewChart').getContext('2d');
+    const timelinessOverviewChart = new Chart(timelinessOverviewCtx, {
+      type: 'line',
+      data: {
+        labels: [
+          'Apr 22', 'May 22', 'Jun 22', 'Jul 22', 'Aug 22', 'Sep 22', 'Oct 22', 'Nov 22',
+          'Feb 23', 'Mar 23', 'Apr 23', 'May 23', 'Jun 23', 'Jul 23', 'Aug 23', 'Sep 23',
+          'Oct 23', 'Nov 23', 'Dec 23', 'Jan 24', 'Feb 24', 'Mar 24', 'Apr 24', 'May 24',
+          'Jun 24', 'Jul 24', 'Aug 24', 'Sep 24', 'Oct 24', 'Nov 24'
+        ],
+        datasets: [{
+          label: 'Monthly Value',
+          data: [91, 23, 11, 9, 52, 12, 18, 6, 15, 8, 77, 4, 113, 17, 56, 26, 49, 30, 4, 64, 25, 97, 107, 62, 66, 86, 90, 105, 75, 50],
+          borderColor: 'rgba(79, 70, 229, 1)',
+          backgroundColor: 'rgba(79, 70, 229, 0.1)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#fff',
+          pointBorderColor: 'rgba(79, 70, 229, 1)',
+          pointBorderWidth: 2,
+          pointRadius: 2,
+          pointHoverRadius: 4,
+          order: 2
+        }, {
+          label: '3-Month Moving Average',
+          data: [null, 41.7, 14.3, 24, 24.3, 27.3, 12, 13, 9.7, 33.3, 29.7, 64.7, 44.7, 62, 33, 43.7, 35, 27.7, 32.7, 31, 62, 88.7, 88.7, 78.3, 71.3, 80.7, 93.7, 90, 76.7, null],
+          borderColor: 'rgba(16, 185, 129, 1)',
+          borderWidth: 2,
+          borderDash: [4, 4],
+          tension: 0.4,
+          fill: false,
+          pointRadius: 0,
+          order: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          intersect: false,
+          mode: 'index'
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              maxRotation: 45,
+              minRotation: 45,
+              font: {
+                size: 10
+              },
+              color: '#64748b',
+              maxTicksLimit: 12
+            }
+          },
+          y: {
+            grid: {
+              color: 'rgba(0, 0, 0, 0.05)',
+              drawBorder: false
+            },
+            border: {
+              dash: [4, 4]
+            },
+            beginAtZero: true,
+            ticks: {
+              font: {
+                size: 10
+              },
+              color: '#64748b',
+              padding: 6,
+              maxTicksLimit: 6
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            backgroundColor: 'white',
+            titleColor: '#1e293b',
+            bodyColor: '#1e293b',
+            borderColor: '#e2e8f0',
+            borderWidth: 1,
+            padding: 8,
+            boxPadding: 4,
+            usePointStyle: true,
+            titleFont: {
+              size: 11,
+              weight: '600'
+            },
+            bodyFont: {
+              size: 11
+            },
+            callbacks: {
+              label: function(context) {
+                let label = context.dataset.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.parsed.y !== null) {
+                  label += context.parsed.y.toFixed(1);
+                }
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Initialize DataTables for shop status overview with enhanced features
+    $(document).ready(function() {
+      const shopStatusTable = $('#shopStatusOverviewTable').DataTable({
+        pageLength: 10,
+        order: [[0, 'asc']],
+        dom: '<"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+        language: {
+          info: "Showing _START_ to _END_ of _TOTAL_ shops",
+          paginate: {
+            first: '<i class="bi bi-chevron-double-left"></i>',
+            last: '<i class="bi bi-chevron-double-right"></i>',
+            next: '<i class="bi bi-chevron-right"></i>',
+            previous: '<i class="bi bi-chevron-left"></i>'
+          }
+        }
+      });
+
+      // Shop search functionality
+      $('#shopSearch').on('keyup', function() {
+        shopStatusTable.search(this.value).draw();
+      });
+
+      // Filter functionality
+      $('.table-filters .btn').on('click', function() {
+        $('.table-filters .btn').removeClass('active');
+        $(this).addClass('active');
+        
+        const filter = $(this).data('filter');
+        if (filter === 'all') {
+          shopStatusTable.search('').draw();
+        } else {
+          shopStatusTable.search(filter).draw();
+        }
+      });
+
+      // Queue tab switching with animation
+      $('.queue-tab').click(function() {
+        $('.queue-tab').removeClass('active');
+        $(this).addClass('active');
+        
+        // Add fade effect when switching queues
+        $('.table-container').fadeOut(200, function() {
+          // Here you would typically load new data based on the selected queue
+          // For demo, we'll just fade it back in
+          $(this).fadeIn(200);
+        });
+      });
+
+      // Refresh button animation
+      $('.btn-refresh').click(function() {
+        const icon = $(this).find('i');
+        icon.addClass('rotate-animation');
+        setTimeout(() => icon.removeClass('rotate-animation'), 1000);
+        // Here you would typically reload the data
+      });
+    });
+  </script>
+
+  <style>
+    /* Add these styles to your CSS */
+    .shop-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--primary-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+
+    .table-filters .btn {
+      font-size: 0.875rem;
+      padding: 0.25rem 0.75rem;
+    }
+
+    .table-filters .btn.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .rotate-animation {
+      animation: rotate 1s linear;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    #shopStatusOverviewTable tbody tr {
+      cursor: pointer;
+    }
+
+    #shopStatusOverviewTable tbody tr:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .dropdown-item i {
+      width: 1rem;
+    }
+  </style>
 </body>
 </html>
 

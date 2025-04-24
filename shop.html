@@ -10,8 +10,394 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- DataTables CSS -->
+  <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .table-section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.25rem;
+      overflow-x: auto;
+    }
+
+    .table-header {
+      margin-bottom: 1rem;
+    }
+
+    .table-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .shop-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--primary-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      min-width: 28px;
+    }
+
+    .table-filters .btn {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      white-space: nowrap;
+    }
+
+    .table-filters .btn.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .queue-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .queue-tab {
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .queue-tab.active {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .queue-tab:not(.active) {
+      background: var(--background-color);
+      color: var(--text-secondary);
+    }
+
+    .queue-tab:hover:not(.active) {
+      background: var(--border-color);
+    }
+
+    .back-button {
+      padding: 0.5rem;
+      border-radius: 6px;
+      background: var(--background-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .back-button:hover {
+      background: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .table-container {
+      min-width: 100%;
+      overflow-x: auto;
+    }
+
+    .table > :not(caption) > * > * {
+      padding: 0.625rem 0.75rem;
+    }
+
+    #shopStatusTable th:nth-child(1) { width: 18%; }
+    #shopStatusTable th:nth-child(2) { width: 12%; }
+    #shopStatusTable th:nth-child(3) { width: 8%; }
+    #shopStatusTable th:nth-child(4) { width: 8%; }
+    #shopStatusTable th:nth-child(5) { width: 8%; }
+    #shopStatusTable th:nth-child(6) { width: 10%; }
+    #shopStatusTable th:nth-child(7) { width: 10%; }
+    #shopStatusTable th:nth-child(8) { width: 10%; }
+    #shopStatusTable th:nth-child(9) { width: 8%; }
+    #shopStatusTable th:nth-child(10) { width: 8%; }
+
+    .table tbody tr {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .table tbody tr:hover {
+      background: var(--background-color);
+    }
+
+    .badge {
+      font-weight: 500;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .dropdown-item {
+      font-size: 0.75rem;
+      padding: 0.375rem 0.75rem;
+    }
+
+    .dropdown-item i {
+      width: 1rem;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .rotate-animation {
+      animation: rotate 1s linear;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.875rem;
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .stat-trend {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .stat-trend.positive {
+      color: var(--success-color);
+    }
+
+    .stat-trend.negative {
+      color: var(--danger-color);
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-comparison {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .comparison-value {
+      font-weight: 500;
+    }
+
+    .readiness-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .readiness-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .readiness-icon.yes {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .readiness-icon.no {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .readiness-info {
+      flex: 1;
+    }
+
+    .readiness-label {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .readiness-status {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .readiness-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+    }
+
+    .readiness-indicator.yes {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .readiness-indicator.no {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .invoice-stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .invoice-stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(79, 70, 229, 0.1);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .invoice-stat-icon.warning {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+    }
+
+    .invoice-stat-icon.info {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
+
+    .invoice-stat-icon.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .invoice-stat-info {
+      flex: 1;
+    }
+
+    .invoice-stat-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .invoice-stat-value {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .reminder-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      height: 100%;
+    }
+
+    .reminder-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .reminder-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text-primary);
+    }
+
+    .reminder-body {
+      padding: 1rem;
+    }
+
+    .form-switch .form-check-input {
+      width: 2.5em;
+    }
+
+    .form-check-input:checked {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .table td {
+      white-space: normal;
+      min-width: 80px;
+    }
+
+    .table td > div {
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 1200px) {
+      .table-header > div {
+        flex-direction: column;
+        align-items: flex-start !important;
+      }
+
+      .table-filters {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .queue-tabs {
+        margin-top: 0.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .table-section {
+        padding: 1rem;
+      }
+
+      .table-filters .btn-group {
+        flex-wrap: wrap;
+      }
+
+      .table td > div {
+        max-width: 150px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="wrapper">
@@ -104,45 +490,574 @@
 
       <!-- Content -->
       <div class="content">
-        <div class="page-header">
-          <div class="nav-tabs-wrapper">
-            <ul class="nav nav-tabs">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <i class="bi bi-shop"></i>
-                  Shop Overview
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="bi bi-gear"></i>
-                  Settings
-                </a>
-              </li>
-            </ul>
+        <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+          <div class="d-flex align-items-center gap-3">
+            <button class="back-button" onclick="window.location.href='index.html'">
+              <i class="bi bi-arrow-left"></i>
+            </button>
+            <div>
+              <h1 class="h4 mb-1">Shop Status</h1>
+              <div class="text-muted small">Manage and monitor shop performance</div>
+            </div>
           </div>
-
-          <div class="header-actions">
+          <div class="d-flex align-items-center gap-3">
             <div class="period-select">
               <i class="bi bi-calendar3"></i>
-              <select class="form-select">
+              <select class="form-select form-select-sm">
                 <option>Last 7 Days</option>
                 <option>Last 30 Days</option>
                 <option>Last 90 Days</option>
-                <option>This Year</option>
                 <option>Custom Range</option>
               </select>
             </div>
-            <button class="download-btn">
-              <i class="bi bi-download"></i>
-              Export Report
+            <button class="btn btn-primary btn-sm">
+              <i class="bi bi-download me-2"></i>Export Report
             </button>
           </div>
         </div>
 
-        <!-- Shop Status Content -->
-        <div class="shop-status-content">
-          <!-- Content will be added here -->
+        <!-- Quick Stats -->
+        <div class="row g-3 mb-4">
+          <div class="col-xl-3 col-md-6">
+            <div class="stat-card h-100">
+              <div class="stat-header">
+                <div class="stat-title">
+                  <i class="bi bi-shop"></i>
+                  Total SV
+                </div>
+                <div class="stat-trend positive">
+                  <i class="bi bi-arrow-up-right"></i>
+                  8.2%
+                </div>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">27</div>
+                <div class="stat-comparison">
+                  <span class="comparison-value">25</span>
+                  <span class="comparison-label">prev</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="stat-card h-100">
+              <div class="stat-header">
+                <div class="stat-title">
+                  <i class="bi bi-exclamation-circle"></i>
+                  Past Due
+                </div>
+                <div class="stat-trend negative">
+                  <i class="bi bi-arrow-down-right"></i>
+                  2.5%
+                </div>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">2</div>
+                <div class="stat-comparison">
+                  <span class="comparison-value">3</span>
+                  <span class="comparison-label">prev</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="stat-card h-100">
+              <div class="stat-header">
+                <div class="stat-title">
+                  <i class="bi bi-clock"></i>
+                  Upcoming
+                </div>
+                <div class="stat-trend positive">
+                  <i class="bi bi-arrow-up-right"></i>
+                  15.8%
+                </div>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">5</div>
+                <div class="stat-comparison">
+                  <span class="comparison-value">4</span>
+                  <span class="comparison-label">prev</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="stat-card h-100">
+              <div class="stat-header">
+                <div class="stat-title">
+                  <i class="bi bi-check-circle"></i>
+                  No Due
+                </div>
+                <div class="stat-trend positive">
+                  <i class="bi bi-arrow-up-right"></i>
+                  12.5%
+                </div>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">20</div>
+                <div class="stat-comparison">
+                  <span class="comparison-value">18</span>
+                  <span class="comparison-label">prev</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shop Status Section -->
+        <div id="shopStatusSection" class="table-section">
+          <div class="table-header mb-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <div class="d-flex align-items-center gap-3">
+                <h2 class="table-title m-0">Shop Details</h2>
+                <div class="badge bg-primary-subtle text-primary">27 Total Records</div>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <div class="input-group input-group-sm" style="width: 200px;">
+                  <span class="input-group-text bg-light border-end-0">
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input type="text" class="form-control border-start-0" id="shopSearch" placeholder="Search...">
+                </div>
+                <div class="queue-tabs">
+                  <div class="queue-tab active" data-queue="my">
+                    <i class="bi bi-person"></i>
+                    My Queue
+                  </div>
+                  <div class="queue-tab" data-queue="overall">
+                    <i class="bi bi-people"></i>
+                    Overall Queue
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table-filters mt-2 d-flex gap-2">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-light active" data-filter="all">All</button>
+                <button type="button" class="btn btn-light" data-filter="past-due">Past Due (2)</button>
+                <button type="button" class="btn btn-light" data-filter="upcoming">Upcoming (5)</button>
+                <button type="button" class="btn btn-light" data-filter="no-due">No Due (20)</button>
+              </div>
+              <button class="btn btn-sm btn-light" title="Refresh Data">
+                <i class="bi bi-arrow-clockwise"></i>
+              </button>
+              <button class="btn btn-sm btn-light" title="Download Report">
+                <i class="bi bi-download"></i>
+              </button>
+              <button class="btn btn-sm btn-light" title="Column Settings">
+                <i class="bi bi-gear"></i>
+              </button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table id="shopStatusTable" class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Shop</th>
+                  <th>Customer</th>
+                  <th>ESN</th>
+                  <th>SV No</th>
+                  <th>SV Type</th>
+                  <th>Induction</th>
+                  <th>Shipment</th>
+                  <th>Entitlement</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="shop-icon">
+                        <i class="bi bi-shop"></i>
+                      </div>
+                      <div class="text-truncate">
+                        <div class="fw-medium">Shop1</div>
+                        <div class="small text-muted">ID: SH001</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="text-truncate">
+                      <div class="fw-medium">Customer1</div>
+                      <div class="small text-muted">CID: C001</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center gap-1">
+                      <span class="fw-medium">SN101</span>
+                      <i class="bi bi-check-circle-fill text-success small"></i>
+                    </div>
+                  </td>
+                  <td>3</td>
+                  <td>
+                    <span class="badge bg-primary">FULL</span>
+                  </td>
+                  <td>
+                    <div class="small">2024-11-21</div>
+                    <div class="small text-muted">10:30</div>
+                  </td>
+                  <td>
+                    <div class="small">2025-03-20</div>
+                    <div class="small text-muted">14:15</div>
+                  </td>
+                  <td>
+                    <div class="small">2025-04-10</div>
+                    <div class="small text-muted">09:00</div>
+                  </td>
+                  <td>
+                    <span class="badge bg-danger">Past Due</span>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <button class="btn btn-sm btn-primary px-2 py-1">
+                        <i class="bi bi-arrow-right"></i>
+                      </button>
+                      <div class="dropdown">
+                        <button class="btn btn-sm btn-light px-2 py-1" data-bs-toggle="dropdown">
+                          <i class="bi bi-three-dots"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i>Alert</a></li>
+                          <li><hr class="dropdown-divider my-1"></li>
+                          <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-exclamation-circle me-2"></i>Issue</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Shop Details Section -->
+        <div id="shopDetailsSection" class="table-section" style="display: none;">
+          <div class="table-header">
+            <div class="d-flex align-items-center">
+              <button class="back-button" onclick="showSection('shopStatusSection')">
+                <i class="bi bi-arrow-left"></i>
+              </button>
+              <h2 class="table-title">Shop Details</h2>
+            </div>
+          </div>
+          <div class="table-container">
+            <table id="shopDetailsTable" class="table">
+              <thead>
+                <tr>
+                  <th>Shop</th>
+                  <th>Customer</th>
+                  <th>ESN</th>
+                  <th>SV No</th>
+                  <th>SV Type</th>
+                  <th>Induction Date</th>
+                  <th>Shipment Date</th>
+                  <th>Entitlement Date</th>
+                  <th>Invoice Type</th>
+                  <th>Invoice Status</th>
+                  <th>Priority</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Data will be populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Billing Readiness Section -->
+        <div id="billingReadinessSection" class="table-section" style="display: none;">
+          <div class="table-header mb-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <div class="d-flex align-items-center gap-3">
+                <button class="back-button" onclick="showSection('shopStatusSection')">
+                  <i class="bi bi-arrow-left"></i>
+                </button>
+                <div>
+                  <h2 class="table-title m-0">Billing Readiness</h2>
+                  <div class="text-muted small mt-1">ESN: SN101 - Shop1</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-sm btn-light" title="Refresh">
+                  <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <button class="btn btn-sm btn-primary">
+                  <i class="bi bi-check-circle me-2"></i>Mark as Ready
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-3">
+              <div class="readiness-card">
+                <div class="readiness-icon yes">
+                  <i class="bi bi-file-text"></i>
+                </div>
+                <div class="readiness-info">
+                  <div class="readiness-label">Contract Details</div>
+                  <div class="readiness-status">Complete</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="readiness-card">
+                <div class="readiness-icon yes">
+                  <i class="bi bi-shop"></i>
+                </div>
+                <div class="readiness-info">
+                  <div class="readiness-label">SV Details</div>
+                  <div class="readiness-status">Complete</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="readiness-card">
+                <div class="readiness-icon yes">
+                  <i class="bi bi-receipt"></i>
+                </div>
+                <div class="readiness-info">
+                  <div class="readiness-label">Billing Receipt</div>
+                  <div class="readiness-status">Complete</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="readiness-card">
+                <div class="readiness-icon no">
+                  <i class="bi bi-percent"></i>
+                </div>
+                <div class="readiness-info">
+                  <div class="readiness-label">Warranty & Discount</div>
+                  <div class="readiness-status text-danger">Pending</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table id="billingReadinessTable" class="table table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 20%">Category</th>
+                  <th style="width: 15%">Status</th>
+                  <th style="width: 35%">Details</th>
+                  <th style="width: 15%">Last Updated</th>
+                  <th style="width: 15%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-file-text text-primary"></i>
+                      <span>Contract Details</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="readiness-indicator yes">
+                      <i class="bi bi-check"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="small">Contract #C123456 verified and validated</div>
+                    <div class="small text-muted">All terms and conditions checked</div>
+                  </td>
+                  <td>
+                    <div class="small">2024-03-15</div>
+                    <div class="small text-muted">10:30 AM</div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-light" onclick="showInvoiceDetails()">
+                      <i class="bi bi-eye me-1"></i>View
+                    </button>
+                  </td>
+                </tr>
+                <!-- Add more rows as needed -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer mt-3">
+            <div class="alert alert-warning d-flex align-items-center gap-2 mb-0 py-2">
+              <i class="bi bi-exclamation-triangle"></i>
+              <div class="small">Action Required: Complete Warranty & Discount details to proceed with billing</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Invoice Details Section -->
+        <div id="invoiceDetailsSection" class="table-section" style="display: none;">
+          <div class="table-header mb-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <div class="d-flex align-items-center gap-3">
+                <button class="back-button" onclick="showSection('billingReadinessSection')">
+                  <i class="bi bi-arrow-left"></i>
+                </button>
+                <div>
+                  <h2 class="table-title m-0">Invoice Details</h2>
+                  <div class="text-muted small mt-1">ESN: SN101 - Shop1</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-sm btn-light" title="Refresh">
+                  <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <button class="btn btn-sm btn-primary">
+                  <i class="bi bi-plus-lg me-2"></i>Create Invoice
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6 col-lg-3">
+              <div class="invoice-stat-card">
+                <div class="invoice-stat-icon">
+                  <i class="bi bi-receipt"></i>
+                </div>
+                <div class="invoice-stat-info">
+                  <div class="invoice-stat-label">Invoice Status</div>
+                  <div class="invoice-stat-value text-success">Generated</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="invoice-stat-card">
+                <div class="invoice-stat-icon warning">
+                  <i class="bi bi-bell"></i>
+                </div>
+                <div class="invoice-stat-info">
+                  <div class="invoice-stat-label">Reminder Status</div>
+                  <div class="invoice-stat-value">Not Set</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="invoice-stat-card">
+                <div class="invoice-stat-icon info">
+                  <i class="bi bi-calendar"></i>
+                </div>
+                <div class="invoice-stat-info">
+                  <div class="invoice-stat-label">Next Due Date</div>
+                  <div class="invoice-stat-value">Mar 30, 2024</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="invoice-stat-card">
+                <div class="invoice-stat-icon success">
+                  <i class="bi bi-clock-history"></i>
+                </div>
+                <div class="invoice-stat-info">
+                  <div class="invoice-stat-label">Reminder Frequency</div>
+                  <div class="invoice-stat-value">Weekly</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-lg-8">
+              <div class="table-container">
+                <table id="invoiceDetailsTable" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Invoice No</th>
+                      <th>Generated Date</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="fw-medium">INV-2024-001</div>
+                        <div class="small text-muted">Ref: REF001</div>
+                      </td>
+                      <td>
+                        <div class="small">2024-03-15</div>
+                        <div class="small text-muted">10:30 AM</div>
+                      </td>
+                      <td>
+                        <div class="fw-medium">$5,245.00</div>
+                        <div class="small text-success">+TAX</div>
+                      </td>
+                      <td>
+                        <span class="badge bg-success">Paid</span>
+                      </td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button class="btn btn-sm btn-light" title="Download">
+                            <i class="bi bi-download"></i>
+                          </button>
+                          <button class="btn btn-sm btn-light" title="Print">
+                            <i class="bi bi-printer"></i>
+                          </button>
+                          <div class="dropdown">
+                            <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                              <i class="bi bi-three-dots"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
+                              <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="reminder-card">
+                <div class="reminder-header">
+                  <h3 class="reminder-title">
+                    <i class="bi bi-bell me-2"></i>
+                    Reminder Settings
+                  </h3>
+                </div>
+                <div class="reminder-body">
+                  <form>
+                    <div class="mb-3">
+                      <label class="form-label small">Enable Reminders</label>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="reminderToggle">
+                        <label class="form-check-label" for="reminderToggle">Send reminders</label>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label small">Frequency</label>
+                      <select class="form-select form-select-sm">
+                        <option>Daily</option>
+                        <option selected>Weekly</option>
+                        <option>Monthly</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label small">Notification Method</label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="emailNotif" checked>
+                        <label class="form-check-label" for="emailNotif">Email</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="smsNotif">
+                        <label class="form-check-label" for="smsNotif">SMS</label>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm w-100">Save Settings</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -150,14 +1065,80 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Custom JS -->
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- DataTables -->
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+  
   <script>
-    // Add sidebar toggle functionality
-    document.querySelector('.header-icon.d-lg-none').addEventListener('click', function() {
-      document.querySelector('.sidebar').classList.toggle('show');
+    // Initialize DataTables with enhanced features
+    const shopStatusTable = $('#shopStatusTable').DataTable({
+      pageLength: 10,
+      order: [[0, 'asc']],
+      dom: '<"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+      language: {
+        info: "Showing _START_ to _END_ of _TOTAL_ records",
+        paginate: {
+          first: '<i class="bi bi-chevron-double-left"></i>',
+          last: '<i class="bi bi-chevron-double-right"></i>',
+          next: '<i class="bi bi-chevron-right"></i>',
+          previous: '<i class="bi bi-chevron-left"></i>'
+        }
+      }
     });
+
+    // Shop search functionality
+    $('#shopSearch').on('keyup', function() {
+      shopStatusTable.search(this.value).draw();
+    });
+
+    // Filter functionality
+    $('.table-filters .btn').on('click', function() {
+      $('.table-filters .btn').removeClass('active');
+      $(this).addClass('active');
+      
+      const filter = $(this).data('filter');
+      if (filter === 'all') {
+        shopStatusTable.search('').draw();
+      } else {
+        shopStatusTable.search(filter).draw();
+      }
+    });
+
+    // Queue tab switching with animation
+    $('.queue-tab').click(function() {
+      $('.queue-tabs .queue-tab').removeClass('active');
+      $(this).addClass('active');
+      
+      $('.table-container').fadeOut(200, function() {
+        // Here you would typically load new data based on the selected queue
+        $(this).fadeIn(200);
+      });
+    });
+
+    // Refresh button animation
+    $('.btn-refresh').click(function() {
+      const icon = $(this).find('i');
+      icon.addClass('rotate-animation');
+      setTimeout(() => icon.removeClass('rotate-animation'), 1000);
+      // Here you would typically reload the data
+    });
+
+    // Column visibility toggle
+    $('.btn-columns').click(function() {
+      // Implementation for column visibility toggle
+    });
+
+    // Section navigation
+    window.showSection = function(sectionId) {
+      ['shopStatusSection', 'shopDetailsSection', 'billingReadinessSection', 'invoiceDetailsSection'].forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+          section.style.display = id === sectionId ? 'block' : 'none';
+        }
+      });
+    };
   </script>
 </body>
 </html>
