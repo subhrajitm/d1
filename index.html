@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMBA Dashboard</title>
+  <title>SMBA Dashboard - Overview</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
@@ -25,40 +25,21 @@
         <div class="nav-header">Menu</div>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href="index.html">
               <i class="bi bi-grid"></i>
               Overview
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-bar-chart"></i>
-              Statistics
+            <a class="nav-link" href="shop.html">
+              <i class="bi bi-shop"></i>
+              Shop Status
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-people"></i>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-box"></i>
-              Products
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-chat"></i>
-              Messages
-              <span class="badge">8</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="billing.html">
               <i class="bi bi-receipt"></i>
-              Transactions
+              Billing Performance
             </a>
           </li>
         </ul>
@@ -144,6 +125,18 @@
                   Sales
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="bi bi-people"></i>
+                  Customers
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="bi bi-geo-alt"></i>
+                  Locations
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -151,112 +144,136 @@
             <div class="period-select">
               <i class="bi bi-calendar3"></i>
               <select class="form-select">
-                <option>Monthly</option>
-                <option>Weekly</option>
-                <option>Daily</option>
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+                <option>Last 90 Days</option>
+                <option>This Year</option>
+                <option>Custom Range</option>
               </select>
             </div>
             <button class="download-btn">
               <i class="bi bi-download"></i>
-              Download
+              Export Report
             </button>
           </div>
         </div>
 
-        <div class="stats-grid">
+        <!-- Quick Stats -->
+        <div class="quick-stats">
           <div class="stat-card">
             <div class="stat-header">
-              <span class="stat-title">NEW NET INCOME</span>
-              <button class="btn btn-link p-0">
-                <i class="bi bi-arrow-repeat"></i>
-              </button>
-            </div>
-            <div class="stat-value">$54,654</div>
-            <div class="stat-footer">
-              <div class="stat-change positive">
-                <i class="bi bi-arrow-up-right"></i>
-                10.5%
+              <div class="stat-title">
+                <i class="bi bi-currency-dollar"></i>
+                Revenue
               </div>
-              <div class="stat-comparison">+$4,245</div>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-header">
-              <span class="stat-title">AVERAGE SALES</span>
-              <button class="btn btn-link p-0">
-                <i class="bi bi-arrow-repeat"></i>
-              </button>
-            </div>
-            <div class="stat-value">$14,670</div>
-            <div class="stat-footer">
-              <div class="stat-change positive">
-                <i class="bi bi-arrow-up-right"></i>
-                8.2%
-              </div>
-              <div class="stat-comparison">+$1,950</div>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-header">
-              <span class="stat-title">TOTAL ORDER</span>
-              <button class="btn btn-link p-0">
-                <i class="bi bi-arrow-repeat"></i>
-              </button>
-            </div>
-            <div class="stat-value">12,390</div>
-            <div class="stat-footer">
-              <div class="stat-change positive">
+              <div class="stat-trend positive">
                 <i class="bi bi-arrow-up-right"></i>
                 12.5%
               </div>
-              <div class="stat-comparison">+1,240</div>
+            </div>
+            <div class="stat-content">
+              <div class="stat-value">$124,563</div>
+              <div class="stat-comparison">
+                <span class="comparison-value">$98,234</span>
+                <span class="comparison-label">prev</span>
+              </div>
+            </div>
+            <div class="stat-chart">
+              <canvas id="revenueChart"></canvas>
             </div>
           </div>
 
           <div class="stat-card">
             <div class="stat-header">
-              <span class="stat-title">IMPRESSION</span>
-              <button class="btn btn-link p-0">
-                <i class="bi bi-arrow-repeat"></i>
-              </button>
-            </div>
-            <div class="stat-value">564K</div>
-            <div class="stat-footer">
-              <div class="stat-change positive">
-                <i class="bi bi-arrow-up-right"></i>
-                9.1%
+              <div class="stat-title">
+                <i class="bi bi-cart"></i>
+                Orders
               </div>
-              <div class="stat-comparison">+48K</div>
+              <div class="stat-trend positive">
+                <i class="bi bi-arrow-up-right"></i>
+                8.2%
+              </div>
+            </div>
+            <div class="stat-content">
+              <div class="stat-value">2,845</div>
+              <div class="stat-comparison">
+                <span class="comparison-value">2,156</span>
+                <span class="comparison-label">prev</span>
+              </div>
+            </div>
+            <div class="stat-chart">
+              <canvas id="ordersChart"></canvas>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-title">
+                <i class="bi bi-people"></i>
+                Customers
+              </div>
+              <div class="stat-trend positive">
+                <i class="bi bi-arrow-up-right"></i>
+                15.8%
+              </div>
+            </div>
+            <div class="stat-content">
+              <div class="stat-value">1,234</div>
+              <div class="stat-comparison">
+                <span class="comparison-value">987</span>
+                <span class="comparison-label">prev</span>
+              </div>
+            </div>
+            <div class="stat-chart">
+              <canvas id="customersChart"></canvas>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-title">
+                <i class="bi bi-graph-up"></i>
+                Conversion
+              </div>
+              <div class="stat-trend negative">
+                <i class="bi bi-arrow-down-right"></i>
+                2.5%
+              </div>
+            </div>
+            <div class="stat-content">
+              <div class="stat-value">3.42%</div>
+              <div class="stat-comparison">
+                <span class="comparison-value">3.51%</span>
+                <span class="comparison-label">prev</span>
+              </div>
+            </div>
+            <div class="stat-chart">
+              <canvas id="conversionChart"></canvas>
             </div>
           </div>
         </div>
 
-        <div class="chart-section">
+        <!-- Main Charts -->
+        <div class="chart-grid">
           <div class="chart-card">
             <div class="chart-header">
-              <div class="chart-title-wrapper">
-                <div class="chart-title">
-                  <i class="bi bi-graph-up"></i>
-                  OVERALL SALES
-                </div>
-                <div class="chart-actions">
-                  <button class="chart-action-btn" title="Download Report">
-                    <i class="bi bi-download"></i>
-                  </button>
-                  <button class="chart-action-btn" title="Refresh Data">
-                    <i class="bi bi-arrow-repeat"></i>
-                  </button>
-                  <button class="chart-action-btn" title="More Options">
-                    <i class="bi bi-three-dots"></i>
-                  </button>
-                </div>
+              <div class="chart-title">
+                <i class="bi bi-graph-up"></i>
+                Revenue Overview
               </div>
-              <div class="chart-value">
-                <span class="chart-value-currency">$</span>
-                80,225
+              <div class="chart-actions">
+                <button class="chart-action-btn" title="Download">
+                  <i class="bi bi-download"></i>
+                </button>
+                <button class="chart-action-btn" title="Refresh">
+                  <i class="bi bi-arrow-repeat"></i>
+                </button>
               </div>
+            </div>
+            <div class="chart-content">
+              <canvas id="revenueOverviewChart"></canvas>
+            </div>
+            <div class="chart-footer">
               <div class="chart-legend">
                 <div class="legend-item">
                   <div class="legend-dot" style="background: var(--primary-color)"></div>
@@ -267,68 +284,241 @@
                   Last Period
                 </div>
               </div>
-            </div>
-            <div class="chart-content">
-              <canvas id="salesChart"></canvas>
+              <div class="chart-summary">
+                <div class="summary-item">
+                  <div class="summary-label">Total</div>
+                  <div class="summary-value">$124,563</div>
+                </div>
+                <div class="summary-item">
+                  <div class="summary-label">Growth</div>
+                  <div class="summary-value positive">+12.5%</div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="conversion-card">
-            <div class="conversion-header">
-              <div class="conversion-title">
-                <i class="bi bi-funnel"></i>
-                CONVERSION RATE
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">
+                <i class="bi bi-pie-chart"></i>
+                Sales by Category
               </div>
-              <div class="stat-change positive">
-                <i class="bi bi-arrow-up-right"></i>
-                10.5%
+              <div class="chart-actions">
+                <button class="chart-action-btn" title="Download">
+                  <i class="bi bi-download"></i>
+                </button>
+                <button class="chart-action-btn" title="Refresh">
+                  <i class="bi bi-arrow-repeat"></i>
+                </button>
               </div>
             </div>
-
-            <div class="funnel-steps">
-              <div class="funnel-step">
-                <div class="funnel-label">
-                  <span>Product Views</span>
-                  <span class="funnel-value">15%</span>
+            <div class="chart-content">
+              <canvas id="categoryChart"></canvas>
+            </div>
+            <div class="chart-footer">
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #4f46e5"></div>
+                  Electronics (42%)
                 </div>
-                <div class="funnel-progress">
-                  <div class="funnel-progress-bar" style="width: 100%"></div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #10b981"></div>
+                  Apparel (28%)
                 </div>
-                <small class="text-secondary">5,645 visitors</small>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #f59e0b"></div>
+                  Accessories (30%)
+                </div>
               </div>
+            </div>
+          </div>
+        </div>
 
-              <div class="funnel-step">
-                <div class="funnel-label">
-                  <span>Add to Cart</span>
-                  <span class="funnel-value">12%</span>
-                </div>
-                <div class="funnel-progress">
-                  <div class="funnel-progress-bar" style="width: 80%"></div>
-                </div>
-                <small class="text-secondary">4,564 items</small>
+        <!-- Performance Metrics -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <div class="metric-title">
+                <i class="bi bi-speedometer2"></i>
+                Performance
               </div>
+              <div class="metric-period">Last 30 Days</div>
+            </div>
+            <div class="metric-content">
+              <div class="metric-row">
+                <div class="metric-item">
+                  <div class="metric-label">AOV</div>
+                  <div class="metric-value">$43.82</div>
+                  <div class="metric-change positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    5.2%
+                  </div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">CLV</div>
+                  <div class="metric-value">$1,245</div>
+                  <div class="metric-change positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    8.7%
+                  </div>
+                </div>
+              </div>
+              <div class="metric-row">
+                <div class="metric-item">
+                  <div class="metric-label">Returns</div>
+                  <div class="metric-value">2.8%</div>
+                  <div class="metric-change negative">
+                    <i class="bi bi-arrow-down-right"></i>
+                    1.2%
+                  </div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Retention</div>
+                  <div class="metric-value">78.5%</div>
+                  <div class="metric-change positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    3.4%
+                  </div>
+                </div>
+              </div>
+              <div class="metric-row">
+                <div class="metric-item">
+                  <div class="metric-label">Abandonment</div>
+                  <div class="metric-value">24.3%</div>
+                  <div class="metric-change negative">
+                    <i class="bi bi-arrow-down-right"></i>
+                    2.1%
+                  </div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Session</div>
+                  <div class="metric-value">4m 32s</div>
+                  <div class="metric-change positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    12.5%
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-              <div class="funnel-step">
-                <div class="funnel-label">
-                  <span>Checkout</span>
-                  <span class="funnel-value">5%</span>
-                </div>
-                <div class="funnel-progress">
-                  <div class="funnel-progress-bar" style="width: 33%"></div>
-                </div>
-                <small class="text-secondary">1,846 sessions</small>
+          <div class="metric-card">
+            <div class="metric-header">
+              <div class="metric-title">
+                <i class="bi bi-geo-alt"></i>
+                Top Locations
               </div>
+              <div class="metric-period">By Revenue</div>
+            </div>
+            <div class="metric-content">
+              <div class="location-item">
+                <div class="location-info">
+                  <div class="location-name">US</div>
+                  <div class="location-value">$45,234</div>
+                  <div class="location-change positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    8.2%
+                  </div>
+                </div>
+                <div class="location-bar">
+                  <div class="bar-fill" style="width: 75%"></div>
+                </div>
+              </div>
+              <div class="location-item">
+                <div class="location-info">
+                  <div class="location-name">UK</div>
+                  <div class="location-value">$32,156</div>
+                  <div class="location-change positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    5.4%
+                  </div>
+                </div>
+                <div class="location-bar">
+                  <div class="bar-fill" style="width: 55%"></div>
+                </div>
+              </div>
+              <div class="location-item">
+                <div class="location-info">
+                  <div class="location-name">DE</div>
+                  <div class="location-value">$28,945</div>
+                  <div class="location-change negative">
+                    <i class="bi bi-arrow-down-right"></i>
+                    1.8%
+                  </div>
+                </div>
+                <div class="location-bar">
+                  <div class="bar-fill" style="width: 45%"></div>
+                </div>
+              </div>
+              <div class="location-item">
+                <div class="location-info">
+                  <div class="location-name">FR</div>
+                  <div class="location-value">$22,678</div>
+                  <div class="location-change positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    3.7%
+                  </div>
+                </div>
+                <div class="location-bar">
+                  <div class="bar-fill" style="width: 35%"></div>
+                </div>
+              </div>
+              <div class="location-item">
+                <div class="location-info">
+                  <div class="location-name">CA</div>
+                  <div class="location-value">$18,923</div>
+                  <div class="location-change positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    6.9%
+                  </div>
+                </div>
+                <div class="location-bar">
+                  <div class="bar-fill" style="width: 30%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-              <div class="funnel-step">
-                <div class="funnel-label">
-                  <span>Purchased</span>
-                  <span class="funnel-value">3.75%</span>
-                </div>
-                <div class="funnel-progress">
-                  <div class="funnel-progress-bar" style="width: 25%"></div>
-                </div>
-                <small class="text-secondary">1,400 orders</small>
+        <!-- Recent Activity -->
+        <div class="activity-card">
+          <div class="activity-header">
+            <div class="activity-title">
+              <i class="bi bi-clock-history"></i>
+              Recent Activity
+            </div>
+            <button class="btn btn-sm btn-link">View All</button>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon success">
+                <i class="bi bi-check-circle"></i>
               </div>
+              <div class="activity-content">
+                <div class="activity-text">Order #1234 from John Doe</div>
+                <div class="activity-time">2m ago</div>
+              </div>
+              <div class="activity-value">$245.00</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon warning">
+                <i class="bi bi-exclamation-circle"></i>
+              </div>
+              <div class="activity-content">
+                <div class="activity-text">Low stock: Product X</div>
+                <div class="activity-time">15m ago</div>
+              </div>
+              <div class="activity-value">5 left</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon primary">
+                <i class="bi bi-person-plus"></i>
+              </div>
+              <div class="activity-content">
+                <div class="activity-text">New customer registered</div>
+                <div class="activity-time">1h ago</div>
+              </div>
+              <div class="activity-value">Premium</div>
             </div>
           </div>
         </div>

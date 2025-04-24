@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMBA Dashboard - Billing Performance</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .chart-container {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      height: auto;
+      max-height: 500px;
+      overflow: hidden;
+    }
+
+    .chart-container:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .chart-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chart-title i {
+      color: var(--primary-color);
+    }
+
+    .chart-metrics {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .metric-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .metric-trend {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .metric-trend.positive {
+      color: var(--success-color);
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .metric-trend.negative {
+      color: #dc3545;
+      background: rgba(220, 53, 69, 0.1);
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      background: var(--background-color);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .legend-item:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .chart-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .chart-insight {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .chart-insight i {
+      color: var(--primary-color);
+    }
+
+    .chart-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chart-action-btn {
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--background-color);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chart-action-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .chart-wrapper {
+      position: relative;
+      height: 300px;
+      width: 100%;
+      margin: 1rem 0;
+    }
+
+    .shop-performance .chart-wrapper {
+      height: 250px;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Additional styles for new components */
+    .summary-cards {
+      margin-top: 1.5rem;
+    }
+
+    .summary-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--compact-border-radius);
+      padding: var(--compact-padding);
+      display: flex;
+      align-items: center;
+      gap: var(--compact-gap);
+      transition: var(--hover-transition);
+    }
+
+    .summary-card:hover {
+      transform: var(--card-hover-transform);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .summary-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .summary-icon.warning {
+      background: #f59e0b;
+    }
+
+    .summary-icon.success {
+      background: #10b981;
+    }
+
+    .summary-icon.danger {
+      background: #ef4444;
+    }
+
+    .summary-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .summary-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .summary-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .summary-trend {
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .trend-period {
+      color: var(--text-secondary);
+      font-size: 0.688rem;
+    }
+
+    .summary-chart {
+      width: 80px;
+      height: 40px;
+    }
+
+    .delay-legend {
+      padding-top: var(--compact-padding);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .activity-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .activity-icon.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .activity-icon.warning {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+    }
+
+    .activity-icon.danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .activity-icon.primary {
+      background: rgba(79, 70, 229, 0.1);
+      color: var(--primary-color);
+    }
+
+    .activity-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .activity-title {
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .activity-info {
+      font-size: 0.813rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* Update existing chart container styles */
+    .chart-container {
+      padding: var(--compact-padding);
+    }
+
+    .chart-header {
+      margin-bottom: var(--compact-padding);
+    }
+
+    .chart-metrics {
+      margin-bottom: var(--compact-gap);
+    }
+
+    .chart-wrapper {
+      margin: var(--compact-gap) 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="logo">
+        <span class="logo-text">SMBA</span>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-header">Menu</div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="bi bi-grid"></i>
+              Overview
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="shop.html">
+              <i class="bi bi-shop"></i>
+              Shop Status
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="billing.html">
+              <i class="bi bi-receipt"></i>
+              Billing Performance
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section mt-auto">
+        <div class="nav-divider"></div>
+        <div class="logout-section">
+          <div class="user-info">
+            <div class="user-avatar">J</div>
+            <div class="user-details">
+              <div class="user-name">Jane Doe</div>
+            </div>
+          </div>
+          <a class="logout-link" href="#" title="Logout">
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <div class="d-flex align-items-center gap-3">
+            <button class="header-icon d-lg-none">
+              <i class="bi bi-list"></i>
+            </button>
+            <div class="search-wrapper">
+              <i class="bi bi-search"></i>
+              <input type="text" class="search-input" placeholder="Search...">
+            </div>
+          </div>
+
+          <div class="header-actions">
+            <div class="action-group">
+              <button class="header-icon" title="Refresh">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+              <button class="header-icon" title="Notifications">
+                <i class="bi bi-bell"></i>
+                <span class="badge">3</span>
+              </button>
+              <button class="header-icon" title="Messages">
+                <i class="bi bi-chat"></i>
+                <span class="badge">5</span>
+              </button>
+            </div>
+            <div class="user-profile">
+              <div class="user-avatar">J</div>
+              <div class="user-details">
+                <div class="user-name">Jane Doe</div>
+                <div class="user-role">Admin</div>
+              </div>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <div class="page-header">
+          <div class="nav-tabs-wrapper">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <i class="bi bi-receipt"></i>
+                  Billing Analytics
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="bi bi-clock-history"></i>
+                  History
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="bi bi-gear"></i>
+                  Settings
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="header-actions">
+            <div class="period-select">
+              <i class="bi bi-calendar3"></i>
+              <select class="form-select">
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+                <option>Last 90 Days</option>
+                <option>This Year</option>
+                <option>Custom Range</option>
+              </select>
+            </div>
+            <button class="download-btn">
+              <i class="bi bi-download"></i>
+              Export Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards mb-3">
+          <div class="row g-2">
+            <div class="col-xl-3 col-md-6">
+              <div class="summary-card">
+                <div class="summary-icon">
+                  <i class="bi bi-receipt-cutoff"></i>
+                </div>
+                <div class="summary-info">
+                  <div class="summary-label">Invoices</div>
+                  <div class="summary-value">2,845</div>
+                  <div class="summary-trend positive">
+                    +8.2% <span class="trend-period">vs prev</span>
+                  </div>
+                </div>
+                <div class="summary-chart">
+                  <canvas id="invoicesChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="summary-card">
+                <div class="summary-icon warning">
+                  <i class="bi bi-clock-history"></i>
+                </div>
+                <div class="summary-info">
+                  <div class="summary-label">Pending</div>
+                  <div class="summary-value">$45.2k</div>
+                  <div class="summary-trend negative">
+                    +12.5% <span class="trend-period">vs prev</span>
+                  </div>
+                </div>
+                <div class="summary-chart">
+                  <canvas id="pendingChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="summary-card">
+                <div class="summary-icon success">
+                  <i class="bi bi-check-circle"></i>
+                </div>
+                <div class="summary-info">
+                  <div class="summary-label">Paid</div>
+                  <div class="summary-value">$124.5k</div>
+                  <div class="summary-trend positive">
+                    +15.8% <span class="trend-period">vs prev</span>
+                  </div>
+                </div>
+                <div class="summary-chart">
+                  <canvas id="paidChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="summary-card">
+                <div class="summary-icon danger">
+                  <i class="bi bi-exclamation-circle"></i>
+                </div>
+                <div class="summary-info">
+                  <div class="summary-label">Overdue</div>
+                  <div class="summary-value">$12.4k</div>
+                  <div class="summary-trend negative">
+                    -2.5% <span class="trend-period">vs prev</span>
+                  </div>
+                </div>
+                <div class="summary-chart">
+                  <canvas id="overdueChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Charts Section -->
+        <div class="row g-3">
+          <div class="col-lg-8">
+            <!-- Month over Month Timeliness -->
+            <div class="chart-container mb-3">
+              <div class="chart-header mb-2 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                  <h2 class="chart-title d-flex align-items-center m-0">
+                    <i class="bi bi-graph-up me-2"></i>
+                    Timeliness
+                  </h2>
+                  <div class="chart-legend d-flex border-start ps-3">
+                    <div class="legend-item d-flex align-items-center me-3">
+                      <span class="legend-dot d-inline-block me-1" style="width:6px;height:6px;border-radius:50%;background:var(--primary-color)"></span>
+                      <span class="small">Monthly</span>
+                    </div>
+                    <div class="legend-item d-flex align-items-center">
+                      <span class="legend-dot d-inline-block me-1" style="width:6px;height:6px;border-radius:50%;background:var(--success-color)"></span>
+                      <span class="small">Trend</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="chart-actions d-flex gap-1">
+                  <button class="chart-action-btn" title="Download">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button class="chart-action-btn" title="Refresh">
+                    <i class="bi bi-arrow-repeat"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row g-2 mb-2">
+                <div class="col-4">
+                  <div class="bg-light rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="small text-muted">Average</span>
+                      <span class="badge bg-success-subtle text-success">+15.3%</span>
+                    </div>
+                    <div class="h5 mb-0">48.6</div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="bg-light rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="small text-muted">Peak</span>
+                      <span class="badge bg-primary-subtle text-primary">Jun'23</span>
+                    </div>
+                    <div class="h5 mb-0">113</div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="bg-light rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="small text-muted">Latest</span>
+                      <span class="badge bg-danger-subtle text-danger">-33.3%</span>
+                    </div>
+                    <div class="h5 mb-0">50</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chart-wrapper" style="height: 180px;">
+                <canvas id="timelinessChart"></canvas>
+              </div>
+
+              <div class="chart-footer mt-2 pt-2 border-top">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="chart-insight small text-muted">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Showing upward trend in recent months</span>
+                  </div>
+                  <div class="small">
+                    <a href="#" class="text-decoration-none">View Details <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Timeliness -->
+            <div class="chart-container">
+              <div class="chart-header">
+                <h2 class="chart-title">
+                  <i class="bi bi-people-fill"></i>
+                  Customer Payment Performance
+                </h2>
+                <div class="chart-actions">
+                  <button class="chart-action-btn" title="Download">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button class="chart-action-btn" title="Refresh">
+                    <i class="bi bi-arrow-repeat"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="chart-metrics">
+                <div class="metric-item">
+                  <div class="metric-label">On-Time Rate</div>
+                  <div class="metric-value">64.3%</div>
+                  <div class="metric-trend positive">
+                    <i class="bi bi-arrow-up-right"></i>
+                    +5.2%
+                  </div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Best Performer</div>
+                  <div class="metric-value">Customer5</div>
+                  <div class="metric-trend positive">
+                    <i class="bi bi-star-fill"></i>
+                    80.2% on-time
+                  </div>
+                </div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="customerTimelinessChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <!-- Delay Analysis -->
+            <div class="chart-container mb-3">
+              <div class="chart-header mb-2">
+                <h2 class="chart-title">
+                  <i class="bi bi-pie-chart-fill"></i>
+                  Delay Analysis
+                  <!-- <span class="chart-subtitle ms-2 text-muted">(By Category)</span> -->
+                </h2>
+                <div class="chart-actions">
+                  <button class="chart-action-btn" title="Download">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button class="chart-action-btn" title="Refresh">
+                    <i class="bi bi-arrow-repeat"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 mb-2">
+                <div class="flex-grow-1 bg-light rounded p-2">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="small text-muted">Total Delays</span>
+                    <span class="badge bg-danger-subtle text-danger">+15.2%</span>
+                  </div>
+                  <div class="h5 mb-0">110</div>
+                </div>
+                <div class="flex-grow-1 bg-light rounded p-2">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="small text-muted">Most Common</span>
+                    <span class="badge bg-primary-subtle text-primary">41%</span>
+                  </div>
+                  <div class="h5 mb-0">Capacity</div>
+                </div>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-lg-6">
+                  <div class="chart-wrapper" style="height: 180px;">
+                    <canvas id="delayReasonsChart"></canvas>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="delay-stats bg-light rounded">
+                    <div class="delay-item d-flex align-items-center p-2 border-bottom">
+                      <div class="delay-color me-2" style="width:8px;height:8px;border-radius:50%;background:#4f46e5"></div>
+                      <div class="delay-name flex-grow-1 small">Capacity</div>
+                      <div class="delay-value small fw-medium">45</div>
+                      <div class="delay-percent ms-2 small text-muted">41%</div>
+                    </div>
+                    <div class="delay-item d-flex align-items-center p-2 border-bottom">
+                      <div class="delay-color me-2" style="width:8px;height:8px;border-radius:50%;background:#10b981"></div>
+                      <div class="delay-name flex-grow-1 small">Customer</div>
+                      <div class="delay-value small fw-medium">30</div>
+                      <div class="delay-percent ms-2 small text-muted">27%</div>
+                    </div>
+                    <div class="delay-item d-flex align-items-center p-2 border-bottom">
+                      <div class="delay-color me-2" style="width:8px;height:8px;border-radius:50%;background:#f59e0b"></div>
+                      <div class="delay-name flex-grow-1 small">Volume</div>
+                      <div class="delay-value small fw-medium">14</div>
+                      <div class="delay-percent ms-2 small text-muted">13%</div>
+                    </div>
+                    <div class="delay-item d-flex align-items-center p-2">
+                      <div class="delay-color me-2" style="width:8px;height:8px;border-radius:50%;background:#6b7280"></div>
+                      <div class="delay-name flex-grow-1 small">Other</div>
+                      <div class="delay-value small fw-medium">21</div>
+                      <div class="delay-percent ms-2 small text-muted">19%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chart-footer mt-2 pt-2 border-top">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="chart-insight small text-muted">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Resource capacity is the primary delay factor</span>
+                  </div>
+                  <div class="small">
+                    <a href="#" class="text-decoration-none">View Details <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="chart-container">
+              <div class="chart-header">
+                <h2 class="chart-title">
+                  <i class="bi bi-activity"></i>
+                  Recent Activity
+                </h2>
+                <div class="chart-actions">
+                  <button class="chart-action-btn" title="View All">
+                    <i class="bi bi-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="activity-list">
+                <div class="activity-item">
+                  <div class="activity-icon success">
+                    <i class="bi bi-check-circle"></i>
+                  </div>
+                  <div class="activity-content">
+                    <div class="activity-title">Invoice #2234 Paid</div>
+                    <div class="activity-info">$1,200.00 paid by Customer8</div>
+                    <div class="activity-time">2m ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-icon warning">
+                    <i class="bi bi-clock"></i>
+                  </div>
+                  <div class="activity-content">
+                    <div class="activity-title">Invoice #2233 Due Soon</div>
+                    <div class="activity-info">$3,400.00 due in 2 days</div>
+                    <div class="activity-time">1h ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-icon danger">
+                    <i class="bi bi-exclamation-circle"></i>
+                  </div>
+                  <div class="activity-content">
+                    <div class="activity-title">Invoice #2232 Overdue</div>
+                    <div class="activity-info">$850.00 overdue by 5 days</div>
+                    <div class="activity-time">3h ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-icon primary">
+                    <i class="bi bi-plus-circle"></i>
+                  </div>
+                  <div class="activity-content">
+                    <div class="activity-title">New Invoice Created</div>
+                    <div class="activity-info">$2,100.00 for Customer3</div>
+                    <div class="activity-time">5h ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom JS -->
+  <script>
+    // Delay Reasons Analysis Chart
+    const delayReasonsCtx = document.getElementById('delayReasonsChart').getContext('2d');
+    new Chart(delayReasonsCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Capacity', 'Customer', 'Volume', 'Other'],
+        datasets: [{
+          data: [45, 30, 14, 21],
+          backgroundColor: [
+            '#4f46e5',
+            '#10b981',
+            '#f59e0b',
+            '#6b7280'
+          ],
+          borderWidth: 0,
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '75%',
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            backgroundColor: 'white',
+            titleColor: '#1e293b',
+            bodyColor: '#1e293b',
+            borderColor: '#e2e8f0',
+            borderWidth: 1,
+            padding: 8,
+            boxPadding: 4,
+            usePointStyle: true,
+            callbacks: {
+              label: function(context) {
+                const value = context.raw;
+                const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${context.label}: ${value} (${percentage}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Customer Timeliness Chart
+    const customerTimelinessCtx = document.getElementById('customerTimelinessChart').getContext('2d');
+    new Chart(customerTimelinessCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Customer1', 'Customer2', 'Customer3', 'Customer4', 'Customer5', 'Customer6', 'Customer7', 'Customer8', 'Customer9', 'Customer10'],
+        datasets: [{
+          label: 'Late',
+          data: [20, 17, 16, 6, 15, 15, 14, 7, 4, 2],
+          backgroundColor: '#f43f5e',
+          borderRadius: 4
+        }, {
+          label: 'On Time',
+          data: [9, 8, 1, 56, 61, 3, 0, 32, 1, 7],
+          backgroundColor: '#10b981',
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: {
+          x: {
+            stacked: true,
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            stacked: true,
+            grid: {
+              color: 'rgba(0, 0, 0, 0.05)'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+            align: 'start',
+            labels: {
+              boxWidth: 12,
+              padding: 15
+            }
+          }
+        }
+      }
+    });
+
+    // Month over Month Timeliness Chart
+    const timelinessCtx = document.getElementById('timelinessChart').getContext('2d');
+    const timelinessChart = new Chart(timelinessCtx, {
+      type: 'line',
+      data: {
+        labels: [
+          'Apr 22', 'May 22', 'Jun 22', 'Jul 22', 'Aug 22', 'Sep 22', 'Oct 22', 'Nov 22',
+          'Feb 23', 'Mar 23', 'Apr 23', 'May 23', 'Jun 23', 'Jul 23', 'Aug 23', 'Sep 23',
+          'Oct 23', 'Nov 23', 'Dec 23', 'Jan 24', 'Feb 24', 'Mar 24', 'Apr 24', 'May 24',
+          'Jun 24', 'Jul 24', 'Aug 24', 'Sep 24', 'Oct 24', 'Nov 24'
+        ],
+        datasets: [{
+          label: 'Monthly Value',
+          data: [91, 23, 11, 9, 52, 12, 18, 6, 15, 8, 77, 4, 113, 17, 56, 26, 49, 30, 4, 64, 25, 97, 107, 62, 66, 86, 90, 105, 75, 50],
+          borderColor: 'rgba(79, 70, 229, 1)',
+          backgroundColor: 'rgba(79, 70, 229, 0.1)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#fff',
+          pointBorderColor: 'rgba(79, 70, 229, 1)',
+          pointBorderWidth: 2,
+          pointRadius: 2,
+          pointHoverRadius: 4,
+          order: 2
+        }, {
+          label: '3-Month Moving Average',
+          data: [null, 41.7, 14.3, 24, 24.3, 27.3, 12, 13, 9.7, 33.3, 29.7, 64.7, 44.7, 62, 33, 43.7, 35, 27.7, 32.7, 31, 62, 88.7, 88.7, 78.3, 71.3, 80.7, 93.7, 90, 76.7, null],
+          borderColor: 'rgba(16, 185, 129, 1)',
+          borderWidth: 2,
+          borderDash: [4, 4],
+          tension: 0.4,
+          fill: false,
+          pointRadius: 0,
+          order: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          intersect: false,
+          mode: 'index'
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              maxRotation: 45,
+              minRotation: 45,
+              font: {
+                size: 10
+              },
+              color: '#64748b',
+              maxTicksLimit: 12
+            }
+          },
+          y: {
+            grid: {
+              color: 'rgba(0, 0, 0, 0.05)',
+              drawBorder: false
+            },
+            border: {
+              dash: [4, 4]
+            },
+            beginAtZero: true,
+            ticks: {
+              font: {
+                size: 10
+              },
+              color: '#64748b',
+              padding: 6,
+              maxTicksLimit: 6
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            backgroundColor: 'white',
+            titleColor: '#1e293b',
+            bodyColor: '#1e293b',
+            borderColor: '#e2e8f0',
+            borderWidth: 1,
+            padding: 8,
+            boxPadding: 4,
+            usePointStyle: true,
+            titleFont: {
+              size: 11,
+              weight: '600'
+            },
+            bodyFont: {
+              size: 11
+            },
+            callbacks: {
+              label: function(context) {
+                let label = context.dataset.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.parsed.y !== null) {
+                  label += context.parsed.y.toFixed(1);
+                }
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Add sidebar toggle functionality
+    document.querySelector('.header-icon.d-lg-none').addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('show');
+    });
+
+    // Add new mini charts for summary cards
+    const createMiniChart = (ctx, data, color) => {
+      return new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['', '', '', '', '', '', ''],
+          datasets: [{
+            data: data,
+            borderColor: color,
+            borderWidth: 2,
+            tension: 0.4,
+            pointRadius: 0,
+            fill: true,
+            backgroundColor: color + '10'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            x: {
+              display: false
+            },
+            y: {
+              display: false
+            }
+          }
+        }
+      });
+    };
+
+    // Initialize mini charts
+    createMiniChart(document.getElementById('invoicesChart').getContext('2d'), 
+      [30, 35, 25, 45, 30, 55, 45], 
+      '#4f46e5'
+    );
+    createMiniChart(document.getElementById('pendingChart').getContext('2d'), 
+      [25, 30, 35, 40, 35, 45, 40], 
+      '#f59e0b'
+    );
+    createMiniChart(document.getElementById('paidChart').getContext('2d'), 
+      [45, 50, 40, 60, 45, 70, 60], 
+      '#10b981'
+    );
+    createMiniChart(document.getElementById('overdueChart').getContext('2d'), 
+      [15, 20, 25, 15, 20, 10, 15], 
+      '#ef4444'
+    );
+  </script>
+</body>
+</html>
+
