@@ -13,7 +13,7 @@
   <!-- DataTables CSS -->
   <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="src/css/styles.css">
   <style>
     /* Update border styles */
     :root {
@@ -1207,7 +1207,7 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -1215,74 +1215,7 @@
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
   
-  <script>
-    // Initialize DataTables with enhanced features
-    const shopStatusTable = $('#shopStatusTable').DataTable({
-      pageLength: 10,
-      order: [[0, 'asc']],
-      dom: '<"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-      language: {
-        info: "Showing _START_ to _END_ of _TOTAL_ records",
-        paginate: {
-          first: '<i class="bi bi-chevron-double-left"></i>',
-          last: '<i class="bi bi-chevron-double-right"></i>',
-          next: '<i class="bi bi-chevron-right"></i>',
-          previous: '<i class="bi bi-chevron-left"></i>'
-        }
-      }
-    });
-
-    // Shop search functionality
-    $('#shopSearch').on('keyup', function() {
-      shopStatusTable.search(this.value).draw();
-    });
-
-    // Filter functionality
-    $('.table-filters .btn').on('click', function() {
-      $('.table-filters .btn').removeClass('active');
-      $(this).addClass('active');
-      
-      const filter = $(this).data('filter');
-      if (filter === 'all') {
-        shopStatusTable.search('').draw();
-      } else {
-        shopStatusTable.search(filter).draw();
-      }
-    });
-
-    // Queue tab switching with animation
-    $('.queue-tab').click(function() {
-      $('.queue-tabs .queue-tab').removeClass('active');
-      $(this).addClass('active');
-      
-      $('.table-container').fadeOut(200, function() {
-        // Here you would typically load new data based on the selected queue
-        $(this).fadeIn(200);
-      });
-    });
-
-    // Refresh button animation
-    $('.btn-refresh').click(function() {
-      const icon = $(this).find('i');
-      icon.addClass('rotate-animation');
-      setTimeout(() => icon.removeClass('rotate-animation'), 1000);
-      // Here you would typically reload the data
-    });
-
-    // Column visibility toggle
-    $('.btn-columns').click(function() {
-      // Implementation for column visibility toggle
-    });
-
-    // Section navigation
-    window.showSection = function(sectionId) {
-      ['shopStatusSection', 'shopDetailsSection', 'billingReadinessSection', 'invoiceDetailsSection'].forEach(id => {
-        const section = document.getElementById(id);
-        if (section) {
-          section.style.display = id === sectionId ? 'block' : 'none';
-        }
-      });
-    };
-  </script>
+  <!-- Custom JS -->
+  <script src="src/js/script.js"></script>
 </body>
 </html>
