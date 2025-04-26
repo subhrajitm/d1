@@ -1,11 +1,25 @@
 // Global variables
 let currentStep = 1;
-const totalSteps = 5;
+const totalSteps = 2;
+
+const stepContent = {
+  1: {
+    title: 'Billing Inputs',
+    icon: 'file-text',
+    description: 'Enter billing details'
+  },
+  2: {
+    title: 'Draft Invoice',
+    icon: 'file-earmark-text',
+    description: 'Review and finalize'
+  }
+};
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   initializeSteps();
   initializeMobileMenu();
+  initializeCollapsiblePanels();
 });
 
 // Initialize step functionality
@@ -23,6 +37,20 @@ function initializeSteps() {
   showStep(currentStep);
 }
 
+// Initialize all panels as collapsed
+function initializeCollapsiblePanels() {
+  document.querySelectorAll('.section-content').forEach(content => {
+    content.classList.add('collapsed');
+    content.style.maxHeight = '0px';
+  });
+  
+  document.querySelectorAll('.section-header').forEach(header => {
+    header.classList.add('collapsed');
+    const icon = header.querySelector('.collapse-icon');
+    if (icon) icon.style.transform = 'rotate(-180deg)';
+  });
+}
+
 // Update progress indicators
 function updateProgress() {
   document.querySelectorAll('.process-step').forEach((step, index) => {
@@ -36,8 +64,32 @@ function updateProgress() {
   });
 }
 
+// Update content header
+function updateContentHeader(stepNumber) {
+  const content = stepContent[stepNumber];
+  const titleElement = document.querySelector('.content-title');
+  const stepIndicator = document.querySelector('.step-indicator');
+  
+  if (titleElement && content) {
+    titleElement.innerHTML = `
+      <i class="bi bi-${content.icon}"></i>
+      <span class="title-text">${content.title}</span>
+    `;
+  }
+  
+  if (stepIndicator) {
+    const currentStepSpan = stepIndicator.querySelector('.current-step');
+    if (currentStepSpan) {
+      currentStepSpan.textContent = stepNumber;
+    }
+  }
+}
+
 // Update step content visibility
 function showStep(stepNumber) {
+  // Update content header
+  updateContentHeader(stepNumber);
+  
   // Hide all step contents
   document.querySelectorAll('.step-content').forEach(content => {
     content.classList.remove('active');
@@ -60,7 +112,47 @@ function showStep(stepNumber) {
     currentStepElement.classList.add('active');
   }
   
+  // Update progress
+  updateProgress();
+  
   // Update buttons
+  updateNavigationButtons(stepNumber);
+  
+  // Handle content visibility based on step
+  const billingSections = document.querySelector('.billing-sections');
+  const draftInvoice = document.querySelector('.draft-invoice');
+  
+  if (stepNumber === 1) {
+    // For Billing Inputs, show billing sections and hide draft invoice
+    if (billingSections) {
+      billingSections.style.display = 'block';
+      // Keep sections collapsed by default
+      document.querySelectorAll('#step1 .section-content').forEach(content => {
+        content.classList.add('collapsed');
+        content.style.maxHeight = '0px';
+      });
+      document.querySelectorAll('#step1 .section-header').forEach(header => {
+        header.classList.add('collapsed');
+        const icon = header.querySelector('.collapse-icon');
+        if (icon) icon.style.transform = 'rotate(-180deg)';
+      });
+    }
+    if (draftInvoice) {
+      draftInvoice.style.display = 'none';
+    }
+  } else if (stepNumber === 2) {
+    // For Draft Invoice, hide billing sections and show draft invoice
+    if (billingSections) {
+      billingSections.style.display = 'none';
+    }
+    if (draftInvoice) {
+      draftInvoice.style.display = 'block';
+    }
+  }
+}
+
+// Update navigation buttons
+function updateNavigationButtons(stepNumber) {
   const prevButton = document.querySelector('.step-btn.secondary');
   const nextButton = document.querySelector('.step-btn.primary');
   
@@ -69,27 +161,28 @@ function showStep(stepNumber) {
   }
   
   if (nextButton) {
-    nextButton.innerHTML = stepNumber === totalSteps ? 
-      'Accept Invoice <i class="bi bi-check-circle"></i>' : 
-      'Next <i class="bi bi-arrow-right"></i>';
+    if (stepNumber === totalSteps) {
+      nextButton.innerHTML = 'Accept Invoice <i class="bi bi-check-circle"></i>';
+      nextButton.onclick = completeProcess;
+    } else {
+      nextButton.innerHTML = 'Next <i class="bi bi-arrow-right"></i>';
+      nextButton.onclick = nextStep;
+    }
   }
-  
-  // If it's the draft invoice step, expand its section and collapse others
-  if (stepNumber === 5) {
-    document.querySelectorAll('.section-header').forEach(header => {
-      const content = header.nextElementSibling;
-      const icon = header.querySelector('.collapse-icon');
-      
-      if (header.closest('#step5')) {
-        content.classList.remove('collapsed');
-        header.classList.remove('collapsed');
-        if (icon) icon.style.transform = 'rotate(0deg)';
-      } else {
-        content.classList.add('collapsed');
-        header.classList.add('collapsed');
-        if (icon) icon.style.transform = 'rotate(-180deg)';
-      }
-    });
+}
+
+// Navigation functions
+function nextStep() {
+  if (currentStep < totalSteps) {
+    currentStep++;
+    showStep(currentStep);
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
   }
 }
 
@@ -126,8 +219,7 @@ function completeProcess() {
   }, 100);
 
   setTimeout(() => {
-    alert('Invoice creation process completed!');
-    overlay.remove();
+    window.location.href = 'index.html';
   }, 2000);
 }
 
@@ -142,6 +234,13 @@ function toggleSection(header) {
     if (icon) {
       icon.style.transform = content.classList.contains('collapsed') ? 
         'rotate(-180deg)' : 'rotate(0deg)';
+    }
+    
+    // Animate the content height
+    if (content.classList.contains('collapsed')) {
+      content.style.maxHeight = '0px';
+    } else {
+      content.style.maxHeight = content.scrollHeight + 'px';
     }
   }
 }
