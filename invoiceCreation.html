@@ -4,291 +4,1031 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SMBA Dashboard - Invoice Creation</title>
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="src/css/styles.css">
   <style>
-    .invoice-section {
-      background: var(--card-bg);
-      border: var(--border-width) solid var(--border-color);
-      border-radius: var(--border-radius-lg);
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      transition: all 0.3s ease;
+    :root {
+      --primary-color: #4f46e5;
+      --primary-light: #6366f1;
+      --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      --success-color: #10b981;
+      --background-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --hover-bg: #f1f5f9;
+      --card-shadow: 0 2px 4px rgba(148, 163, 184, 0.05);
+      --card-shadow-hover: 0 8px 16px rgba(148, 163, 184, 0.1);
+      --hover-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --card-hover-transform: translateY(-4px);
+      --hover-shadow: 0 12px 24px rgba(148, 163, 184, 0.15);
+      --active-scale: scale(0.97);
+      --ripple-color: rgba(99, 102, 241, 0.1);
+      --compact-padding: 1rem;
+      --compact-gap: 0.75rem;
+      --compact-border-radius: 8px;
+      --compact-card-padding: 1.25rem;
+      --primary: #4F46E5;
+      --primary-dark: #3730A3;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-300: #CBD5E1;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1E293B;
+      --gray-900: #0F172A;
+      --primary-hover: #3311DD;
+      --sidebar-width: 250px;
+      --header-height: 70px;
+      --border-radius: 20px;
+      --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
-    .invoice-section:hover {
-      box-shadow: var(--hover-shadow);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .section-header {
-      background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
-      color: white;
-      padding: 1.25rem;
-      border-radius: var(--border-radius-md);
-      margin-bottom: 1.5rem;
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      min-height: 100vh;
+    }
+
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-10px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, var(--card-bg) 0%, rgba(255, 255, 255, 0.98) 100%);
+      border-right: 1px solid var(--border-color);
+      height: 100vh;
+      position: fixed;
+      padding: 1rem 0 0 0;
+      box-shadow: var(--card-shadow);
+      z-index: 1000;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo {
+      padding: 0.5rem 1.25rem;
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
     }
 
-    .section-header i {
-      font-size: 1.5rem;
-      opacity: 0.9;
-    }
-
-    .section-title {
+    .logo-text {
+      font-weight: 700;
       font-size: 1.25rem;
-      font-weight: 600;
-      margin: 0;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       letter-spacing: 0.5px;
     }
 
-    .contract-summary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
+    .nav-section {
       margin-bottom: 1.5rem;
+      padding: 0 0.75rem;
     }
 
-    .contract-summary-item {
-      background: #fff;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: var(--border-radius-md);
-      padding: 1.25rem;
-      transition: all 0.3s ease;
+    .nav-section.mt-auto {
+      margin-top: auto;
+      margin-bottom: 0;
+      padding: 0 0.75rem;
+      position: sticky;
+      bottom: 0;
+      background: var(--card-bg);
     }
 
-    .contract-summary-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .contract-summary-title {
+    .nav-header {
+      padding: 0 0.5rem;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      color: var(--text-secondary);
       font-weight: 600;
-      color: #4F46E5;
-      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+
+    .nav-link {
+      padding: 0.5rem 0.75rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 500;
+      font-size: 0.8125rem;
+      transition: var(--hover-transition);
+      border-radius: 6px;
+      position: relative;
+      margin-bottom: 0.125rem;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0;
+      background: var(--primary-gradient);
+      opacity: 0.1;
+      transition: var(--hover-transition);
+    }
+
+    .nav-link:hover::before {
+      width: 100%;
+    }
+
+    .nav-link:active {
+      transform: var(--active-scale);
+    }
+
+    .nav-link i {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      transition: var(--hover-transition);
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-link:hover i {
+      transform: translateX(4px);
+    }
+
+    .nav-link.active {
+      color: var(--primary-color);
+      background: var(--ripple-color);
+      font-weight: 600;
+    }
+
+    .nav-link.active i {
+      color: var(--primary-color);
+    }
+
+    .nav-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 0;
+      opacity: 0.5;
+    }
+
+    .logout-section {
+      background: var(--hover-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--compact-border-radius);
+      padding: var(--compact-padding);
+      margin: 0.75rem;
+      transition: var(--hover-transition);
+    }
+
+    .logout-section:hover {
+      background: var(--card-bg);
+      border-color: var(--primary-light);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--primary-gradient);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .user-avatar i {
+      opacity: 0.9;
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .user-status {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+    }
+
+    .logout-link {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      transition: var(--hover-transition);
+      padding: 0.25rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logout-link:hover {
+      color: var(--primary-color);
+      background: var(--ripple-color);
+    }
+
+    .logout-link i {
+      transition: var(--hover-transition);
+    }
+
+    .logout-link:hover i {
+      transform: translateX(2px);
+    }
+
+    .user-avatar-small {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+    }
+
+    /* Header Styles */
+    .header {
+      height: var(--header-height);
+      background: white;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .header-icon {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: #2B3674;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .header-icon:hover {
+      background: var(--background-color);
+    }
+
+    .search-wrapper {
+      position: relative;
+      margin-left: 1rem;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #A3AED0;
+      font-size: 1rem;
+    }
+
+    .search-input {
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      width: 280px;
+      font-size: 0.875rem;
+      color: #2B3674;
+      transition: all 0.3s ease;
+      background: var(--background-color);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.1);
+    }
+
+    .search-input::placeholder {
+      color: #A3AED0;
+    }
+
+    .badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #FF0000;
+      color: white;
+      font-size: 0.625rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(25%, -25%);
+      border: 2px solid white;
+    }
+
+    .user-profile {
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--compact-border-radius);
+      background: var(--hover-bg);
+      border: 1px solid var(--border-color);
+      transition: var(--hover-transition);
+      cursor: pointer;
+    }
+
+    .user-profile:hover {
+      background: var(--card-bg);
+      border-color: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .user-profile .user-details {
+      margin: 0 0.75rem;
+    }
+
+    .user-profile i.bi-chevron-down {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      transition: var(--hover-transition);
+    }
+
+    .user-profile:hover i.bi-chevron-down {
+      transform: translateY(2px);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--success-color);
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    @media (max-width: 991.98px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.show {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .search-input {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .header {
+        padding: 0 1rem;
+      }
+
+      .search-wrapper {
+        display: none;
+      }
+
+      .user-profile .user-details {
+        display: none;
+      }
+
+      .user-profile i {
+        display: none;
+      }
+    }
+
+    /* Process Steps Styles */
+    .process-container {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--compact-gap);
+      height: calc(100vh - var(--header-height) - 2rem);
+      padding: 1rem;
+    }
+
+    .process-sidebar {
+      background: var(--card-bg);
+      border-radius: var(--compact-border-radius);
+      border: 1px solid var(--border-color);
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .process-steps {
+      padding: var(--compact-padding);
+    }
+
+    .process-step {
+      position: relative;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-radius: var(--compact-border-radius);
+      background: var(--background-color);
+      cursor: pointer;
+      transition: var(--hover-transition);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid transparent;
+    }
+
+    .process-step::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 3px;
+      background: var(--primary-gradient);
+      border-radius: 4px;
+      opacity: 0;
+      transition: var(--hover-transition);
+    }
+
+    .process-step:hover {
+      background: var(--card-bg);
+      border-color: var(--border-color);
+      transform: translateX(4px);
+    }
+
+    .process-step.active {
+      background: var(--card-bg);
+      border-color: var(--primary-light);
+      box-shadow: var(--card-shadow);
+    }
+
+    .process-step.active::before {
+      opacity: 1;
+    }
+
+    .process-step.completed {
+      background: var(--hover-bg);
+    }
+
+    .process-step.completed .step-number {
+      background: var(--success-color);
+      color: white;
+    }
+
+    .step-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--primary-gradient);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--hover-transition);
+    }
+
+    .step-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .step-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .step-description {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .process-content {
+      background: var(--card-bg);
+      border-radius: var(--compact-border-radius);
+      border: 1px solid var(--border-color);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-header {
+      padding: var(--compact-padding);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border-radius: var(--compact-border-radius) var(--compact-border-radius) 0 0;
+    }
+
+    .content-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
-    .contract-summary-title i {
-      font-size: 1.25rem;
-      opacity: 0.9;
+    .content-title i {
+      font-size: 1.125rem;
+      color: var(--primary-color);
     }
 
-    .contract-summary-content {
-      color: var(--text-primary);
-    }
-
-    .contract-summary-row {
+    .step-indicator {
       display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
-    }
-
-    .contract-summary-row:last-child {
-      border-bottom: none;
-    }
-
-    .contract-summary-label {
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.75rem;
+      background: var(--hover-bg);
+      border-radius: 20px;
+      font-size: 0.75rem;
       color: var(--text-secondary);
-      font-size: 0.875rem;
+      font-weight: 500;
     }
 
-    .contract-summary-value {
+    .step-indicator i {
+      font-size: 0.875rem;
+      color: var(--primary-color);
+    }
+
+    .content-body {
+      padding: var(--compact-padding);
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .content-footer {
+      padding: var(--compact-padding);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--hover-bg);
+      border-radius: 0 0 var(--compact-border-radius) var(--compact-border-radius);
+    }
+
+    .step-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--compact-border-radius);
       font-weight: 500;
-      color: var(--text-primary);
+      font-size: 0.875rem;
+      transition: var(--hover-transition);
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .step-btn.primary {
+      background: var(--primary-gradient);
+      color: white;
+    }
+
+    .step-btn.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .step-btn.secondary {
+      background: var(--card-bg);
+      color: var(--text-secondary);
+      border-color: var(--border-color);
+    }
+
+    .step-btn.secondary:hover {
+      background: var(--hover-bg);
+      border-color: var(--primary-light);
+      color: var(--primary-color);
+    }
+
+    .step-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    @media (max-width: 991.98px) {
+      .process-container {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .process-sidebar {
+        height: auto;
+        max-height: 300px;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .process-container {
+        padding: 0.75rem;
+      }
+
+      .content-header,
+      .content-body,
+      .content-footer {
+        padding: 0.75rem;
+      }
+
+      .step-btn {
+        padding: 0.5rem 0.75rem;
+      }
+    }
+
+    .contract-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      background: var(--gray-50);
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
     }
 
     .billing-table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
-      background: white;
-      border-radius: var(--border-radius-md);
+      margin: 1.5rem 0;
+      background: var(--surface-card);
+      border-radius: 8px;
       overflow: hidden;
-      margin-top: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .billing-table th,
+    .billing-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .billing-table th {
-      background: #F8FAFC;
-      padding: 1rem;
+      background: linear-gradient(to right, var(--primary-color-light), var(--surface-card));
+      color: var(--text-color);
       font-weight: 600;
-      text-align: left;
-      color: var(--text-secondary);
-      border-bottom: 2px solid var(--border-color);
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      letter-spacing: 0.5px;
     }
 
-    .billing-table td {
-      padding: 1rem;
-      border-bottom: 1px solid var(--border-color);
+    .billing-table tbody tr:hover {
+      background: var(--surface-hover);
     }
 
-    .billing-table tr:last-child td {
-      border-bottom: none;
+    .billing-table tfoot tr {
+      background: var(--surface-section);
+    }
+
+    .billing-table tfoot td {
+      font-weight: 600;
     }
 
     .amount-column {
+      font-family: monospace;
       text-align: right;
-      font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    .proceed-btn {
-      background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
-      color: white;
-      padding: 0.875rem 2rem;
-      border: none;
-      border-radius: var(--border-radius-md);
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      transition: all 0.3s ease;
-    }
-
-    .proceed-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
-    }
-
-    .proceed-btn i {
-      font-size: 1.25rem;
-      transition: transform 0.3s ease;
-    }
-
-    .proceed-btn:hover i {
-      transform: translateX(4px);
     }
 
     .draft-invoice {
-      background: #F8FAFC;
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius-md);
-      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    .cost-element-table {
+    .form-control {
       width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--surface-card);
+      color: var(--text-color);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-color-light);
+      outline: none;
+    }
+
+    .form-control::placeholder {
+      color: var(--text-color-secondary);
+      opacity: 0.7;
+    }
+
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .table-container {
+      margin: 1rem 0;
+      border-radius: 8px;
+      overflow: auto;
+    }
+
+    @media (max-width: 768px) {
+      .billing-table th,
+      .billing-table td {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+      }
+      
+      .form-control {
+        padding: 0.625rem;
+      }
+    }
+
+    /* Add these new styles after the existing styles */
+    .section-container {
+      background: var(--card-bg);
+      border-radius: var(--compact-border-radius);
+      border: 1px solid var(--border-color);
       margin-bottom: 1.5rem;
+      overflow: hidden;
     }
 
-    .cost-element-table th {
-      background: #F1F5F9;
-      padding: 0.875rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-    }
-
-    .cost-element-table td {
-      padding: 0.875rem;
+    .section-header {
+      padding: 1rem;
+      background: var(--hover-bg);
       border-bottom: 1px solid var(--border-color);
-    }
-
-    .cost-element-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .cost-usd {
-      text-align: right;
-      font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace;
-      font-weight: 500;
-    }
-
-    .subtotal-row {
-      background: #F1F5F9;
-      font-weight: 600;
-    }
-
-    .previous-invoices {
-      background: #FEF2F2;
-      border-radius: var(--border-radius-sm);
-      padding: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .previous-invoice-item {
-      color: #991B1B;
-      padding: 0.5rem 0;
-      border-bottom: 1px dashed rgba(220, 38, 38, 0.2);
-      font-size: 0.875rem;
-    }
-
-    .previous-invoice-item:last-child {
-      border-bottom: none;
-    }
-
-    .final-amount {
-      background: #F0FDF4;
-      border-radius: var(--border-radius-sm);
-      padding: 1rem;
-      text-align: center;
-      margin: 1.5rem 0;
-    }
-
-    .final-amount h4 {
-      color: #065F46;
-      margin: 0;
-      font-weight: 600;
-    }
-
-    .accept-invoice-btn {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      color: white;
-      padding: 0.875rem 2rem;
-      border: none;
-      border-radius: var(--border-radius-md);
-      font-weight: 500;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      transition: all 0.3s ease;
-      margin: 1.5rem auto;
+      justify-content: space-between;
     }
 
-    .accept-invoice-btn:hover {
+    .section-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title i {
+      color: var(--primary-color);
+      font-size: 1.125rem;
+    }
+
+    .contract-grid {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .summary-grid {
+      padding: 1.5rem;
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .table-container {
+      margin: 0 1.5rem 1.5rem;
+    }
+
+    .input-group {
+      background: var(--hover-bg);
+      padding: 1.25rem;
+      border-radius: var(--compact-border-radius);
+      border: 1px solid var(--border-color);
+      transition: var(--hover-transition);
+    }
+
+    .input-group:hover {
+      border-color: var(--primary-light);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+      box-shadow: var(--card-shadow);
     }
 
-    .info-text {
+    .input-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .input-value {
       color: var(--text-secondary);
       font-size: 0.875rem;
-      text-align: center;
     }
 
-    .status-badge {
-      display: inline-flex;
+    .input-value div {
+      margin-bottom: 0.375rem;
+    }
+
+    .input-value div:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-control {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--compact-border-radius);
+      padding: 0.75rem;
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+      font-size: 0.875rem;
+      transition: var(--hover-transition);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px var(--ripple-color);
+    }
+
+    @media (max-width: 767.98px) {
+      .contract-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+      }
+
+      .summary-grid {
+        padding: 1rem;
+      }
+
+      .table-container {
+        margin: 0 1rem 1rem;
+      }
+
+      .section-header {
+        padding: 0.75rem;
+      }
+    }
+
+    /* Collapsible panel styles */
+    .section-header {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
       align-items: center;
-      gap: 0.375rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 500;
+      padding: 1rem;
+      background: var(--hover-bg);
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.3s ease;
     }
 
-    .status-badge.draft {
-      background: #FEF3C7;
-      color: #92400E;
+    .section-header:hover {
+      background: var(--background-color);
     }
 
-    .status-badge.pending {
-      background: #E0E7FF;
-      color: #3730A3;
+    .section-header .collapse-icon {
+      margin-left: auto;
+      transition: transform 0.3s ease;
+      color: var(--text-secondary);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--card-bg);
     }
 
-    .status-badge.approved {
-      background: #D1FAE5;
-      color: #065F46;
+    .section-header.collapsed .collapse-icon {
+      transform: rotate(-180deg);
+    }
+
+    .section-content {
+      max-height: 2000px;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .section-content.collapsed {
+      max-height: 0;
+    }
+
+    .section-container {
+      background: var(--card-bg);
+      border-radius: var(--compact-border-radius);
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .section-container:hover {
+      box-shadow: var(--card-shadow);
+    }
+
+    /* Ripple effect */
+    .section-header {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--ripple-color);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -328,9 +1068,15 @@
         <div class="nav-divider"></div>
         <div class="logout-section">
           <div class="user-info">
-            <div class="user-avatar">J</div>
+            <div class="user-avatar">
+              <i class="bi bi-person"></i>
+            </div>
             <div class="user-details">
-              <div class="user-name">Jane Doe</div>
+              <div class="user-role">Administrator</div>
+              <div class="user-status">
+                <span class="status-dot"></span>
+                Online
+              </div>
             </div>
           </div>
           <a class="logout-link" href="#" title="Logout">
@@ -341,299 +1087,221 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <main class="main-content">
       <!-- Header -->
       <header class="header">
-        <div class="d-flex justify-content-between align-items-center w-100">
-          <div class="d-flex align-items-center gap-3">
-            <button class="header-icon d-lg-none">
+        <div class="header-left">
+          <button class="header-icon menu-toggle">
               <i class="bi bi-list"></i>
             </button>
-            <div class="d-flex align-items-center gap-2">
-              <h1 class="h3 mb-0">Invoice Creation</h1>
-              <span class="status-badge draft">
-                <i class="bi bi-circle-fill"></i>
-                Draft
-              </span>
+            <div class="search-wrapper">
+              <i class="bi bi-search"></i>
+              <input type="text" class="search-input" placeholder="Search...">
             </div>
           </div>
 
-          <div class="header-actions">
+        <div class="header-right">
             <div class="action-group">
-              <button class="header-icon" title="Refresh">
-                <i class="bi bi-arrow-repeat"></i>
-              </button>
-              <button class="header-icon" title="Notifications">
+            <button class="header-icon">
                 <i class="bi bi-bell"></i>
                 <span class="badge">3</span>
               </button>
-              <button class="header-icon" title="Messages">
-                <i class="bi bi-chat"></i>
+            <button class="header-icon">
+              <i class="bi bi-envelope"></i>
                 <span class="badge">5</span>
               </button>
             </div>
             <div class="user-profile">
-              <div class="user-avatar">J</div>
+            <div class="user-avatar">
+              <i class="bi bi-person"></i>
+            </div>
               <div class="user-details">
                 <div class="user-name">Jane Doe</div>
-                <div class="user-role">Admin</div>
+              <div class="user-role">Administrator</div>
               </div>
               <i class="bi bi-chevron-down"></i>
-            </div>
           </div>
         </div>
       </header>
 
-      <!-- Content -->
-      <div class="content">
-        <div class="row">
-          <div class="col-lg-6">
-            <!-- Billing Inputs Section -->
-            <div class="invoice-section">
-              <div class="section-header">
-                <i class="bi bi-input-cursor-text"></i>
-                <h2 class="section-title">Billing Inputs</h2>
-              </div>
-              
-              <!-- Contract Summary -->
-              <div class="contract-summary">
-                <div class="contract-summary-item">
-                  <div class="contract-summary-title">
-                    <i class="bi bi-calendar-check"></i>
-                    Term Sheet
-                  </div>
-                  <div class="contract-summary-content">
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Duration</span>
-                      <span class="contract-summary-value">24 months</span>
-                    </div>
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Start Date</span>
-                      <span class="contract-summary-value">01/01/2024</span>
-                    </div>
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">End Date</span>
-                      <span class="contract-summary-value">12/31/2025</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="contract-summary-item">
-                  <div class="contract-summary-title">
-                    <i class="bi bi-currency-dollar"></i>
-                    Pricing
-                  </div>
-                  <div class="contract-summary-content">
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Fixed Price</span>
-                      <span class="contract-summary-value">$135,786</span>
-                    </div>
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Variable Components</span>
-                      <span class="contract-summary-value">Based on usage</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="contract-summary-item">
-                  <div class="contract-summary-title">
-                    <i class="bi bi-tools"></i>
-                    Work Scope
-                  </div>
-                  <div class="contract-summary-content">
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Core Services</span>
-                      <span class="contract-summary-value">Component Repair & Maintenance</span>
-                    </div>
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Additional Services</span>
-                      <span class="contract-summary-value">Testing & Certification</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="contract-summary-item">
-                  <div class="contract-summary-title">
-                    <i class="bi bi-credit-card"></i>
-                    Payment Terms
-                  </div>
-                  <div class="contract-summary-content">
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Payment Terms</span>
-                      <span class="contract-summary-value">Net 30</span>
-                    </div>
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Invoice Frequency</span>
-                      <span class="contract-summary-value">Monthly</span>
-                    </div>
-                    <div class="contract-summary-row">
-                      <span class="contract-summary-label">Late Payment Interest</span>
-                      <span class="contract-summary-value">1.5% per month</span>
-                    </div>
-                  </div>
-                </div>
+      <!-- Process Container -->
+      <div class="process-container">
+        <!-- Process Sidebar -->
+        <div class="process-sidebar">
+          <div class="process-steps">
+            <div class="process-step active" data-step="1">
+              <div class="step-number">1</div>
+              <div class="step-info">
+                <div class="step-title">Billing Inputs</div>
+                <div class="step-description">Contract details and billing receipt</div>
               </div>
             </div>
-
-            <!-- Billing Receipt Section -->
-            <div class="invoice-section">
-              <div class="section-header">
-                <i class="bi bi-receipt"></i>
-                <h2 class="section-title">Billing Receipt</h2>
-              </div>
-              
-              <table class="billing-table">
-                <thead>
-                  <tr>
-                    <th>Bucket</th>
-                    <th># of Items</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>New Material</td>
-                    <td>1,004</td>
-                    <td class="amount-column">$7,033,286</td>
-                  </tr>
-                  <tr>
-                    <td>Used Material</td>
-                    <td>23</td>
-                    <td class="amount-column">$754,384</td>
-                  </tr>
-                  <tr>
-                    <td>ICR</td>
-                    <td>13</td>
-                    <td class="amount-column">$71,164</td>
-                  </tr>
-                  <tr>
-                    <td>ECR</td>
-                    <td>29</td>
-                    <td class="amount-column">$192,469</td>
-                  </tr>
-                  <tr>
-                    <td>Transportation</td>
-                    <td>1</td>
-                    <td class="amount-column">$10,215</td>
-                  </tr>
-                  <tr>
-                    <td>Test Cell</td>
-                    <td>1</td>
-                    <td class="amount-column">$15,597</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div class="d-flex justify-content-end mt-4">
-                <button class="proceed-btn">
-                  Proceed to Invoice
-                  <i class="bi bi-arrow-right-circle"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <!-- Draft Invoice Section -->
-            <div class="invoice-section">
-              <div class="section-header">
-                <i class="bi bi-file-earmark-text"></i>
-                <h2 class="section-title">Draft Invoice</h2>
-              </div>
-
-              <div class="draft-invoice">
-                <table class="cost-element-table">
-                  <thead>
-                    <tr>
-                      <th>Cost Element</th>
-                      <th>Cost (USD)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1. Fixed Price Labour</td>
-                      <td class="cost-usd">$135,786</td>
-                    </tr>
-                    <tr>
-                      <td>2. Over & Above Labour</td>
-                      <td class="cost-usd">$26,902</td>
-                    </tr>
-                    <tr>
-                      <td>3. Component Repair Catalogue</td>
-                      <td class="cost-usd">$264,633</td>
-                    </tr>
-                    <tr>
-                      <td>4. Material</td>
-                      <td class="cost-usd">$7,753,989</td>
-                    </tr>
-                    <tr>
-                      <td>5. Sub-Contract (Vendor) Charge</td>
-                      <td class="cost-usd">$1,302,009</td>
-                    </tr>
-                    <tr>
-                      <td>6. Fuel & Oil</td>
-                      <td class="cost-usd">$10,215</td>
-                    </tr>
-                    <tr>
-                      <td>7. Test Cell Charge</td>
-                      <td class="cost-usd">$15,597</td>
-                    </tr>
-                    <tr class="subtotal-row">
-                      <td>Subtotal</td>
-                      <td class="cost-usd">$9,509,131</td>
-                    </tr>
-                    <tr>
-                      <td>Less Exclusions</td>
-                      <td class="cost-usd">$3,800,194</td>
-                    </tr>
-                    <tr class="text-danger">
-                      <td colspan="2">This Value does exceed the NTE Price of $3,806,452 for the Specified Workscope (Core).</td>
-                    </tr>
-                    <tr>
-                      <td>Therefore Charge NTE Value</td>
-                      <td class="cost-usd">$3,806,452</td>
-                    </tr>
-                    <tr>
-                      <td>Add Back Exclusions</td>
-                      <td class="cost-usd">$3,800,194</td>
-                    </tr>
-                    <tr>
-                      <td>TAT Penalties</td>
-                      <td class="cost-usd text-danger">($67,500)</td>
-                    </tr>
-                    <tr class="subtotal-row">
-                      <td>Total</td>
-                      <td class="cost-usd">$7,704,239</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div class="previous-invoices">
-                  <div class="previous-invoice-item">Less Progress Invoice No. 2600X93Y69 Dated 04/09/23 - $(1,141,936)</div>
-                  <div class="previous-invoice-item">Less Initial Invoice 1 No. 2600X93YX17 Dated 27/10/23 - $(1,522,581)</div>
-                  <div class="previous-invoice-item">Less Initial Invoice 2 No. 260F93GH76 Dated 08/02/24 - $(1,141,936)</div>
-                </div>
-
-                <div class="final-amount">
-                  <h4>Final Amount: $3,897,787</h4>
-                </div>
-
-                <div class="d-flex justify-content-center">
-                  <button class="accept-invoice-btn">
-                    <i class="bi bi-check-circle"></i>
-                    Accept Invoice
-                  </button>
-                </div>
-                
-                <div class="info-text">
-                  By accepting this invoice, you confirm all calculations and deductions are correct.
-                </div>
+            <div class="process-step" data-step="2">
+              <div class="step-number">2</div>
+              <div class="step-info">
+                <div class="step-title">Draft Invoice</div>
+                <div class="step-description">Review and finalize</div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Process Content -->
+        <div class="process-content">
+          <div class="content-header">
+            <h2 class="content-title">
+              <i class="bi bi-file-text"></i>
+              Billing Inputs
+            </h2>
+            <div class="step-indicator">
+              <i class="bi bi-check-circle"></i>
+              Step 1 of 2
+            </div>
+          </div>
+
+          <div class="content-body">
+            <!-- Step content will be dynamically shown/hidden -->
+            <div id="step1" class="step-content active">
+              <div class="section-container">
+                <div class="section-header collapsed" onclick="toggleSection(this)">
+                  <h3 class="section-title">
+                    <i class="fas fa-file-contract"></i>
+                    Contract Details
+                  </h3>
+                  <i class="bi bi-chevron-up collapse-icon"></i>
+                </div>
+                <div class="section-content collapsed">
+                  <div class="contract-grid">
+                    <div class="input-group">
+                      <div class="input-label">Term Sheet</div>
+                      <div class="input-value">
+                        <div>Contract Start: Jan 1, 2024</div>
+                        <div>Contract End: Dec 31, 2024</div>
+                        <div>Contract Type: Fixed Term</div>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <div class="input-label">Pricing</div>
+                      <div class="input-value">
+                        <div>Base Rate: $5,000/month</div>
+                        <div>Additional Services: $100/hour</div>
+                        <div>Early Termination Fee: $10,000</div>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <div class="input-label">Work Scope</div>
+                      <div class="input-value">
+                        <div>Primary Services: Consulting</div>
+                        <div>Deliverables: Monthly Reports</div>
+                        <div>Service Level: Premium</div>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <div class="input-label">Payment Terms</div>
+                      <div class="input-value">
+                        <div>Payment Schedule: Monthly</div>
+                        <div>Payment Method: Wire Transfer</div>
+                        <div>Due Date: Net 30</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-container">
+                <div class="section-header collapsed" onclick="toggleSection(this)">
+                  <h3 class="section-title">
+                    <i class="fas fa-receipt"></i>
+                    Billing Receipt
+                  </h3>
+                  <i class="bi bi-chevron-up collapse-icon"></i>
+                </div>
+                <div class="section-content collapsed">
+                  <div class="summary-grid">
+                    <div class="input-group">
+                      <div class="input-label">Invoice Details</div>
+                      <div class="input-value">
+                        <div>Invoice Number: INV-2024-001</div>
+                        <div>Issue Date: Jan 15, 2024</div>
+                        <div>Due Date: Feb 15, 2024</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-container">
+                    <table class="billing-table">
+                      <thead>
+                        <tr>
+                          <th>Item Description</th>
+                          <th>Quantity</th>
+                          <th>Rate</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Monthly Consulting Services</td>
+                          <td>1</td>
+                          <td>$5,000.00</td>
+                          <td>$5,000.00</td>
+                        </tr>
+                        <tr>
+                          <td>Additional Consulting Hours</td>
+                          <td>10</td>
+                          <td>$100.00</td>
+                          <td>$1,000.00</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="3">Subtotal</td>
+                          <td>$6,000.00</td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">Tax (10%)</td>
+                          <td>$600.00</td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">Total</td>
+                          <td>$6,600.00</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="step2" class="step-content">
+              <div class="section-container">
+                <div class="section-header">
+                  <h3 class="section-title">
+                    <i class="fas fa-file-invoice"></i>
+                    Draft Invoice
+                  </h3>
+                </div>
+                <div class="summary-grid">
+                  <div class="input-group">
+                    <div class="input-label">Invoice Preview</div>
+                    <textarea class="form-control" placeholder="Draft invoice content will appear here..."></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-footer">
+            <button class="step-btn secondary" onclick="prevStep(currentStep - 1)" disabled>
+              <i class="bi bi-arrow-left"></i>
+              Previous
+            </button>
+            <button class="step-btn primary" onclick="nextStep(currentStep + 1)">
+              Next
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
 
   <!-- Bootstrap JS Bundle with Popper -->
@@ -642,15 +1310,192 @@
   <script src="src/js/script.js"></script>
   
   <script>
-    document.querySelector('.proceed-btn').addEventListener('click', function() {
-      // Add animation class to the draft invoice section
-      const draftSection = document.querySelector('.draft-invoice');
-      draftSection.style.opacity = '0';
-      setTimeout(() => {
-        draftSection.style.opacity = '1';
-        draftSection.style.transition = 'opacity 0.5s ease';
-      }, 100);
+    let currentStep = 1;
+    const totalSteps = 2;
+
+    // Add click handlers for process steps
+    document.querySelectorAll('.process-step').forEach(step => {
+      step.addEventListener('click', () => {
+        const stepNumber = parseInt(step.getAttribute('data-step'));
+        if (stepNumber <= currentStep) {
+          goToStep(stepNumber);
+        }
+      });
     });
+
+    function updateProgress() {
+      document.querySelectorAll('.process-step').forEach((step, index) => {
+        const stepNumber = index + 1;
+        step.classList.remove('active', 'completed');
+        if (stepNumber === currentStep) {
+          step.classList.add('active');
+        } else if (stepNumber < currentStep) {
+          step.classList.add('completed');
+        }
+      });
+    }
+
+    function updateStepContent(step) {
+      // Hide all content sections
+      document.querySelectorAll('.step-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      
+      // Show the current step's content
+      const currentContent = document.getElementById(`step${step}`);
+      if (currentContent) {
+        currentContent.classList.add('active');
+      }
+
+      // Update content title and icon
+      const contentTitle = document.querySelector('.content-title');
+      const titles = ['Billing Inputs', 'Draft Invoice'];
+      const icons = ['file-text', 'check-square'];
+      contentTitle.innerHTML = `
+        <i class="bi bi-${icons[step - 1]}"></i>
+        ${titles[step - 1]}
+      `;
+      
+      // Update step indicator
+      const stepIndicator = document.querySelector('.step-indicator');
+      stepIndicator.innerHTML = `
+        <i class="bi bi-${currentStep === totalSteps ? 'check-circle-fill' : 'check-circle'}"></i>
+        Step ${step} of ${totalSteps}
+      `;
+
+      // Update navigation buttons
+      const prevButton = document.querySelector('.step-btn.secondary');
+      const nextButton = document.querySelector('.step-btn.primary');
+      
+      prevButton.disabled = step === 1;
+      if (step === totalSteps) {
+        nextButton.innerHTML = '<i class="bi bi-check-circle"></i> Complete';
+        nextButton.onclick = completeProcess;
+      } else {
+        nextButton.innerHTML = 'Next <i class="bi bi-arrow-right"></i>';
+        nextButton.onclick = () => goToStep(step + 1);
+      }
+    }
+
+    function goToStep(step) {
+      if (step >= 1 && step <= totalSteps) {
+        currentStep = step;
+        updateProgress();
+        updateStepContent(step);
+      }
+    }
+
+    function completeProcess() {
+      // Add completion animation
+      const processContent = document.querySelector('.process-content');
+      processContent.style.position = 'relative';
+      
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position: absolute;
+        inset: 0;
+        background: var(--primary-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: var(--compact-border-radius);
+      `;
+      overlay.innerHTML = `
+        <div style="text-align: center;">
+          <i class="bi bi-check-circle-fill" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+          Invoice Creation Complete!
+        </div>
+      `;
+      
+      processContent.appendChild(overlay);
+      setTimeout(() => {
+        overlay.style.opacity = '1';
+      }, 100);
+
+      setTimeout(() => {
+        alert('Invoice creation process completed!');
+        overlay.remove();
+      }, 2000);
+    }
+
+    // Add CSS for step content transitions
+    const style = document.createElement('style');
+    style.textContent = `
+      .step-content {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .step-content.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize
+    updateProgress();
+    updateStepContent(1);
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+      document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 991.98) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('show')) {
+          sidebar.classList.remove('show');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 991.98) {
+        sidebar.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Add this function after your existing JavaScript
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      header.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
+      
+      // Add ripple effect
+      const ripple = document.createElement('div');
+      ripple.className = 'ripple';
+      header.appendChild(ripple);
+      
+      // Get click coordinates
+      const rect = header.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      
+      // Remove ripple after animation
+      setTimeout(() => ripple.remove(), 1000);
+    }
   </script>
 </body>
 </html>
+
