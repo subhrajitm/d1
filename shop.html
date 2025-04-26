@@ -18,535 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="src/css/main.css">
-  <link rel="stylesheet" href="src/css/invoice.css">
-  <style>
-    /* Update border styles */
-    :root {
-      --border-color: rgba(0, 0, 0, 0.08);
-      --border-radius-sm: 6px;
-      --border-radius-md: 8px;
-      --border-radius-lg: 12px;
-      --border-radius-xl: 16px;
-      --border-width: 1px;
-      --border-width-thick: 2px;
-    }
-
-    /* Table section borders */
-    .table-section {
-      background: var(--card-bg);
-      border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
-      border: var(--border-width) solid var(--border-color);
-      margin-bottom: 1.25rem;
-      overflow-x: auto;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-    }
-
-    /* Card borders */
-    .stat-card,
-    .readiness-card,
-    .invoice-stat-card,
-    .reminder-card {
-      border: var(--border-width) solid var(--border-color);
-      border-radius: var(--border-radius-md);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-    }
-
-    /* Table borders */
-    .table {
-      border-collapse: separate;
-      border-spacing: 0;
-    }
-
-    .table > :not(caption) > * > * {
-      border-bottom: var(--border-width) solid var(--border-color);
-    }
-
-    .table > :not(caption) > *:last-child > * {
-      border-bottom: none;
-    }
-
-    /* Button borders */
-    .btn {
-      border-radius: var(--border-radius-sm);
-      border-width: var(--border-width);
-    }
-
-    .btn-group .btn {
-      border-radius: 0;
-    }
-
-    .btn-group .btn:first-child {
-      border-top-left-radius: var(--border-radius-sm);
-      border-bottom-left-radius: var(--border-radius-sm);
-    }
-
-    .btn-group .btn:last-child {
-      border-top-right-radius: var(--border-radius-sm);
-      border-bottom-right-radius: var(--border-radius-sm);
-    }
-
-    /* Input borders */
-    .form-control,
-    .form-select {
-      border-radius: var(--border-radius-sm);
-      border-width: var(--border-width);
-    }
-
-    .input-group .form-control,
-    .input-group .form-select {
-      border-radius: 0;
-    }
-
-    .input-group .form-control:first-child,
-    .input-group .form-select:first-child {
-      border-top-left-radius: var(--border-radius-sm);
-      border-bottom-left-radius: var(--border-radius-sm);
-    }
-
-    .input-group .form-control:last-child,
-    .input-group .form-select:last-child {
-      border-top-right-radius: var(--border-radius-sm);
-      border-bottom-right-radius: var(--border-radius-sm);
-    }
-
-    /* Badge borders */
-    .badge {
-      border-radius: var(--border-radius-sm);
-      border: var(--border-width) solid transparent;
-    }
-
-    /* Dropdown borders */
-    .dropdown-menu {
-      border-radius: var(--border-radius-md);
-      border: var(--border-width) solid var(--border-color);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    /* Icon borders */
-    .shop-icon,
-    .readiness-icon,
-    .invoice-stat-icon {
-      border-radius: var(--border-radius-sm);
-      border: var(--border-width) solid transparent;
-    }
-
-    /* Section borders */
-    .reminder-header {
-      border-bottom: var(--border-width) solid var(--border-color);
-    }
-
-    /* Hover effects */
-    .table tbody tr:hover {
-      background: var(--background-color);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-
-    .btn:hover {
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-
-    /* Focus states */
-    .form-control:focus,
-    .form-select:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.1);
-    }
-
-    /* Active states */
-    .btn.active {
-      border-color: var(--primary-color);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .table-section {
-        border-radius: var(--border-radius-md);
-        padding: 1rem;
-      }
-
-      .stat-card,
-      .readiness-card,
-      .invoice-stat-card {
-        border-radius: var(--border-radius-sm);
-      }
-    }
-
-    .table-header {
-      margin-bottom: 1rem;
-    }
-
-    .table-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0;
-    }
-
-    .shop-icon {
-      width: 28px;
-      height: 28px;
-      background: var(--primary-light);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary-color);
-      min-width: 28px;
-    }
-
-    .table-filters .btn {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
-      white-space: nowrap;
-    }
-
-    .table-filters .btn.active {
-      background-color: var(--primary-color);
-      color: white;
-      border-color: var(--primary-color);
-    }
-
-    .queue-tabs {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .queue-tab {
-      padding: 0.25rem 0.75rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-      font-size: 0.75rem;
-      transition: all 0.2s ease;
-    }
-
-    .queue-tab.active {
-      background: var(--primary-color);
-      color: white;
-    }
-
-    .queue-tab:not(.active) {
-      background: var(--background-color);
-      color: var(--text-secondary);
-    }
-
-    .queue-tab:hover:not(.active) {
-      background: var(--border-color);
-    }
-
-    .back-button {
-      padding: 0.5rem;
-      border-radius: 6px;
-      background: var(--background-color);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .back-button:hover {
-      background: var(--border-color);
-      color: var(--text-primary);
-    }
-
-    .table-container {
-      min-width: 100%;
-      overflow-x: auto;
-    }
-
-    .table > :not(caption) > * > * {
-      padding: 0.625rem 0.75rem;
-    }
-
-    #shopStatusTable th:nth-child(1) { width: 18%; }
-    #shopStatusTable th:nth-child(2) { width: 12%; }
-    #shopStatusTable th:nth-child(3) { width: 8%; }
-    #shopStatusTable th:nth-child(4) { width: 8%; }
-    #shopStatusTable th:nth-child(5) { width: 8%; }
-    #shopStatusTable th:nth-child(6) { width: 10%; }
-    #shopStatusTable th:nth-child(7) { width: 10%; }
-    #shopStatusTable th:nth-child(8) { width: 10%; }
-    #shopStatusTable th:nth-child(9) { width: 8%; }
-    #shopStatusTable th:nth-child(10) { width: 8%; }
-
-    .table tbody tr {
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .table tbody tr:hover {
-      background: var(--background-color);
-    }
-
-    .badge {
-      font-weight: 500;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
-    }
-
-    .dropdown-item {
-      font-size: 0.75rem;
-      padding: 0.375rem 0.75rem;
-    }
-
-    .dropdown-item i {
-      width: 1rem;
-    }
-
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .rotate-animation {
-      animation: rotate 1s linear;
-    }
-
-    .stat-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 0.875rem;
-    }
-
-    .stat-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-title {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    .stat-trend {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-
-    .stat-trend.positive {
-      color: var(--success-color);
-    }
-
-    .stat-trend.negative {
-      color: var(--danger-color);
-    }
-
-    .stat-value {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-comparison {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
-
-    .comparison-value {
-      font-weight: 500;
-    }
-
-    .readiness-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .readiness-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-    }
-
-    .readiness-icon.yes {
-      background: rgba(16, 185, 129, 0.1);
-      color: #10b981;
-    }
-
-    .readiness-icon.no {
-      background: rgba(239, 68, 68, 0.1);
-      color: #ef4444;
-    }
-
-    .readiness-info {
-      flex: 1;
-    }
-
-    .readiness-label {
-      font-weight: 500;
-      margin-bottom: 0.25rem;
-    }
-
-    .readiness-status {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    .readiness-indicator {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.875rem;
-    }
-
-    .readiness-indicator.yes {
-      background: rgba(16, 185, 129, 0.1);
-      color: #10b981;
-    }
-
-    .readiness-indicator.no {
-      background: rgba(239, 68, 68, 0.1);
-      color: #ef4444;
-    }
-
-    .invoice-stat-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .invoice-stat-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: rgba(79, 70, 229, 0.1);
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-    }
-
-    .invoice-stat-icon.warning {
-      background: rgba(245, 158, 11, 0.1);
-      color: #f59e0b;
-    }
-
-    .invoice-stat-icon.info {
-      background: rgba(59, 130, 246, 0.1);
-      color: #3b82f6;
-    }
-
-    .invoice-stat-icon.success {
-      background: rgba(16, 185, 129, 0.1);
-      color: #10b981;
-    }
-
-    .invoice-stat-info {
-      flex: 1;
-    }
-
-    .invoice-stat-label {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.25rem;
-    }
-
-    .invoice-stat-value {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .reminder-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      height: 100%;
-    }
-
-    .reminder-header {
-      padding: 1rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .reminder-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin: 0;
-      color: var(--text-primary);
-    }
-
-    .reminder-body {
-      padding: 1rem;
-    }
-
-    .form-switch .form-check-input {
-      width: 2.5em;
-    }
-
-    .form-check-input:checked {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-    }
-
-    .table td {
-      white-space: normal;
-      min-width: 80px;
-    }
-
-    .table td > div {
-      max-width: 200px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    @media (max-width: 1200px) {
-      .table-header > div {
-        flex-direction: column;
-        align-items: flex-start !important;
-      }
-
-      .table-filters {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .queue-tabs {
-        margin-top: 0.5rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .table-section {
-        padding: 1rem;
-      }
-
-      .table-filters .btn-group {
-        flex-wrap: wrap;
-      }
-
-      .table td > div {
-        max-width: 150px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="src/css/shop.css">
 </head>
 <body>
   <div class="wrapper">
@@ -667,18 +139,19 @@
               <div class="text-muted small">Manage and monitor shop performance</div>
             </div>
           </div>
-          <div class="d-flex align-items-center gap-3">
+          <div class="page-header-actions">
             <div class="period-select">
               <i class="bi bi-calendar3"></i>
-              <select class="form-select form-select-sm">
+              <select>
                 <option>Last 7 Days</option>
                 <option>Last 30 Days</option>
                 <option>Last 90 Days</option>
                 <option>Custom Range</option>
               </select>
             </div>
-            <button class="btn btn-primary btn-sm">
-              <i class="bi bi-download me-2"></i>Export Report
+            <button class="action-button primary with-text">
+              <i class="bi bi-download"></i>
+              Export Report
             </button>
           </div>
         </div>
@@ -773,18 +246,18 @@
 
         <!-- Shop Status Section -->
         <div id="shopStatusSection" class="table-section">
-          <div class="table-header mb-3">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-              <div class="d-flex align-items-center gap-3">
-                <h2 class="table-title m-0">Shop Details</h2>
-                <div class="badge bg-primary-subtle text-primary">27 Total Records</div>
+          <div class="table-header">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+              <div class="table-title-wrapper">
+                <h2 class="table-title">
+                  Shop Details
+                  <span class="badge bg-primary-subtle text-primary">27 Total Records</span>
+                </h2>
               </div>
-              <div class="d-flex align-items-center gap-3">
-                <div class="input-group input-group-sm" style="width: 200px;">
-                  <span class="input-group-text bg-light border-end-0">
-                    <i class="bi bi-search"></i>
-                  </span>
-                  <input type="text" class="form-control border-start-0" id="shopSearch" placeholder="Search...">
+              <div class="table-actions">
+                <div class="search-wrapper">
+                  <i class="bi bi-search search-icon"></i>
+                  <input type="text" class="form-control" id="shopSearch" placeholder="Search shops, customers, ESN...">
                 </div>
                 <div class="queue-tabs">
                   <div class="queue-tab active" data-queue="my">
@@ -798,23 +271,6 @@
                 </div>
               </div>
             </div>
-            <div class="table-filters mt-2 d-flex gap-2">
-              <div class="btn-group btn-group-sm">
-                <button type="button" class="btn btn-light active" data-filter="all">All</button>
-                <button type="button" class="btn btn-light" data-filter="past-due">Past Due (2)</button>
-                <button type="button" class="btn btn-light" data-filter="upcoming">Upcoming (5)</button>
-                <button type="button" class="btn btn-light" data-filter="no-due">No Due (20)</button>
-              </div>
-              <button class="btn btn-sm btn-light" title="Refresh Data">
-                <i class="bi bi-arrow-clockwise"></i>
-              </button>
-              <button class="btn btn-sm btn-light" title="Download Report">
-                <i class="bi bi-download"></i>
-              </button>
-              <button class="btn btn-sm btn-light" title="Column Settings">
-                <i class="bi bi-gear"></i>
-              </button>
-            </div>
           </div>
           <div class="table-container">
             <table id="shopStatusTable" class="table table-hover">
@@ -825,14 +281,16 @@
                   <th>ESN</th>
                   <th>SV No</th>
                   <th>SV Type</th>
-                  <th>Induction</th>
-                  <th>Shipment</th>
-                  <th>Entitlement</th>
-                  <th>Status</th>
-                  <th>Action</th>
+                  <th>Induction Date</th>
+                  <th>Shipment Date</th>
+                  <th>Entitlement Date</th>
+                  <th>Invoice Type</th>
+                  <th>Invoice Status</th>
+                  <th>Priority</th>
                 </tr>
               </thead>
               <tbody>
+                <!-- Shop1 Data -->
                 <tr>
                   <td>
                     <div class="d-flex align-items-center gap-2">
@@ -851,49 +309,43 @@
                       <div class="small text-muted">CID: C001</div>
                     </div>
                   </td>
-                  <td>
-                    <div class="d-flex align-items-center gap-1">
-                      <span class="fw-medium">SN101</span>
-                      <i class="bi bi-check-circle-fill text-success small"></i>
-                    </div>
-                  </td>
+                  <td>SN101</td>
                   <td>3</td>
+                  <td><span class="badge bg-primary">FULL</span></td>
+                  <td>2024-11-21</td>
+                  <td>2025-03-20</td>
+                  <td>2025-04-10</td>
+                  <td>Final</td>
+                  <td><span class="badge bg-danger">Past Due</span></td>
+                  <td>1</td>
+                </tr>
+                <tr>
                   <td>
-                    <span class="badge bg-primary">FULL</span>
-                  </td>
-                  <td>
-                    <div class="small">2024-11-21</div>
-                    <div class="small text-muted">10:30</div>
-                  </td>
-                  <td>
-                    <div class="small">2025-03-20</div>
-                    <div class="small text-muted">14:15</div>
-                  </td>
-                  <td>
-                    <div class="small">2025-04-10</div>
-                    <div class="small text-muted">09:00</div>
-                  </td>
-                  <td>
-                    <span class="badge bg-danger">Past Due</span>
-                  </td>
-                  <td>
-                    <div class="d-flex gap-1">
-                      <button class="btn btn-sm btn-primary px-2 py-1">
-                        <i class="bi bi-arrow-right"></i>
-                      </button>
-                      <div class="dropdown">
-                        <button class="btn btn-sm btn-light px-2 py-1" data-bs-toggle="dropdown">
-                          <i class="bi bi-three-dots"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
-                          <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i>Alert</a></li>
-                          <li><hr class="dropdown-divider my-1"></li>
-                          <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-exclamation-circle me-2"></i>Issue</a></li>
-                        </ul>
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="shop-icon">
+                        <i class="bi bi-shop"></i>
+                      </div>
+                      <div class="text-truncate">
+                        <div class="fw-medium">Shop1</div>
+                        <div class="small text-muted">ID: SH001</div>
                       </div>
                     </div>
                   </td>
+                  <td>
+                    <div class="text-truncate">
+                      <div class="fw-medium">Customer1</div>
+                      <div class="small text-muted">CID: C001</div>
+                    </div>
+                  </td>
+                  <td>SN103</td>
+                  <td>2</td>
+                  <td><span class="badge bg-primary">FULL</span></td>
+                  <td>2024-11-21</td>
+                  <td>2025-03-20</td>
+                  <td>2025-04-10</td>
+                  <td>Final</td>
+                  <td><span class="badge bg-danger">Past Due</span></td>
+                  <td>2</td>
                 </tr>
               </tbody>
             </table>
@@ -948,59 +400,13 @@
                 </div>
               </div>
               <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-sm btn-light" title="Refresh">
+                <button class="action-button" title="Refresh">
                   <i class="bi bi-arrow-clockwise"></i>
                 </button>
-                <button class="btn btn-sm btn-primary">
-                  <i class="bi bi-check-circle me-2"></i>Mark as Ready
+                <button class="action-button primary with-text view-invoice-details">
+                  <i class="bi bi-check-circle"></i>
+                  Action Recommendation
                 </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-md-3">
-              <div class="readiness-card">
-                <div class="readiness-icon yes">
-                  <i class="bi bi-file-text"></i>
-                </div>
-                <div class="readiness-info">
-                  <div class="readiness-label">Contract Details</div>
-                  <div class="readiness-status">Complete</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="readiness-card">
-                <div class="readiness-icon yes">
-                  <i class="bi bi-shop"></i>
-                </div>
-                <div class="readiness-info">
-                  <div class="readiness-label">SV Details</div>
-                  <div class="readiness-status">Complete</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="readiness-card">
-                <div class="readiness-icon yes">
-                  <i class="bi bi-receipt"></i>
-                </div>
-                <div class="readiness-info">
-                  <div class="readiness-label">Billing Receipt</div>
-                  <div class="readiness-status">Complete</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="readiness-card">
-                <div class="readiness-icon no">
-                  <i class="bi bi-percent"></i>
-                </div>
-                <div class="readiness-info">
-                  <div class="readiness-label">Warranty & Discount</div>
-                  <div class="readiness-status text-danger">Pending</div>
-                </div>
               </div>
             </div>
           </div>
@@ -1009,11 +415,11 @@
             <table id="billingReadinessTable" class="table table-hover">
               <thead>
                 <tr>
-                  <th style="width: 20%">Category</th>
-                  <th style="width: 15%">Status</th>
-                  <th style="width: 35%">Details</th>
-                  <th style="width: 15%">Last Updated</th>
-                  <th style="width: 15%">Action</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Details</th>
+                  <th>Last Updated</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -1038,21 +444,91 @@
                     <div class="small text-muted">10:30 AM</div>
                   </td>
                   <td>
-                    <button class="btn btn-sm btn-light" onclick="showInvoiceDetails()">
+                    <button class="btn btn-sm btn-light view-invoice-details">
                       <i class="bi bi-eye me-1"></i>View
                     </button>
                   </td>
                 </tr>
-                <!-- Add more rows as needed -->
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-shop text-primary"></i>
+                      <span>SV Details</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="readiness-indicator yes">
+                      <i class="bi bi-check"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="small">SV Details verified</div>
+                    <div class="small text-muted">All information complete</div>
+                  </td>
+                  <td>
+                    <div class="small">2024-03-15</div>
+                    <div class="small text-muted">10:35 AM</div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-light view-invoice-details">
+                      <i class="bi bi-eye me-1"></i>View
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-receipt text-primary"></i>
+                      <span>Billing Receipt</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="readiness-indicator yes">
+                      <i class="bi bi-check"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="small">Receipt generated and verified</div>
+                    <div class="small text-muted">All amounts reconciled</div>
+                  </td>
+                  <td>
+                    <div class="small">2024-03-15</div>
+                    <div class="small text-muted">10:40 AM</div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-light view-invoice-details">
+                      <i class="bi bi-eye me-1"></i>View
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-percent text-danger"></i>
+                      <span>Warranty & Discount</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="readiness-indicator no">
+                      <i class="bi bi-x"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="small text-danger">Pending verification</div>
+                    <div class="small text-muted">Warranty details incomplete</div>
+                  </td>
+                  <td>
+                    <div class="small">2024-03-15</div>
+                    <div class="small text-muted">10:45 AM</div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-light view-invoice-details">
+                      <i class="bi bi-eye me-1"></i>View
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
-          </div>
-
-          <div class="table-footer mt-3">
-            <div class="alert alert-warning d-flex align-items-center gap-2 mb-0 py-2">
-              <i class="bi bi-exclamation-triangle"></i>
-              <div class="small">Action Required: Complete Warranty & Discount details to proceed with billing</div>
-            </div>
           </div>
         </div>
 
@@ -1070,160 +546,69 @@
                 </div>
               </div>
               <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-sm btn-light" title="Refresh">
+                <button class="action-button" title="Refresh">
                   <i class="bi bi-arrow-clockwise"></i>
                 </button>
-                <button class="btn btn-sm btn-primary">
-                  <i class="bi bi-plus-lg me-2"></i>Create Invoice
+                <button class="action-button primary with-text">
+                  <i class="bi bi-plus-lg"></i>
+                  Create Invoice
                 </button>
               </div>
             </div>
           </div>
 
-          <div class="row g-3 mb-3">
-            <div class="col-md-6 col-lg-3">
-              <div class="invoice-stat-card">
-                <div class="invoice-stat-icon">
-                  <i class="bi bi-receipt"></i>
-                </div>
-                <div class="invoice-stat-info">
-                  <div class="invoice-stat-label">Invoice Status</div>
-                  <div class="invoice-stat-value text-success">Generated</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <div class="invoice-stat-card">
-                <div class="invoice-stat-icon warning">
-                  <i class="bi bi-bell"></i>
-                </div>
-                <div class="invoice-stat-info">
-                  <div class="invoice-stat-label">Reminder Status</div>
-                  <div class="invoice-stat-value">Not Set</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <div class="invoice-stat-card">
-                <div class="invoice-stat-icon info">
-                  <i class="bi bi-calendar"></i>
-                </div>
-                <div class="invoice-stat-info">
-                  <div class="invoice-stat-label">Next Due Date</div>
-                  <div class="invoice-stat-value">Mar 30, 2024</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <div class="invoice-stat-card">
-                <div class="invoice-stat-icon success">
-                  <i class="bi bi-clock-history"></i>
-                </div>
-                <div class="invoice-stat-info">
-                  <div class="invoice-stat-label">Reminder Frequency</div>
-                  <div class="invoice-stat-value">Weekly</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row g-3">
-            <div class="col-lg-8">
-              <div class="table-container">
-                <table id="invoiceDetailsTable" class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Invoice No</th>
-                      <th>Generated Date</th>
-                      <th>Amount</th>
-                      <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="fw-medium">INV-2024-001</div>
-                        <div class="small text-muted">Ref: REF001</div>
-                      </td>
-                      <td>
-                        <div class="small">2024-03-15</div>
-                        <div class="small text-muted">10:30 AM</div>
-                      </td>
-                      <td>
-                        <div class="fw-medium">$5,245.00</div>
-                        <div class="small text-success">+TAX</div>
-                      </td>
-                      <td>
-                        <span class="badge bg-success">Paid</span>
-                      </td>
-                      <td>
-                        <div class="d-flex gap-2">
-                          <button class="btn btn-sm btn-light" title="Download">
-                            <i class="bi bi-download"></i>
-                          </button>
-                          <button class="btn btn-sm btn-light" title="Print">
-                            <i class="bi bi-printer"></i>
-                          </button>
-                          <div class="dropdown">
-                            <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                              <i class="bi bi-three-dots"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="reminder-card">
-                <div class="reminder-header">
-                  <h3 class="reminder-title">
-                    <i class="bi bi-bell me-2"></i>
-                    Reminder Settings
-                  </h3>
-                </div>
-                <div class="reminder-body">
-                  <form>
-                    <div class="mb-3">
-                      <label class="form-label small">Enable Reminders</label>
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="reminderToggle">
-                        <label class="form-check-label" for="reminderToggle">Send reminders</label>
+          <div class="table-container">
+            <table id="invoiceDetailsTable" class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Invoice No</th>
+                  <th>Generated Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="fw-medium">INV-2024-001</div>
+                    <div class="small text-muted">Ref: REF001</div>
+                  </td>
+                  <td>
+                    <div class="small">2024-03-15</div>
+                    <div class="small text-muted">10:30 AM</div>
+                  </td>
+                  <td>
+                    <div class="fw-medium">$5,245.00</div>
+                    <div class="small text-success">+TAX</div>
+                  </td>
+                  <td>
+                    <span class="badge bg-success">Paid</span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-button" title="Download">
+                        <i class="bi bi-download"></i>
+                      </button>
+                      <button class="action-button" title="Print">
+                        <i class="bi bi-printer"></i>
+                      </button>
+                      <div class="dropdown">
+                        <button class="action-button" data-bs-toggle="dropdown">
+                          <i class="bi bi-three-dots"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                        </ul>
                       </div>
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label small">Frequency</label>
-                      <select class="form-select form-select-sm">
-                        <option>Daily</option>
-                        <option selected>Weekly</option>
-                        <option>Monthly</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label small">Notification Method</label>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="emailNotif" checked>
-                        <label class="form-check-label" for="emailNotif">Email</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="smsNotif">
-                        <label class="form-check-label" for="smsNotif">SMS</label>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-sm w-100">Save Settings</button>
-                  </form>
-                </div>
-              </div>
-            </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -1238,26 +623,83 @@
   <script>
     // DOM Ready
     $(document).ready(function() {
-      // Sidebar Toggle
-      $('.menu-toggle').on('click', function() {
-        $('.sidebar').toggleClass('show');
-      });
-
-      // Close sidebar when clicking outside on mobile
-      $(document).on('click', function(event) {
-        const sidebar = $('.sidebar');
-        const menuToggle = $('.menu-toggle');
-        
-        if (!sidebar.is(event.target) && sidebar.has(event.target).length === 0 &&
-            !menuToggle.is(event.target) && menuToggle.has(event.target).length === 0) {
-          sidebar.removeClass('show');
+      // Initialize DataTable
+      const shopStatusTable = $('#shopStatusTable').DataTable({
+        pageLength: 10,
+        searching: true,
+        ordering: true,
+        info: true,
+        responsive: true,
+        dom: '<"table-wrapper"t>p',
+        language: {
+          search: "",
+          searchPlaceholder: "Search..."
         }
       });
 
-      // Initialize tooltips
-      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+      // Queue Tab Handling
+      $('.queue-tab').on('click', function() {
+        $('.queue-tab').removeClass('active');
+        $(this).addClass('active');
+        
+        const queueType = $(this).data('queue');
+        if (queueType === 'my') {
+          // Show only Shop1 data for My Queue
+          shopStatusTable.search('Shop1').draw();
+        } else {
+          // Show all shops data for Overall Queue
+          shopStatusTable.search('').draw();
+        }
+      });
+
+      // Handle row click to show details
+      $('#shopStatusTable tbody').on('click', 'tr', function() {
+        const data = shopStatusTable.row(this).data();
+        showBillingReadiness(data);
+      });
+
+      // Handle action recommendation click
+      $('.view-invoice-details').on('click', function() {
+        showInvoiceDetails();
+      });
     });
+
+    function showBillingReadiness(data) {
+      $('#shopStatusSection').hide();
+      $('#billingReadinessSection').show();
+      $('#invoiceDetailsSection').hide();
+    }
+
+    function showInvoiceDetails() {
+      $('#shopStatusSection').hide();
+      $('#billingReadinessSection').hide();
+      $('#invoiceDetailsSection').show();
+    }
+
+    function showSection(sectionId) {
+      $('#shopStatusSection, #billingReadinessSection, #invoiceDetailsSection').hide();
+      $(`#${sectionId}`).show();
+    }
+
+    // Sidebar Toggle
+    $('.menu-toggle').on('click', function() {
+      $('.sidebar').toggleClass('show');
+    });
+
+    // Close sidebar when clicking outside on mobile
+    $(document).on('click', function(event) {
+      const sidebar = $('.sidebar');
+      const menuToggle = $('.menu-toggle');
+      
+      if (!sidebar.is(event.target) && sidebar.has(event.target).length === 0 &&
+          !menuToggle.is(event.target) && menuToggle.has(event.target).length === 0) {
+        sidebar.removeClass('show');
+      }
+    });
+
+    // Initialize tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
   </script>
 </body>
 </html>
