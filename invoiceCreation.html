@@ -8,1029 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/css/styles.css">
-  <style>
-    :root {
-      --primary-color: #4f46e5;
-      --primary-light: #6366f1;
-      --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
-      --success-color: #10b981;
-      --background-color: #f8fafc;
-      --card-bg: #ffffff;
-      --text-primary: #1e293b;
-      --text-secondary: #64748b;
-      --border-color: #e2e8f0;
-      --hover-bg: #f1f5f9;
-      --card-shadow: 0 2px 4px rgba(148, 163, 184, 0.05);
-      --card-shadow-hover: 0 8px 16px rgba(148, 163, 184, 0.1);
-      --hover-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --card-hover-transform: translateY(-4px);
-      --hover-shadow: 0 12px 24px rgba(148, 163, 184, 0.15);
-      --active-scale: scale(0.97);
-      --ripple-color: rgba(99, 102, 241, 0.1);
-      --compact-padding: 1rem;
-      --compact-gap: 0.75rem;
-      --compact-border-radius: 8px;
-      --compact-card-padding: 1.25rem;
-      --primary: #4F46E5;
-      --primary-dark: #3730A3;
-      --gray-50: #F8FAFC;
-      --gray-100: #F1F5F9;
-      --gray-200: #E2E8F0;
-      --gray-300: #CBD5E1;
-      --gray-400: #94A3B8;
-      --gray-500: #64748B;
-      --gray-600: #475569;
-      --gray-700: #334155;
-      --gray-800: #1E293B;
-      --gray-900: #0F172A;
-      --primary-hover: #3311DD;
-      --sidebar-width: 250px;
-      --header-height: 70px;
-      --border-radius: 20px;
-      --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--background-color);
-      color: var(--text-primary);
-      font-size: 0.875rem;
-      min-height: 100vh;
-    }
-
-    .wrapper {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes slideIn {
-      from { transform: translateX(-10px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    /* Sidebar Styles */
-    .sidebar {
-      width: 250px;
-      background: linear-gradient(180deg, var(--card-bg) 0%, rgba(255, 255, 255, 0.98) 100%);
-      border-right: 1px solid var(--border-color);
-      height: 100vh;
-      position: fixed;
-      padding: 1rem 0 0 0;
-      box-shadow: var(--card-shadow);
-      z-index: 1000;
-      overflow-y: auto;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .logo {
-      padding: 0.5rem 1.25rem;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .logo-text {
-      font-weight: 700;
-      font-size: 1.25rem;
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 0.5px;
-    }
-
-    .nav-section {
-      margin-bottom: 1.5rem;
-      padding: 0 0.75rem;
-    }
-
-    .nav-section.mt-auto {
-      margin-top: auto;
-      margin-bottom: 0;
-      padding: 0 0.75rem;
-      position: sticky;
-      bottom: 0;
-      background: var(--card-bg);
-    }
-
-    .nav-header {
-      padding: 0 0.5rem;
-      font-size: 0.6875rem;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-      opacity: 0.8;
-    }
-
-    .nav-link {
-      padding: 0.5rem 0.75rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-weight: 500;
-      font-size: 0.8125rem;
-      transition: var(--hover-transition);
-      border-radius: 6px;
-      position: relative;
-      margin-bottom: 0.125rem;
-      overflow: hidden;
-      text-decoration: none;
-    }
-
-    .nav-link::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 0;
-      background: var(--primary-gradient);
-      opacity: 0.1;
-      transition: var(--hover-transition);
-    }
-
-    .nav-link:hover::before {
-      width: 100%;
-    }
-
-    .nav-link:active {
-      transform: var(--active-scale);
-    }
-
-    .nav-link i {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      transition: var(--hover-transition);
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav-link:hover i {
-      transform: translateX(4px);
-    }
-
-    .nav-link.active {
-      color: var(--primary-color);
-      background: var(--ripple-color);
-      font-weight: 600;
-    }
-
-    .nav-link.active i {
-      color: var(--primary-color);
-    }
-
-    .nav-divider {
-      height: 1px;
-      background: var(--border-color);
-      margin: 0;
-      opacity: 0.5;
-    }
-
-    .logout-section {
-      background: var(--hover-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--compact-border-radius);
-      padding: var(--compact-padding);
-      margin: 0.75rem;
-      transition: var(--hover-transition);
-    }
-
-    .logout-section:hover {
-      background: var(--card-bg);
-      border-color: var(--primary-light);
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .user-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--primary-gradient);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-    }
-
-    .user-avatar i {
-      opacity: 0.9;
-    }
-
-    .user-details {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .user-name {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .user-role {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
-
-    .user-status {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-    }
-
-    .logout-link {
-      color: var(--text-secondary);
-      font-size: 1.125rem;
-      transition: var(--hover-transition);
-      padding: 0.25rem;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logout-link:hover {
-      color: var(--primary-color);
-      background: var(--ripple-color);
-    }
-
-    .logout-link i {
-      transition: var(--hover-transition);
-    }
-
-    .logout-link:hover i {
-      transform: translateX(2px);
-    }
-
-    .user-avatar-small {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-    }
-
-    /* Header Styles */
-    .header {
-      height: var(--header-height);
-      background: white;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .menu-toggle {
-      display: none;
-    }
-
-    .header-icon {
-      width: 40px;
-      height: 40px;
-      border: none;
-      background: transparent;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      color: #2B3674;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .header-icon:hover {
-      background: var(--background-color);
-    }
-
-    .search-wrapper {
-      position: relative;
-      margin-left: 1rem;
-    }
-
-    .search-wrapper i {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #A3AED0;
-      font-size: 1rem;
-    }
-
-    .search-input {
-      padding: 0.75rem 1rem 0.75rem 2.5rem;
-      border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      width: 280px;
-      font-size: 0.875rem;
-      color: #2B3674;
-      transition: all 0.3s ease;
-      background: var(--background-color);
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.1);
-    }
-
-    .search-input::placeholder {
-      color: #A3AED0;
-    }
-
-    .badge {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background: #FF0000;
-      color: white;
-      font-size: 0.625rem;
-      width: 18px;
-      height: 18px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translate(25%, -25%);
-      border: 2px solid white;
-    }
-
-    .user-profile {
-      padding: 0.5rem 0.75rem;
-      border-radius: var(--compact-border-radius);
-      background: var(--hover-bg);
-      border: 1px solid var(--border-color);
-      transition: var(--hover-transition);
-      cursor: pointer;
-    }
-
-    .user-profile:hover {
-      background: var(--card-bg);
-      border-color: var(--primary-light);
-      transform: translateY(-1px);
-    }
-
-    .user-profile .user-details {
-      margin: 0 0.75rem;
-    }
-
-    .user-profile i.bi-chevron-down {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      transition: var(--hover-transition);
-    }
-
-    .user-profile:hover i.bi-chevron-down {
-      transform: translateY(2px);
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--success-color);
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 4px;
-    }
-
-    @media (max-width: 991.98px) {
-      .menu-toggle {
-        display: flex;
-      }
-
-      .sidebar {
-        transform: translateX(-100%);
-      }
-
-      .sidebar.show {
-        transform: translateX(0);
-      }
-
-      .main-content {
-        margin-left: 0;
-      }
-
-      .search-input {
-        width: 200px;
-      }
-    }
-
-    @media (max-width: 767.98px) {
-      .header {
-        padding: 0 1rem;
-      }
-
-      .search-wrapper {
-        display: none;
-      }
-
-      .user-profile .user-details {
-        display: none;
-      }
-
-      .user-profile i {
-        display: none;
-      }
-    }
-
-    /* Process Steps Styles */
-    .process-container {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: var(--compact-gap);
-      height: calc(100vh - var(--header-height) - 2rem);
-      padding: 1rem;
-    }
-
-    .process-sidebar {
-      background: var(--card-bg);
-      border-radius: var(--compact-border-radius);
-      border: 1px solid var(--border-color);
-      height: 100%;
-      overflow-y: auto;
-    }
-
-    .process-steps {
-      padding: var(--compact-padding);
-    }
-
-    .process-step {
-      position: relative;
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
-      border-radius: var(--compact-border-radius);
-      background: var(--background-color);
-      cursor: pointer;
-      transition: var(--hover-transition);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      border: 1px solid transparent;
-    }
-
-    .process-step::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 3px;
-      background: var(--primary-gradient);
-      border-radius: 4px;
-      opacity: 0;
-      transition: var(--hover-transition);
-    }
-
-    .process-step:hover {
-      background: var(--card-bg);
-      border-color: var(--border-color);
-      transform: translateX(4px);
-    }
-
-    .process-step.active {
-      background: var(--card-bg);
-      border-color: var(--primary-light);
-      box-shadow: var(--card-shadow);
-    }
-
-    .process-step.active::before {
-      opacity: 1;
-    }
-
-    .process-step.completed {
-      background: var(--hover-bg);
-    }
-
-    .process-step.completed .step-number {
-      background: var(--success-color);
-      color: white;
-    }
-
-    .step-number {
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      background: var(--primary-gradient);
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: var(--hover-transition);
-    }
-
-    .step-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .step-title {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .step-description {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .process-content {
-      background: var(--card-bg);
-      border-radius: var(--compact-border-radius);
-      border: 1px solid var(--border-color);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .content-header {
-      padding: var(--compact-padding);
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--card-bg);
-      border-radius: var(--compact-border-radius) var(--compact-border-radius) 0 0;
-    }
-
-    .content-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .content-title i {
-      font-size: 1.125rem;
-      color: var(--primary-color);
-    }
-
-    .step-indicator {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.375rem 0.75rem;
-      background: var(--hover-bg);
-      border-radius: 20px;
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .step-indicator i {
-      font-size: 0.875rem;
-      color: var(--primary-color);
-    }
-
-    .content-body {
-      padding: var(--compact-padding);
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .content-footer {
-      padding: var(--compact-padding);
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--hover-bg);
-      border-radius: 0 0 var(--compact-border-radius) var(--compact-border-radius);
-    }
-
-    .step-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: var(--compact-border-radius);
-      font-weight: 500;
-      font-size: 0.875rem;
-      transition: var(--hover-transition);
-      border: 1px solid transparent;
-      cursor: pointer;
-    }
-
-    .step-btn.primary {
-      background: var(--primary-gradient);
-      color: white;
-    }
-
-    .step-btn.primary:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--card-shadow-hover);
-    }
-
-    .step-btn.secondary {
-      background: var(--card-bg);
-      color: var(--text-secondary);
-      border-color: var(--border-color);
-    }
-
-    .step-btn.secondary:hover {
-      background: var(--hover-bg);
-      border-color: var(--primary-light);
-      color: var(--primary-color);
-    }
-
-    .step-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-
-    @media (max-width: 991.98px) {
-      .process-container {
-        grid-template-columns: 1fr;
-        height: auto;
-      }
-
-      .process-sidebar {
-        height: auto;
-        max-height: 300px;
-      }
-    }
-
-    @media (max-width: 767.98px) {
-      .process-container {
-        padding: 0.75rem;
-      }
-
-      .content-header,
-      .content-body,
-      .content-footer {
-        padding: 0.75rem;
-      }
-
-      .step-btn {
-        padding: 0.5rem 0.75rem;
-      }
-    }
-
-    .contract-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-    }
-
-    .table-container {
-      overflow-x: auto;
-      background: var(--gray-50);
-      border-radius: 12px;
-      border: 1px solid var(--gray-200);
-    }
-
-    .billing-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      margin: 1.5rem 0;
-      background: var(--surface-card);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .billing-table th,
-    .billing-table td {
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .billing-table th {
-      background: linear-gradient(to right, var(--primary-color-light), var(--surface-card));
-      color: var(--text-color);
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.875rem;
-      letter-spacing: 0.5px;
-    }
-
-    .billing-table tbody tr:hover {
-      background: var(--surface-hover);
-    }
-
-    .billing-table tfoot tr {
-      background: var(--surface-section);
-    }
-
-    .billing-table tfoot td {
-      font-weight: 600;
-    }
-
-    .amount-column {
-      font-family: monospace;
-      text-align: right;
-    }
-
-    .draft-invoice {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      background: var(--surface-card);
-      color: var(--text-color);
-      font-family: inherit;
-      font-size: 0.9375rem;
-      transition: all 0.2s ease;
-    }
-
-    .form-control:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px var(--primary-color-light);
-      outline: none;
-    }
-
-    .form-control::placeholder {
-      color: var(--text-color-secondary);
-      opacity: 0.7;
-    }
-
-    textarea.form-control {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .table-container {
-      margin: 1rem 0;
-      border-radius: 8px;
-      overflow: auto;
-    }
-
-    @media (max-width: 768px) {
-      .billing-table th,
-      .billing-table td {
-        padding: 0.75rem;
-        font-size: 0.875rem;
-      }
-      
-      .form-control {
-        padding: 0.625rem;
-      }
-    }
-
-    /* Add these new styles after the existing styles */
-    .section-container {
-      background: var(--card-bg);
-      border-radius: var(--compact-border-radius);
-      border: 1px solid var(--border-color);
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-    }
-
-    .section-header {
-      padding: 1rem;
-      background: var(--hover-bg);
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .section-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .section-title i {
-      color: var(--primary-color);
-      font-size: 1.125rem;
-    }
-
-    .contract-grid {
-      padding: 1.5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .summary-grid {
-      padding: 1.5rem;
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    .table-container {
-      margin: 0 1.5rem 1.5rem;
-    }
-
-    .input-group {
-      background: var(--hover-bg);
-      padding: 1.25rem;
-      border-radius: var(--compact-border-radius);
-      border: 1px solid var(--border-color);
-      transition: var(--hover-transition);
-    }
-
-    .input-group:hover {
-      border-color: var(--primary-light);
-      transform: translateY(-2px);
-      box-shadow: var(--card-shadow);
-    }
-
-    .input-label {
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.75rem;
-      font-size: 0.875rem;
-    }
-
-    .input-value {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-    }
-
-    .input-value div {
-      margin-bottom: 0.375rem;
-    }
-
-    .input-value div:last-child {
-      margin-bottom: 0;
-    }
-
-    .form-control {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--compact-border-radius);
-      padding: 0.75rem;
-      width: 100%;
-      min-height: 120px;
-      resize: vertical;
-      font-size: 0.875rem;
-      transition: var(--hover-transition);
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px var(--ripple-color);
-    }
-
-    @media (max-width: 767.98px) {
-      .contract-grid {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-      }
-
-      .summary-grid {
-        padding: 1rem;
-      }
-
-      .table-container {
-        margin: 0 1rem 1rem;
-      }
-
-      .section-header {
-        padding: 0.75rem;
-      }
-    }
-
-    /* Collapsible panel styles */
-    .section-header {
-      cursor: pointer;
-      user-select: none;
-      display: flex;
-      align-items: center;
-      padding: 1rem;
-      background: var(--hover-bg);
-      border-bottom: 1px solid var(--border-color);
-      transition: background-color 0.3s ease;
-    }
-
-    .section-header:hover {
-      background: var(--background-color);
-    }
-
-    .section-header .collapse-icon {
-      margin-left: auto;
-      transition: transform 0.3s ease;
-      color: var(--text-secondary);
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: var(--card-bg);
-    }
-
-    .section-header.collapsed .collapse-icon {
-      transform: rotate(-180deg);
-    }
-
-    .section-content {
-      max-height: 2000px;
-      overflow: hidden;
-      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .section-content.collapsed {
-      max-height: 0;
-    }
-
-    .section-container {
-      background: var(--card-bg);
-      border-radius: var(--compact-border-radius);
-      border: 1px solid var(--border-color);
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-      transition: box-shadow 0.3s ease;
-    }
-
-    .section-container:hover {
-      box-shadow: var(--card-shadow);
-    }
-
-    /* Ripple effect */
-    .section-header {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: var(--ripple-color);
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="src/css/invoice.css">
 </head>
 <body>
   <div class="wrapper">
@@ -1044,7 +22,7 @@
         <div class="nav-header">Menu</div>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link active" href="index.html">
               <i class="bi bi-grid"></i>
               Overview
             </a>
@@ -1055,12 +33,6 @@
               Shop Status
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="invoiceCreation.html">
-              <i class="bi bi-receipt"></i>
-              Invoice Creation
-            </a>
-          </li>
         </ul>
       </div>
 
@@ -1068,15 +40,9 @@
         <div class="nav-divider"></div>
         <div class="logout-section">
           <div class="user-info">
-            <div class="user-avatar">
-              <i class="bi bi-person"></i>
-            </div>
+            <div class="user-avatar">J</div>
             <div class="user-details">
-              <div class="user-role">Administrator</div>
-              <div class="user-status">
-                <span class="status-dot"></span>
-                Online
-              </div>
+              <div class="user-name">Jane Doe</div>
             </div>
           </div>
           <a class="logout-link" href="#" title="Logout">
@@ -1090,8 +56,9 @@
     <main class="main-content">
       <!-- Header -->
       <header class="header">
-        <div class="header-left">
-          <button class="header-icon menu-toggle">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <div class="d-flex align-items-center gap-3">
+            <button class="header-icon d-lg-none">
               <i class="bi bi-list"></i>
             </button>
             <div class="search-wrapper">
@@ -1100,26 +67,28 @@
             </div>
           </div>
 
-        <div class="header-right">
+          <div class="header-actions">
             <div class="action-group">
-            <button class="header-icon">
+              <button class="header-icon" title="Refresh">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+              <button class="header-icon" title="Notifications">
                 <i class="bi bi-bell"></i>
                 <span class="badge">3</span>
               </button>
-            <button class="header-icon">
-              <i class="bi bi-envelope"></i>
+              <button class="header-icon" title="Messages">
+                <i class="bi bi-chat"></i>
                 <span class="badge">5</span>
               </button>
             </div>
             <div class="user-profile">
-            <div class="user-avatar">
-              <i class="bi bi-person"></i>
-            </div>
+              <div class="user-avatar">J</div>
               <div class="user-details">
                 <div class="user-name">Jane Doe</div>
-              <div class="user-role">Administrator</div>
+                <div class="user-role">Admin</div>
               </div>
               <i class="bi bi-chevron-down"></i>
+            </div>
           </div>
         </div>
       </header>
@@ -1133,11 +102,32 @@
               <div class="step-number">1</div>
               <div class="step-info">
                 <div class="step-title">Billing Inputs</div>
-                <div class="step-description">Contract details and billing receipt</div>
+                <div class="step-description">Enter billing details</div>
               </div>
             </div>
             <div class="process-step" data-step="2">
               <div class="step-number">2</div>
+              <div class="step-info">
+                <div class="step-title">Contract Summary</div>
+                <div class="step-description">Review contract details</div>
+              </div>
+            </div>
+            <div class="process-step" data-step="3">
+              <div class="step-number">3</div>
+              <div class="step-info">
+                <div class="step-title">SV Summary</div>
+                <div class="step-description">Service summary details</div>
+              </div>
+            </div>
+            <div class="process-step" data-step="4">
+              <div class="step-number">4</div>
+              <div class="step-info">
+                <div class="step-title">Billing Receipt</div>
+                <div class="step-description">Review billing details</div>
+              </div>
+            </div>
+            <div class="process-step" data-step="5">
+              <div class="step-number">5</div>
               <div class="step-info">
                 <div class="step-title">Draft Invoice</div>
                 <div class="step-description">Review and finalize</div>
@@ -1160,109 +150,140 @@
           </div>
 
           <div class="content-body">
-            <!-- Step content will be dynamically shown/hidden -->
             <div id="step1" class="step-content active">
               <div class="section-container">
                 <div class="section-header collapsed" onclick="toggleSection(this)">
                   <h3 class="section-title">
-                    <i class="fas fa-file-contract"></i>
-                    Contract Details
+                    <i class="bi bi-file-text"></i>
+                    Billing Inputs
+                  </h3>
+                  <i class="bi bi-chevron-up collapse-icon"></i>
+                </div>
+                <div class="section-content collapsed">
+                  <div class="input-group">
+                    <div class="input-label">Invoice Details</div>
+                    <div class="input-value">
+                      <div>Invoice Number: INV-2024-001</div>
+                      <div>Issue Date: Jan 15, 2024</div>
+                      <div>Due Date: Feb 15, 2024</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="step2" class="step-content">
+              <div class="section-container">
+                <div class="section-header collapsed" onclick="toggleSection(this)">
+                  <h3 class="section-title">
+                    <i class="bi bi-file-earmark-text"></i>
+                    Contract Summary
                   </h3>
                   <i class="bi bi-chevron-up collapse-icon"></i>
                 </div>
                 <div class="section-content collapsed">
                   <div class="contract-grid">
                     <div class="input-group">
-                      <div class="input-label">Term Sheet</div>
-                      <div class="input-value">
-                        <div>Contract Start: Jan 1, 2024</div>
-                        <div>Contract End: Dec 31, 2024</div>
-                        <div>Contract Type: Fixed Term</div>
-                      </div>
+                      <div class="input-label">Fixed Price Labour</div>
+                      <div class="input-value">$135,756</div>
                     </div>
                     <div class="input-group">
-                      <div class="input-label">Pricing</div>
-                      <div class="input-value">
-                        <div>Base Rate: $5,000/month</div>
-                        <div>Additional Services: $100/hour</div>
-                        <div>Early Termination Fee: $10,000</div>
-                      </div>
+                      <div class="input-label">Over & Above Labour</div>
+                      <div class="input-value">$26,902</div>
                     </div>
                     <div class="input-group">
-                      <div class="input-label">Work Scope</div>
-                      <div class="input-value">
-                        <div>Primary Services: Consulting</div>
-                        <div>Deliverables: Monthly Reports</div>
-                        <div>Service Level: Premium</div>
-                      </div>
+                      <div class="input-label">Component Repair Catalogue</div>
+                      <div class="input-value">$264,633</div>
                     </div>
                     <div class="input-group">
-                      <div class="input-label">Payment Terms</div>
-                      <div class="input-value">
-                        <div>Payment Schedule: Monthly</div>
-                        <div>Payment Method: Wire Transfer</div>
-                        <div>Due Date: Net 30</div>
-                      </div>
+                      <div class="input-label">Material</div>
+                      <div class="input-value">$7,753,989</div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
+            <div id="step3" class="step-content">
               <div class="section-container">
                 <div class="section-header collapsed" onclick="toggleSection(this)">
                   <h3 class="section-title">
-                    <i class="fas fa-receipt"></i>
-                    Billing Receipt
+                    <i class="bi bi-list-check"></i>
+                    SV Summary
                   </h3>
                   <i class="bi bi-chevron-up collapse-icon"></i>
                 </div>
                 <div class="section-content collapsed">
                   <div class="summary-grid">
                     <div class="input-group">
-                      <div class="input-label">Invoice Details</div>
+                      <div class="input-label">Service Details</div>
                       <div class="input-value">
-                        <div>Invoice Number: INV-2024-001</div>
-                        <div>Issue Date: Jan 15, 2024</div>
-                        <div>Due Date: Feb 15, 2024</div>
+                        <div>Sub-Contract (Vendor) Charge: $1,302,009</div>
+                        <div>Fuel & Oil: $10,215</div>
+                        <div>Test Cell Charge: $15,597</div>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="step4" class="step-content">
+              <div class="section-container">
+                <div class="section-header collapsed" onclick="toggleSection(this)">
+                  <h3 class="section-title">
+                    <i class="bi bi-receipt"></i>
+                    Billing Receipt
+                  </h3>
+                  <i class="bi bi-chevron-up collapse-icon"></i>
+                </div>
+                <div class="section-content collapsed">
                   <div class="table-container">
                     <table class="billing-table">
                       <thead>
                         <tr>
-                          <th>Item Description</th>
-                          <th>Quantity</th>
-                          <th>Rate</th>
-                          <th>Amount</th>
+                          <th>Cost Element</th>
+                          <th>Cost(USD)</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>Monthly Consulting Services</td>
-                          <td>1</td>
-                          <td>$5,000.00</td>
-                          <td>$5,000.00</td>
+                          <td>1. Fixed Price Labour</td>
+                          <td class="amount-column">$135,756</td>
                         </tr>
                         <tr>
-                          <td>Additional Consulting Hours</td>
-                          <td>10</td>
-                          <td>$100.00</td>
-                          <td>$1,000.00</td>
+                          <td>2. Over & Above Labour</td>
+                          <td class="amount-column">$26,902</td>
+                        </tr>
+                        <tr>
+                          <td>3. Component Repair Catalogue</td>
+                          <td class="amount-column">$264,633</td>
+                        </tr>
+                        <tr>
+                          <td>4. Material</td>
+                          <td class="amount-column">$7,753,989</td>
+                        </tr>
+                        <tr>
+                          <td>5. Sub-Contract (Vendor) Charge</td>
+                          <td class="amount-column">$1,302,009</td>
+                        </tr>
+                        <tr>
+                          <td>6. Fuel & Oil</td>
+                          <td class="amount-column">$10,215</td>
+                        </tr>
+                        <tr>
+                          <td>7. Test Cell Charge</td>
+                          <td class="amount-column">$15,597</td>
                         </tr>
                       </tbody>
                       <tfoot>
                         <tr>
-                          <td colspan="3">Subtotal</td>
-                          <td>$6,000.00</td>
+                          <td>Subtotal</td>
+                          <td class="amount-column">$9,509,131</td>
                         </tr>
                         <tr>
-                          <td colspan="3">Tax (10%)</td>
-                          <td>$600.00</td>
-                        </tr>
-                        <tr>
-                          <td colspan="3">Total</td>
-                          <td>$6,600.00</td>
+                          <td>Less Exclusions</td>
+                          <td class="amount-column">$3,800,194</td>
                         </tr>
                       </tfoot>
                     </table>
@@ -1271,18 +292,65 @@
               </div>
             </div>
 
-            <div id="step2" class="step-content">
+            <div id="step5" class="step-content">
               <div class="section-container">
-                <div class="section-header">
+                <div class="section-header" onclick="toggleSection(this)">
                   <h3 class="section-title">
-                    <i class="fas fa-file-invoice"></i>
+                    <i class="bi bi-file-earmark-text"></i>
                     Draft Invoice
                   </h3>
+                  <i class="bi bi-chevron-up collapse-icon"></i>
                 </div>
-                <div class="summary-grid">
-                  <div class="input-group">
-                    <div class="input-label">Invoice Preview</div>
-                    <textarea class="form-control" placeholder="Draft invoice content will appear here..."></textarea>
+                <div class="section-content">
+                  <div class="table-container">
+                    <table class="billing-table">
+                      <tbody>
+                        <tr>
+                          <td>This Value does exceed the NTE Price of $3,806,452 for the Specified Workscope (Core).</td>
+                          <td class="amount-column"></td>
+                        </tr>
+                        <tr>
+                          <td>Therefore Charge NTE Value</td>
+                          <td class="amount-column">$3,806,452</td>
+                        </tr>
+                        <tr>
+                          <td>Add Back Exclusions</td>
+                          <td class="amount-column">$165,094</td>
+                        </tr>
+                        <tr>
+                          <td>TAT Penalties</td>
+                          <td class="amount-column">$3,800,194</td>
+                        </tr>
+                        <tr>
+                          <td>$(67,500)</td>
+                          <td class="amount-column">$7,704,239</td>
+                        </tr>
+                        <tr>
+                          <td>Less Progress Invoice No. 2600X093Y09 Dated 04/09/23</td>
+                          <td class="amount-column">$(1,141,936)</td>
+                        </tr>
+                        <tr>
+                          <td>Less Initial Invoice 1 No. 2600X093YX17 Dated 27/10/23</td>
+                          <td class="amount-column">$(1,522,581)</td>
+                        </tr>
+                        <tr>
+                          <td>Less Initial Invoice 2 No. 2600F93GH76 Dated 08/02/24</td>
+                          <td class="amount-column">$(1,141,936)</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td>Terms Payment</td>
+                          <td class="amount-column">$3,897,787</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                  <div class="d-flex justify-content-center mt-4">
+                    <button class="step-btn primary">
+                      Accept Invoice
+                      <i class="bi bi-check-circle"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1306,196 +374,7 @@
 
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Custom JS -->
-  <script src="src/js/script.js"></script>
-  
-  <script>
-    let currentStep = 1;
-    const totalSteps = 2;
-
-    // Add click handlers for process steps
-    document.querySelectorAll('.process-step').forEach(step => {
-      step.addEventListener('click', () => {
-        const stepNumber = parseInt(step.getAttribute('data-step'));
-        if (stepNumber <= currentStep) {
-          goToStep(stepNumber);
-        }
-      });
-    });
-
-    function updateProgress() {
-      document.querySelectorAll('.process-step').forEach((step, index) => {
-        const stepNumber = index + 1;
-        step.classList.remove('active', 'completed');
-        if (stepNumber === currentStep) {
-          step.classList.add('active');
-        } else if (stepNumber < currentStep) {
-          step.classList.add('completed');
-        }
-      });
-    }
-
-    function updateStepContent(step) {
-      // Hide all content sections
-      document.querySelectorAll('.step-content').forEach(content => {
-        content.classList.remove('active');
-      });
-      
-      // Show the current step's content
-      const currentContent = document.getElementById(`step${step}`);
-      if (currentContent) {
-        currentContent.classList.add('active');
-      }
-
-      // Update content title and icon
-      const contentTitle = document.querySelector('.content-title');
-      const titles = ['Billing Inputs', 'Draft Invoice'];
-      const icons = ['file-text', 'check-square'];
-      contentTitle.innerHTML = `
-        <i class="bi bi-${icons[step - 1]}"></i>
-        ${titles[step - 1]}
-      `;
-      
-      // Update step indicator
-      const stepIndicator = document.querySelector('.step-indicator');
-      stepIndicator.innerHTML = `
-        <i class="bi bi-${currentStep === totalSteps ? 'check-circle-fill' : 'check-circle'}"></i>
-        Step ${step} of ${totalSteps}
-      `;
-
-      // Update navigation buttons
-      const prevButton = document.querySelector('.step-btn.secondary');
-      const nextButton = document.querySelector('.step-btn.primary');
-      
-      prevButton.disabled = step === 1;
-      if (step === totalSteps) {
-        nextButton.innerHTML = '<i class="bi bi-check-circle"></i> Complete';
-        nextButton.onclick = completeProcess;
-      } else {
-        nextButton.innerHTML = 'Next <i class="bi bi-arrow-right"></i>';
-        nextButton.onclick = () => goToStep(step + 1);
-      }
-    }
-
-    function goToStep(step) {
-      if (step >= 1 && step <= totalSteps) {
-        currentStep = step;
-        updateProgress();
-        updateStepContent(step);
-      }
-    }
-
-    function completeProcess() {
-      // Add completion animation
-      const processContent = document.querySelector('.process-content');
-      processContent.style.position = 'relative';
-      
-      const overlay = document.createElement('div');
-      overlay.style.cssText = `
-        position: absolute;
-        inset: 0;
-        background: var(--primary-gradient);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.25rem;
-        font-weight: 600;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        border-radius: var(--compact-border-radius);
-      `;
-      overlay.innerHTML = `
-        <div style="text-align: center;">
-          <i class="bi bi-check-circle-fill" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-          Invoice Creation Complete!
-        </div>
-      `;
-      
-      processContent.appendChild(overlay);
-      setTimeout(() => {
-        overlay.style.opacity = '1';
-      }, 100);
-
-      setTimeout(() => {
-        alert('Invoice creation process completed!');
-        overlay.remove();
-      }, 2000);
-    }
-
-    // Add CSS for step content transitions
-    const style = document.createElement('style');
-    style.textContent = `
-      .step-content {
-        display: none;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-      }
-
-      .step-content.active {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Initialize
-    updateProgress();
-    updateStepContent(1);
-
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const sidebar = document.querySelector('.sidebar');
-    const mainContent = document.querySelector('.main-content');
-
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('show');
-      document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
-    });
-
-    // Close sidebar when clicking outside
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 991.98) {
-        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('show')) {
-          sidebar.classList.remove('show');
-          document.body.style.overflow = '';
-        }
-      }
-    });
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 991.98) {
-        sidebar.classList.remove('show');
-        document.body.style.overflow = '';
-      }
-    });
-
-    // Add this function after your existing JavaScript
-    function toggleSection(header) {
-      const content = header.nextElementSibling;
-      header.classList.toggle('collapsed');
-      content.classList.toggle('collapsed');
-      
-      // Add ripple effect
-      const ripple = document.createElement('div');
-      ripple.className = 'ripple';
-      header.appendChild(ripple);
-      
-      // Get click coordinates
-      const rect = header.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      
-      ripple.style.left = x + 'px';
-      ripple.style.top = y + 'px';
-      
-      // Remove ripple after animation
-      setTimeout(() => ripple.remove(), 1000);
-    }
-  </script>
+  <script src="src/js/invoice.js"></script>
 </body>
 </html>
 
