@@ -566,73 +566,30 @@
               Shop Status
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="billing.html">
-              <i class="bi bi-receipt"></i>
-              Billing Performance
+          <li class="nav-item">
+            <a class="nav-link" href="invoiceCreation.html">
+              <i class="bi bi-file-text"></i>
+              Invoice Creation
             </a>
-          </li> -->
+          </li>
         </ul>
       </div>
 
       <div class="nav-section mt-auto">
         <div class="nav-divider"></div>
-        <div class="logout-section">
-          <div class="user-info">
-            <div class="user-avatar">J</div>
-            <div class="user-details">
-              <div class="user-name">Jane Doe</div>
-            </div>
-          </div>
-          <a class="logout-link" href="#" title="Logout">
-            <i class="bi bi-box-arrow-right"></i>
-          </a>
-        </div>
+        <a href="#" class="logout-button">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>Logout</span>
+        </a>
       </div>
     </nav>
 
     <!-- Main Content -->
-    <div class="main-content">
-      <!-- Header -->
-      <header class="header">
-        <div class="d-flex justify-content-between align-items-center w-100">
-          <div class="d-flex align-items-center gap-3">
-            <button class="header-icon d-lg-none">
-              <i class="bi bi-list"></i>
-            </button>
-            <div class="search-wrapper">
-              <i class="bi bi-search"></i>
-              <input type="text" class="search-input" placeholder="Search...">
-            </div>
-          </div>
+    <main class="main-content">
+      <!-- Include Header Component -->
+      <div id="headerComponent"></div>
 
-          <div class="header-actions">
-            <div class="action-group">
-              <button class="header-icon" title="Refresh">
-                <i class="bi bi-arrow-repeat"></i>
-              </button>
-              <button class="header-icon" title="Notifications">
-                <i class="bi bi-bell"></i>
-                <span class="badge">3</span>
-              </button>
-              <button class="header-icon" title="Messages">
-                <i class="bi bi-chat"></i>
-                <span class="badge">5</span>
-              </button>
-            </div>
-            <div class="user-profile">
-              <div class="user-avatar">J</div>
-              <div class="user-details">
-                <div class="user-name">Jane Doe</div>
-                <div class="user-role">Admin</div>
-              </div>
-              <i class="bi bi-chevron-down"></i>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- Content -->
+      <!-- Shop Status Content -->
       <div class="content">
         <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
           <div class="d-flex align-items-center gap-3">
@@ -1204,7 +1161,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
   </div>
 
   <!-- Bootstrap JS Bundle with Popper -->
@@ -1217,5 +1174,17 @@
   
   <!-- Custom JS -->
   <script src="src/js/script.js"></script>
+  <script src="src/js/header.js"></script>
+  <script>
+    // Load header component
+    fetch('src/components/header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('headerComponent').innerHTML = html;
+        // Initialize header after loading
+        initializeHeader();
+      })
+      .catch(error => console.error('Error loading header:', error));
+  </script>
 </body>
 </html>

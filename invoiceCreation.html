@@ -2,334 +2,309 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMBA Dashboard - Invoice Creation</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="src/css/styles.css">
+  <link rel="stylesheet" href="src/css/styles.css">
     <link rel="stylesheet" href="src/css/invoice.css">
 </head>
 
 <body>
-    <div class="wrapper">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <div class="logo">
-                <span class="logo-text">SMBA</span>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="logo">
+        <span class="logo-text">SMBA</span>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-header">Menu</div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="bi bi-grid"></i>
+              Overview
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="shop.html">
+              <i class="bi bi-shop"></i>
+              Shop Status
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="invoiceCreation.html">
+              <i class="bi bi-file-text"></i>
+              Invoice Creation
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section mt-auto">
+        <div class="nav-divider"></div>
+        <a href="#" class="logout-button">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Include Header Component -->
+      <div id="headerComponent"></div>
+
+      <!-- Process Container -->
+      <div class="process-container">
+        <!-- Process Sidebar -->
+        <div class="process-sidebar">
+          <div class="process-steps">
+            <div class="process-step active" data-step="1">
+              <div class="step-number">1</div>
+              <div class="step-info">
+                <div class="step-title">Billing Inputs</div>
+                <div class="step-description">Enter billing details</div>
+              </div>
+            </div>
+            <div class="process-step" data-step="2">
+              <div class="step-number">2</div>
+              <div class="step-info">
+                <div class="step-title">Draft Invoice</div>
+                <div class="step-description">Review and finalize</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Process Content -->
+        <div class="process-content">
+          <div class="content-header">
+            <h2 class="content-title">
+              <i class="bi bi-file-text"></i>
+              <span class="title-text">Billing Inputs</span>
+            </h2>
+            <div class="step-indicator">
+              <i class="bi bi-check-circle"></i>
+              Step <span class="current-step">1</span> of 2
+            </div>
+          </div>
+
+          <div class="content-body">
+            <!-- Billing Inputs Content -->
+            <div id="step1" class="step-content active">
+              <div class="billing-sections">
+                <!-- Contract Summary Section -->
+                <div class="section-container">
+                  <div class="section-header" onclick="toggleSection(this)">
+                    <h3 class="section-title">
+                      <i class="bi bi-file-earmark-text"></i>
+                      Contract Summary
+                    </h3>
+                    <i class="bi bi-chevron-up collapse-icon"></i>
+                  </div>
+                  <div class="section-content">
+                    <div class="contract-grid">
+                      <div class="input-group">
+                        <div class="input-label">Fixed Price Labour</div>
+                        <div class="input-value">$135,756</div>
+                      </div>
+                      <div class="input-group">
+                        <div class="input-label">Over & Above Labour</div>
+                        <div class="input-value">$26,902</div>
+                      </div>
+                      <div class="input-group">
+                        <div class="input-label">Component Repair Catalogue</div>
+                        <div class="input-value">$264,633</div>
+                      </div>
+                      <div class="input-group">
+                        <div class="input-label">Material</div>
+                        <div class="input-value">$7,753,989</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SV Summary Section -->
+                <div class="section-container">
+                  <div class="section-header" onclick="toggleSection(this)">
+                    <h3 class="section-title">
+                      <i class="bi bi-list-check"></i>
+                      SV Summary
+                    </h3>
+                    <i class="bi bi-chevron-up collapse-icon"></i>
+                  </div>
+                  <div class="section-content">
+                    <div class="summary-grid">
+                      <div class="input-group">
+                        <div class="input-label">Service Details</div>
+                        <div class="input-value">
+                          <div>Sub-Contract (Vendor) Charge: $1,302,009</div>
+                          <div>Fuel & Oil: $10,215</div>
+                          <div>Test Cell Charge: $15,597</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Billing Receipt Section -->
+                <div class="section-container">
+                  <div class="section-header" onclick="toggleSection(this)">
+                    <h3 class="section-title">
+                      <i class="bi bi-receipt"></i>
+                      Billing Receipt
+                    </h3>
+                    <i class="bi bi-chevron-up collapse-icon"></i>
+                  </div>
+                  <div class="section-content">
+                    <div class="table-container">
+                      <table class="billing-table">
+                        <thead>
+                          <tr>
+                            <th>Cost Element</th>
+                            <th>Cost(USD)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1. Fixed Price Labour</td>
+                            <td class="amount-column">$135,756</td>
+                          </tr>
+                          <tr>
+                            <td>2. Over & Above Labour</td>
+                            <td class="amount-column">$26,902</td>
+                          </tr>
+                          <tr>
+                            <td>3. Component Repair Catalogue</td>
+                            <td class="amount-column">$264,633</td>
+                          </tr>
+                          <tr>
+                            <td>4. Material</td>
+                            <td class="amount-column">$7,753,989</td>
+                          </tr>
+                          <tr>
+                            <td>5. Sub-Contract (Vendor) Charge</td>
+                            <td class="amount-column">$1,302,009</td>
+                          </tr>
+                          <tr>
+                            <td>6. Fuel & Oil</td>
+                            <td class="amount-column">$10,215</td>
+                          </tr>
+                          <tr>
+                            <td>7. Test Cell Charge</td>
+                            <td class="amount-column">$15,597</td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td>Subtotal</td>
+                            <td class="amount-column">$9,509,131</td>
+                          </tr>
+                          <tr>
+                            <td>Less Exclusions</td>
+                            <td class="amount-column">$3,800,194</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="nav-section">
-                <div class="nav-header">Menu</div>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">
-                            <i class="bi bi-grid"></i>
-                            Overview
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="shop.html">
-                            <i class="bi bi-shop"></i>
-                            Shop Status
-                        </a>
-                    </li>
-                </ul>
+            <!-- Draft Invoice Content -->
+            <div id="step2" class="step-content">
+              <div class="draft-invoice">
+                <div class="table-container">
+                  <table class="billing-table">
+                    <tbody>
+                      <tr>
+                        <td>This Value does exceed the NTE Price of $3,806,452 for the Specified
+                          Workscope (Core).</td>
+                        <td class="amount-column"></td>
+                      </tr>
+                      <tr>
+                        <td>Therefore Charge NTE Value</td>
+                        <td class="amount-column">$3,806,452</td>
+                      </tr>
+                      <tr>
+                        <td>Add Back Exclusions</td>
+                        <td class="amount-column">$165,094</td>
+                      </tr>
+                      <tr>
+                        <td>TAT Penalties</td>
+                        <td class="amount-column">$3,800,194</td>
+                      </tr>
+                      <tr>
+                        <td>$(67,500)</td>
+                        <td class="amount-column">$7,704,239</td>
+                      </tr>
+                      <tr>
+                        <td>Less Progress Invoice No. 2600X093Y09 Dated 04/09/23</td>
+                        <td class="amount-column">$(1,141,936)</td>
+                      </tr>
+                      <tr>
+                        <td>Less Initial Invoice 1 No. 2600X093YX17 Dated 27/10/23</td>
+                        <td class="amount-column">$(1,522,581)</td>
+                      </tr>
+                      <tr>
+                        <td>Less Initial Invoice 2 No. 2600F93GH76 Dated 08/02/24</td>
+                        <td class="amount-column">$(1,141,936)</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td>Terms Payment</td>
+                        <td class="amount-column">$3,897,787</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                  <button class="step-btn primary" onclick="completeProcess()">
+                    Accept Invoice
+                    <i class="bi bi-check-circle"></i>
+                  </button>
+                </div>
+              </div>
             </div>
+          </div>
 
-            <div class="nav-section mt-auto">
-                <div class="nav-divider"></div>
-                <div class="logout-section">
-                    <div class="user-info">
-                        <div class="user-avatar">J</div>
-                        <div class="user-details">
-                            <div class="user-name">Jane Doe</div>
-                        </div>
-                    </div>
-                    <a class="logout-link" href="#" title="Logout">
-                        <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </nav>
+          <div class="content-footer">
+            <button class="step-btn secondary" onclick="prevStep()" disabled>
+              <i class="bi bi-arrow-left"></i>
+              Previous
+            </button>
+            <button class="step-btn primary" onclick="nextStep()">
+              Next
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <div class="d-flex justify-content-between align-items-center w-100">
-                    <div class="d-flex align-items-center gap-3">
-                        <button class="header-icon d-lg-none">
-                            <i class="bi bi-list"></i>
-                        </button>
-                        <div class="search-wrapper">
-                            <i class="bi bi-search"></i>
-                            <input type="text" class="search-input" placeholder="Search...">
-                        </div>
-                    </div>
-
-                    <div class="header-actions">
-                        <div class="action-group">
-                            <button class="header-icon" title="Refresh">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </button>
-                            <button class="header-icon" title="Notifications">
-                                <i class="bi bi-bell"></i>
-                                <span class="badge">3</span>
-                            </button>
-                            <button class="header-icon" title="Messages">
-                                <i class="bi bi-chat"></i>
-                                <span class="badge">5</span>
-                            </button>
-                        </div>
-                        <div class="user-profile">
-                            <div class="user-avatar">J</div>
-                            <div class="user-details">
-                                <div class="user-name">Jane Doe</div>
-                                <div class="user-role">Admin</div>
-                            </div>
-                            <i class="bi bi-chevron-down"></i>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Process Container -->
-            <div class="process-container">
-                <!-- Process Sidebar -->
-                <div class="process-sidebar">
-                    <div class="process-steps">
-                        <div class="process-step active" data-step="1">
-                            <div class="step-number">1</div>
-                            <div class="step-info">
-                                <div class="step-title">Billing Inputs</div>
-                                <div class="step-description">Enter billing details</div>
-                            </div>
-                        </div>
-                        <div class="process-step" data-step="2">
-                            <div class="step-number">2</div>
-                            <div class="step-info">
-                                <div class="step-title">Draft Invoice</div>
-                                <div class="step-description">Review and finalize</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Process Content -->
-                <div class="process-content">
-                    <div class="content-header">
-                        <h2 class="content-title">
-                            <i class="bi bi-file-text"></i>
-                            <span class="title-text">Billing Inputs</span>
-                        </h2>
-                        <div class="step-indicator">
-                            <i class="bi bi-check-circle"></i>
-                            Step <span class="current-step">1</span> of 2
-                        </div>
-                    </div>
-
-                    <div class="content-body">
-                        <!-- Billing Inputs Content -->
-                        <div id="step1" class="step-content active">
-                            <div class="billing-sections">
-                                <!-- Contract Summary Section -->
-                                <div class="section-container">
-                                    <div class="section-header" onclick="toggleSection(this)">
-                                        <h3 class="section-title">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                            Contract Summary
-                                        </h3>
-                                        <i class="bi bi-chevron-up collapse-icon"></i>
-                                    </div>
-                                    <div class="section-content">
-                                        <div class="contract-grid">
-                                            <div class="input-group">
-                                                <div class="input-label">Fixed Price Labour</div>
-                                                <div class="input-value">$135,756</div>
-                                            </div>
-                                            <div class="input-group">
-                                                <div class="input-label">Over & Above Labour</div>
-                                                <div class="input-value">$26,902</div>
-                                            </div>
-                                            <div class="input-group">
-                                                <div class="input-label">Component Repair Catalogue</div>
-                                                <div class="input-value">$264,633</div>
-                                            </div>
-                                            <div class="input-group">
-                                                <div class="input-label">Material</div>
-                                                <div class="input-value">$7,753,989</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- SV Summary Section -->
-                                <div class="section-container">
-                                    <div class="section-header" onclick="toggleSection(this)">
-                                        <h3 class="section-title">
-                                            <i class="bi bi-list-check"></i>
-                                            SV Summary
-                                        </h3>
-                                        <i class="bi bi-chevron-up collapse-icon"></i>
-                                    </div>
-                                    <div class="section-content">
-                                        <div class="summary-grid">
-                                            <div class="input-group">
-                                                <div class="input-label">Service Details</div>
-                                                <div class="input-value">
-                                                    <div>Sub-Contract (Vendor) Charge: $1,302,009</div>
-                                                    <div>Fuel & Oil: $10,215</div>
-                                                    <div>Test Cell Charge: $15,597</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Billing Receipt Section -->
-                                <div class="section-container">
-                                    <div class="section-header" onclick="toggleSection(this)">
-                                        <h3 class="section-title">
-                                            <i class="bi bi-receipt"></i>
-                                            Billing Receipt
-                                        </h3>
-                                        <i class="bi bi-chevron-up collapse-icon"></i>
-                                    </div>
-                                    <div class="section-content">
-                                        <div class="table-container">
-                                            <table class="billing-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Cost Element</th>
-                                                        <th>Cost(USD)</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1. Fixed Price Labour</td>
-                                                        <td class="amount-column">$135,756</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2. Over & Above Labour</td>
-                                                        <td class="amount-column">$26,902</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3. Component Repair Catalogue</td>
-                                                        <td class="amount-column">$264,633</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4. Material</td>
-                                                        <td class="amount-column">$7,753,989</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>5. Sub-Contract (Vendor) Charge</td>
-                                                        <td class="amount-column">$1,302,009</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>6. Fuel & Oil</td>
-                                                        <td class="amount-column">$10,215</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>7. Test Cell Charge</td>
-                                                        <td class="amount-column">$15,597</td>
-                                                    </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td>Subtotal</td>
-                                                        <td class="amount-column">$9,509,131</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Less Exclusions</td>
-                                                        <td class="amount-column">$3,800,194</td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Draft Invoice Content -->
-                        <div id="step2" class="step-content">
-                            <div class="draft-invoice">
-                                <div class="table-container">
-                                    <table class="billing-table">
-                                        <tbody>
-                                            <tr>
-                                                <td>This Value does exceed the NTE Price of $3,806,452 for the Specified
-                                                    Workscope (Core).</td>
-                                                <td class="amount-column"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Therefore Charge NTE Value</td>
-                                                <td class="amount-column">$3,806,452</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Add Back Exclusions</td>
-                                                <td class="amount-column">$165,094</td>
-                                            </tr>
-                                            <tr>
-                                                <td>TAT Penalties</td>
-                                                <td class="amount-column">$3,800,194</td>
-                                            </tr>
-                                            <tr>
-                                                <td>$(67,500)</td>
-                                                <td class="amount-column">$7,704,239</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Less Progress Invoice No. 2600X093Y09 Dated 04/09/23</td>
-                                                <td class="amount-column">$(1,141,936)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Less Initial Invoice 1 No. 2600X093YX17 Dated 27/10/23</td>
-                                                <td class="amount-column">$(1,522,581)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Less Initial Invoice 2 No. 2600F93GH76 Dated 08/02/24</td>
-                                                <td class="amount-column">$(1,141,936)</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td>Terms Payment</td>
-                                                <td class="amount-column">$3,897,787</td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="d-flex justify-content-center mt-4">
-                                    <button class="step-btn primary" onclick="completeProcess()">
-                                        Accept Invoice
-                                        <i class="bi bi-check-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-footer">
-                        <button class="step-btn secondary" onclick="prevStep()" disabled>
-                            <i class="bi bi-arrow-left"></i>
-                            Previous
-                        </button>
-                        <button class="step-btn primary" onclick="nextStep()">
-                            Next
-                            <i class="bi bi-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="src/js/invoice.js"></script>
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="src/js/header.js"></script>
+  <script src="src/js/invoice.js"></script>
+  <script>
+    // Load header component
+    fetch('src/components/header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('headerComponent').innerHTML = html;
+        // Initialize header after loading
+        initializeHeader();
+      })
+      .catch(error => console.error('Error loading header:', error));
+  </script>
 </body>
 
 </html>
