@@ -20,6 +20,37 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeSteps();
   initializeMobileMenu();
   initializeCollapsiblePanels();
+
+  // Initialize tooltips
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
+  // Update page info
+  updatePageInfo('invoiceCreation');
+
+  // Initialize collapsible sections
+  const sectionHeaders = document.querySelectorAll('.section-header');
+  sectionHeaders.forEach(header => {
+    // Add click event listener
+    header.addEventListener('click', () => {
+      // Toggle collapsed class
+      header.classList.toggle('collapsed');
+      
+      // Get the content section
+      const content = header.nextElementSibling;
+      
+      // Toggle content visibility
+      if (header.classList.contains('collapsed')) {
+        content.style.display = 'none';
+        content.style.opacity = '0';
+      } else {
+        content.style.display = 'block';
+        content.style.opacity = '1';
+      }
+    });
+  });
 });
 
 // Initialize step functionality
@@ -274,4 +305,9 @@ function initializeMobileMenu() {
       }
     });
   }
+}
+
+// Update page info
+function updatePageInfo(page) {
+  // Implementation of updatePageInfo function
 } 

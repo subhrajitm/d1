@@ -337,8 +337,8 @@
                     <i class="bi bi-check-circle"></i>
                   </button>
                 </div>
-      </div>
-    </div>
+              </div>
+            </div>
           </div>
 
           <div class="content-footer">
@@ -361,41 +361,6 @@
   <script src="src/js/script.js"></script>
   <script src="src/js/invoice.js"></script>
   <script src="src/js/header.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Initialize tooltips
-      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-      tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-      });
-
-      // Update page info
-      updatePageInfo('invoiceCreation');
-
-      // Initialize collapsible sections
-      const sectionHeaders = document.querySelectorAll('.section-header');
-      sectionHeaders.forEach(header => {
-        // Add click event listener
-        header.addEventListener('click', () => {
-          // Toggle collapsed class
-          header.classList.toggle('collapsed');
-          
-          // Get the content section
-          const content = header.nextElementSibling;
-          
-          // Toggle content visibility
-          if (header.classList.contains('collapsed')) {
-            content.style.display = 'none';
-            content.style.opacity = '0';
-          } else {
-            content.style.display = 'block';
-            content.style.opacity = '1';
-          }
-        });
-      });
-    });
-  </script>
 </body>
 
 </html>
