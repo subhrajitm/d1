@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SMBA Dashboard - Billing Performance</title>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
@@ -11,7 +13,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="src/css/styles.css">
+  <link rel="stylesheet" href="src/css/main.css">
   <style>
     .chart-container {
       background: var(--card-bg);
@@ -355,6 +357,97 @@
     .chart-wrapper {
       margin: var(--compact-gap) 0;
     }
+
+    /* Collapsible Panel Styles */
+    .section-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--compact-border-radius);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: var(--compact-padding);
+      background: var(--background-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .section-header:hover {
+      background: var(--hover-bg);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title i {
+      color: var(--primary-color);
+      font-size: 1.125rem;
+    }
+
+    .collapse-icon {
+      color: var(--text-secondary);
+      transition: transform 0.2s ease;
+    }
+
+    .section-header.collapsed .collapse-icon {
+      transform: rotate(180deg);
+    }
+
+    .section-content {
+      padding: var(--compact-padding);
+      border-top: 1px solid var(--border-color);
+      display: block;
+      transition: all 0.2s ease;
+    }
+
+    .section-header.collapsed + .section-content {
+      display: none;
+    }
+
+    /* Contract Grid Styles */
+    .contract-grid,
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .input-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .input-value {
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .input-value div {
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      color: var(--text-secondary);
+    }
   </style>
 </head>
 <body>
@@ -410,37 +503,54 @@
       <!-- Header -->
       <header class="header">
         <div class="d-flex justify-content-between align-items-center w-100">
-          <div class="d-flex align-items-center gap-3">
-            <button class="header-icon d-lg-none">
+          <div class="d-flex align-items-center gap-4">
+            <button class="menu-toggle header-icon d-lg-none">
               <i class="bi bi-list"></i>
             </button>
-            <div class="search-wrapper">
-              <i class="bi bi-search"></i>
-              <input type="text" class="search-input" placeholder="Search...">
+            <div class="page-info">
+              <h1 class="page-title mb-1">Billing Performance</h1>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">Dashboard</li>
+                  <li class="breadcrumb-item active">Billing Performance</li>
+                </ol>
+              </nav>
             </div>
           </div>
 
           <div class="header-actions">
             <div class="action-group">
-              <button class="header-icon" title="Refresh">
+              <button class="header-icon" data-bs-toggle="tooltip" data-bs-title="Refresh">
                 <i class="bi bi-arrow-repeat"></i>
+                <div class="ripple"></div>
               </button>
-              <button class="header-icon" title="Notifications">
+              <button class="header-icon" data-bs-toggle="tooltip" data-bs-title="Notifications">
                 <i class="bi bi-bell"></i>
                 <span class="badge">3</span>
+                <div class="ripple"></div>
               </button>
-              <button class="header-icon" title="Messages">
+              <button class="header-icon" data-bs-toggle="tooltip" data-bs-title="Messages">
                 <i class="bi bi-chat"></i>
                 <span class="badge">5</span>
+                <div class="ripple"></div>
               </button>
             </div>
-            <div class="user-profile">
-              <div class="user-avatar">J</div>
-              <div class="user-details">
-                <div class="user-name">Jane Doe</div>
-                <div class="user-role">Admin</div>
-              </div>
-              <i class="bi bi-chevron-down"></i>
+            <div class="profile-wrapper">
+              <button class="profile-trigger" data-bs-toggle="dropdown">
+                <div class="profile-info">
+                  <div class="profile-avatar">
+                    <span class="avatar-text">JD</span>
+                    <span class="status-dot"></span>
+                  </div>
+                  <div class="profile-details d-none d-sm-flex">
+                    <span class="profile-name">Jane Doe</span>
+                    <span class="profile-role">Administrator</span>
+                  </div>
+                </div>
+                <div class="profile-action">
+                  <i class="bi bi-chevron-down"></i>
+                </div>
+              </button>
             </div>
           </div>
         </div>
@@ -836,6 +946,53 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Custom JS -->
   <script src="src/js/script.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Initialize Components -->
+  <script>
+    // Initialize all tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    // Menu toggle functionality
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    
+    menuToggle?.addEventListener('click', () => {
+      sidebar?.classList.toggle('show');
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 991.98) {
+        const clickedElement = e.target;
+        if (!clickedElement.closest('.sidebar') && !clickedElement.closest('.menu-toggle')) {
+          sidebar?.classList.remove('show');
+        }
+      }
+    });
+
+    // Collapsible panels functionality
+    function toggleSection(header) {
+      header.classList.toggle('collapsed');
+      const content = header.nextElementSibling;
+      if (header.classList.contains('collapsed')) {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+    }
+
+    // Initialize all sections as expanded
+    document.addEventListener('DOMContentLoaded', () => {
+      const sectionHeaders = document.querySelectorAll('.section-header');
+      sectionHeaders.forEach(header => {
+        header.addEventListener('click', () => toggleSection(header));
+      });
+    });
+  </script>
 </body>
 </html>
 
