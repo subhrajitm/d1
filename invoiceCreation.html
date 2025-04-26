@@ -525,23 +525,13 @@
           // Get the content section
           const content = header.nextElementSibling;
           
-          // Toggle content visibility with animation
+          // Toggle content visibility
           if (header.classList.contains('collapsed')) {
-            content.style.maxHeight = '0';
+            content.style.display = 'none';
             content.style.opacity = '0';
-            content.style.paddingTop = '0';
-            content.style.paddingBottom = '0';
-            setTimeout(() => {
-              content.style.display = 'none';
-            }, 200);
           } else {
             content.style.display = 'block';
-            setTimeout(() => {
-              content.style.maxHeight = content.scrollHeight + 'px';
-              content.style.opacity = '1';
-              content.style.paddingTop = 'var(--compact-padding)';
-              content.style.paddingBottom = 'var(--compact-padding)';
-            }, 10);
+            content.style.opacity = '1';
           }
         });
       });
