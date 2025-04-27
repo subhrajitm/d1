@@ -1,3 +1,56 @@
+// Sample data for demonstration
+const sampleData = {
+  stats: {
+    totalInvoices: 125,
+    pendingInvoices: 45,
+    completedInvoices: 80,
+    totalAmount: 12500
+  },
+  shops: [
+    {
+      shop: "Shop A",
+      customer: "Customer 1",
+      esn: "ESN001",
+      svNo: "SV001",
+      status: "Pending",
+      lastUpdated: "2024-04-27 10:30"
+    },
+    {
+      shop: "Shop B",
+      customer: "Customer 2",
+      esn: "ESN002",
+      svNo: "SV002",
+      status: "Completed",
+      lastUpdated: "2024-04-27 09:15"
+    },
+    {
+      shop: "Shop C",
+      customer: "Customer 3",
+      esn: "ESN003",
+      svNo: "SV003",
+      status: "Pending",
+      lastUpdated: "2024-04-27 11:45"
+    }
+  ],
+  activities: [
+    {
+      type: "invoice",
+      message: "New invoice created for Shop A",
+      time: "10:30 AM"
+    },
+    {
+      type: "status",
+      message: "Status updated for Shop B",
+      time: "09:15 AM"
+    },
+    {
+      type: "payment",
+      message: "Payment received for Shop C",
+      time: "11:45 AM"
+    }
+  ]
+};
+
 // DOM Ready
 $(document).ready(function () {
   // Sidebar Toggle
@@ -20,8 +73,44 @@ $(document).ready(function () {
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
-  // Initialize DataTables
+  // Initialize stats first
+  updateStats();
+  
+  // Initialize mini charts
+  initializeMiniCharts();
+
+  // Initialize DataTable
   const shopTable = $('#shopStatusOverviewTable').DataTable({
+    data: sampleData.shops,
+    columns: [
+      { data: 'shop' },
+      { data: 'customer' },
+      { data: 'esn' },
+      { data: 'svNo' },
+      { 
+        data: 'status',
+        render: function(data) {
+          const statusClass = data === 'Completed' ? 'success' : 'warning';
+          return `<span class="badge bg-${statusClass}">${data}</span>`;
+        }
+      },
+      { data: 'lastUpdated' },
+      {
+        data: null,
+        render: function() {
+          return `
+            <div class="btn-group">
+              <button class="btn btn-sm btn-light" data-bs-toggle="tooltip" data-bs-title="View">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-light" data-bs-toggle="tooltip" data-bs-title="Edit">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </div>
+          `;
+        }
+      }
+    ],
     pageLength: 10,
     order: [[0, 'asc']],
     dom: '<"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
@@ -35,6 +124,15 @@ $(document).ready(function () {
       }
     }
   });
+
+  // Update total shops count
+  $('#totalShops').text(`${sampleData.shops.length} Total Records`);
+
+  // Initialize activities
+  updateActivities();
+
+  // Initialize Charts
+  initializeCharts();
 
   // Shop search functionality
   $('#shopSearch').on('keyup', function () {
@@ -63,22 +161,66 @@ $(document).ready(function () {
       $(this).fadeIn(200);
     });
   });
-
-  // Initialize Charts
-  initializeCharts();
 });
 
-// Charts Initialization
-function initializeCharts() {
-  // Mini charts initialization
+// Update stats
+function updateStats() {
+  // Update stat values
+  $('#totalInvoices').text(sampleData.stats.totalInvoices);
+  $('#pendingInvoices').text(sampleData.stats.pendingInvoices);
+  $('#completedInvoices').text(sampleData.stats.completedInvoices);
+  $('#totalAmount').text(`$${sampleData.stats.totalAmount.toLocaleString()}`);
+}
+
+// Update activities
+function updateActivities() {
+  const activitiesList = $('#activitiesList');
+  activitiesList.empty();
+
+  sampleData.activities.forEach(activity => {
+    const activityHtml = `
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="bi bi-${getActivityIcon(activity.type)}"></i>
+        </div>
+        <div class="activity-content">
+          <div class="activity-message">${activity.message}</div>
+          <div class="activity-time">${activity.time}</div>
+        </div>
+      </div>
+    `;
+    activitiesList.append(activityHtml);
+  });
+}
+
+// Get activity icon based on type
+function getActivityIcon(type) {
+  const icons = {
+    invoice: 'file-text',
+    status: 'arrow-repeat',
+    payment: 'currency-dollar'
+  };
+  return icons[type] || 'circle';
+}
+
+// Initialize mini charts
+function initializeMiniCharts() {
   const createMiniChart = (ctx, data, color) => {
     if (!ctx) return;
+    
+    // Generate smooth data points
+    const smoothData = data.map((value, index) => {
+      const prev = index > 0 ? data[index - 1] : value;
+      const next = index < data.length - 1 ? data[index + 1] : value;
+      return (prev + value + next) / 3;
+    });
+
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: new Array(data.length).fill(''),
+        labels: new Array(smoothData.length).fill(''),
         datasets: [{
-          data: data,
+          data: smoothData,
           borderColor: color,
           borderWidth: 2,
           tension: 0.4,
@@ -90,33 +232,56 @@ function initializeCharts() {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: { 
+          legend: { display: false },
+          tooltip: { enabled: false }
+        },
         scales: {
-          x: { display: false },
-          y: { display: false }
+          x: { 
+            display: false,
+            grid: { display: false }
+          },
+          y: { 
+            display: false,
+            grid: { display: false }
+          }
+        },
+        animation: {
+          duration: 1000,
+          easing: 'easeInOutQuart'
         }
       }
     });
   };
 
-  // Initialize mini charts
-  createMiniChart(document.getElementById('invoicesChart')?.getContext('2d'),
-    [30, 35, 25, 45, 30, 55, 45],
+  // Initialize mini charts with more realistic data
+  createMiniChart(
+    document.getElementById('invoicesChart')?.getContext('2d'),
+    [30, 35, 25, 45, 30, 55, 45, 50, 40, 60, 45, 70],
     '#4f46e5'
   );
-  createMiniChart(document.getElementById('pendingBillingChart')?.getContext('2d'),
-    [25, 30, 35, 40, 35, 45, 40],
+  
+  createMiniChart(
+    document.getElementById('pendingBillingChart')?.getContext('2d'),
+    [25, 30, 35, 40, 35, 45, 40, 35, 30, 25, 20, 15],
     '#f59e0b'
   );
-  createMiniChart(document.getElementById('paidBillingChart')?.getContext('2d'),
-    [45, 50, 40, 60, 45, 70, 60],
+  
+  createMiniChart(
+    document.getElementById('paidBillingChart')?.getContext('2d'),
+    [45, 50, 40, 60, 45, 70, 60, 55, 65, 75, 70, 80],
     '#10b981'
   );
-  createMiniChart(document.getElementById('overdueBillingChart')?.getContext('2d'),
-    [15, 20, 25, 15, 20, 10, 15],
+  
+  createMiniChart(
+    document.getElementById('overdueBillingChart')?.getContext('2d'),
+    [15, 20, 25, 15, 20, 10, 15, 20, 25, 20, 15, 10],
     '#ef4444'
   );
+}
 
+// Charts Initialization
+function initializeCharts() {
   // Delay Reasons Analysis Chart
   const delayReasonsOverviewCtx = document.getElementById('delayReasonsOverviewChart')?.getContext('2d');
   if (delayReasonsOverviewCtx) {
@@ -173,15 +338,10 @@ function initializeCharts() {
     new Chart(timelinessOverviewCtx, {
       type: 'line',
       data: {
-        labels: [
-          'Apr 22', 'May 22', 'Jun 22', 'Jul 22', 'Aug 22', 'Sep 22', 'Oct 22', 'Nov 22',
-          'Feb 23', 'Mar 23', 'Apr 23', 'May 23', 'Jun 23', 'Jul 23', 'Aug 23', 'Sep 23',
-          'Oct 23', 'Nov 23', 'Dec 23', 'Jan 24', 'Feb 24', 'Mar 24', 'Apr 24', 'May 24',
-          'Jun 24', 'Jul 24', 'Aug 24', 'Sep 24', 'Oct 24', 'Nov 24'
-        ],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [{
           label: 'Monthly Value',
-          data: [91, 23, 11, 9, 52, 12, 18, 6, 15, 8, 77, 4, 113, 17, 56, 26, 49, 30, 4, 64, 25, 97, 107, 62, 66, 86, 90, 105, 75, 50],
+          data: [91, 23, 11, 9, 52, 12, 18, 6, 15, 8, 77, 4],
           borderColor: 'rgba(79, 70, 229, 1)',
           backgroundColor: 'rgba(79, 70, 229, 0.1)',
           tension: 0.4,
@@ -194,7 +354,7 @@ function initializeCharts() {
           order: 2
         }, {
           label: '3-Month Moving Average',
-          data: [null, 41.7, 14.3, 24, 24.3, 27.3, 12, 13, 9.7, 33.3, 29.7, 64.7, 44.7, 62, 33, 43.7, 35, 27.7, 32.7, 31, 62, 88.7, 88.7, 78.3, 71.3, 80.7, 93.7, 90, 76.7, null],
+          data: [41.7, 14.3, 24, 24.3, 27.3, 12, 13, 9.7, 33.3, 29.7, 29.7, null],
           borderColor: 'rgba(16, 185, 129, 1)',
           borderWidth: 2,
           borderDash: [4, 4],
@@ -248,35 +408,6 @@ function initializeCharts() {
         plugins: {
           legend: {
             display: false
-          },
-          tooltip: {
-            backgroundColor: 'white',
-            titleColor: '#1e293b',
-            bodyColor: '#1e293b',
-            borderColor: '#e2e8f0',
-            borderWidth: 1,
-            padding: 8,
-            boxPadding: 4,
-            usePointStyle: true,
-            titleFont: {
-              size: 11,
-              weight: '600'
-            },
-            bodyFont: {
-              size: 11
-            },
-            callbacks: {
-              label: function (context) {
-                let label = context.dataset.label || '';
-                if (label) {
-                  label += ': ';
-                }
-                if (context.parsed.y !== null) {
-                  label += context.parsed.y.toFixed(1);
-                }
-                return label;
-              }
-            }
           }
         }
       }

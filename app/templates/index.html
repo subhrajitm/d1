@@ -4,6 +4,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -78,8 +79,11 @@
                 <i class="bi bi-file-text"></i>
             </div>
             <div class="stat-info">
-                <div class="stat-value">0</div>
+                <div class="stat-value" id="totalInvoices">0</div>
                 <div class="stat-label">Total Invoices</div>
+            </div>
+            <div class="stat-chart">
+                <canvas id="invoicesChart"></canvas>
             </div>
         </div>
         <div class="stat-card">
@@ -87,8 +91,11 @@
                 <i class="bi bi-clock"></i>
             </div>
             <div class="stat-info">
-                <div class="stat-value">0</div>
+                <div class="stat-value" id="pendingInvoices">0</div>
                 <div class="stat-label">Pending Invoices</div>
+            </div>
+            <div class="stat-chart">
+                <canvas id="pendingBillingChart"></canvas>
             </div>
         </div>
         <div class="stat-card">
@@ -96,8 +103,11 @@
                 <i class="bi bi-check-circle"></i>
             </div>
             <div class="stat-info">
-                <div class="stat-value">0</div>
+                <div class="stat-value" id="completedInvoices">0</div>
                 <div class="stat-label">Completed Invoices</div>
+            </div>
+            <div class="stat-chart">
+                <canvas id="paidBillingChart"></canvas>
             </div>
         </div>
         <div class="stat-card">
@@ -105,9 +115,90 @@
                 <i class="bi bi-currency-dollar"></i>
             </div>
             <div class="stat-info">
-                <div class="stat-value">$0</div>
+                <div class="stat-value" id="totalAmount">$0</div>
                 <div class="stat-label">Total Amount</div>
             </div>
+            <div class="stat-chart">
+                <canvas id="overdueBillingChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+        <div class="row g-3">
+            <div class="col-lg-8">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Invoice Performance</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-download me-2"></i>Export</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-printer me-2"></i>Print</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="timelinessOverviewChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Invoice Status</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="delayReasonsOverviewChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Status Overview -->
+    <div class="table-section">
+        <div class="table-header">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="table-title-wrapper">
+                    <h2 class="table-title">
+                        Shop Status Overview
+                        <span class="badge bg-primary-subtle text-primary" id="totalShops">0 Total Records</span>
+                    </h2>
+                </div>
+                <div class="table-actions">
+                    <div class="search-wrapper">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="form-control" id="shopSearch" placeholder="Search shops...">
+                    </div>
+                    <div class="table-filters">
+                        <button class="btn btn-sm btn-light active" data-filter="all">All</button>
+                        <button class="btn btn-sm btn-light" data-filter="pending">Pending</button>
+                        <button class="btn btn-sm btn-light" data-filter="completed">Completed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-container">
+            <table id="shopStatusOverviewTable" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Shop</th>
+                        <th>Customer</th>
+                        <th>ESN</th>
+                        <th>SV No</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be populated by JavaScript -->
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -117,7 +208,7 @@
             <h2 class="section-title">Recent Activities</h2>
             <a href="#" class="view-all">View All</a>
         </div>
-        <div class="activities-list">
+        <div class="activities-list" id="activitiesList">
             <!-- Activities will be populated by JavaScript -->
         </div>
     </div>
@@ -125,6 +216,9 @@
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 <script src="{{ url_for('static', filename='js/realtime.js') }}"></script>
 {% endblock %}
