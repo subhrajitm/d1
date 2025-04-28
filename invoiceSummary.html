@@ -157,85 +157,125 @@
 
       <!-- Upload Section -->
       <section id="uploadSection" class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh;">
-        <div class="card p-5 text-center" style="min-width: 400px;">
+        <div class="card p-5 text-center shadow-lg border-0 modern-upload-card animate__animated animate__fadeIn" style="min-width: 400px; border-radius: 1.5rem;">
           <div class="mb-3">
-            <i class="bi bi-file-earmark-arrow-up" style="font-size: 2.5rem; color: #ff6600;"></i>
+            <i class="bi bi-cloud-arrow-up-fill" style="font-size: 3rem; color: #0d6efd;"></i>
           </div>
-          <p class="mb-4">Please upload your Invoice to analyze and get recommendations</p>
-          <input type="file" id="invoiceFile" class="form-control mb-3" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
-          <button id="uploadBtn" class="btn btn-warning w-100">Upload</button>
+          <h4 class="fw-bold mb-2">Upload Your Invoice</h4>
+          <p class="mb-4 text-muted">Analyze your invoice and get instant recommendations</p>
+          <input type="file" id="invoiceFile" class="form-control mb-3" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="border-radius: 0.75rem;" />
+          <button id="uploadBtn" class="btn btn-primary w-100 fw-semibold" style="border-radius: 0.75rem;">Upload</button>
+        </div>
+      </section>
+
+      <!-- Loader Section (Initially Hidden) -->
+      <section id="loaderSection" class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh; display: none !important;">
+        <div class="text-center">
+          <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+          <div class="fw-semibold fs-5">Analyzing Invoice...</div>
         </div>
       </section>
 
       <!-- Recommendation Section (Initially Hidden) -->
       <section id="recommendationSection" style="display: none;">
-        <div class="container-fluid">
-          <h2 class="mb-4">Invoice Summary and Recommendation</h2>
-          <div class="row mb-3">
-            <div class="col-md-12">
-              <div class="d-flex flex-wrap gap-3 mb-3">
-                <span class="badge bg-warning text-dark">Airline_name: United</span>
-                <span class="badge bg-warning text-dark">Address: UNITED AIRLINES INC 233 S. Wacker Drive Chicago 60606, Illinois USA</span>
-                <span class="badge bg-warning text-dark">Customer_order_no: 1234</span>
-                <span class="badge bg-warning text-dark">Shipping_ref_no: TBD</span>
-                <span class="badge bg-warning text-dark">Payment_terms: 30 DAYS FROM INV DATE</span>
-                <span class="badge bg-warning text-dark">Contract_id: 1-1044261</span>
-                <span class="badge bg-warning text-dark">Invoice_no: TBD</span>
-                <span class="badge bg-warning text-dark">Invoice_date: TBD</span>
+        <div class="container-fluid animate__animated animate__fadeIn">
+          <div class="row g-3 mb-2">
+            <div class="col-12 d-flex flex-wrap gap-2 align-items-center">
+              <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis px-3 py-2"><i class="bi bi-airplane-engines me-1"></i> United</span>
+              <span class="badge rounded-pill bg-info-subtle text-info-emphasis px-3 py-2"><i class="bi bi-geo-alt me-1"></i> UNITED AIRLINES INC 233 S. Wacker Drive Chicago 60606, Illinois USA</span>
+              <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis px-3 py-2"><i class="bi bi-hash me-1"></i> Order: 1234</span>
+              <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis px-3 py-2"><i class="bi bi-truck me-1"></i> Shipping: TBD</span>
+              <span class="badge rounded-pill bg-success-subtle text-success-emphasis px-3 py-2"><i class="bi bi-calendar2-week me-1"></i> 30 DAYS FROM INV DATE</span>
+              <span class="badge rounded-pill bg-dark-subtle text-dark-emphasis px-3 py-2"><i class="bi bi-file-earmark-text me-1"></i> Contract: 1-1044261</span>
+              <span class="badge rounded-pill bg-light text-dark px-3 py-2"><i class="bi bi-receipt me-1"></i> Invoice: TBD</span>
+              <span class="badge rounded-pill bg-light text-dark px-3 py-2"><i class="bi bi-clock-history me-1"></i> Date: TBD</span>
+            </div>
+          </div>
+
+          <!-- Stat Cards Row (Compact) -->
+          <div class="row g-2 mb-3">
+            <div class="col-6 col-md-3">
+              <div class="card stat-card-compact text-center py-2">
+                <div class="fs-4 text-primary"><i class="bi bi-cash-coin"></i></div>
+                <div class="fw-bold fs-6">$4,472,200</div>
+                <div class="text-muted small">Total</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="card stat-card-compact text-center py-2">
+                <div class="fs-4 text-danger"><i class="bi bi-exclamation-triangle"></i></div>
+                <div class="fw-bold fs-6">70%</div>
+                <div class="text-muted small">Dispute</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="card stat-card-compact text-center py-2">
+                <div class="fs-4 text-warning"><i class="bi bi-percent"></i></div>
+                <div class="fw-bold fs-6">4%</div>
+                <div class="text-muted small">Disputed %</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="card stat-card-compact text-center py-2">
+                <div class="fs-4 text-info"><i class="bi bi-clipboard-check"></i></div>
+                <div class="fw-bold fs-7">Overbilled</div>
+                <div class="text-muted small">Reason</div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-7">
-              <div class="card mb-3">
-                <div class="card-header bg-primary text-white">Summary of Uploaded Invoice</div>
+
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="card shadow border-0 mb-2 modern-summary-card">
+                <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between py-3 px-4" style="border-radius: 1rem 1rem 0 0;">
+                  <span class="fw-bold text-primary-emphasis fs-5"><i class="bi bi-receipt-cutoff me-2"></i>Invoice Summary</span>
+                  <span class="badge bg-primary-subtle text-primary-emphasis px-3 py-2"><i class="bi bi-currency-dollar me-1"></i> $4,472,200</span>
+                </div>
                 <div class="card-body p-0">
-                  <table class="table mb-0">
-                    <thead>
+                  <table class="table table-borderless mb-0 modern-table align-middle">
+                    <thead class="table-light">
                       <tr>
-                        <th>T&M MFP</th>
-                        <th>Final Invoice</th>
+                        <th class="small text-secondary">T&M MFP</th>
+                        <th class="text-end small text-secondary">Final Invoice</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr><td>InScope_Charges</td><td>$2,752,670</td></tr>
-                      <tr><td>Out-Of-Scope_LLPs_Replacement</td><td>$1,632,712</td></tr>
-                      <tr><td>Out-Of-Scope_QEC_&_LRU_Replacement</td><td>$16,780</td></tr>
-                      <tr><td>Out-Of-Scope_Charges</td><td>-</td></tr>
-                      <tr><td>Out-Of-Scope_Missing_Items</td><td>$247</td></tr>
-                      <tr><td>Out-Of-Scope_Service_Bulletin</td><td>$60,914</td></tr>
-                      <tr><td>Stand_repair</td><td>$1,000</td></tr>
-                      <tr><td>Excluded_Material_Transportation</td><td>$7,877</td></tr>
-                      <tr><td>TAT_remedy</td><td>-</td></tr>
-                      <tr class="fw-bold"><td>Total</td><td>$4,472,200</td></tr>
+                      <tr><td>InScope_Charges</td><td class="text-end fw-semibold">$2,752,670</td></tr>
+                      <tr><td>Out-Of-Scope_LLPs_Replacement</td><td class="text-end">$1,632,712</td></tr>
+                      <tr><td>Out-Of-Scope_QEC_&_LRU_Replacement</td><td class="text-end">$16,780</td></tr>
+                      <tr><td>Out-Of-Scope_Charges</td><td class="text-end text-muted">-</td></tr>
+                      <tr><td>Out-Of-Scope_Missing_Items</td><td class="text-end">$247</td></tr>
+                      <tr><td>Out-Of-Scope_Service_Bulletin</td><td class="text-end">$60,914</td></tr>
+                      <tr><td>Stand_repair</td><td class="text-end">$1,000</td></tr>
+                      <tr><td>Excluded_Material_Transportation</td><td class="text-end">$7,877</td></tr>
+                      <tr><td>TAT_remedy</td><td class="text-end text-muted">-</td></tr>
+                      <tr class="fw-bold table-primary"><td>Total</td><td class="text-end">$4,472,200</td></tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-            <div class="col-md-5">
-              <div class="card mb-3">
-                <div class="card-header bg-primary text-white">Dispute Prediction & Recommendation (on as is Invoice)</div>
+            <div class="col-lg-6">
+              <div class="card shadow border-0 mb-2 modern-summary-card">
+                <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between py-3 px-4" style="border-radius: 1rem 1rem 0 0;">
+                  <span class="fw-bold text-danger-emphasis fs-5"><i class="bi bi-shield-check me-2"></i>Dispute & Recommendations</span>
+                  <span class="badge bg-danger-subtle text-danger-emphasis px-3 py-2"><i class="bi bi-exclamation-triangle me-1"></i> 70% Dispute</span>
+                </div>
                 <div class="card-body p-0">
-                  <table class="table mb-0">
-                    <tbody>
-                      <tr><th>Field</th><th>Value</th></tr>
-                      <tr><td>Invoice Dispute Probability</td><td>70%</td></tr>
-                      <tr><td>Probable reason</td><td>Overbilled issue</td></tr>
-                      <tr><td>Disputed % of Invoice</td><td>4%</td></tr>
-                      <tr><td colspan="2"><b>Recommendations</b></td></tr>
-                      <tr><td colspan="2">Please review the exclusions</td></tr>
-                      <tr><td colspan="2">Please validate CLP & Handling fees</td></tr>
-                    </tbody>
-                  </table>
-                  <div class="mt-3">
-                    <b>Recommendation Impact on Current Invoice</b>
-                    <table class="table table-sm mt-2">
-                      <thead><tr><th>Recommendation</th><th>Prob (Hist)</th></tr></thead>
+                  <ul class="list-unstyled mb-2 modern-list px-4 pt-3">
+                    <li class="mb-2"><i class="bi bi-exclamation-circle text-danger me-2"></i> <span class="fw-semibold">Review the exclusions</span></li>
+                    <li class="mb-2"><i class="bi bi-clipboard-data text-info me-2"></i> <span class="fw-semibold">Validate CLP & Handling fees</span></li>
+                  </ul>
+                  <div class="px-4 pb-3">
+                    <div class="small fw-semibold mb-2 text-secondary"><i class="bi bi-bar-chart-steps me-1"></i>Recommendation Impact</div>
+                    <table class="table table-sm table-bordered mb-0 modern-table align-middle">
+                      <thead class="table-light small">
+                        <tr><th>Recommendation</th><th>Prob</th></tr>
+                      </thead>
                       <tbody>
-                        <tr><td>Exclusion related to ACC, QEC, WSPG & Scrap caps</td><td>35%</td></tr>
-                        <tr><td>Incorrect CLP Related Dispute</td><td>3%</td></tr>
-                        <tr><td>Incorrect Handling fees</td><td>2%</td></tr>
+                        <tr><td><i class="bi bi-shield-exclamation text-primary me-1"></i>Exclusion: ACC, QEC, WSPG & Scrap caps</td><td>35%</td></tr>
+                        <tr><td><i class="bi bi-x-octagon text-danger me-1"></i>Incorrect CLP Dispute</td><td>3%</td></tr>
+                        <tr><td><i class="bi bi-x-octagon text-danger me-1"></i>Incorrect Handling fees</td><td>2%</td></tr>
                       </tbody>
                     </table>
                   </div>
@@ -246,17 +286,56 @@
         </div>
       </section>
 
+      <style>
+        .modern-upload-card {
+          background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);
+        }
+        .stat-card-compact {
+          border-radius: 1rem;
+          box-shadow: 0 2px 8px rgba(13,110,253,0.06);
+          padding: 0.5rem 0.25rem;
+          min-height: 80px;
+        }
+        .modern-summary-card {
+          border-radius: 1rem;
+          overflow: hidden;
+          background: linear-gradient(120deg, #f8fafc 80%, #e0e7ff 100%);
+        }
+        .modern-summary-card .card-header {
+          border-bottom: 1px solid #e5e7eb;
+        }
+        .modern-table th, .modern-table td {
+          padding: 0.5rem 0.75rem !important;
+        }
+        .modern-list li {
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+        }
+        #loaderSection {
+          background: rgba(255,255,255,0.9);
+          z-index: 10;
+          display: none;
+        }
+      </style>
+
       <script>
-        $(document).ready(function() {
+        $(function() {
           $('#uploadBtn').on('click', function() {
             var file = $('#invoiceFile').prop('files')[0];
             if (!file) {
               alert('Please select a file to upload.');
               return;
             }
-            // Simulate upload and show recommendations
+            // Hide upload, show loader
             $('#uploadSection').hide();
-            $('#recommendationSection').show();
+            document.getElementById('uploadSection').style.setProperty('display', 'none', 'important');
+            $('#loaderSection').show();
+            // Simulate upload/processing for 5 seconds
+            setTimeout(function() {
+              document.getElementById('loaderSection').style.setProperty('display', 'none', 'important');
+              $('#recommendationSection').show();
+            }, 5000);
           });
         });
       </script>
@@ -267,4 +346,5 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="src/js/script.js"></script>
 
+</body>
 </html>
