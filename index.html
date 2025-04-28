@@ -485,155 +485,283 @@
               </div>
               
               <div class="view-options">
-                <div class="btn-group">
-                  <button class="view-btn active" data-view="all">
+                <div class="btn-group" role="tablist">
+                  <button class="view-btn active" id="my-queue-tab" data-bs-toggle="tab" data-bs-target="#my-queue" type="button" role="tab" aria-controls="my-queue" aria-selected="true">
                     My Queue
-                    <span class="view-count">1</span>
                   </button>
-                  <!-- <button class="view-btn" data-view="critical">
-                    Critical
-                    <span class="view-count">5</span>
-                  </button> -->
-                  <button class="view-btn" data-view="pending">
+                  <button class="view-btn" id="overall-queue-tab" data-bs-toggle="tab" data-bs-target="#overall-queue" type="button" role="tab" aria-controls="overall-queue" aria-selected="false">
                     Overall Queue
-                    <span class="view-count">4</span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr>
-                  <th>
-                    <div class="d-flex align-items-center gap-2">
-                      Shop Details
-                      <button class="sort-btn" data-sort="name">
-                        <i class="bi bi-arrow-down-up"></i>
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="d-flex align-items-center gap-2">
-                      Service Volume
-                      <button class="sort-btn" data-sort="volume">
-                        <i class="bi bi-arrow-down-up"></i>
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="d-flex align-items-center gap-2">
-                      Performance
-                      <button class="sort-btn" data-sort="performance">
-                        <i class="bi bi-arrow-down-up"></i>
-                      </button>
-                    </div>
-                  </th>
-                  <th>Status</th>
-                  <th class="text-end">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="shop-info">
-                      <div class="shop-icon">
-                        <i class="bi bi-shop"></i>
-                      </div>
-                      <div class="shop-details">
-                        <div class="shop-name">AutoCare Plus</div>
-                        <div class="shop-meta">
-                          <span class="shop-id">SH001</span>
-                          <span class="shop-location">
-                            <i class="bi bi-geo-alt"></i>
-                            Mumbai
+          <div class="tab-content">
+            <!-- My Queue Tab -->
+            <div class="tab-pane fade show active" id="my-queue" role="tabpanel" aria-labelledby="my-queue-tab">
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead>
+                    <tr>
+                      <th>Shop</th>
+                      <th>Total SV</th>
+                      <th>Past Due</th>
+                      <th>Upcoming</th>
+                      <th>No Due</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-icon">
+                            <i class="bi bi-shop"></i>
+                          </div>
+                          <div class="shop-details">
+                            <div class="shop-name">Shop1</div>
+                            <div class="shop-meta">
+                              <span class="shop-id">SH001</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current">27</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge danger">
+                            2
                           </span>
                         </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="volume-info">
-                      <div class="volume-chart">
-                        <canvas id="shop1VolumeChart" width="60" height="30"></canvas>
-                      </div>
-                      <div class="volume-stats">
-                        <div class="volume-current">127</div>
-                        <div class="volume-trend positive">
-                          <i class="bi bi-arrow-up-short"></i>
-                          12%
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge warning">
+                            5
+                          </span>
                         </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="performance-info">
-                      <div class="performance-meter">
-                        <div class="progress">
-                          <div class="progress-bar" role="progressbar" style="width: 85%"></div>
-                      </div>
-                        <span class="performance-value">85%</span>
-                      </div>
-                      <div class="performance-metrics">
-                        <span class="metric">
-                          <i class="bi bi-clock"></i>
-                          3.2d avg
-                        </span>
-                        <span class="metric">
-                          <i class="bi bi-check-circle"></i>
-                          92% on-time
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="status-info">
-                      <span class="status-badge active">
-                        <i class="bi bi-circle-fill"></i>
-                        Active
-                      </span>
-                      <span class="status-message">Running normally</span>
-                      </div>
-                  </td>
-                  <td class="text-end">
-                    <div class="action-buttons">
-                      <button class="action-btn primary" onclick="window.location.href='shop.html'">
-                        View Details
-                      </button>
-                      <button class="action-btn-icon" data-bs-toggle="dropdown">
-                        <i class="bi bi-three-dots-vertical"></i>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Edit</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-bell"></i> Set Alert</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-exclamation-circle"></i> Report Issue</a></li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge success">
+                            20
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-          <div class="table-footer">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-              <div class="table-info">
-                Showing <span class="highlight">1-10</span> of <span class="highlight">27</span> shops
-        </div>
-              <div class="pagination-controls">
-                <button class="page-btn" disabled>
-                  <i class="bi bi-chevron-left"></i>
-                </button>
-                <span class="page-indicator">Page 1 of 3</span>
-                <button class="page-btn">
-                  <i class="bi bi-chevron-right"></i>
-                </button>
-      </div>
-    </div>
+            <!-- Overall Queue Tab -->
+            <div class="tab-pane fade" id="overall-queue" role="tabpanel" aria-labelledby="overall-queue-tab">
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead>
+                    <tr>
+                      <th>Shop</th>
+                      <th>Total SV</th>
+                      <th>Past Due</th>
+                      <th>Upcoming</th>
+                      <th>No Due</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-icon">
+                            <i class="bi bi-shop"></i>
+                          </div>
+                          <div class="shop-details">
+                            <div class="shop-name">Shop2</div>
+                            <div class="shop-meta">
+                              <span class="shop-id">SH002</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current">16</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge danger">
+                            0
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge warning">
+                            3
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge success">
+                            13
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-icon">
+                            <i class="bi bi-shop"></i>
+                          </div>
+                          <div class="shop-details">
+                            <div class="shop-name">Shop1</div>
+                            <div class="shop-meta">
+                              <span class="shop-id">SH001</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current">27</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge danger">
+                            2
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge warning">
+                            5
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge success">
+                            20
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-icon">
+                            <i class="bi bi-shop"></i>
+                          </div>
+                          <div class="shop-details">
+                            <div class="shop-name">Shop3</div>
+                            <div class="shop-meta">
+                              <span class="shop-id">SH003</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current">16</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge danger">
+                            1
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge warning">
+                            0
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge success">
+                            15
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="table-active">
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-details">
+                            <div class="shop-name fw-bold">Total</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current fw-bold">59</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge danger fw-bold">
+                            3
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge warning fw-bold">
+                            8
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-info">
+                          <span class="status-badge success fw-bold">
+                            48
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div class="table-footer">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div class="table-info">
+              Showing <span class="highlight">1-10</span> of <span class="highlight">27</span> shops
+        </div>
+            <div class="pagination-controls">
+              <button class="page-btn" disabled>
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <span class="page-indicator">Page 1 of 3</span>
+              <button class="page-btn">
+                <i class="bi bi-chevron-right"></i>
+              </button>
+    </div>
+  </div>
         </div>
       </div>
     </main>
