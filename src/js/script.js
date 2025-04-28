@@ -175,46 +175,32 @@ document.querySelectorAll('.legend-item').forEach((item, index) => {
   });
 });
 
-// Add interactivity to chart period selector
-document.querySelector('.period-select select').addEventListener('change', function() {
-  // Simulate data update based on selected period
-  const randomFactor = Math.random() * 0.2 + 0.9;
-  salesChart.data.datasets[0].data = salesChart.data.datasets[0].data.map(value => 
-    Math.round(value * randomFactor)
-  );
-  salesChart.data.datasets[1].data = salesChart.data.datasets[1].data.map(value => 
-    Math.round(value * randomFactor)
-  );
-  salesChart.update();
-
-  // Update total value
-  const latestValue = salesChart.data.datasets[0].data[salesChart.data.datasets[0].data.length - 1];
-  document.querySelector('.chart-value').innerHTML = 
-    `<span class="chart-value-currency">$</span>${new Intl.NumberFormat().format(latestValue)}`;
-});
 
 // Add interactivity to refresh button
-document.querySelector('.chart-action-btn:nth-child(2)').addEventListener('click', function() {
-  this.querySelector('i').style.transform = 'rotate(360deg)';
-  setTimeout(() => {
-    this.querySelector('i').style.transform = 'none';
-  }, 1000);
+const refreshButton = document.querySelector('.chart-action-btn:nth-child(2)');
+if (refreshButton) {
+  refreshButton.addEventListener('click', function() {
+    this.querySelector('i').style.transform = 'rotate(360deg)';
+    setTimeout(() => {
+      this.querySelector('i').style.transform = 'none';
+    }, 1000);
 
-  // Simulate data refresh
-  const randomFactor = Math.random() * 0.2 + 0.9;
-  salesChart.data.datasets[0].data = salesChart.data.datasets[0].data.map(value => 
-    Math.round(value * randomFactor)
-  );
-  salesChart.update();
+    // Simulate data refresh
+    const randomFactor = Math.random() * 0.2 + 0.9;
+    salesChart.data.datasets[0].data = salesChart.data.datasets[0].data.map(value => 
+      Math.round(value * randomFactor)
+    );
+    salesChart.update();
 
-  // Update total value with animation
-  const latestValue = salesChart.data.datasets[0].data[salesChart.data.datasets[0].data.length - 1];
-  animateValue(document.querySelector('.chart-value'), 
-    parseInt(document.querySelector('.chart-value').textContent.replace(/[^0-9]/g, '')),
-    latestValue, 
-    1000
-  );
-});
+    // Update total value with animation
+    const latestValue = salesChart.data.datasets[0].data[salesChart.data.datasets[0].data.length - 1];
+    animateValue(document.querySelector('.chart-value'), 
+      parseInt(document.querySelector('.chart-value').textContent.replace(/[^0-9]/g, '')),
+      latestValue, 
+      1000
+    );
+  });
+}
 
 // Table Functionality
 document.addEventListener('DOMContentLoaded', function() {
@@ -376,46 +362,3 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize
   filterAndPaginate();
 });
-
-// Logout functionality
-document.querySelector('.logout-link').addEventListener('click', function(e) {
-  e.preventDefault();
-  
-  // Show confirmation modal
-  const modal = new bootstrap.Modal(document.createElement('div'));
-  modal._element.className = 'modal fade';
-  modal._element.innerHTML = `
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Confirm Logout</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to logout?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" id="confirmLogout">Logout</button>
-        </div>
-      </div>
-    </div>
-  `;
-  
-  document.body.appendChild(modal._element);
-  modal.show();
-  
-  // Handle logout confirmation
-  document.getElementById('confirmLogout').addEventListener('click', function() {
-    // Add your logout logic here
-    // For example:
-    // - Clear session/local storage
-    // - Redirect to login page
-    window.location.href = 'login.html';
-  });
-  
-  // Clean up modal when closed
-  modal._element.addEventListener('hidden.bs.modal', function() {
-    document.body.removeChild(modal._element);
-  });
-}); 

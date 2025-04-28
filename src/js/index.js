@@ -283,13 +283,3 @@ function initializeCharts() {
     });
   }
 }
-
-// Load header component
-fetch('src/components/header.html')
-  .then(response => response.text())
-  .then(html => {
-    document.getElementById('headerComponent').innerHTML = html;
-    // Initialize header after loading
-    initializeHeader();
-  })
-  .catch(error => console.error('Error loading header:', error)); 
