@@ -21,6 +21,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="src/css/main.css">
   <link rel="stylesheet" href="src/css/index.css">
+  <link rel="stylesheet" href="src/css/shop-status.css">
 </head>
 
 <body>
@@ -418,7 +419,7 @@
         <!-- Shop Status Overview Section -->
         <div class="table-section">
           <div class="table-header">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
               <div class="d-flex align-items-center gap-3">
                 <h2 class="table-title">
                   <i class="bi bi-shop"></i>
@@ -426,18 +427,8 @@
                 </h2>
                 <div class="table-badge">
                   <i class="bi bi-buildings"></i>
-                  4 Active Shops
+                  3 Active Shops
                 </div>
-              </div>
-              <div class="d-flex align-items-center gap-2">
-                <button class="action-btn" title="Download Report">
-                  <i class="bi bi-download"></i>
-                  Export
-                </button>
-                <button class="action-btn" title="Refresh Data">
-                  <i class="bi bi-arrow-clockwise"></i>
-                  Refresh
-                </button>
               </div>
             </div>
 
@@ -445,51 +436,21 @@
               <div class="search-filter-group">
                 <div class="table-search">
                   <i class="bi bi-search search-icon"></i>
-                  <input type="text" id="shopSearch" placeholder="Search shops...">
+                  <input type="text" placeholder="Search shops...">
                 </div>
-                <div class="filter-dropdown">
-                  <button class="filter-btn" data-bs-toggle="dropdown">
-                    <i class="bi bi-funnel"></i>
-                    Filters
-                    <i class="bi bi-chevron-down"></i>
-                  </button>
-                  <div class="dropdown-menu p-2">
-                    <div class="filter-group">
-                      <label class="filter-label">Status</label>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="activeFilter" checked>
-                        <label class="form-check-label" for="activeFilter">Active</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="maintenanceFilter">
-                        <label class="form-check-label" for="maintenanceFilter">Maintenance</label>
-                      </div>
-                    </div>
-                    <div class="filter-group">
-                      <label class="filter-label">Service Volume</label>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="highVolume">
-                        <label class="form-check-label" for="highVolume">High Volume</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="lowVolume">
-                        <label class="form-check-label" for="lowVolume">Low Volume</label>
-                      </div>
-                    </div>
-                    <div class="filter-actions mt-2 d-flex gap-2">
-                      <button class="btn btn-sm btn-light w-100">Reset</button>
-                      <button class="btn btn-sm btn-primary w-100">Apply</button>
-                    </div>
-                  </div>
-                </div>
+                <button class="filter-btn">
+                  <i class="bi bi-funnel"></i>
+                  Filters
+                  <i class="bi bi-chevron-down"></i>
+                </button>
               </div>
               
               <div class="view-options">
                 <div class="btn-group" role="tablist">
-                  <button class="view-btn active" id="my-queue-tab" data-bs-toggle="tab" data-bs-target="#my-queue" type="button" role="tab" aria-controls="my-queue" aria-selected="true">
+                  <button class="view-btn active" id="my-queue-tab" data-bs-toggle="tab" data-bs-target="#my-queue" type="button" role="tab">
                     My Queue
                   </button>
-                  <button class="view-btn" id="overall-queue-tab" data-bs-toggle="tab" data-bs-target="#overall-queue" type="button" role="tab" aria-controls="overall-queue" aria-selected="false">
+                  <button class="view-btn" id="overall-queue-tab" data-bs-toggle="tab" data-bs-target="#overall-queue" type="button" role="tab">
                     Overall Queue
                   </button>
                 </div>
@@ -509,6 +470,7 @@
                       <th>Past Due</th>
                       <th>Upcoming</th>
                       <th>No Due</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -534,25 +496,28 @@
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge danger">
-                            2
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger">2</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge warning">
-                            5
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning">5</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge success">
-                            20
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success">20</span>
                         </div>
+                      </td>
+                      <td>
+                        <a href="shop.html" class="view-details-btn">
+                          <i class="bi bi-arrow-right-circle"></i>
+                          View Details
+                        </a>
                       </td>
                     </tr>
                   </tbody>
@@ -571,6 +536,7 @@
                       <th>Past Due</th>
                       <th>Upcoming</th>
                       <th>No Due</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -596,25 +562,28 @@
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge danger">
-                            0
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger">0</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge warning">
-                            3
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning">3</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge success">
-                            13
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success">13</span>
                         </div>
+                      </td>
+                      <td>
+                        <a href="shop.html?id=2" class="view-details-btn">
+                          <i class="bi bi-arrow-right-circle"></i>
+                          View Details
+                        </a>
                       </td>
                     </tr>
                     <tr>
@@ -639,25 +608,28 @@
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge danger">
-                            2
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger">2</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge warning">
-                            5
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning">5</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge success">
-                            20
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success">20</span>
                         </div>
+                      </td>
+                      <td>
+                        <a href="shop.html?id=1" class="view-details-btn">
+                          <i class="bi bi-arrow-right-circle"></i>
+                          View Details
+                        </a>
                       </td>
                     </tr>
                     <tr>
@@ -682,25 +654,28 @@
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge danger">
-                            1
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger">1</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge warning">
-                            0
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning">0</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge success">
-                            15
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success">15</span>
                         </div>
+                      </td>
+                      <td>
+                        <a href="shop.html?id=3" class="view-details-btn">
+                          <i class="bi bi-arrow-right-circle"></i>
+                          View Details
+                        </a>
                       </td>
                     </tr>
                     <tr class="table-active">
@@ -719,26 +694,24 @@
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge danger fw-bold">
-                            3
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger fw-bold">3</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge warning fw-bold">
-                            8
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning fw-bold">8</span>
                         </div>
                       </td>
                       <td>
-                        <div class="status-info">
-                          <span class="status-badge success fw-bold">
-                            48
-                          </span>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success fw-bold">48</span>
                         </div>
                       </td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
