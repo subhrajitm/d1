@@ -73,92 +73,95 @@ document.querySelectorAll('.stat-value').forEach(stat => {
 });
 
 // Initialize Sales Chart
-const ctx = document.getElementById('salesChart').getContext('2d');
-const salesChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        label: 'This Period',
-        data: [65000, 75000, 63000, 80000, 72000, 80225],
-        borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim(),
-        backgroundColor: 'transparent',
-        tension: 0.4,
-        borderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 6
-      },
-      {
-        label: 'Last Period',
-        data: [55000, 60000, 48000, 58000, 63000, 68000],
-        borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-light').trim(),
-        backgroundColor: 'transparent',
-        tension: 0.4,
-        borderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 6
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false
-      },
-      tooltip: {
-        backgroundColor: 'var(--card-bg)',
-        titleColor: 'var(--text-color)',
-        bodyColor: 'var(--text-color)',
-        borderColor: 'var(--border-color)',
-        borderWidth: 1,
-        padding: 12,
-        boxPadding: 6,
-        usePointStyle: true,
-        callbacks: {
-          label: function(context) {
-            let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
-            }
-            if (context.parsed.y !== null) {
-              label += new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD'
-              }).format(context.parsed.y);
-            }
-            return label;
-          }
+const salesChartElement = document.getElementById('salesChart');
+if (salesChartElement) {
+  const ctx = salesChartElement.getContext('2d');
+  const salesChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [
+        {
+          label: 'This Period',
+          data: [65000, 75000, 63000, 80000, 72000, 80225],
+          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim(),
+          backgroundColor: 'transparent',
+          tension: 0.4,
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        },
+        {
+          label: 'Last Period',
+          data: [55000, 60000, 48000, 58000, 63000, 68000],
+          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-light').trim(),
+          backgroundColor: 'transparent',
+          tension: 0.4,
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6
         }
-      }
+      ]
     },
-    scales: {
-      x: {
-        grid: {
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
           display: false
         },
-        ticks: {
-          color: 'var(--text-secondary)'
+        tooltip: {
+          backgroundColor: 'var(--card-bg)',
+          titleColor: 'var(--text-color)',
+          bodyColor: 'var(--text-color)',
+          borderColor: 'var(--border-color)',
+          borderWidth: 1,
+          padding: 12,
+          boxPadding: 6,
+          usePointStyle: true,
+          callbacks: {
+            label: function(context) {
+              let label = context.dataset.label || '';
+              if (label) {
+                label += ': ';
+              }
+              if (context.parsed.y !== null) {
+                label += new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD'
+                }).format(context.parsed.y);
+              }
+              return label;
+            }
+          }
         }
       },
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: 'var(--border-color)',
-          drawBorder: false
+      scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            color: 'var(--text-secondary)'
+          }
         },
-        ticks: {
-          color: 'var(--text-secondary)',
-          callback: function(value) {
-            return '$' + value.toLocaleString();
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'var(--border-color)',
+            drawBorder: false
+          },
+          ticks: {
+            color: 'var(--text-secondary)',
+            callback: function(value) {
+              return '$' + value.toLocaleString();
+            }
           }
         }
       }
     }
-  }
-});
+  });
+}
 
 // Add interactivity to legend items
 document.querySelectorAll('.legend-item').forEach((item, index) => {
