@@ -170,14 +170,7 @@
 
       <!-- Loader Section (Initially Hidden) -->
       <section id="loaderSection" class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh; display: none !important; background: transparent !important;">
-        <div class="modern-loader-container">
-          <!-- Animated Background Elements -->
-          <div class="loader-bg-elements">
-            <div class="bg-circle circle-1"></div>
-            <div class="bg-circle circle-2"></div>
-            <div class="bg-circle circle-3"></div>
-          </div>
-          
+        <div class="compact-loader-container">
           <!-- Main Loader Content -->
           <div class="loader-content">
             <div class="loader-header">
@@ -252,59 +245,16 @@
         </div>
 
         <style>
-          .modern-loader-container {
+          .compact-loader-container {
             position: relative;
-            max-width: 600px;
+            max-width: 500px;
             width: 100%;
-            padding: 2rem;
+            padding: 1.5rem;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            overflow: hidden;
-          }
-
-          .loader-bg-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-          }
-
-          .bg-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-          }
-
-          .circle-1 {
-            width: 200px;
-            height: 200px;
-            top: -50px;
-            left: -50px;
-            animation-delay: 0s;
-          }
-
-          .circle-2 {
-            width: 150px;
-            height: 150px;
-            bottom: -30px;
-            right: -30px;
-            animation-delay: 2s;
-          }
-
-          .circle-3 {
-            width: 100px;
-            height: 100px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 4s;
           }
 
           .loader-content {
@@ -314,25 +264,25 @@
 
           .loader-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
           }
 
           .loader-icon-wrapper {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 0.75rem;
             background: linear-gradient(135deg, #3b82f6, #0ea5e9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
           }
 
           .loader-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #1e293b;
             margin: 0;
@@ -341,7 +291,7 @@
           .loader-steps {
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 0.75rem;
           }
 
           .loader-step {
@@ -356,26 +306,26 @@
           .step-content {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
           }
 
           .step-icon {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f1f5f9;
-            border-radius: 12px;
+            border-radius: 8px;
             color: #64748b;
-            font-size: 1.25rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
           }
 
           .loader-step.active .step-icon {
             background: linear-gradient(135deg, #3b82f6, #0ea5e9);
             color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
           }
 
           .step-details {
@@ -383,10 +333,10 @@
           }
 
           .step-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             color: #64748b;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.2rem;
           }
 
           .loader-step.active .step-text {
@@ -394,7 +344,7 @@
           }
 
           .step-progress {
-            height: 4px;
+            height: 3px;
             background: #e2e8f0;
             border-radius: 2px;
             overflow: hidden;
@@ -409,15 +359,6 @@
 
           .loader-step.active .progress-bar {
             width: 100%;
-          }
-
-          @keyframes float {
-            0%, 100% {
-              transform: translate(0, 0);
-            }
-            50% {
-              transform: translate(10px, 10px);
-            }
           }
         </style>
 
@@ -477,63 +418,63 @@
                       <span class="fs-4 fw-bold">$4,472,200</span>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-primary-subtle text-primary-emphasis p-2">
                       <i class="bi bi-cash-coin mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">InScope Charges</div>
                       <div class="stat-value fw-bold">$2,752,670</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-info-subtle text-info-emphasis p-2">
                       <i class="bi bi-arrow-repeat mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">LLPs Replacement</div>
                       <div class="stat-value fw-bold">$1,632,712</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-warning-subtle text-warning-emphasis p-2">
                       <i class="bi bi-tools mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">QEC & LRU Replacement</div>
                       <div class="stat-value fw-bold">$16,780</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-light text-muted p-2">
                       <i class="bi bi-x-circle mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">Out-Of-Scope Charges</div>
                       <div class="stat-value fw-bold">-</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-success-subtle text-success-emphasis p-2">
                       <i class="bi bi-box-seam mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">Missing Items</div>
                       <div class="stat-value fw-bold">$247</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-secondary-subtle text-secondary-emphasis p-2">
                       <i class="bi bi-bell mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">Service Bulletin</div>
                       <div class="stat-value fw-bold">$60,914</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-primary-subtle text-primary-emphasis p-2">
                       <i class="bi bi-wrench-adjustable mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">Stand Repair</div>
                       <div class="stat-value fw-bold">$1,000</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-info-subtle text-info-emphasis p-2">
                       <i class="bi bi-truck mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">Material Transportation</div>
                       <div class="stat-value fw-bold">$7,877</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-3">
+                  <div class="col-6 col-md-4">
                     <div class="summary-stat-card bg-light text-muted p-2">
                       <i class="bi bi-clock mb-1" style="font-size:1.2rem;"></i>
                       <div class="stat-label small">TAT Remedy</div>
