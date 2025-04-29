@@ -179,105 +179,163 @@
       <!-- Recommendation Section (Initially Hidden) -->
       <section id="recommendationSection" style="display: none;">
         <div class="container-fluid animate__animated animate__fadeIn">
-          <div class="row g-3 mb-2">
-            <div class="col-12 d-flex flex-wrap gap-2 align-items-center">
-              <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis px-3 py-2"><i class="bi bi-airplane-engines me-1"></i> United</span>
-              <span class="badge rounded-pill bg-info-subtle text-info-emphasis px-3 py-2"><i class="bi bi-geo-alt me-1"></i> UNITED AIRLINES INC 233 S. Wacker Drive Chicago 60606, Illinois USA</span>
-              <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis px-3 py-2"><i class="bi bi-hash me-1"></i> Order: 1234</span>
-              <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis px-3 py-2"><i class="bi bi-truck me-1"></i> Shipping: TBD</span>
-              <span class="badge rounded-pill bg-success-subtle text-success-emphasis px-3 py-2"><i class="bi bi-calendar2-week me-1"></i> 30 DAYS FROM INV DATE</span>
-              <span class="badge rounded-pill bg-dark-subtle text-dark-emphasis px-3 py-2"><i class="bi bi-file-earmark-text me-1"></i> Contract: 1-1044261</span>
-              <span class="badge rounded-pill bg-light text-dark px-3 py-2"><i class="bi bi-receipt me-1"></i> Invoice: TBD</span>
-              <span class="badge rounded-pill bg-light text-dark px-3 py-2"><i class="bi bi-clock-history me-1"></i> Date: TBD</span>
-            </div>
-          </div>
-
-          <!-- Stat Cards Row (Compact) -->
-          <div class="row g-2 mb-3">
-            <div class="col-6 col-md-3">
-              <div class="card stat-card-compact text-center py-2">
-                <div class="fs-4 text-primary"><i class="bi bi-cash-coin"></i></div>
-                <div class="fw-bold fs-6">$4,472,200</div>
-                <div class="text-muted small">Total</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="card stat-card-compact text-center py-2">
-                <div class="fs-4 text-danger"><i class="bi bi-exclamation-triangle"></i></div>
-                <div class="fw-bold fs-6">70%</div>
-                <div class="text-muted small">Dispute</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="card stat-card-compact text-center py-2">
-                <div class="fs-4 text-warning"><i class="bi bi-percent"></i></div>
-                <div class="fw-bold fs-6">4%</div>
-                <div class="text-muted small">Disputed %</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="card stat-card-compact text-center py-2">
-                <div class="fs-4 text-info"><i class="bi bi-clipboard-check"></i></div>
-                <div class="fw-bold fs-7">Overbilled</div>
-                <div class="text-muted small">Reason</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row g-3">
-            <div class="col-lg-6">
-              <div class="card shadow border-0 mb-2 modern-summary-card">
-                <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between py-3 px-4" style="border-radius: 1rem 1rem 0 0;">
-                  <span class="fw-bold text-primary-emphasis fs-5"><i class="bi bi-receipt-cutoff me-2"></i>Invoice Summary</span>
-                  <span class="badge bg-primary-subtle text-primary-emphasis px-3 py-2"><i class="bi bi-currency-dollar me-1"></i> $4,472,200</span>
+          <div class="row g-2 align-items-stretch creative-summary-row">
+            <div class="col-lg-12">
+              <div class="invoice-summary-grid-section position-relative py-2 px-1">
+                <div class="d-flex align-items-center mb-2">
+                  <span class="fs-6 fw-bold text-primary-emphasis me-2"><i class="bi bi-receipt-cutoff me-2"></i>Invoice Summary</span>
+                  <span class="badge bg-primary-subtle text-primary-emphasis ms-2">Grid View</span>
                 </div>
-                <div class="card-body p-0">
-                  <table class="table table-borderless mb-0 modern-table align-middle">
-                    <thead class="table-light">
-                      <tr>
-                        <th class="small text-secondary">T&M MFP</th>
-                        <th class="text-end small text-secondary">Final Invoice</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>InScope_Charges</td><td class="text-end fw-semibold">$2,752,670</td></tr>
-                      <tr><td>Out-Of-Scope_LLPs_Replacement</td><td class="text-end">$1,632,712</td></tr>
-                      <tr><td>Out-Of-Scope_QEC_&_LRU_Replacement</td><td class="text-end">$16,780</td></tr>
-                      <tr><td>Out-Of-Scope_Charges</td><td class="text-end text-muted">-</td></tr>
-                      <tr><td>Out-Of-Scope_Missing_Items</td><td class="text-end">$247</td></tr>
-                      <tr><td>Out-Of-Scope_Service_Bulletin</td><td class="text-end">$60,914</td></tr>
-                      <tr><td>Stand_repair</td><td class="text-end">$1,000</td></tr>
-                      <tr><td>Excluded_Material_Transportation</td><td class="text-end">$7,877</td></tr>
-                      <tr><td>TAT_remedy</td><td class="text-end text-muted">-</td></tr>
-                      <tr class="fw-bold table-primary"><td>Total</td><td class="text-end">$4,472,200</td></tr>
-                    </tbody>
-                  </table>
+                <div class="row g-2 invoice-summary-grid mb-2">
+                  <div class="col-12">
+                    <div class="summary-total-card bg-gradient text-white d-flex align-items-center justify-content-between p-3 mb-2">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-trophy-fill me-2" style="font-size:1.5rem;"></i>
+                        <span class="fs-5 fw-bold">Total</span>
+                      </div>
+                      <span class="fs-4 fw-bold">$4,472,200</span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-primary-subtle text-primary-emphasis p-2">
+                      <i class="bi bi-cash-coin mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">InScope Charges</div>
+                      <div class="stat-value fw-bold">$2,752,670</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-info-subtle text-info-emphasis p-2">
+                      <i class="bi bi-arrow-repeat mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">LLPs Replacement</div>
+                      <div class="stat-value fw-bold">$1,632,712</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-warning-subtle text-warning-emphasis p-2">
+                      <i class="bi bi-tools mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">QEC & LRU Replacement</div>
+                      <div class="stat-value fw-bold">$16,780</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-light text-muted p-2">
+                      <i class="bi bi-x-circle mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">Out-Of-Scope Charges</div>
+                      <div class="stat-value fw-bold">-</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-success-subtle text-success-emphasis p-2">
+                      <i class="bi bi-box-seam mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">Missing Items</div>
+                      <div class="stat-value fw-bold">$247</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-secondary-subtle text-secondary-emphasis p-2">
+                      <i class="bi bi-bell mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">Service Bulletin</div>
+                      <div class="stat-value fw-bold">$60,914</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-primary-subtle text-primary-emphasis p-2">
+                      <i class="bi bi-wrench-adjustable mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">Stand Repair</div>
+                      <div class="stat-value fw-bold">$1,000</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-info-subtle text-info-emphasis p-2">
+                      <i class="bi bi-truck mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">Material Transportation</div>
+                      <div class="stat-value fw-bold">$7,877</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="summary-stat-card bg-light text-muted p-2">
+                      <i class="bi bi-clock mb-1" style="font-size:1.2rem;"></i>
+                      <div class="stat-label small">TAT Remedy</div>
+                      <div class="stat-value fw-bold">-</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="card shadow border-0 mb-2 modern-summary-card">
-                <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between py-3 px-4" style="border-radius: 1rem 1rem 0 0;">
-                  <span class="fw-bold text-danger-emphasis fs-5"><i class="bi bi-shield-check me-2"></i>Dispute & Recommendations</span>
-                  <span class="badge bg-danger-subtle text-danger-emphasis px-3 py-2"><i class="bi bi-exclamation-triangle me-1"></i> 70% Dispute</span>
-                </div>
-                <div class="card-body p-0">
-                  <ul class="list-unstyled mb-2 modern-list px-4 pt-3">
-                    <li class="mb-2"><i class="bi bi-exclamation-circle text-danger me-2"></i> <span class="fw-semibold">Review the exclusions</span></li>
-                    <li class="mb-2"><i class="bi bi-clipboard-data text-info me-2"></i> <span class="fw-semibold">Validate CLP & Handling fees</span></li>
-                  </ul>
-                  <div class="px-4 pb-3">
-                    <div class="small fw-semibold mb-2 text-secondary"><i class="bi bi-bar-chart-steps me-1"></i>Recommendation Impact</div>
-                    <table class="table table-sm table-bordered mb-0 modern-table align-middle">
-                      <thead class="table-light small">
-                        <tr><th>Recommendation</th><th>Prob</th></tr>
-                      </thead>
-                      <tbody>
-                        <tr><td><i class="bi bi-shield-exclamation text-primary me-1"></i>Exclusion: ACC, QEC, WSPG & Scrap caps</td><td>35%</td></tr>
-                        <tr><td><i class="bi bi-x-octagon text-danger me-1"></i>Incorrect CLP Dispute</td><td>3%</td></tr>
-                        <tr><td><i class="bi bi-x-octagon text-danger me-1"></i>Incorrect Handling fees</td><td>2%</td></tr>
-                      </tbody>
-                    </table>
+            <!-- Redesigned Dispute & Recommendations section -->
+            <div class="col-lg-12 mt-2">
+              <div class="dispute-glass-section position-relative p-3 mb-2">
+                <!-- Decorative SVG shapes -->
+                <svg class="decorative-shape shape3" width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="30" fill="#fca5a5" fill-opacity="0.13"/></svg>
+                <svg class="decorative-shape shape4" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#f87171" fill-opacity="0.10"/></svg>
+                <div class="row g-2 align-items-center">
+                  <div class="col-12 col-md-4 d-flex flex-column align-items-center justify-content-center">
+                    <!-- Circular Dispute Probability Indicator -->
+                    <div class="dispute-radial-indicator mb-2">
+                      <svg width="80" height="80">
+                        <circle cx="40" cy="40" r="34" stroke="#fca5a5" stroke-width="8" fill="none" opacity="0.18"/>
+                        <circle cx="40" cy="40" r="34" stroke="#ef4444" stroke-width="8" fill="none" stroke-dasharray="213.6" stroke-dashoffset="64" style="transition: stroke-dashoffset 1s;"/>
+                      </svg>
+                      <div class="radial-label text-danger-emphasis fw-bold">70%</div>
+                      <div class="radial-sub-label text-secondary small">Dispute Probability</div>
+                    </div>
+                    <div class="d-flex gap-2 mt-1">
+                      <span class="dispute-chip bg-warning-subtle text-warning-emphasis"><i class="bi bi-exclamation-diamond me-1"></i>Overbilled issue</span>
+                      <span class="dispute-chip bg-info-subtle text-info-emphasis"><i class="bi bi-percent me-1"></i>4% Disputed</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-8">
+                    <!-- Timeline/Stepper for Recommendations -->
+                    <div class="dispute-timeline ms-md-4">
+                      <div class="timeline-step mb-3">
+                        <div class="timeline-dot bg-danger"><i class="bi bi-exclamation-circle text-white"></i></div>
+                        <div class="timeline-content bg-danger-subtle text-danger-emphasis">
+                          <span class="fw-semibold">Review the exclusions</span>
+                        </div>
+                      </div>
+                      <div class="timeline-step mb-3">
+                        <div class="timeline-dot bg-info"><i class="bi bi-clipboard-data text-white"></i></div>
+                        <div class="timeline-content bg-info-subtle text-info-emphasis">
+                          <span class="fw-semibold">Validate CLP & Handling fees</span>
+                        </div>
+                      </div>
+                      <!-- Recommendation Impact as animated progress bars -->
+                      <div class="mt-4">
+                        <div class="fw-semibold text-secondary mb-2"><i class="bi bi-bar-chart-steps me-1"></i>Recommendation Impact</div>
+                        <div class="impact-progress-list">
+                          <div class="impact-progress-item mb-2">
+                            <div class="d-flex align-items-center mb-1">
+                              <span class="impact-icon bg-primary text-white me-2"><i class="bi bi-shield-exclamation"></i></span>
+                              <span class="small">Exclusion: ACC, QEC, WSPG & Scrap caps</span>
+                              <span class="badge bg-primary text-white ms-auto">35%</span>
+                            </div>
+                            <div class="progress impact-bar">
+                              <div class="progress-bar bg-primary" style="width: 35%"></div>
+                            </div>
+                          </div>
+                          <div class="impact-progress-item mb-2">
+                            <div class="d-flex align-items-center mb-1">
+                              <span class="impact-icon bg-danger text-white me-2"><i class="bi bi-x-octagon"></i></span>
+                              <span class="small">Incorrect CLP Dispute</span>
+                              <span class="badge bg-danger text-white ms-auto">3%</span>
+                            </div>
+                            <div class="progress impact-bar">
+                              <div class="progress-bar bg-danger" style="width: 3%"></div>
+                            </div>
+                          </div>
+                          <div class="impact-progress-item">
+                            <div class="d-flex align-items-center mb-1">
+                              <span class="impact-icon bg-danger text-white me-2"><i class="bi bi-x-octagon"></i></span>
+                              <span class="small">Incorrect Handling fees</span>
+                              <span class="badge bg-danger text-white ms-auto">2%</span>
+                            </div>
+                            <div class="progress impact-bar">
+                              <div class="progress-bar bg-danger" style="width: 2%"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -290,32 +348,145 @@
         .modern-upload-card {
           background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);
         }
-        .stat-card-compact {
-          border-radius: 1rem;
-          box-shadow: 0 2px 8px rgba(13,110,253,0.06);
-          padding: 0.5rem 0.25rem;
-          min-height: 80px;
-        }
-        .modern-summary-card {
-          border-radius: 1rem;
-          overflow: hidden;
+        .invoice-summary-grid-section {
           background: linear-gradient(120deg, #f8fafc 80%, #e0e7ff 100%);
+          border-radius: 1.25rem;
+          overflow: hidden;
+          min-height: 160px;
         }
-        .modern-summary-card .card-header {
-          border-bottom: 1px solid #e5e7eb;
+        .summary-total-card {
+          background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%) !important;
+          color: #fff !important;
+          border-radius: 1rem;
+          box-shadow: 0 2px 12px rgba(99,102,241,0.13);
         }
-        .modern-table th, .modern-table td {
-          padding: 0.5rem 0.75rem !important;
+        .summary-stat-card {
+          border-radius: 0.7rem;
+          box-shadow: 0 1px 6px rgba(99,102,241,0.06);
+          padding: 0.6rem 0.3rem 0.5rem 0.3rem;
+          margin-bottom: 0.2rem;
+          text-align: center;
+          min-height: 80px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          transition: box-shadow 0.18s, background 0.18s;
         }
-        .modern-list li {
-          font-size: 1rem;
+        .summary-stat-card:hover {
+          box-shadow: 0 4px 16px rgba(99,102,241,0.13);
+          background: #e0e7ff;
+        }
+        .stat-label {
+          font-size: 0.85rem;
+          color: #64748b;
+        }
+        .stat-value {
+          font-size: 0.98rem;
+          font-weight: 700;
+        }
+        .dispute-glass-section {
+          background: linear-gradient(120deg, #f8fafc 90%, #e0e7ff 100%);
+          border-radius: 1.25rem;
+          min-height: 160px;
+          box-shadow: 0 4px 24px rgba(239,68,68,0.08);
+          position: relative;
+          overflow: hidden;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+        .decorative-shape {
+          position: absolute;
+          z-index: 0;
+        }
+        .shape3 { left: -18px; top: -18px; }
+        .shape4 { right: -10px; bottom: -10px; }
+        .dispute-radial-indicator {
+          position: relative;
+          width: 80px;
+          height: 80px;
+          margin-bottom: 0.5rem;
+        }
+        .dispute-radial-indicator svg {
+          position: absolute;
+          top: 0; left: 0;
+        }
+        .radial-label {
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -60%);
+          font-size: 1.3rem;
+        }
+        .radial-sub-label {
+          position: absolute;
+          top: 60%; left: 50%;
+          transform: translate(-50%, 0);
+        }
+        .dispute-chip {
+          border-radius: 999px;
+          font-size: 0.93rem;
+          font-weight: 500;
+          padding: 0.18rem 0.8rem;
+          box-shadow: 0 1px 4px rgba(239,68,68,0.04);
+        }
+        .dispute-timeline {
+          position: relative;
+          padding-left: 1.5rem;
+        }
+        .timeline-step {
+          position: relative;
+          display: flex;
+          align-items: flex-start;
+        }
+        .timeline-step:not(:last-child)::after {
+          content: '';
+          position: absolute;
+          left: 10px;
+          top: 32px;
+          width: 2px;
+          height: 32px;
+          background: #fca5a5;
+          opacity: 0.25;
+        }
+        .timeline-dot {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
           display: flex;
           align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+          margin-right: 0.7rem;
+          margin-top: 0.1rem;
+          box-shadow: 0 1px 4px rgba(239,68,68,0.08);
         }
-        #loaderSection {
-          background: rgba(255,255,255,0.9);
-          z-index: 10;
-          display: none;
+        .timeline-content {
+          border-radius: 0.7rem;
+          padding: 0.5rem 1rem;
+          font-size: 1rem;
+          font-weight: 500;
+          box-shadow: 0 1px 4px rgba(239,68,68,0.04);
+          margin-bottom: 0.1rem;
+        }
+        .impact-progress-list {
+          margin-top: 0.5rem;
+        }
+        .impact-progress-item {
+          margin-bottom: 0.5rem;
+        }
+        .impact-icon {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+          margin-right: 0.5rem;
+        }
+        .impact-bar {
+          height: 7px;
+          border-radius: 4px;
         }
       </style>
 
