@@ -157,15 +157,247 @@
 
       <!-- Upload Section -->
       <section id="uploadSection" class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh;">
-        <div class="card p-5 text-center shadow-lg border-0 modern-upload-card animate__animated animate__fadeIn" style="min-width: 400px; border-radius: 1.5rem;">
-          <div class="mb-3">
-            <i class="bi bi-cloud-arrow-up-fill" style="font-size: 3rem; color: #0d6efd;"></i>
+        <div class="upload-container">
+          <div class="upload-card">
+            <div class="upload-icon">
+              <div class="icon-wrapper">
+                <i class="bi bi-cloud-arrow-up"></i>
+              </div>
+              <div class="icon-pulse"></div>
+            </div>
+            <div class="upload-content">
+              <h3 class="upload-title">Upload Your Invoice</h3>
+              <p class="upload-subtitle">Drag & drop your file or click to browse</p>
+              <div class="upload-form">
+                <input type="file" id="invoiceFile" class="upload-input" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+                <label for="invoiceFile" class="upload-label">
+                  <span class="label-text">Choose File</span>
+                  <i class="bi bi-folder2-open"></i>
+                </label>
+                <button id="uploadBtn" class="upload-button">
+                  <span>Analyze Now</span>
+                  <i class="bi bi-arrow-right"></i>
+                </button>
+              </div>
+              <div class="upload-hint">
+                <i class="bi bi-info-circle"></i>
+                <span>Supported formats: PDF, JPG, PNG, DOC, DOCX</span>
+              </div>
+            </div>
           </div>
-          <h4 class="fw-bold mb-2">Upload Your Invoice</h4>
-          <p class="mb-4 text-muted">Analyze your invoice and get instant recommendations</p>
-          <input type="file" id="invoiceFile" class="form-control mb-3" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="border-radius: 0.75rem;" />
-          <button id="uploadBtn" class="btn btn-primary w-100 fw-semibold" style="border-radius: 0.75rem;">Upload</button>
         </div>
+
+        <style>
+          .upload-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem;
+          }
+
+          .upload-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+          }
+
+          .upload-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0) 70%);
+            z-index: 0;
+          }
+
+          .upload-card::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, rgba(14, 165, 233, 0) 70%);
+            z-index: 0;
+          }
+
+          .upload-icon {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            z-index: 1;
+          }
+
+          .icon-wrapper {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+            position: relative;
+            z-index: 1;
+          }
+
+          .icon-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: pulse 2s infinite;
+          }
+
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+              opacity: 0.2;
+            }
+            50% {
+              transform: scale(1.2);
+              opacity: 0.1;
+            }
+            100% {
+              transform: scale(1);
+              opacity: 0.2;
+            }
+          }
+
+          .upload-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+          }
+
+          .upload-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+          }
+
+          .upload-subtitle {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 1.25rem;
+          }
+
+          .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+          }
+
+          .upload-input {
+            display: none;
+          }
+
+          .upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(241, 245, 249, 0.8);
+            border: 1px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          }
+
+          .upload-label:hover {
+            background: rgba(226, 232, 240, 0.8);
+            border-color: #94a3b8;
+          }
+
+          .label-text {
+            font-weight: 500;
+          }
+
+          .upload-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          }
+
+          .upload-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+          }
+
+          .upload-button:active {
+            transform: translateY(0);
+          }
+
+          .upload-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            color: #94a3b8;
+          }
+
+          .upload-hint i {
+            font-size: 0.875rem;
+          }
+
+          @media (max-width: 768px) {
+            .upload-container {
+              padding: 0.75rem;
+            }
+
+            .upload-card {
+              padding: 1.25rem;
+            }
+
+            .upload-icon {
+              width: 56px;
+              height: 56px;
+            }
+
+            .icon-wrapper {
+              font-size: 1.25rem;
+            }
+
+            .upload-title {
+              font-size: 1.125rem;
+            }
+
+            .upload-subtitle {
+              font-size: 0.8125rem;
+            }
+          }
+        </style>
       </section>
 
       <!-- Loader Section (Initially Hidden) -->
@@ -403,190 +635,1749 @@
         <div class="container-fluid animate__animated animate__fadeIn">
           <div class="row g-2 align-items-stretch creative-summary-row">
             <div class="col-lg-12">
-              <div class="invoice-summary-grid-section position-relative py-2 px-1">
-                <div class="d-flex align-items-center mb-2">
-                  <span class="fs-6 fw-bold text-primary-emphasis me-2"><i class="bi bi-receipt-cutoff me-2"></i>Invoice Summary</span>
-                  <span class="badge bg-primary-subtle text-primary-emphasis ms-2">Grid View</span>
+              <div class="invoice-summary-section">
+                <!-- Header -->
+                <div class="summary-header">
+                  <div class="header-content">
+                    <div class="header-icon">
+                      <i class="bi bi-receipt-cutoff"></i>
+                    </div>
+                    <h2>Invoice Summary</h2>
+                  </div>
+                  <div class="view-toggle">
+                    <button class="toggle-btn active">Grid</button>
+                    <button class="toggle-btn">List</button>
+                  </div>
                 </div>
-                <div class="row g-2 invoice-summary-grid mb-2">
-                  <div class="col-12">
-                    <div class="summary-total-card bg-gradient text-white d-flex align-items-center justify-content-between p-3 mb-2">
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-trophy-fill me-2" style="font-size:1.5rem;"></i>
-                        <span class="fs-5 fw-bold">Total</span>
+
+                <!-- Total Summary -->
+                <div class="total-summary-card">
+                  <div class="total-content">
+                    <div class="total-icon">
+                      <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <div class="total-details">
+                      <div class="total-label">Total Invoice Amount</div>
+                      <div class="total-amount">$4,472,200</div>
+                    </div>
+                    <div class="total-breakdown">
+                      <div class="breakdown-item">
+                        <span class="label">InScope</span>
+                        <span class="value">$2,752,670</span>
                       </div>
-                      <span class="fs-4 fw-bold">$4,472,200</span>
+                      <div class="breakdown-item">
+                        <span class="label">OutScope</span>
+                        <span class="value">-</span>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-primary-subtle text-primary-emphasis p-2">
-                      <i class="bi bi-cash-coin mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">InScope Charges</div>
-                      <div class="stat-value fw-bold">$2,752,670</div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                  <!-- Primary Stats -->
+                  <div class="stat-card primary">
+                    <div class="card-icon">
+                      <i class="bi bi-cash-coin"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">InScope Charges</div>
+                      <div class="card-value">$2,752,670</div>
+                      <div class="card-percentage">61.5%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-info-subtle text-info-emphasis p-2">
-                      <i class="bi bi-arrow-repeat mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">LLPs Replacement</div>
-                      <div class="stat-value fw-bold">$1,632,712</div>
+
+                  <div class="stat-card info">
+                    <div class="card-icon">
+                      <i class="bi bi-arrow-repeat"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">LLPs Replacement</div>
+                      <div class="card-value">$1,632,712</div>
+                      <div class="card-percentage">36.5%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-warning-subtle text-warning-emphasis p-2">
-                      <i class="bi bi-tools mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">QEC & LRU Replacement</div>
-                      <div class="stat-value fw-bold">$16,780</div>
+
+                  <div class="stat-card warning">
+                    <div class="card-icon">
+                      <i class="bi bi-tools"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">QEC & LRU Replacement</div>
+                      <div class="card-value">$16,780</div>
+                      <div class="card-percentage">0.4%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-light text-muted p-2">
-                      <i class="bi bi-x-circle mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">Out-Of-Scope Charges</div>
-                      <div class="stat-value fw-bold">-</div>
+
+                  <!-- Secondary Stats -->
+                  <div class="stat-card light">
+                    <div class="card-icon">
+                      <i class="bi bi-x-circle"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">Out-Of-Scope</div>
+                      <div class="card-value">-</div>
+                      <div class="card-percentage">0%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-success-subtle text-success-emphasis p-2">
-                      <i class="bi bi-box-seam mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">Missing Items</div>
-                      <div class="stat-value fw-bold">$247</div>
+
+                  <div class="stat-card success">
+                    <div class="card-icon">
+                      <i class="bi bi-box-seam"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">Missing Items</div>
+                      <div class="card-value">$247</div>
+                      <div class="card-percentage">0.01%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-secondary-subtle text-secondary-emphasis p-2">
-                      <i class="bi bi-bell mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">Service Bulletin</div>
-                      <div class="stat-value fw-bold">$60,914</div>
+
+                  <div class="stat-card secondary">
+                    <div class="card-icon">
+                      <i class="bi bi-bell"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">Service Bulletin</div>
+                      <div class="card-value">$60,914</div>
+                      <div class="card-percentage">1.4%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-primary-subtle text-primary-emphasis p-2">
-                      <i class="bi bi-wrench-adjustable mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">Stand Repair</div>
-                      <div class="stat-value fw-bold">$1,000</div>
+
+                  <div class="stat-card primary">
+                    <div class="card-icon">
+                      <i class="bi bi-wrench-adjustable"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">Stand Repair</div>
+                      <div class="card-value">$1,000</div>
+                      <div class="card-percentage">0.02%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-info-subtle text-info-emphasis p-2">
-                      <i class="bi bi-truck mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">Material Transportation</div>
-                      <div class="stat-value fw-bold">$7,877</div>
+
+                  <div class="stat-card info">
+                    <div class="card-icon">
+                      <i class="bi bi-truck"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">Material Transportation</div>
+                      <div class="card-value">$7,877</div>
+                      <div class="card-percentage">0.2%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4">
-                    <div class="summary-stat-card bg-light text-muted p-2">
-                      <i class="bi bi-clock mb-1" style="font-size:1.2rem;"></i>
-                      <div class="stat-label small">TAT Remedy</div>
-                      <div class="stat-value fw-bold">-</div>
+
+                  <div class="stat-card light">
+                    <div class="card-icon">
+                      <i class="bi bi-clock"></i>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">TAT Remedy</div>
+                      <div class="card-value">-</div>
+                      <div class="card-percentage">0%</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- Redesigned Dispute & Recommendations section -->
-            <div class="col-lg-12 mt-2">
-              <div class="dispute-glass-section position-relative p-3 mb-2">
-                <!-- Decorative SVG shapes -->
-                <svg class="decorative-shape shape3" width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="30" fill="#fca5a5" fill-opacity="0.13"/></svg>
-                <svg class="decorative-shape shape4" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#f87171" fill-opacity="0.10"/></svg>
-                <div class="row g-2 align-items-center">
-                  <div class="col-12 col-md-4 d-flex flex-column align-items-center justify-content-center">
-                    <!-- Modern Dispute Probability Indicator -->
-                    <div class="dispute-indicator-container">
-                      <!-- Animated Background Circles -->
-                      <div class="indicator-bg-circles">
-                        <div class="bg-circle circle-1"></div>
-                        <div class="bg-circle circle-2"></div>
+
+            <!-- Recommendation Section -->
+            <div class="col-lg-12 mt-3">
+              <div class="recommendation-section">
+                <div class="section-background">
+                  <div class="gradient-orb"></div>
+                  <div class="gradient-orb"></div>
+                  <div class="gradient-orb"></div>
+                </div>
+
+                <div class="section-header">
+                  <div class="header-content">
+                    <div class="header-icon">
+                      <i class="bi bi-shield-check"></i>
+                      <div class="icon-pulse"></div>
+                    </div>
+                    <div class="header-text">
+                      <h2>Dispute Prediction & Recommendation</h2>
+                      <div class="header-meta">
+                        <span class="meta-item">
+                          <i class="bi bi-clock"></i>
+                          Last updated: 2 hours ago
+                        </span>
+                        <span class="meta-divider">•</span>
+                        <span class="meta-item">
+                          <i class="bi bi-graph-up"></i>
+                          85% Accuracy
+                        </span>
                       </div>
-                      
-                      <!-- Main Indicator -->
-                      <div class="dispute-indicator">
-                        <div class="indicator-ring">
-                          <svg class="ring-svg" viewBox="0 0 100 100">
-                            <circle class="ring-bg" cx="50" cy="50" r="45" />
-                            <circle class="ring-progress" cx="50" cy="50" r="45" />
-                          </svg>
-                        </div>
-                        <div class="indicator-content">
-                          <div class="indicator-value">70%</div>
-                          <div class="indicator-label">Dispute Probability</div>
-                        </div>
-                      </div>
-                      
-                      <!-- Status Indicators -->
-                      <div class="indicator-stats">
-                        <div class="stat-item">
-                          <div class="stat-icon"><i class="bi bi-exclamation-diamond"></i></div>
-                          <div class="stat-info">
-                            <div class="stat-value">Overbilled</div>
-                            <div class="stat-label">Issue Type</div>
+                    </div>
+                  </div>
+                  <div class="header-actions">
+                    <button class="action-button refresh">
+                      <i class="bi bi-arrow-clockwise"></i>
+                      <span>Refresh</span>
+                    </button>
+                    <button class="action-button export">
+                      <i class="bi bi-download"></i>
+                      <span>Export</span>
+                    </button>
+                  </div>
+                </div>
+
+                <style>
+                  .section-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1.5rem;
+                    padding: 1rem 1.25rem;
+                    background: rgba(255, 255, 255, 0.9);
+                    border-radius: 16px;
+                    border: 1px solid rgba(226, 232, 240, 0.8);
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+                  }
+
+                  .header-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                  }
+
+                  .header-icon {
+                    position: relative;
+                    width: 44px;
+                    height: 44px;
+                    background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 1.25rem;
+                    box-shadow: 0 8px 16px -4px rgba(59, 130, 246, 0.24);
+                  }
+
+                  .icon-pulse {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: inherit;
+                    border-radius: inherit;
+                    opacity: 0.6;
+                    animation: pulse 2s infinite;
+                  }
+
+                  @keyframes pulse {
+                    0% {
+                      transform: scale(1);
+                      opacity: 0.6;
+                    }
+                    50% {
+                      transform: scale(1.15);
+                      opacity: 0;
+                    }
+                    100% {
+                      transform: scale(1);
+                      opacity: 0.6;
+                    }
+                  }
+
+                  .header-text {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.25rem;
+                  }
+
+                  .header-text h2 {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    color: #1e293b;
+                    margin: 0;
+                    line-height: 1.3;
+                  }
+
+                  .header-meta {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    font-size: 0.75rem;
+                    color: #64748b;
+                  }
+
+                  .meta-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.375rem;
+                  }
+
+                  .meta-item i {
+                    font-size: 0.875rem;
+                    color: #94a3b8;
+                  }
+
+                  .meta-divider {
+                    color: #cbd5e1;
+                  }
+
+                  .header-actions {
+                    display: flex;
+                    gap: 0.5rem;
+                  }
+
+                  .action-button {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.375rem;
+                    padding: 0.5rem 0.875rem;
+                    border: none;
+                    border-radius: 10px;
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                  }
+
+                  .action-button i {
+                    font-size: 1rem;
+                  }
+
+                  .action-button.refresh {
+                    background: #f8fafc;
+                    color: #64748b;
+                    border: 1px solid #e2e8f0;
+                  }
+
+                  .action-button.refresh:hover {
+                    background: #f1f5f9;
+                    color: #1e293b;
+                    border-color: #cbd5e1;
+                  }
+
+                  .action-button.export {
+                    background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+                    color: white;
+                  }
+
+                  .action-button.export:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.24);
+                  }
+
+                  @media (max-width: 768px) {
+                    .section-header {
+                      flex-direction: column;
+                      gap: 1rem;
+                      padding: 0.875rem 1rem;
+                    }
+
+                    .header-actions {
+                      width: 100%;
+                      justify-content: stretch;
+                    }
+
+                    .action-button {
+                      flex: 1;
+                      justify-content: center;
+                    }
+
+                    .header-text h2 {
+                      font-size: 1.125rem;
+                    }
+
+                    .header-icon {
+                      width: 40px;
+                      height: 40px;
+                      font-size: 1.125rem;
+                    }
+                  }
+                </style>
+
+                <div class="content-grid">
+                  <div class="metrics-column">
+                    <div class="dispute-card">
+                      <div class="card-glow"></div>
+                      <div class="card-header">
+                        <div class="header-left">
+                          <div class="header-icon">
+                            <i class="bi bi-shield-exclamation"></i>
+                          </div>
+                          <div class="header-info">
+                            <h3>Dispute Risk Analysis</h3>
+                            <p>Based on historical data and current patterns</p>
                           </div>
                         </div>
-                        <div class="stat-item">
-                          <div class="stat-icon"><i class="bi bi-percent"></i></div>
-                          <div class="stat-info">
-                            <div class="stat-value">4%</div>
-                            <div class="stat-label">Disputed</div>
+                        <div class="header-actions">
+                          <button class="header-btn refresh">
+                            <i class="bi bi-arrow-clockwise"></i>
+                            <span class="btn-tooltip">Refresh Analysis</span>
+                          </button>
+                          <button class="header-btn">
+                            <i class="bi bi-three-dots-vertical"></i>
+                            <span class="btn-tooltip">More Options</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="dispute-content">
+                        <div class="risk-indicator">
+                          <div class="ring-wrapper">
+                            <svg viewBox="0 0 100 100" class="progress-ring">
+                              <defs>
+                                <linearGradient id="riskGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                  <stop offset="0%" style="stop-color: #ef4444" />
+                                  <stop offset="100%" style="stop-color: #f87171" />
+                                </linearGradient>
+                              </defs>
+                              <circle class="ring-bg" cx="50" cy="50" r="45"></circle>
+                              <circle class="ring-progress" cx="50" cy="50" r="45" stroke="url(#riskGradient)"></circle>
+                            </svg>
+                            <div class="ring-content">
+                              <div class="ring-value">70%</div>
+                              <div class="ring-label">Risk Level</div>
+                            </div>
+                          </div>
+                          <div class="risk-status high">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <span>High Risk Level</span>
+                          </div>
+                            <div class="risk-trend">
+                              <i class="bi bi-arrow-up-right"></i>
+                              <span>+15% vs Last Month</span>
+                            </div>
+                      </div>
+
+                      <div class="metrics-grid">
+                        <div class="metric-card">
+                          <div class="metric-header">
+                            <div class="metric-icon">
+                              <i class="bi bi-cash-stack"></i>
+                            </div>
+                              <div class="metric-trend up">
+                                <i class="bi bi-arrow-up-right"></i>
+                                <span>12.5%</span>
+                          </div>
+                            </div>
+                            <div class="metric-body">
+                          <div class="metric-value">$178,888</div>
+                              <div class="metric-label">Overbilled Amount</div>
+                            </div>
+                            <div class="metric-chart">
+                              <div class="chart-bar" style="height: 60%"></div>
+                              <div class="chart-bar" style="height: 80%"></div>
+                              <div class="chart-bar active" style="height: 100%"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                          <div class="metric-header">
+                            <div class="metric-icon">
+                              <i class="bi bi-clock-history"></i>
+                            </div>
+                              <div class="metric-trend down">
+                                <i class="bi bi-arrow-down-right"></i>
+                                <span>2.3%</span>
+                          </div>
+                            </div>
+                            <div class="metric-body">
+                          <div class="metric-value">4%</div>
+                              <div class="metric-label">Previous Disputes</div>
+                            </div>
+                            <div class="metric-chart">
+                              <div class="chart-bar" style="height: 90%"></div>
+                              <div class="chart-bar" style="height: 70%"></div>
+                              <div class="chart-bar active" style="height: 40%"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <style>
+                        .dispute-card {
+                          position: relative;
+                          background: white;
+                          border-radius: 20px;
+                          padding: 1.5rem;
+                          border: 1px solid rgba(226, 232, 240, 0.8);
+                          overflow: hidden;
+                        }
+
+                        .card-glow {
+                          position: absolute;
+                          top: -50%;
+                          right: -50%;
+                          width: 200%;
+                          height: 200%;
+                          background: radial-gradient(circle at center, rgba(239, 68, 68, 0.05) 0%, transparent 70%);
+                          pointer-events: none;
+                        }
+
+                        .card-header {
+                          display: flex;
+                          justify-content: space-between;
+                          align-items: flex-start;
+                          margin-bottom: 2rem;
+                        }
+
+                        .header-left {
+                          display: flex;
+                          align-items: center;
+                          gap: 1rem;
+                        }
+
+                        .header-icon {
+                          width: 48px;
+                          height: 48px;
+                          background: linear-gradient(135deg, #ef4444, #f87171);
+                          border-radius: 12px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: white;
+                          font-size: 1.5rem;
+                          box-shadow: 0 8px 16px rgba(239, 68, 68, 0.2);
+                        }
+
+                        .header-info h3 {
+                          font-size: 1.25rem;
+                          font-weight: 600;
+                          color: #1e293b;
+                          margin: 0 0 0.25rem;
+                        }
+
+                        .header-info p {
+                          font-size: 0.875rem;
+                          color: #64748b;
+                          margin: 0;
+                        }
+
+                        .header-actions {
+                          display: flex;
+                          gap: 0.5rem;
+                        }
+
+                        .header-btn {
+                          position: relative;
+                          width: 36px;
+                          height: 36px;
+                          border: 1px solid #e2e8f0;
+                          border-radius: 10px;
+                          background: white;
+                          color: #64748b;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          cursor: pointer;
+                          transition: all 0.2s ease;
+                        }
+
+                        .header-btn:hover {
+                          background: #f8fafc;
+                          border-color: #cbd5e1;
+                          color: #1e293b;
+                        }
+
+                        .header-btn:hover .btn-tooltip {
+                          opacity: 1;
+                          transform: translateY(0);
+                        }
+
+                        .btn-tooltip {
+                          position: absolute;
+                          top: calc(100% + 5px);
+                          right: 0;
+                          background: #1e293b;
+                          color: white;
+                          font-size: 0.75rem;
+                          padding: 0.25rem 0.5rem;
+                          border-radius: 4px;
+                          white-space: nowrap;
+                          opacity: 0;
+                          transform: translateY(5px);
+                          transition: all 0.2s ease;
+                        }
+
+                        .dispute-content {
+                          display: grid;
+                          grid-template-columns: auto 1fr;
+                          gap: 2rem;
+                          align-items: center;
+                        }
+
+                        .risk-indicator {
+                          text-align: center;
+                        }
+
+                        .ring-wrapper {
+                          position: relative;
+                          width: 180px;
+                          height: 180px;
+                          margin: 0 auto 1rem;
+                        }
+
+                        .progress-ring {
+                          transform: rotate(-90deg);
+                          width: 100%;
+                          height: 100%;
+                        }
+
+                        .ring-bg {
+                          fill: none;
+                          stroke: rgba(239, 68, 68, 0.1);
+                          stroke-width: 8;
+                        }
+
+                        .ring-progress {
+                          fill: none;
+                          stroke: url(#riskGradient);
+                          stroke-width: 8;
+                          stroke-linecap: round;
+                          stroke-dasharray: 283;
+                          stroke-dashoffset: 85;
+                          transition: stroke-dashoffset 1s ease;
+                        }
+
+                        .ring-content {
+                          position: absolute;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          text-align: center;
+                        }
+
+                        .ring-value {
+                          font-size: 2.5rem;
+                          font-weight: 700;
+                          color: #ef4444;
+                          font-family: 'Roboto Mono', monospace;
+                          line-height: 1;
+                        }
+
+                        .ring-label {
+                          font-size: 0.875rem;
+                          color: #64748b;
+                          margin-top: 0.25rem;
+                        }
+
+                        .risk-status {
+                          display: inline-flex;
+                          align-items: center;
+                          gap: 0.5rem;
+                          padding: 0.5rem 1rem;
+                          border-radius: 10px;
+                          font-size: 0.875rem;
+                          font-weight: 500;
+                          margin-bottom: 0.5rem;
+                        }
+
+                        .risk-status.high {
+                          background: rgba(239, 68, 68, 0.1);
+                          color: #ef4444;
+                        }
+
+                        .risk-trend {
+                          display: inline-flex;
+                          align-items: center;
+                          gap: 0.375rem;
+                          font-size: 0.875rem;
+                          color: #ef4444;
+                        }
+
+                        .metrics-grid {
+                          display: grid;
+                          grid-template-columns: repeat(2, 1fr);
+                          gap: 1rem;
+                        }
+
+                        .metric-card {
+                          background: #f8fafc;
+                          border-radius: 16px;
+                          padding: 1.25rem;
+                          transition: all 0.3s ease;
+                        }
+
+                        .metric-card:hover {
+                          transform: translateY(-4px);
+                          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+                        }
+
+                        .metric-header {
+                          display: flex;
+                          justify-content: space-between;
+                          align-items: center;
+                          margin-bottom: 1rem;
+                        }
+
+                        .metric-icon {
+                          width: 40px;
+                          height: 40px;
+                          background: white;
+                          border-radius: 10px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: #ef4444;
+                          font-size: 1.25rem;
+                        }
+
+                        .metric-trend {
+                          display: flex;
+                          align-items: center;
+                          gap: 0.25rem;
+                          font-size: 0.75rem;
+                          font-weight: 500;
+                          padding: 0.25rem 0.5rem;
+                          border-radius: 6px;
+                        }
+
+                        .metric-trend.up {
+                          background: rgba(34, 197, 94, 0.1);
+                          color: #22c55e;
+                        }
+
+                        .metric-trend.down {
+                          background: rgba(239, 68, 68, 0.1);
+                          color: #ef4444;
+                        }
+
+                        .metric-body {
+                          margin-bottom: 1rem;
+                        }
+
+                        .metric-value {
+                          font-size: 1.5rem;
+                          font-weight: 600;
+                          color: #1e293b;
+                          font-family: 'Roboto Mono', monospace;
+                          margin-bottom: 0.25rem;
+                        }
+
+                        .metric-label {
+                          font-size: 0.875rem;
+                          color: #64748b;
+                        }
+
+                        .metric-chart {
+                          display: flex;
+                          align-items: flex-end;
+                          gap: 0.25rem;
+                          height: 40px;
+                        }
+
+                        .chart-bar {
+                          flex: 1;
+                          background: rgba(226, 232, 240, 0.5);
+                          border-radius: 2px;
+                          transition: all 0.3s ease;
+                        }
+
+                        .chart-bar.active {
+                          background: #ef4444;
+                        }
+
+                        @media (max-width: 1024px) {
+                          .dispute-content {
+                            grid-template-columns: 1fr;
+                            gap: 2rem;
+                          }
+
+                          .risk-indicator {
+                            margin: 0 auto;
+                          }
+
+                          .ring-wrapper {
+                            width: 160px;
+                            height: 160px;
+                          }
+
+                          .ring-value {
+                            font-size: 2rem;
+                          }
+                        }
+
+                        @media (max-width: 768px) {
+                          .metrics-grid {
+                            grid-template-columns: 1fr;
+                          }
+
+                          .card-header {
+                            flex-direction: column;
+                            gap: 1rem;
+                          }
+
+                          .header-actions {
+                            align-self: flex-end;
+                          }
+
+                          .ring-wrapper {
+                            width: 140px;
+                            height: 140px;
+                          }
+
+                          .ring-value {
+                            font-size: 1.75rem;
+                          }
+                        }
+                      </style>
+                    </div>
+
+                    <div class="risk-factors-card">
+                      <div class="card-header">
+                        <h3>
+                          <i class="bi bi-shield-exclamation"></i>
+                          Risk Factors
+                        </h3>
+                        <button class="refresh-btn">
+                          <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                      </div>
+                      <div class="risk-list">
+                        <div class="risk-item high">
+                          <div class="risk-info">
+                            <div class="risk-icon">
+                              <i class="bi bi-exclamation-circle"></i>
+                            </div>
+                            <div class="risk-details">
+                              <div class="risk-name">Pricing Deviation</div>
+                              <div class="risk-description">Rates exceed standard pricing</div>
+                            </div>
+                            <div class="risk-score">85%</div>
+                          </div>
+                          <div class="risk-bar">
+                            <div class="bar-fill" style="width: 85%"></div>
+                          </div>
+                        </div>
+                        <div class="risk-item medium">
+                          <div class="risk-info">
+                            <div class="risk-icon">
+                              <i class="bi bi-file-text"></i>
+                            </div>
+                            <div class="risk-details">
+                              <div class="risk-name">Contract Compliance</div>
+                              <div class="risk-description">Documentation gaps identified</div>
+                            </div>
+                            <div class="risk-score">65%</div>
+                          </div>
+                          <div class="risk-bar">
+                            <div class="bar-fill" style="width: 65%"></div>
+                          </div>
+                        </div>
+                        <div class="risk-item low">
+                          <div class="risk-info">
+                            <div class="risk-icon">
+                              <i class="bi bi-clock"></i>
+                            </div>
+                            <div class="risk-details">
+                              <div class="risk-name">Documentation</div>
+                              <div class="risk-description">Minor timeline discrepancies</div>
+                            </div>
+                            <div class="risk-score">25%</div>
+                          </div>
+                          <div class="risk-bar">
+                            <div class="bar-fill" style="width: 25%"></div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-12 col-md-8">
-                    <!-- Timeline/Stepper for Recommendations -->
-                    <div class="dispute-timeline ms-md-4">
-                      <div class="timeline-step mb-3">
-                        <div class="timeline-dot bg-danger"><i class="bi bi-exclamation-circle text-white"></i></div>
-                        <div class="timeline-content bg-danger-subtle text-danger-emphasis">
-                          <span class="fw-semibold">Review the exclusions</span>
+
+                  <div class="recommendations-container">
+                    <div class="recommendations-header">
+                      <div class="header-left">
+                        <h3>Key Recommendations</h3>
+                        <span class="issue-count">3 Issues Found</span>
+                      </div>
+                      <div class="chips-group">
+                        <button class="chip active" data-filter="all">
+                          <div class="chip-icon">
+                            <i class="bi bi-grid"></i>
+                          </div>
+                          <span>All</span>
+                          <div class="chip-badge">3</div>
+                        </button>
+                        <button class="chip high" data-filter="high">
+                          <div class="chip-icon">
+                            <i class="bi bi-exclamation-triangle"></i>
+                          </div>
+                          <span>High</span>
+                          <div class="chip-badge">1</div>
+                        </button>
+                        <button class="chip medium" data-filter="medium">
+                          <div class="chip-icon">
+                            <i class="bi bi-exclamation"></i>
+                          </div>
+                          <span>Medium</span>
+                          <div class="chip-badge">1</div>
+                        </button>
+                        <button class="chip low" data-filter="low">
+                          <div class="chip-icon">
+                            <i class="bi bi-info-circle"></i>
+                          </div>
+                          <span>Low</span>
+                          <div class="chip-badge">1</div>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="recommendations-grid">
+                      <div class="rec-card high">
+                        <div class="card-header">
+                          <div class="priority-badge">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            High Priority
+                          </div>
+                          <div class="impact-badge">85%</div>
+                        </div>
+                        <div class="card-content">
+                          <h4>Pricing Review Required</h4>
+                          <p>Material pricing exceeds CLP by significant margin. Review and adjust rates.</p>
+                          <div class="card-actions">
+                            <div class="progress-bar">
+                              <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <button class="action-btn">
+                              <i class="bi bi-arrow-right"></i>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                      <div class="timeline-step mb-3">
-                        <div class="timeline-dot bg-info"><i class="bi bi-clipboard-data text-white"></i></div>
-                        <div class="timeline-content bg-info-subtle text-info-emphasis">
-                          <span class="fw-semibold">Validate CLP & Handling fees</span>
+
+                      <div class="rec-card medium">
+                        <div class="card-header">
+                          <div class="priority-badge">
+                            <i class="bi bi-exclamation"></i>
+                            Medium Priority
+                          </div>
+                          <div class="impact-badge">45%</div>
+                        </div>
+                        <div class="card-content">
+                          <h4>Documentation Gap</h4>
+                          <p>Missing supporting documents for repair charges. Request additional documentation.</p>
+                          <div class="card-actions">
+                            <div class="progress-bar">
+                              <div class="progress-fill" style="width: 45%"></div>
+                            </div>
+                            <button class="action-btn">
+                              <i class="bi bi-arrow-right"></i>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                      <!-- Recommendation Impact as animated progress bars -->
-                      <div class="mt-4">
-                        <div class="fw-semibold text-secondary mb-2"><i class="bi bi-bar-chart-steps me-1"></i>Recommendation Impact</div>
-                        <div class="impact-progress-list">
-                          <div class="impact-progress-item mb-2">
-                            <div class="d-flex align-items-center mb-1">
-                              <span class="impact-icon bg-primary text-white me-2"><i class="bi bi-shield-exclamation"></i></span>
-                              <span class="small">Exclusion: ACC, QEC, WSPG & Scrap caps</span>
-                              <span class="badge bg-primary text-white ms-auto">35%</span>
-                            </div>
-                            <div class="progress impact-bar">
-                              <div class="progress-bar bg-primary" style="width: 35%"></div>
-                            </div>
+
+                      <div class="rec-card low">
+                        <div class="card-header">
+                          <div class="priority-badge">
+                            <i class="bi bi-info-circle"></i>
+                            Low Priority
                           </div>
-                          <div class="impact-progress-item mb-2">
-                            <div class="d-flex align-items-center mb-1">
-                              <span class="impact-icon bg-danger text-white me-2"><i class="bi bi-x-octagon"></i></span>
-                              <span class="small">Incorrect CLP Dispute</span>
-                              <span class="badge bg-danger text-white ms-auto">3%</span>
+                          <div class="impact-badge">20%</div>
+                        </div>
+                        <div class="card-content">
+                          <h4>Timeline Review</h4>
+                          <p>Minor discrepancies in delivery dates noted. Verify transportation timeline.</p>
+                          <div class="card-actions">
+                            <div class="progress-bar">
+                              <div class="progress-fill" style="width: 20%"></div>
                             </div>
-                            <div class="progress impact-bar">
-                              <div class="progress-bar bg-danger" style="width: 3%"></div>
-                            </div>
+                            <button class="action-btn">
+                              <i class="bi bi-arrow-right"></i>
+                            </button>
                           </div>
-                          <div class="impact-progress-item">
-                            <div class="d-flex align-items-center mb-1">
-                              <span class="impact-icon bg-danger text-white me-2"><i class="bi bi-x-octagon"></i></span>
-                              <span class="small">Incorrect Handling fees</span>
-                              <span class="badge bg-danger text-white ms-auto">2%</span>
-                            </div>
-                            <div class="progress impact-bar">
-                              <div class="progress-bar bg-danger" style="width: 2%"></div>
-                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <style>
+                      .recommendations-container {
+                        margin-top: 1rem;
+                      }
+
+                      .recommendations-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 1rem;
+                      }
+
+                      .header-left {
+                        display: flex;
+                        align-items: baseline;
+                        gap: 0.5rem;
+                      }
+
+                      .header-left h3 {
+                        font-size: 1rem;
+                        font-weight: 600;
+                        color: #1e293b;
+                        margin: 0;
+                      }
+
+                      .issue-count {
+                        font-size: 0.75rem;
+                        color: #64748b;
+                      }
+
+                      .chips-group {
+                        display: flex;
+                        gap: 0.375rem;
+                        padding: 0.25rem;
+                        background: rgba(241, 245, 249, 0.6);
+                        border-radius: 8px;
+                        backdrop-filter: blur(8px);
+                      }
+
+                      .chip {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.375rem;
+                        padding: 0.375rem 0.625rem;
+                        border: none;
+                        border-radius: 6px;
+                        background: transparent;
+                        color: #64748b;
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        transition: all 0.2s ease;
+                        cursor: pointer;
+                      }
+
+                      .chip:hover {
+                        background: rgba(255, 255, 255, 0.8);
+                      }
+
+                      .chip.active {
+                        background: white;
+                        color: #1e293b;
+                        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                      }
+
+                      .chip-icon {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 0.875rem;
+                      }
+
+                      .chip-badge {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 18px;
+                        height: 18px;
+                        padding: 0 4px;
+                        background: rgba(226, 232, 240, 0.5);
+                        border-radius: 9px;
+                        font-size: 0.6875rem;
+                        font-weight: 600;
+                      }
+
+                      .chip.active .chip-badge {
+                        background: #3b82f6;
+                        color: white;
+                      }
+
+                      .chip.high:hover {
+                        color: #ef4444;
+                      }
+
+                      .chip.medium:hover {
+                        color: #0ea5e9;
+                      }
+
+                      .chip.low:hover {
+                        color: #22c55e;
+                      }
+
+                      .recommendations-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                        gap: 0.75rem;
+                      }
+
+                      .rec-card {
+                        background: white;
+                        border-radius: 12px;
+                        border: 1px solid rgba(226, 232, 240, 0.8);
+                        overflow: hidden;
+                        transition: all 0.2s ease;
+                      }
+
+                      .rec-card:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                      }
+
+                      .rec-card.high {
+                        border-top: 3px solid #ef4444;
+                      }
+
+                      .rec-card.medium {
+                        border-top: 3px solid #0ea5e9;
+                      }
+
+                      .rec-card.low {
+                        border-top: 3px solid #22c55e;
+                      }
+
+                      .card-header {
+                        padding: 0.75rem;
+                        background: rgba(241, 245, 249, 0.5);
+                        border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                      }
+
+                      .priority-badge {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.375rem;
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                      }
+
+                      .high .priority-badge {
+                        color: #ef4444;
+                      }
+
+                      .medium .priority-badge {
+                        color: #0ea5e9;
+                      }
+
+                      .low .priority-badge {
+                        color: #22c55e;
+                      }
+
+                      .impact-badge {
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        font-family: 'Roboto Mono', monospace;
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 6px;
+                      }
+
+                      .high .impact-badge {
+                        background: rgba(239, 68, 68, 0.1);
+                        color: #ef4444;
+                      }
+
+                      .medium .impact-badge {
+                        background: rgba(14, 165, 233, 0.1);
+                        color: #0ea5e9;
+                      }
+
+                      .low .impact-badge {
+                        background: rgba(34, 197, 94, 0.1);
+                        color: #22c55e;
+                      }
+
+                      .card-content {
+                        padding: 0.75rem;
+                      }
+
+                      .card-content h4 {
+                        font-size: 0.875rem;
+                        font-weight: 600;
+                        color: #1e293b;
+                        margin: 0 0 0.375rem;
+                      }
+
+                      .card-content p {
+                        font-size: 0.75rem;
+                        color: #64748b;
+                        margin: 0 0 0.75rem;
+                        line-height: 1.4;
+                      }
+
+                      .card-actions {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                      }
+
+                      .progress-bar {
+                        flex: 1;
+                        height: 4px;
+                        background: rgba(226, 232, 240, 0.5);
+                        border-radius: 2px;
+                        overflow: hidden;
+                      }
+
+                      .progress-fill {
+                        height: 100%;
+                        transition: width 0.3s ease;
+                      }
+
+                      .high .progress-fill {
+                        background: linear-gradient(90deg, #ef4444, #f87171);
+                      }
+
+                      .medium .progress-fill {
+                        background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+                      }
+
+                      .low .progress-fill {
+                        background: linear-gradient(90deg, #22c55e, #4ade80);
+                      }
+
+                      .action-btn {
+                        width: 24px;
+                        height: 24px;
+                        border: none;
+                        border-radius: 6px;
+                        background: rgba(241, 245, 249, 0.8);
+                        color: #64748b;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 0.875rem;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                      }
+
+                      .action-btn:hover {
+                        background: #1e293b;
+                        color: white;
+                      }
+
+                      @media (max-width: 768px) {
+                        .recommendations-header {
+                          flex-direction: column;
+                          gap: 0.75rem;
+                          align-items: flex-start;
+                        }
+
+                        .chips-group {
+                          width: 100%;
+                          overflow-x: auto;
+                          padding: 0.375rem;
+                        }
+
+                        .chip {
+                          white-space: nowrap;
+                        }
+                      }
+                    </style>
+
+                    <div class="impact-summary">
+                      <div class="impact-header">
+                        <h4>Potential Impact Summary</h4>
+                        <div class="total-savings">
+                          <span>Potential Savings</span>
+                          <strong>$245,670</strong>
+                        </div>
                           </div>
+                      <div class="impact-chart">
+                        <div class="chart-segment high" style="width: 45%">
+                          <span class="segment-label">High Impact</span>
+                          <span class="segment-value">45%</span>
+                        </div>
+                        <div class="chart-segment medium" style="width: 35%">
+                          <span class="segment-label">Medium Impact</span>
+                          <span class="segment-value">35%</span>
+                        </div>
+                        <div class="chart-segment low" style="width: 20%">
+                          <span class="segment-label">Low Impact</span>
+                          <span class="segment-value">20%</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <style>
+                  .recommendation-section {
+                    position: relative;
+                    padding: 2rem;
+                    overflow: hidden;
+                    border-radius: 24px;
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                  }
+
+                  .section-background {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    pointer-events: none;
+                    z-index: 0;
+                  }
+
+                  .gradient-orb {
+                    position: absolute;
+                    border-radius: 50%;
+                    filter: blur(40px);
+                    opacity: 0.1;
+                    animation: float 8s infinite;
+                  }
+
+                  .gradient-orb:nth-child(1) {
+                    top: -20%;
+                    left: -10%;
+                    width: 40%;
+                    height: 40%;
+                    background: linear-gradient(45deg, #ef4444, #f97316);
+                    animation-delay: -2s;
+                  }
+
+                  .gradient-orb:nth-child(2) {
+                    top: 40%;
+                    right: -15%;
+                    width: 35%;
+                    height: 35%;
+                    background: linear-gradient(45deg, #3b82f6, #0ea5e9);
+                    animation-delay: -1s;
+                  }
+
+                  .gradient-orb:nth-child(3) {
+                    bottom: -10%;
+                    left: 30%;
+                    width: 30%;
+                    height: 30%;
+                    background: linear-gradient(45deg, #22c55e, #10b981);
+                    animation-delay: -3s;
+                  }
+
+                  .section-header {
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 2rem;
+                    z-index: 1;
+                  }
+
+                  .header-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                  }
+
+                  .header-icon {
+                    width: 48px;
+                    height: 48px;
+                    background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+                    border-radius: 14px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 1.5rem;
+                    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2);
+                  }
+
+                  .header-text h2 {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: #1e293b;
+                    margin: 0;
+                  }
+
+                  .header-subtitle {
+                    font-size: 0.875rem;
+                    color: #64748b;
+                    margin: 0.25rem 0 0;
+                  }
+
+                  .header-actions {
+                    display: flex;
+                    gap: 0.75rem;
+                  }
+
+                  .action-chip {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.5rem 1rem;
+                    border: none;
+                    border-radius: 12px;
+                    background: rgba(255, 255, 255, 0.9);
+                    color: #1e293b;
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                  }
+
+                  .action-chip:hover {
+                    background: white;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                  }
+
+                  .content-grid {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1.5rem;
+                    z-index: 1;
+                  }
+
+                  .metrics-column {
+                    display: grid;
+                    grid-template-columns: 2fr 1fr;
+                    gap: 1rem;
+                  }
+
+                  .dispute-card {
+                    position: relative;
+                    background: white;
+                    border-radius: 20px;
+                    padding: 1.5rem;
+                    border: 1px solid rgba(226, 232, 240, 0.8);
+                    overflow: hidden;
+                  }
+
+                  .risk-factors-card {
+                    background: white;
+                    border-radius: 20px;
+                    padding: 1.5rem;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                  }
+
+                  .risk-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    flex: 1;
+                  }
+
+                  .dispute-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 2rem;
+                  }
+
+                  .metrics-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1rem;
+                  }
+
+                  @media (max-width: 1200px) {
+                    .metrics-column {
+                      grid-template-columns: 1fr;
+                    }
+
+                    .dispute-content {
+                      flex-direction: column;
+                    }
+
+                    .metrics-grid {
+                      grid-template-columns: repeat(2, 1fr);
+                    }
+                  }
+
+                  @media (max-width: 768px) {
+                    .metrics-grid {
+                      grid-template-columns: 1fr;
+                    }
+
+                    .dispute-content {
+                      gap: 1.5rem;
+                    }
+                  }
+
+                  .trend-indicator {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.375rem;
+                    font-size: 0.875rem;
+                    margin-top: 0.5rem;
+                    justify-content: center;
+                  }
+
+                  .trend-indicator.up {
+                    color: #22c55e;
+                  }
+
+                  .trend-indicator.down {
+                    color: #ef4444;
+                  }
+
+                  .stat-trend {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    font-size: 0.75rem;
+                    margin-top: 0.25rem;
+                  }
+
+                  .stat-trend.up {
+                    color: #22c55e;
+                  }
+
+                  .stat-trend.down {
+                    color: #ef4444;
+                  }
+
+                  .historical-data {
+                    margin-top: 1.5rem;
+                    padding-top: 1.5rem;
+                    border-top: 1px solid rgba(226, 232, 240, 0.5);
+                  }
+
+                  .data-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                  }
+
+                  .data-header h4 {
+                    font-size: 0.875rem;
+                    font-weight: 600;
+                    color: #1e293b;
+                    margin: 0;
+                  }
+
+                  .time-filter {
+                    display: flex;
+                    gap: 0.25rem;
+                  }
+
+                  .time-btn {
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.75rem;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 6px;
+                    background: white;
+                    color: #64748b;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                  }
+
+                  .time-btn.active {
+                    background: #3b82f6;
+                    color: white;
+                    border-color: #3b82f6;
+                  }
+
+                  .trend-chart {
+                    display: flex;
+                    align-items: flex-end;
+                    gap: 0.5rem;
+                    height: 100px;
+                    padding: 0.5rem 0;
+                  }
+
+                  .chart-bar {
+                    flex: 1;
+                    background: rgba(59, 130, 246, 0.1);
+                    border-radius: 4px;
+                    transition: all 0.3s ease;
+                  }
+
+                  .chart-bar.active {
+                    background: linear-gradient(180deg, #3b82f6, #60a5fa);
+                  }
+
+                  .chart-labels {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 0.5rem;
+                    font-size: 0.75rem;
+                    color: #64748b;
+                  }
+
+                  .risk-factors-card h3 {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: #1e293b;
+                    margin: 0 0 1rem;
+                  }
+
+                  .risk-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                  }
+
+                  .risk-item {
+                    padding: 1rem;
+                    border-radius: 12px;
+                    background: rgba(255, 255, 255, 0.5);
+                  }
+
+                  .risk-item.high {
+                    background: rgba(239, 68, 68, 0.05);
+                  }
+
+                  .risk-item.medium {
+                    background: rgba(245, 158, 11, 0.05);
+                  }
+
+                  .risk-item.low {
+                    background: rgba(34, 197, 94, 0.05);
+                  }
+
+                  .risk-info {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 0.5rem;
+                  }
+
+                  .risk-name {
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    color: #1e293b;
+                  }
+
+                  .risk-score {
+                    font-size: 0.875rem;
+                    font-weight: 600;
+                    font-family: 'Roboto Mono', monospace;
+                  }
+
+                  .risk-bar {
+                    height: 6px;
+                    background: rgba(226, 232, 240, 0.5);
+                    border-radius: 3px;
+                    overflow: hidden;
+                  }
+
+                  .risk-item.high .bar-fill {
+                    background: linear-gradient(90deg, #ef4444, #f87171);
+                  }
+
+                  .risk-item.medium .bar-fill {
+                    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+                  }
+
+                  .risk-item.low .bar-fill {
+                    background: linear-gradient(90deg, #22c55e, #4ade80);
+                  }
+
+                  .bar-fill {
+                    height: 100%;
+                    transition: width 1s ease;
+                  }
+
+                  .recommendation-subtitle {
+                    font-size: 0.875rem;
+                    color: #64748b;
+                    margin: 0.25rem 0 0;
+                  }
+
+                  .chip-count {
+                    font-weight: 600;
+                  }
+
+                  .chip-label {
+                    font-size: 0.75rem;
+                    opacity: 0.8;
+                  }
+
+                  .impact-summary {
+                    margin-top: 2rem;
+                    padding: 1.5rem;
+                    background: white;
+                    border-radius: 16px;
+                  }
+
+                  .impact-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                  }
+
+                  .impact-header h4 {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: #1e293b;
+                    margin: 0;
+                  }
+
+                  .total-savings {
+                    text-align: right;
+                  }
+
+                  .total-savings span {
+                    display: block;
+                    font-size: 0.75rem;
+                    color: #64748b;
+                  }
+
+                  .total-savings strong {
+                    font-size: 1.125rem;
+                    color: #22c55e;
+                    font-family: 'Roboto Mono', monospace;
+                  }
+
+                  .impact-chart {
+                    display: flex;
+                    height: 24px;
+                    border-radius: 12px;
+                    overflow: hidden;
+                  }
+
+                  .chart-segment {
+                    position: relative;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    transition: all 0.3s ease;
+                  }
+
+                  .chart-segment:hover {
+                    transform: scaleY(1.1);
+                  }
+
+                  .chart-segment.high {
+                    background: linear-gradient(90deg, #ef4444, #f87171);
+                  }
+
+                  .chart-segment.medium {
+                    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+                  }
+
+                  .chart-segment.low {
+                    background: linear-gradient(90deg, #22c55e, #4ade80);
+                  }
+
+                  .segment-label {
+                    position: absolute;
+                    top: -20px;
+                    font-size: 0.6875rem;
+                    color: #64748b;
+                    white-space: nowrap;
+                  }
+
+                  .segment-value {
+                    font-family: 'Roboto Mono', monospace;
+                  }
+
+                  @media (max-width: 768px) {
+                    .impact-header {
+                      flex-direction: column;
+                      align-items: flex-start;
+                      gap: 0.75rem;
+                    }
+
+                    .total-savings {
+                      text-align: left;
+                    }
+
+                    .chart-segment {
+                      font-size: 0.6875rem;
+                    }
+
+                    .segment-label {
+                      display: none;
+                    }
+                  }
+                </style>
               </div>
             </div>
           </div>
@@ -597,268 +2388,522 @@
         .modern-upload-card {
           background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);
         }
-        .invoice-summary-grid-section {
-          background: linear-gradient(120deg, #f8fafc 80%, #e0e7ff 100%);
-          border-radius: 1.25rem;
-          overflow: hidden;
-          min-height: 160px;
+        .invoice-summary-section {
+          background: #ffffff;
+          border-radius: 0.75rem;
+          padding: 1rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
-        .summary-total-card {
-          background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%) !important;
-          color: #fff !important;
-          border-radius: 1rem;
-          box-shadow: 0 2px 12px rgba(99,102,241,0.13);
-        }
-        .summary-stat-card {
-          border-radius: 0.7rem;
-          box-shadow: 0 1px 6px rgba(99,102,241,0.06);
-          padding: 0.6rem 0.3rem 0.5rem 0.3rem;
-          margin-bottom: 0.2rem;
-          text-align: center;
-          min-height: 80px;
-          display: flex;
-          flex-direction: column;
+        .summary-header {
+                    display: flex;
+          justify-content: space-between;
           align-items: center;
-          justify-content: center;
-          transition: box-shadow 0.18s, background 0.18s;
+                    margin-bottom: 1rem;
+                  }
+        .header-content {
+                    display: flex;
+                    align-items: center;
+          gap: 0.75rem;
         }
-        .summary-stat-card:hover {
-          box-shadow: 0 4px 16px rgba(99,102,241,0.13);
+        .header-icon {
+          width: 32px;
+          height: 32px;
           background: #e0e7ff;
-        }
-        .stat-label {
-          font-size: 0.85rem;
-          color: #64748b;
-        }
-        .stat-value {
-          font-size: 0.98rem;
-          font-weight: 700;
-        }
-        .dispute-glass-section {
-          background: linear-gradient(120deg, #f8fafc 90%, #e0e7ff 100%);
-          border-radius: 1.25rem;
-          min-height: 160px;
-          box-shadow: 0 4px 24px rgba(239,68,68,0.08);
-          position: relative;
-          overflow: hidden;
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-        }
-        .decorative-shape {
-          position: absolute;
-          z-index: 0;
-        }
-        .shape3 { left: -18px; top: -18px; }
-        .shape4 { right: -10px; bottom: -10px; }
-        .dispute-indicator-container {
-          position: relative;
-          width: 200px;
-          height: 200px;
+          border-radius: 8px;
           display: flex;
-          flex-direction: column;
           align-items: center;
           justify-content: center;
         }
-        .indicator-bg-circles {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          z-index: 0;
+        .header-icon i {
+          font-size: 1rem;
+          color: #3b82f6;
         }
-        .indicator-bg-circles .bg-circle {
-          position: absolute;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #fca5a5, #ef4444);
-          opacity: 0.1;
-          animation: pulse 4s ease-in-out infinite;
+        .summary-header h2 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: #1e293b;
+          margin: 0;
         }
-        .indicator-bg-circles .circle-1 {
-          width: 180px;
-          height: 180px;
-          top: 10px;
-          left: 10px;
-          animation-delay: 0s;
+        .view-toggle {
+          display: flex;
+                    gap: 0.5rem;
         }
-        .indicator-bg-circles .circle-2 {
-          width: 160px;
-          height: 160px;
-          top: 20px;
-          left: 20px;
-          animation-delay: 2s;
+        .toggle-btn {
+                    padding: 0.375rem 0.75rem;
+                    border: 1px solid #e2e8f0;
+          background: #f8fafc;
+          color: #64748b;
+          border-radius: 0.375rem;
+          font-size: 0.75rem;
+          font-weight: 500;
+          transition: all 0.2s ease;
         }
-        .dispute-indicator {
-          position: relative;
-          width: 160px;
-          height: 160px;
-          z-index: 1;
+        .toggle-btn.active {
+          background: #3b82f6;
+          color: white;
+          border-color: #3b82f6;
         }
-        .indicator-ring {
-          position: relative;
-          width: 100%;
-          height: 100%;
+        .total-summary-card {
+          background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+          border-radius: 0.75rem;
+          padding: 1rem;
+          margin-bottom: 1rem;
+          color: white;
         }
-        .ring-svg {
-          transform: rotate(-90deg);
-          width: 100%;
-          height: 100%;
+        .total-content {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
         }
-        .ring-bg {
-          fill: none;
-          stroke: #fee2e2;
-          stroke-width: 8;
+        .total-icon {
+          width: 40px;
+          height: 40px;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
-        .ring-progress {
-          fill: none;
-          stroke: url(#gradient);
-          stroke-width: 8;
-          stroke-linecap: round;
-          stroke-dasharray: 283;
-          stroke-dashoffset: 85;
-          animation: progress 2s ease-out forwards;
+        .total-icon i {
+          font-size: 1.25rem;
         }
-        .indicator-content {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          text-align: center;
+        .total-details {
+          flex: 1;
         }
-        .indicator-value {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #ef4444;
-          line-height: 1;
+        .total-label {
+          font-size: 0.75rem;
+          opacity: 0.9;
           margin-bottom: 0.25rem;
         }
-        .indicator-label {
+        .total-amount {
+          font-size: 1.5rem;
+          font-weight: 700;
+          font-family: 'Roboto Mono', monospace;
+        }
+        .total-breakdown {
+          display: flex;
+          gap: 1.5rem;
+          margin-left: auto;
+        }
+        .breakdown-item {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+        .breakdown-item .label {
+          font-size: 0.75rem;
+          opacity: 0.8;
+        }
+        .breakdown-item .value {
+          font-size: 1rem;
+          font-weight: 600;
+          font-family: 'Roboto Mono', monospace;
+        }
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 0.75rem;
+        }
+        .stat-card {
+                    background: white;
+          border-radius: 0.5rem;
+          padding: 0.75rem;
+          transition: all 0.2s ease;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .stat-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card.primary {
+          background: #e0e7ff;
+          color: #1e40af;
+        }
+        .stat-card.info {
+          background: #e0f2fe;
+          color: #0369a1;
+        }
+        .stat-card.warning {
+          background: #fef3c7;
+          color: #92400e;
+        }
+        .stat-card.success {
+          background: #dcfce7;
+          color: #166534;
+        }
+        .stat-card.secondary {
+          background: #e2e8f0;
+          color: #334155;
+        }
+        .stat-card.light {
+          background: #f8fafc;
+                    color: #64748b;
+        }
+        .card-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 0.5rem;
+          font-size: 1rem;
+          opacity: 0.9;
+        }
+        .card-content {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+        .card-title {
+                    font-size: 0.75rem;
+                    font-weight: 500;
+        }
+        .card-value {
+          font-size: 1rem;
+          font-weight: 600;
+          font-family: 'Roboto Mono', monospace;
+        }
+        .card-percentage {
+          font-size: 0.75rem;
+          opacity: 0.8;
+          padding: 0.25rem 0.5rem;
+          background: rgba(0, 0, 0, 0.05);
+          border-radius: 0.375rem;
+          align-self: flex-start;
+        }
+        .recommendation-section {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 0.5rem;
+          padding: 0.75rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          position: relative;
+          overflow: hidden;
+        }
+        .recommendation-header {
+          margin-bottom: 0.75rem;
+          position: relative;
+          z-index: 1;
+        }
+        .header-content {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .header-icon {
+          width: 24px;
+          height: 24px;
+          background: #e0e7ff;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .header-icon i {
           font-size: 0.875rem;
+          color: #3b82f6;
+        }
+        .recommendation-header h2 {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #1e293b;
+          margin: 0;
+        }
+        .dispute-indicator {
+          background: rgba(254, 226, 226, 0.8);
+          border-radius: 0.5rem;
+          padding: 0.75rem;
+          margin-bottom: 0.75rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          position: relative;
+          z-index: 1;
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          border: 1px solid rgba(239, 68, 68, 0.1);
+        }
+        .indicator-content {
+          text-align: center;
+          flex: 1;
+        }
+        .radial-progress {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.375rem;
+        }
+        .progress-circle {
+          position: relative;
+          width: 80px;
+          height: 80px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .progress-ring {
+          transform: rotate(-90deg);
+        }
+        .progress-ring-circle-bg {
+          fill: none;
+          stroke: rgba(239, 68, 68, 0.1);
+          stroke-width: 4;
+        }
+        .progress-ring-circle {
+          fill: none;
+          stroke: #ef4444;
+          stroke-width: 4;
+          stroke-linecap: round;
+          stroke-dasharray: 226.1946710584651;
+          stroke-dashoffset: calc(226.1946710584651 - (226.1946710584651 * 70) / 100);
+          transition: stroke-dashoffset 0.5s ease;
+        }
+        .progress-value {
+          position: absolute;
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: #ef4444;
+          font-family: 'Roboto Mono', monospace;
+        }
+        .progress-label {
+                    font-size: 0.6875rem;
           color: #64748b;
           font-weight: 500;
+          text-align: center;
         }
         .indicator-stats {
           display: flex;
-          gap: 1rem;
-          margin-top: 1.5rem;
+          flex-direction: column;
+          gap: 0.375rem;
+          margin-left: 0.75rem;
         }
         .stat-item {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem;
-          background: #fee2e2;
-          border-radius: 0.75rem;
-          min-width: 100px;
-        }
-        .stat-icon {
-          width: 32px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #ef4444;
+          gap: 0.375rem;
+          padding: 0.375rem 0.5rem;
+          background: rgba(239, 68, 68, 0.9);
           color: white;
-          border-radius: 0.5rem;
-          font-size: 1rem;
+          border-radius: 0.375rem;
+          font-size: 0.6875rem;
+          font-weight: 500;
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.2s ease;
         }
-        .stat-info {
-          flex: 1;
+        .stat-item:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
         }
-        .stat-value {
-          font-size: 0.875rem;
-          font-weight: 600;
-          color: #ef4444;
-          line-height: 1;
-        }
-        .stat-label {
+        .stat-item i {
           font-size: 0.75rem;
-          color: #64748b;
         }
-        .dispute-timeline {
+                  .recommendations-grid {
+                    display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 1rem;
+          margin-top: 1.5rem;
+        }
+        .recommendation-card {
           position: relative;
-          padding-left: 1.5rem;
+          background: rgba(255, 255, 255, 0.9);
+          border-radius: 16px;
+          padding: 1.25rem;
+          transition: all 0.3s ease;
+          overflow: hidden;
+          border: 1px solid rgba(226, 232, 240, 0.8);
         }
-        .timeline-step {
-          position: relative;
-          display: flex;
-          align-items: flex-start;
-        }
-        .timeline-step:not(:last-child)::after {
+        .recommendation-card::before {
           content: '';
           position: absolute;
-          left: 10px;
-          top: 32px;
-          width: 2px;
-          height: 32px;
-          background: #fca5a5;
-          opacity: 0.25;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+          animation: shimmer 2s infinite;
         }
-        .timeline-dot {
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
+        .recommendation-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+        }
+        .priority-badge {
+          font-size: 0.75rem;
+          font-weight: 500;
+          padding: 0.25rem 0.75rem;
+          border-radius: 1rem;
+          background: rgba(255, 255, 255, 0.9);
+        }
+        .impact-badge {
+          font-size: 0.75rem;
+          font-weight: 600;
+          padding: 0.25rem 0.75rem;
+          border-radius: 1rem;
+          font-family: 'Roboto Mono', monospace;
+        }
+        .high-priority {
+          background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+        }
+        .high-priority .priority-badge {
+          color: #ef4444;
+          background: rgba(239, 68, 68, 0.1);
+        }
+        .high-priority .impact-badge {
+          color: white;
+          background: #ef4444;
+        }
+        .medium-priority {
+          background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.05));
+        }
+        .medium-priority .priority-badge {
+          color: #0ea5e9;
+          background: rgba(14, 165, 233, 0.1);
+        }
+        .medium-priority .impact-badge {
+          color: white;
+          background: #0ea5e9;
+        }
+        .low-priority {
+          background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+        }
+        .low-priority .priority-badge {
+          color: #22c55e;
+          background: rgba(34, 197, 94, 0.1);
+        }
+        .low-priority .impact-badge {
+          color: white;
+          background: #22c55e;
+        }
+        .card-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.1rem;
-          margin-right: 0.7rem;
-          margin-top: 0.1rem;
-          box-shadow: 0 1px 4px rgba(239,68,68,0.08);
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+          position: relative;
+          color: white;
         }
-        .timeline-content {
-          border-radius: 0.7rem;
-          padding: 0.5rem 1rem;
+        .high-priority .card-icon {
+          background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+        .medium-priority .card-icon {
+          background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        }
+        .low-priority .card-icon {
+          background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+        .card-content {
+          margin-bottom: 1rem;
+        }
+        .card-content h3 {
           font-size: 1rem;
-          font-weight: 500;
-          box-shadow: 0 1px 4px rgba(239,68,68,0.04);
-          margin-bottom: 0.1rem;
-        }
-        .impact-progress-list {
-          margin-top: 0.5rem;
-        }
-        .impact-progress-item {
+          font-weight: 600;
+          color: #1e293b;
           margin-bottom: 0.5rem;
         }
-        .impact-icon {
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.1rem;
-          margin-right: 0.5rem;
+        .card-content p {
+          font-size: 0.875rem;
+          color: #64748b;
+          margin: 0;
         }
-        .impact-bar {
-          height: 7px;
-          border-radius: 4px;
+        .card-progress {
+          margin-top: auto;
         }
-        @keyframes pulse {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.1;
-          }
-          50% {
-            transform: scale(1.05);
-            opacity: 0.15;
-          }
-        }
-        @keyframes progress {
-          from {
-            stroke-dashoffset: 283;
-          }
-          to {
-            stroke-dashoffset: 85;
-          }
-        }
-        .dispute-indicator-container::before {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 0;
+        .progress-bar {
+          height: 6px;
+          background: rgba(226, 232, 240, 0.5);
+          border-radius: 3px;
           overflow: hidden;
         }
-        .dispute-indicator-container::before {
-          content: '<svg><defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#fca5a5"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs></svg>';
+        .progress-fill {
+          height: 100%;
+          transition: width 0.5s ease;
+        }
+        .high-priority .progress-fill {
+          background: linear-gradient(90deg, #ef4444, #dc2626);
+        }
+        .medium-priority .progress-fill {
+          background: linear-gradient(90deg, #0ea5e9, #0284c7);
+        }
+        .low-priority .progress-fill {
+          background: linear-gradient(90deg, #22c55e, #16a34a);
+        }
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+        @media (max-width: 768px) {
+          .invoice-summary-section,
+          .recommendation-section {
+            padding: 0.5rem;
+          }
+          .summary-header h2 {
+            font-size: 1rem;
+          }
+          .total-amount {
+            font-size: 1.25rem;
+          }
+          .card-value {
+            font-size: 0.875rem;
+          }
+          .stats-grid {
+            grid-template-columns: 1fr;
+          }
+          .total-content {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .total-breakdown {
+            margin-left: 0;
+            margin-top: 0.75rem;
+            width: 100%;
+            justify-content: space-between;
+          }
+          .dispute-indicator {
+            flex-direction: column;
+            gap: 0.75rem;
+            text-align: center;
+          }
+          .indicator-stats {
+            width: 100%;
+            flex-direction: row;
+            justify-content: center;
+            margin-left: 0;
+          }
+          .progress-value {
+            font-size: 1.125rem;
+          }
+          .item-description {
+            white-space: normal;
+          }
+          .section-divider {
+            margin: 1.25rem 0 0.75rem;
+          }
+          .divider-label {
+            font-size: 0.8125rem;
+          }
+          .impact-title {
+            font-size: 0.8125rem;
+          }
+          .impact-percentage {
+            font-size: 0.8125rem;
+          }
         }
       </style>
     </main>
