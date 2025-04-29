@@ -169,11 +169,292 @@
       </section>
 
       <!-- Loader Section (Initially Hidden) -->
-      <section id="loaderSection" class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh; display: none !important;">
-        <div class="text-center">
-          <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
-          <div class="fw-semibold fs-5">Analyzing Invoice...</div>
+      <section id="loaderSection" class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh; display: none !important; background: transparent !important;">
+        <div class="modern-loader-container">
+          <!-- Animated Background Elements -->
+          <div class="loader-bg-elements">
+            <div class="bg-circle circle-1"></div>
+            <div class="bg-circle circle-2"></div>
+            <div class="bg-circle circle-3"></div>
+          </div>
+          
+          <!-- Main Loader Content -->
+          <div class="loader-content">
+            <div class="loader-header">
+              <div class="loader-icon-wrapper">
+                <i class="bi bi-file-earmark-text"></i>
+              </div>
+              <h3 class="loader-title">Analyzing Invoice</h3>
+            </div>
+            
+            <div class="loader-steps">
+              <div class="loader-step" data-step="1">
+                <div class="step-content">
+                  <div class="step-icon"><i class="bi bi-database"></i></div>
+                  <div class="step-details">
+                    <div class="step-text">Gathering Required Data</div>
+                    <div class="step-progress">
+                      <div class="progress-bar"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="loader-step" data-step="2">
+                <div class="step-content">
+                  <div class="step-icon"><i class="bi bi-calculator"></i></div>
+                  <div class="step-details">
+                    <div class="step-text">Reviewing CLPs & CRD Prices</div>
+                    <div class="step-progress">
+                      <div class="progress-bar"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="loader-step" data-step="3">
+                <div class="step-content">
+                  <div class="step-icon"><i class="bi bi-graph-up"></i></div>
+                  <div class="step-details">
+                    <div class="step-text">Reviewing Escalations, Discounts & Handling Fees</div>
+                    <div class="step-progress">
+                      <div class="progress-bar"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="loader-step" data-step="4">
+                <div class="step-content">
+                  <div class="step-icon"><i class="bi bi-shield-check"></i></div>
+                  <div class="step-details">
+                    <div class="step-text">Reviewing Material & Repair Exclusions</div>
+                    <div class="step-progress">
+                      <div class="progress-bar"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="loader-step" data-step="5">
+                <div class="step-content">
+                  <div class="step-icon"><i class="bi bi-check-circle"></i></div>
+                  <div class="step-details">
+                    <div class="step-text">Reviewing Final Invoice Amount</div>
+                    <div class="step-progress">
+                      <div class="progress-bar"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <style>
+          .modern-loader-container {
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            overflow: hidden;
+          }
+
+          .loader-bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+          }
+
+          .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+          }
+
+          .circle-1 {
+            width: 200px;
+            height: 200px;
+            top: -50px;
+            left: -50px;
+            animation-delay: 0s;
+          }
+
+          .circle-2 {
+            width: 150px;
+            height: 150px;
+            bottom: -30px;
+            right: -30px;
+            animation-delay: 2s;
+          }
+
+          .circle-3 {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 4s;
+          }
+
+          .loader-content {
+            position: relative;
+            z-index: 1;
+          }
+
+          .loader-header {
+            text-align: center;
+            margin-bottom: 2rem;
+          }
+
+          .loader-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+          }
+
+          .loader-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+          }
+
+          .loader-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+          }
+
+          .loader-step {
+            opacity: 0.5;
+            transition: all 0.3s ease;
+          }
+
+          .loader-step.active {
+            opacity: 1;
+          }
+
+          .step-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+          }
+
+          .step-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 12px;
+            color: #64748b;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+          }
+
+          .loader-step.active .step-icon {
+            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+          }
+
+          .step-details {
+            flex: 1;
+          }
+
+          .step-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 0.25rem;
+          }
+
+          .loader-step.active .step-text {
+            color: #1e293b;
+          }
+
+          .step-progress {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+          }
+
+          .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #3b82f6, #0ea5e9);
+            transition: width 1s ease;
+          }
+
+          .loader-step.active .progress-bar {
+            width: 100%;
+          }
+
+          @keyframes float {
+            0%, 100% {
+              transform: translate(0, 0);
+            }
+            50% {
+              transform: translate(10px, 10px);
+            }
+          }
+        </style>
+
+        <script>
+          function animateLoaderSteps() {
+            const steps = document.querySelectorAll('.loader-step');
+            const stepDuration = 1000; // 1 second per step
+            
+            steps.forEach((step, index) => {
+              setTimeout(() => {
+                step.classList.add('active');
+              }, index * stepDuration);
+            });
+          }
+
+          // Update the existing upload button click handler
+          $('#uploadBtn').on('click', function() {
+            var file = $('#invoiceFile').prop('files')[0];
+            if (!file) {
+              alert('Please select a file to upload.');
+              return;
+            }
+            // Hide upload, show loader
+            $('#uploadSection').hide();
+            document.getElementById('uploadSection').style.setProperty('display', 'none', 'important');
+            $('#loaderSection').show();
+            
+            // Start the loader animation
+            animateLoaderSteps();
+            
+            // Show recommendations after 5 seconds
+            setTimeout(function() {
+              document.getElementById('loaderSection').style.setProperty('display', 'none', 'important');
+              $('#recommendationSection').show();
+            }, 5000);
+          });
+        </script>
       </section>
 
       <!-- Recommendation Section (Initially Hidden) -->
@@ -270,18 +551,45 @@
                 <svg class="decorative-shape shape4" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#f87171" fill-opacity="0.10"/></svg>
                 <div class="row g-2 align-items-center">
                   <div class="col-12 col-md-4 d-flex flex-column align-items-center justify-content-center">
-                    <!-- Circular Dispute Probability Indicator -->
-                    <div class="dispute-radial-indicator mb-2">
-                      <svg width="80" height="80">
-                        <circle cx="40" cy="40" r="34" stroke="#fca5a5" stroke-width="8" fill="none" opacity="0.18"/>
-                        <circle cx="40" cy="40" r="34" stroke="#ef4444" stroke-width="8" fill="none" stroke-dasharray="213.6" stroke-dashoffset="64" style="transition: stroke-dashoffset 1s;"/>
-                      </svg>
-                      <div class="radial-label text-danger-emphasis fw-bold">70%</div>
-                      <div class="radial-sub-label text-secondary small">Dispute Probability</div>
-                    </div>
-                    <div class="d-flex gap-2 mt-1">
-                      <span class="dispute-chip bg-warning-subtle text-warning-emphasis"><i class="bi bi-exclamation-diamond me-1"></i>Overbilled issue</span>
-                      <span class="dispute-chip bg-info-subtle text-info-emphasis"><i class="bi bi-percent me-1"></i>4% Disputed</span>
+                    <!-- Modern Dispute Probability Indicator -->
+                    <div class="dispute-indicator-container">
+                      <!-- Animated Background Circles -->
+                      <div class="indicator-bg-circles">
+                        <div class="bg-circle circle-1"></div>
+                        <div class="bg-circle circle-2"></div>
+                      </div>
+                      
+                      <!-- Main Indicator -->
+                      <div class="dispute-indicator">
+                        <div class="indicator-ring">
+                          <svg class="ring-svg" viewBox="0 0 100 100">
+                            <circle class="ring-bg" cx="50" cy="50" r="45" />
+                            <circle class="ring-progress" cx="50" cy="50" r="45" />
+                          </svg>
+                        </div>
+                        <div class="indicator-content">
+                          <div class="indicator-value">70%</div>
+                          <div class="indicator-label">Dispute Probability</div>
+                        </div>
+                      </div>
+                      
+                      <!-- Status Indicators -->
+                      <div class="indicator-stats">
+                        <div class="stat-item">
+                          <div class="stat-icon"><i class="bi bi-exclamation-diamond"></i></div>
+                          <div class="stat-info">
+                            <div class="stat-value">Overbilled</div>
+                            <div class="stat-label">Issue Type</div>
+                          </div>
+                        </div>
+                        <div class="stat-item">
+                          <div class="stat-icon"><i class="bi bi-percent"></i></div>
+                          <div class="stat-info">
+                            <div class="stat-value">4%</div>
+                            <div class="stat-label">Disputed</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-12 col-md-8">
@@ -401,33 +709,128 @@
         }
         .shape3 { left: -18px; top: -18px; }
         .shape4 { right: -10px; bottom: -10px; }
-        .dispute-radial-indicator {
+        .dispute-indicator-container {
           position: relative;
-          width: 80px;
-          height: 80px;
-          margin-bottom: 0.5rem;
+          width: 200px;
+          height: 200px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
-        .dispute-radial-indicator svg {
+        .indicator-bg-circles {
           position: absolute;
-          top: 0; left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
         }
-        .radial-label {
+        .indicator-bg-circles .bg-circle {
           position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -60%);
-          font-size: 1.3rem;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #fca5a5, #ef4444);
+          opacity: 0.1;
+          animation: pulse 4s ease-in-out infinite;
         }
-        .radial-sub-label {
+        .indicator-bg-circles .circle-1 {
+          width: 180px;
+          height: 180px;
+          top: 10px;
+          left: 10px;
+          animation-delay: 0s;
+        }
+        .indicator-bg-circles .circle-2 {
+          width: 160px;
+          height: 160px;
+          top: 20px;
+          left: 20px;
+          animation-delay: 2s;
+        }
+        .dispute-indicator {
+          position: relative;
+          width: 160px;
+          height: 160px;
+          z-index: 1;
+        }
+        .indicator-ring {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+        .ring-svg {
+          transform: rotate(-90deg);
+          width: 100%;
+          height: 100%;
+        }
+        .ring-bg {
+          fill: none;
+          stroke: #fee2e2;
+          stroke-width: 8;
+        }
+        .ring-progress {
+          fill: none;
+          stroke: url(#gradient);
+          stroke-width: 8;
+          stroke-linecap: round;
+          stroke-dasharray: 283;
+          stroke-dashoffset: 85;
+          animation: progress 2s ease-out forwards;
+        }
+        .indicator-content {
           position: absolute;
-          top: 60%; left: 50%;
-          transform: translate(-50%, 0);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
         }
-        .dispute-chip {
-          border-radius: 999px;
-          font-size: 0.93rem;
+        .indicator-value {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #ef4444;
+          line-height: 1;
+          margin-bottom: 0.25rem;
+        }
+        .indicator-label {
+          font-size: 0.875rem;
+          color: #64748b;
           font-weight: 500;
-          padding: 0.18rem 0.8rem;
-          box-shadow: 0 1px 4px rgba(239,68,68,0.04);
+        }
+        .indicator-stats {
+          display: flex;
+          gap: 1rem;
+          margin-top: 1.5rem;
+        }
+        .stat-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.5rem;
+          background: #fee2e2;
+          border-radius: 0.75rem;
+          min-width: 100px;
+        }
+        .stat-icon {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #ef4444;
+          color: white;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+        }
+        .stat-info {
+          flex: 1;
+        }
+        .stat-value {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: #ef4444;
+          line-height: 1;
+        }
+        .stat-label {
+          font-size: 0.75rem;
+          color: #64748b;
         }
         .dispute-timeline {
           position: relative;
@@ -488,28 +891,35 @@
           height: 7px;
           border-radius: 4px;
         }
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 0.1;
+          }
+          50% {
+            transform: scale(1.05);
+            opacity: 0.15;
+          }
+        }
+        @keyframes progress {
+          from {
+            stroke-dashoffset: 283;
+          }
+          to {
+            stroke-dashoffset: 85;
+          }
+        }
+        .dispute-indicator-container::before {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+        }
+        .dispute-indicator-container::before {
+          content: '<svg><defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#fca5a5"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs></svg>';
+        }
       </style>
-
-      <script>
-        $(function() {
-          $('#uploadBtn').on('click', function() {
-            var file = $('#invoiceFile').prop('files')[0];
-            if (!file) {
-              alert('Please select a file to upload.');
-              return;
-            }
-            // Hide upload, show loader
-            $('#uploadSection').hide();
-            document.getElementById('uploadSection').style.setProperty('display', 'none', 'important');
-            $('#loaderSection').show();
-            // Simulate upload/processing for 5 seconds
-            setTimeout(function() {
-              document.getElementById('loaderSection').style.setProperty('display', 'none', 'important');
-              $('#recommendationSection').show();
-            }, 5000);
-          });
-        });
-      </script>
     </main>
   </div>
 
