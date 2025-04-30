@@ -420,6 +420,44 @@
               font-size: 0.8125rem;
             }
           }
+
+          #uploadSection {
+            display: flex !important;
+            opacity: 1;
+          }
+
+          #loaderSection, #recommendationSection {
+            display: none !important;
+            opacity: 0;
+          }
+
+          #loaderSection.show, #recommendationSection.show {
+            display: flex !important;
+            opacity: 1;
+          }
+
+          .loader-step {
+            opacity: 0.5;
+            transition: opacity 0.3s ease-in-out;
+          }
+
+          .loader-step.active {
+            opacity: 1;
+          }
+
+          .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+          }
+
+          .progress-bar .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #0ea5e9);
+            transition: width 0.3s ease-in-out;
+          }
         </style>
       </section>
 
@@ -499,40 +537,66 @@
           </div>
         </div>
 
-
-
         <script>
           function animateLoaderSteps() {
             const steps = document.querySelectorAll('.loader-step');
             const stepDuration = 1000; // 1 second per step
+            let currentStep = 0;
 
-            steps.forEach((step, index) => {
-              setTimeout(() => {
-                step.classList.add('active');
-              }, index * stepDuration);
+            // Reset all steps
+            steps.forEach(step => {
+              step.classList.remove('active');
+              const progressBar = step.querySelector('.progress-bar');
+              if (progressBar) {
+                progressBar.style.width = '0%';
+              }
             });
+
+            // Animate each step
+            function animateStep() {
+              if (currentStep >= steps.length) {
+                return;
+              }
+
+              const step = steps[currentStep];
+              step.classList.add('active');
+              
+              const progressBar = step.querySelector('.progress-bar');
+              if (progressBar) {
+                progressBar.style.width = '100%';
+              }
+
+              currentStep++;
+              setTimeout(animateStep, stepDuration);
+            }
+
+            animateStep();
+            return steps.length; // Return the number of steps
           }
 
           // Update the existing upload button click handler
-          $('#uploadBtn').on('click', function () {
+          $('#uploadBtn').on('click', function() {
             var file = $('#invoiceFile').prop('files')[0];
             if (!file) {
               alert('Please select a file to upload.');
               return;
             }
-            // Hide upload, show loader
-            $('#uploadSection').hide();
-            document.getElementById('uploadSection').style.setProperty('display', 'none', 'important');
-            $('#loaderSection').show();
 
-            // Start the loader animation
-            animateLoaderSteps();
+            // Hide upload section with fade out
+            $('#uploadSection').fadeOut(300, function() {
+              // Show loader section with fade in
+              $('#loaderSection').addClass('show').fadeIn(300, function() {
+                // Start the loader animation and get the number of steps
+                const totalSteps = animateLoaderSteps();
 
-            // Show recommendations after 5 seconds
-            setTimeout(function () {
-              document.getElementById('loaderSection').style.setProperty('display', 'none', 'important');
-              $('#recommendationSection').show();
-            }, 5000);
+                // Show recommendations after animation completes
+                setTimeout(function() {
+                  $('#loaderSection').fadeOut(300, function() {
+                    $('#recommendationSection').addClass('show').fadeIn(300);
+                  });
+                }, totalSteps * 1000 + 500); // Total animation time + buffer
+              });
+            });
           });
         </script>
       </section>
@@ -728,8 +792,6 @@
                   </div>
                 </div>
 
-
-
                 <div class="content-grid">
                   <div class="metrics-column">
                     <div class="dispute-card">
@@ -828,8 +890,6 @@
                           </div>
                         </div>
                       </div>
-
-
                     </div>
 
                     <div class="risk-factors-card">
@@ -998,8 +1058,6 @@
                       </div>
                     </div>
 
-
-
                     <div class="impact-summary">
                       <div class="impact-header">
                         <h4>Potential Impact Summary</h4>
@@ -1025,22 +1083,17 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
         </div>
       </section>
-
-
     </main>
   </div>
 
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="src/js/script.js"></script>
-
 </body>
 
 </html>
