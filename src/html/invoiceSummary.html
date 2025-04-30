@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Summary</title>
+    <link rel="stylesheet" href="../css/invoiceSummary.css">
+</head>
+<body>
+    <!-- Upload Section -->
+    <div class="upload-container">
+        <div class="upload-card">
+            <div class="upload-icon">
+                <div class="icon-wrapper">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="icon-pulse"></div>
+            </div>
+            <div class="upload-content">
+                <h2 class="upload-title">Upload Invoice</h2>
+                <p class="upload-subtitle">Drag and drop your invoice file or click to browse</p>
+                <form class="upload-form">
+                    <input type="file" id="invoiceFile" class="upload-input" accept=".pdf,.jpg,.jpeg,.png">
+                    <label for="invoiceFile" class="upload-label">
+                        <i class="fas fa-file-alt"></i>
+                        <span class="label-text">Choose File</span>
+                    </label>
+                    <button type="submit" class="upload-button">
+                        <i class="fas fa-upload"></i>
+                        <span>Upload</span>
+                    </button>
+                    <div class="upload-hint">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Supported formats: PDF, JPG, PNG</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loader Section -->
+    <div class="compact-loader-container">
+        <div class="loader-content">
+            <div class="loader-header">
+                <div class="loader-icon-wrapper">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <h2 class="loader-title">Processing Invoice</h2>
+            </div>
+            <div class="loader-steps">
+                <div class="loader-step active">
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="step-details">
+                            <p class="step-text">Extracting Data</p>
+                            <div class="step-progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader-step">
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="step-details">
+                            <p class="step-text">Analyzing Values</p>
+                            <div class="step-progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader-step">
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="step-details">
+                            <p class="step-text">Generating Report</p>
+                            <div class="step-progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendation Section -->
+    <div class="section-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="header-text">
+                <h2>Invoice Analysis</h2>
+                <div class="header-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Last updated: 2 mins ago</span>
+                    </div>
+                    <span class="meta-divider">•</span>
+                    <div class="meta-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Auto-refresh: On</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="action-button refresh">
+                <i class="fas fa-sync-alt"></i>
+                <span>Refresh</span>
+            </button>
+            <button class="action-button export">
+                <i class="fas fa-download"></i>
+                <span>Export</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Dispute Card -->
+    <div class="dispute-card">
+        <div class="card-glow"></div>
+        <div class="card-header">
+            <div class="header-left">
+                <div class="header-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="header-info">
+                    <h3>Potential Dispute Detected</h3>
+                    <p>High risk of payment delay</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="header-btn">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <div class="btn-tooltip">More Options</div>
+                </button>
+            </div>
+        </div>
+        <div class="dispute-content">
+            <div class="risk-indicator">
+                <div class="ring-wrapper">
+                    <svg class="progress-ring" width="180" height="180">
+                        <defs>
+                            <linearGradient id="riskGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ef4444" />
+                                <stop offset="100%" stop-color="#f87171" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="ring-bg" cx="90" cy="90" r="45" />
+                        <circle class="ring-progress" cx="90" cy="90" r="45" />
+                    </svg>
+                    <div class="ring-content">
+                        <div class="ring-value">85%</div>
+                        <div class="ring-label">Risk Score</div>
+                    </div>
+                </div>
+                <div class="risk-status high">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>High Risk</span>
+                </div>
+                <div class="risk-trend">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>Increased by 15%</span>
+                </div>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="metric-trend down">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>12%</span>
+                        </div>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-value">$12,450</div>
+                        <div class="metric-label">Total Amount</div>
+                    </div>
+                    <div class="metric-chart">
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar active"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="metric-trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>8%</span>
+                        </div>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-value">45 days</div>
+                        <div class="metric-label">Payment Terms</div>
+                    </div>
+                    <div class="metric-chart">
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar active"></div>
+                        <div class="chart-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendations Container -->
+    <div class="recommendations-container">
+        <div class="recommendations-header">
+            <div class="header-left">
+                <h3>Recommendations</h3>
+                <span class="issue-count">3 issues found</span>
+            </div>
+            <div class="chips-group">
+                <div class="chip high active">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>High</span>
+                    <span class="chip-badge">2</span>
+                </div>
+                <div class="chip medium">
+                    <i class="fas fa-exclamation"></i>
+                    <span>Medium</span>
+                    <span class="chip-badge">1</span>
+                </div>
+                <div class="chip low">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Low</span>
+                    <span class="chip-badge">0</span>
+                </div>
+            </div>
+        </div>
+        <div class="recommendations-grid">
+            <div class="rec-card high">
+                <div class="card-header">
+                    <div class="priority-badge">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>High Priority</span>
+                    </div>
+                    <div class="impact-badge">$5,200</div>
+                </div>
+                <div class="card-content">
+                    <h4>Payment Terms Mismatch</h4>
+                    <p>The invoice payment terms (45 days) exceed the standard terms (30 days) in the contract.</p>
+                </div>
+                <div class="card-actions">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <button class="action-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="rec-card high">
+                <div class="card-header">
+                    <div class="priority-badge">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>High Priority</span>
+                    </div>
+                    <div class="impact-badge">$3,800</div>
+                </div>
+                <div class="card-content">
+                    <h4>Price Variance Detected</h4>
+                    <p>The unit price for Item #1234 is 12% higher than the contracted rate.</p>
+                </div>
+                <div class="card-actions">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                    <button class="action-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="rec-card medium">
+                <div class="card-header">
+                    <div class="priority-badge">
+                        <i class="fas fa-exclamation"></i>
+                        <span>Medium Priority</span>
+                    </div>
+                    <div class="impact-badge">$1,450</div>
+                </div>
+                <div class="card-content">
+                    <h4>Tax Calculation Error</h4>
+                    <p>The tax amount is calculated incorrectly based on the current tax rate.</p>
+                </div>
+                <div class="card-actions">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                    <button class="action-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Impact Summary -->
+    <div class="chart-section">
+        <div class="chart-header">
+            <h3 class="chart-title">Impact Summary</h3>
+            <div class="chart-legend">
+                <div class="legend-item high">
+                    <span>High Impact</span>
+                </div>
+                <div class="legend-item medium">
+                    <span>Medium Impact</span>
+                </div>
+                <div class="legend-item low">
+                    <span>Low Impact</span>
+                </div>
+            </div>
+        </div>
+        <div class="impact-bars">
+            <div class="impact-bar">
+                <div class="bar-label">Payment Terms</div>
+                <div class="bar-container">
+                    <div class="bar high" style="width: 85%"></div>
+                </div>
+                <div class="bar-value">$5,200</div>
+            </div>
+            <div class="impact-bar">
+                <div class="bar-label">Price Variance</div>
+                <div class="bar-container">
+                    <div class="bar high" style="width: 75%"></div>
+                </div>
+                <div class="bar-value">$3,800</div>
+            </div>
+            <div class="impact-bar">
+                <div class="bar-label">Tax Error</div>
+                <div class="bar-container">
+                    <div class="bar medium" style="width: 45%"></div>
+                </div>
+                <div class="bar-value">$1,450</div>
+            </div>
+        </div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-header">
+                        <div class="metric-value">$10,450</div>
+                        <div class="metric-trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>8%</span>
+                        </div>
+                    </div>
+                    <div class="metric-label">Total Impact</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-header">
+                        <div class="metric-value">15%</div>
+                        <div class="metric-trend down">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>3%</span>
+                        </div>
+                    </div>
+                    <div class="metric-label">Risk Score</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
