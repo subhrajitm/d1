@@ -63,6 +63,7 @@
               <span class="secondary">Dashboard</span>
             </div>
           </div>
+
           <span class="logo-version">v1.0.0</span>
         </a>
       </div>
@@ -212,16 +213,20 @@
       <div id="loaderSection" class="loader-section">
         <div class="loader-content">
           <div class="loader-header">
+            <div class="loader-icon-pulse"></div>
             <h3>Processing Your Invoice</h3>
             <p>Please wait while we analyze your document...</p>
           </div>
           <div class="loader-steps">
             <div class="loader-step">
               <div class="step-icon">
-                <i class="fas fa-file-upload"></i>
+                <i class="bi bi-cloud-upload"></i>
               </div>
               <div class="step-content">
-                <h4>Uploading File</h4>
+                <div class="step-info">
+                  <h4>Uploading File</h4>
+                  <span class="step-status">In progress</span>
+                </div>
                 <div class="progress">
                   <div class="progress-bar"></div>
                 </div>
@@ -229,10 +234,13 @@
             </div>
             <div class="loader-step">
               <div class="step-icon">
-                <i class="fas fa-cog"></i>
+                <i class="bi bi-gear"></i>
               </div>
               <div class="step-content">
-                <h4>Processing Data</h4>
+                <div class="step-info">
+                  <h4>Processing Data</h4>
+                  <span class="step-status">Waiting</span>
+                </div>
                 <div class="progress">
                   <div class="progress-bar"></div>
                 </div>
@@ -240,10 +248,13 @@
             </div>
             <div class="loader-step">
               <div class="step-icon">
-                <i class="fas fa-chart-line"></i>
+                <i class="bi bi-graph-up"></i>
               </div>
               <div class="step-content">
-                <h4>Analyzing Patterns</h4>
+                <div class="step-info">
+                  <h4>Analyzing Patterns</h4>
+                  <span class="step-status">Waiting</span>
+                </div>
                 <div class="progress">
                   <div class="progress-bar"></div>
                 </div>
@@ -251,15 +262,21 @@
             </div>
             <div class="loader-step">
               <div class="step-icon">
-                <i class="fas fa-check-circle"></i>
+                <i class="bi bi-check-circle"></i>
               </div>
               <div class="step-content">
-                <h4>Generating Recommendations</h4>
+                <div class="step-info">
+                  <h4>Generating Recommendations</h4>
+                  <span class="step-status">Waiting</span>
+                </div>
                 <div class="progress">
                   <div class="progress-bar"></div>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="loader-progress-indicator">
+            <span class="progress-text">25% Complete</span>
           </div>
         </div>
       </div>

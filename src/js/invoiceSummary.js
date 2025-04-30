@@ -123,13 +123,19 @@ function animateLoaderSteps() {
   const steps = document.querySelectorAll('.loader-step');
   const stepDuration = 1000; // 1 second per step
   let currentStep = 0;
+  const progressIndicator = document.querySelector('.loader-progress-indicator .progress-text');
 
   // Reset all steps
   steps.forEach(step => {
-    step.classList.remove('active');
+    step.classList.remove('active', 'completed');
     const progressBar = step.querySelector('.progress-bar');
+    const statusEl = step.querySelector('.step-status');
     if (progressBar) {
       progressBar.style.width = '0%';
+    }
+    if (statusEl) {
+      statusEl.textContent = 'Waiting';
+      statusEl.classList.remove('in-progress', 'completed');
     }
   });
 
@@ -139,16 +145,51 @@ function animateLoaderSteps() {
       return;
     }
 
+    // Update progress indicator
+    const progressPercentage = Math.round(((currentStep + 1) / steps.length) * 100);
+    if (progressIndicator) {
+      progressIndicator.textContent = `${progressPercentage}% Complete`;
+    }
+
+    // Mark previous steps as completed
+    for (let i = 0; i < currentStep; i++) {
+      const prevStep = steps[i];
+      prevStep.classList.remove('active');
+      prevStep.classList.add('completed');
+      
+      const prevStatusEl = prevStep.querySelector('.step-status');
+      if (prevStatusEl) {
+        prevStatusEl.textContent = 'Completed';
+        prevStatusEl.classList.remove('in-progress');
+        prevStatusEl.classList.add('completed');
+      }
+    }
+
+    // Animate current step
     const step = steps[currentStep];
     step.classList.add('active');
     
+    const statusEl = step.querySelector('.step-status');
+    if (statusEl) {
+      statusEl.textContent = 'In progress';
+      statusEl.classList.add('in-progress');
+    }
+    
     const progressBar = step.querySelector('.progress-bar');
     if (progressBar) {
-      progressBar.style.width = '100%';
+      // Animate progress bar
+      let width = 0;
+      const animationInterval = setInterval(() => {
+        if (width >= 100) {
+          clearInterval(animationInterval);
+          currentStep++;
+          setTimeout(animateStep, 300); // Small delay between steps
+        } else {
+          width += 2;
+          progressBar.style.width = width + '%';
+        }
+      }, 20);
     }
-
-    currentStep++;
-    setTimeout(animateStep, stepDuration);
   }
 
   animateStep();
