@@ -498,20 +498,6 @@
   gap: 1rem;
 }
 
-.header-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #ef4444, #f97316);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.25rem;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
-  position: relative;
-}
-
 .header-text {
   display: flex;
   flex-direction: column;
@@ -543,11 +529,6 @@
 .meta-divider {
   color: #cbd5e1;
   font-size: 0.875rem;
-}
-
-.header-actions {
-  display: flex;
-  gap: 0.75rem;
 }
 
 .action-button {
@@ -617,11 +598,6 @@
     font-size: 0.75rem;
   }
 
-  .header-actions {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
   .action-button {
     padding: 0.5rem 0.75rem;
     font-size: 0.8125rem;
@@ -677,18 +653,6 @@
   gap: 0.75rem;
 }
 
-.header-icon {
-  width: 32px;
-  height: 32px;
-  background: rgba(239, 68, 68, 0.1);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ef4444;
-  font-size: 1rem;
-}
-
 .header-info h3 {
   font-size: 0.9375rem;
   font-weight: 600;
@@ -711,35 +675,72 @@
 .risk-indicator {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.5rem;
   min-width: 200px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
+  /* border: 1px solid rgba(226, 232, 240, 0.5); */
 }
 
 .ring-wrapper {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.ring-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
+  z-index: 0;
+  animation: pulse-ring 2s infinite;
+}
+
+.ring-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 2px dashed rgba(239, 68, 68, 0.2);
+  z-index: 0;
+  animation: rotate-ring 20s linear infinite;
 }
 
 .progress-ring {
   transform: rotate(-90deg);
   width: 100%;
   height: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .ring-bg {
   fill: none;
   stroke: #e2e8f0;
-  stroke-width: 6;
+  stroke-width: 8;
 }
 
 .ring-progress {
   fill: none;
-  stroke-width: 6;
+  stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 283;
   stroke-dashoffset: calc(283 - (283 * 0.7));
   transition: stroke-dashoffset 0.5s ease;
+  stroke: url(#riskGradient);
 }
 
 .ring-content {
@@ -748,27 +749,58 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  width: 100%;
+  z-index: 2;
 }
 
 .ring-value {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: #1e293b;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .ring-label {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Add gradient definition for the ring */
+.risk-indicator {
+  position: relative;
+}
+
+.risk-indicator svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.risk-indicator svg defs {
+  position: absolute;
+}
+
+.risk-indicator svg defs linearGradient {
+  position: absolute;
 }
 
 .risk-status {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .risk-status.high {
@@ -779,9 +811,15 @@
 .risk-trend {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.75rem;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: #10b981;
+  letter-spacing: 0.02em;
+}
+
+.risk-trend i {
+  font-size: 1rem;
 }
 
 .metrics-grid {
@@ -875,8 +913,29 @@
   }
 
   .risk-indicator {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
     min-width: auto;
-    justify-content: space-between;
+  }
+
+  .ring-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .ring-value {
+    font-size: 1.25rem;
+  }
+
+  .ring-label {
+    font-size: 0.75rem;
+  }
+
+  .risk-status,
+  .risk-trend {
+    font-size: 0.8125rem;
+    justify-content: center;
   }
 
   .metrics-grid {
@@ -1000,20 +1059,6 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-}
-
-.header-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #3b82f6, #0ea5e9);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.1rem;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
-  position: relative;
 }
 
 .header-content h2 {
@@ -1643,19 +1688,6 @@
   gap: 0.75rem;
 }
 
-.header-icon {
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, #3b82f6, #0ea5e9);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1rem;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-}
-
 .header-text {
   display: flex;
   flex-direction: column;
@@ -1756,11 +1788,12 @@
   width: 28px;
   height: 28px;
   border-radius: 6px;
+  background: rgba(59, 130, 246, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #3b82f6;
   font-size: 0.875rem;
-  margin-bottom: 0.5rem;
 }
 
 .metric-icon.high {
@@ -1888,4 +1921,28 @@
 /* Visibility Control */
 .section-hidden {
   display: none !important;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.5;
+  }
+}
+
+@keyframes rotate-ring {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
