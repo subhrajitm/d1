@@ -212,71 +212,56 @@
       <!-- Loader Section -->
       <div id="loaderSection" class="loader-section">
         <div class="loader-content">
-          <div class="loader-header">
-            <div class="loader-icon-pulse"></div>
-            <h3>Processing Your Invoice</h3>
-            <p>Please wait while we analyze your document...</p>
+          <div class="loader-icon">
+            <div class="icon-wrapper">
+              <i class="bi bi-file-text"></i>
+              <div class="icon-pulse"></div>
+            </div>
           </div>
-          <div class="loader-steps">
-            <div class="loader-step">
-              <div class="step-icon">
-                <i class="bi bi-cloud-upload"></i>
-              </div>
-              <div class="step-content">
-                <div class="step-info">
-                  <h4>Uploading File</h4>
-                  <span class="step-status">In progress</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar"></div>
-                </div>
-              </div>
+          <div class="loader-text">
+            <h3>Processing Invoice</h3>
+            <p>Analyzing document for insights and recommendations...</p>
+          </div>
+          <div class="loader-progress">
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
             </div>
-            <div class="loader-step">
-              <div class="step-icon">
-                <i class="bi bi-gear"></i>
+            <div class="progress-steps">
+              <div class="step active">
+                <div class="step-icon">
+                  <i class="bi bi-cloud-upload"></i>
+                </div>
+                <span>Upload</span>
               </div>
-              <div class="step-content">
-                <div class="step-info">
-                  <h4>Processing Data</h4>
-                  <span class="step-status">Waiting</span>
+              <div class="step">
+                <div class="step-icon">
+                  <i class="bi bi-gear"></i>
                 </div>
-                <div class="progress">
-                  <div class="progress-bar"></div>
-                </div>
+                <span>Process</span>
               </div>
-            </div>
-            <div class="loader-step">
-              <div class="step-icon">
-                <i class="bi bi-graph-up"></i>
+              <div class="step">
+                <div class="step-icon">
+                  <i class="bi bi-graph-up"></i>
+                </div>
+                <span>Analyze</span>
               </div>
-              <div class="step-content">
-                <div class="step-info">
-                  <h4>Analyzing Patterns</h4>
-                  <span class="step-status">Waiting</span>
+              <div class="step">
+                <div class="step-icon">
+                  <i class="bi bi-check-circle"></i>
                 </div>
-                <div class="progress">
-                  <div class="progress-bar"></div>
-                </div>
-              </div>
-            </div>
-            <div class="loader-step">
-              <div class="step-icon">
-                <i class="bi bi-check-circle"></i>
-              </div>
-              <div class="step-content">
-                <div class="step-info">
-                  <h4>Generating Recommendations</h4>
-                  <span class="step-status">Waiting</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar"></div>
-                </div>
+                <span>Complete</span>
               </div>
             </div>
           </div>
-          <div class="loader-progress-indicator">
-            <span class="progress-text">25% Complete</span>
+          <div class="loader-status">
+            <div class="status-item">
+              <i class="bi bi-clock"></i>
+              <span>30s</span>
+            </div>
+            <div class="status-item">
+              <i class="bi bi-shield-check"></i>
+              <span>Secure</span>
+            </div>
           </div>
         </div>
       </div>
