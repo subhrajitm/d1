@@ -1266,14 +1266,40 @@
 }
 
 .stat-card {
-  background: white;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
   padding: 0.75rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(226, 232, 240, 0.5);
-  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(226, 232, 240, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+
+.stat-card.primary {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.03), rgba(99, 102, 241, 0.03));
+}
+
+.stat-card.info {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.03), rgba(59, 130, 246, 0.03));
+}
+
+.stat-card.warning {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.03), rgba(249, 115, 22, 0.03));
+}
+
+.stat-card.success {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.03), rgba(34, 197, 94, 0.03));
+}
+
+.stat-card.secondary {
+  background: linear-gradient(135deg, rgba(100, 116, 139, 0.03), rgba(148, 163, 184, 0.03));
+}
+
+.stat-card.light {
+  background: linear-gradient(135deg, rgba(148, 163, 184, 0.03), rgba(203, 213, 225, 0.03));
 }
 
 .stat-card::before {
@@ -1283,35 +1309,82 @@
   left: 0;
   width: 3px;
   height: 100%;
+  background: var(--primary-gradient);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.03) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.03) 0%, transparent 20%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .stat-card.primary::before {
-  background: #3b82f6;
+  background: var(--primary-gradient);
 }
 
 .stat-card.info::before {
-  background: #0ea5e9;
+  background: linear-gradient(135deg, #0ea5e9, #3b82f6);
 }
 
 .stat-card.warning::before {
-  background: #f59e0b;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
 }
 
 .stat-card.success::before {
-  background: #10b981;
+  background: linear-gradient(135deg, #10b981, #22c55e);
 }
 
 .stat-card.secondary::before {
-  background: #64748b;
+  background: linear-gradient(135deg, #64748b, #94a3b8);
 }
 
 .stat-card.light::before {
-  background: #94a3b8;
+  background: linear-gradient(135deg, #94a3b8, #cbd5e1);
 }
 
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: rgba(226, 232, 240, 0.6);
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+  width: 4px;
+}
+
+.stat-card.primary:hover {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(99, 102, 241, 0.05));
+}
+
+.stat-card.info:hover {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(59, 130, 246, 0.05));
+}
+
+.stat-card.warning:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(249, 115, 22, 0.05));
+}
+
+.stat-card.success:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(34, 197, 94, 0.05));
+}
+
+.stat-card.secondary:hover {
+  background: linear-gradient(135deg, rgba(100, 116, 139, 0.05), rgba(148, 163, 184, 0.05));
+}
+
+.stat-card.light:hover {
+  background: linear-gradient(135deg, rgba(148, 163, 184, 0.05), rgba(203, 213, 225, 0.05));
 }
 
 .card-icon {
@@ -1325,63 +1398,85 @@
   margin-bottom: 0.5rem;
   position: relative;
   z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover .card-icon {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 .stat-card.primary .card-icon {
-  background: var(--primary-color);
+  background: var(--primary-gradient);
   color: white;
 }
 
 .stat-card.info .card-icon {
-  background: var(--primary-light);
+  background: linear-gradient(135deg, #0ea5e9, #3b82f6);
   color: white;
 }
 
 .stat-card.warning .card-icon {
-  background: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: white;
 }
 
 .stat-card.success .card-icon {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
+  background: linear-gradient(135deg, #10b981, #22c55e);
+  color: white;
 }
 
 .stat-card.secondary .card-icon {
-  background: rgba(100, 116, 139, 0.1);
-  color: #64748b;
+  background: linear-gradient(135deg, #64748b, #94a3b8);
+  color: white;
 }
 
 .stat-card.light .card-icon {
-  background: rgba(241, 245, 249, 0.1);
-  color: #94a3b8;
+  background: linear-gradient(135deg, #94a3b8, #cbd5e1);
+  color: white;
 }
 
 .card-content {
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
+  position: relative;
+  z-index: 1;
 }
 
 .card-title {
   font-size: 0.75rem;
   font-weight: 500;
-  color: #64748b;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
 }
 
 .card-value {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text-primary);
   letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
 .card-percentage {
   font-size: 0.6875rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  margin-top: 0.125rem;
+}
+
+.card-percentage i {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover .card-percentage i {
+  transform: translateX(2px);
 }
 
 /* Risk Factors Card Styles */
