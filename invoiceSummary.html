@@ -90,7 +90,7 @@
             <i class="bi bi-file-text"></i>
             <div class="nav-content">
               <span class="nav-title">Invoice Summary</span>
-              <span class="nav-subtitle">& Reccomendation</span>
+              <span class="nav-subtitle">& Recommendation</span>
             </div>
           </a>
           <a class="nav-link" href="invoiceCreation.html">
@@ -119,11 +119,11 @@
               <i class="bi bi-list"></i>
             </button>
             <div class="page-info">
-              <h1 class="page-title mb-1" id="pageTitle">Invoice Creation</h1>
+              <h1 class="page-title mb-1" id="pageTitle">Invoice Summary</h1>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">Dashboard</li>
-                  <li class="breadcrumb-item active" id="currentPage">Invoice Creation</li>
+                  <li class="breadcrumb-item active" id="currentPage">Invoice Summary</li>
                 </ol>
               </nav>
             </div>
@@ -165,11 +165,8 @@
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
                 <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</a>
-                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</a></li>
               </ul>
             </div>
           </div>
@@ -208,257 +205,7 @@
           </div>
         </div>
 
-        <style>
-          .upload-container {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            padding: 1rem;
-          }
-
-          .upload-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-          }
-
-          .upload-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0) 70%);
-            z-index: 0;
-          }
-
-          .upload-card::after {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            left: -50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, rgba(14, 165, 233, 0) 70%);
-            z-index: 0;
-          }
-
-          .upload-icon {
-            position: relative;
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 1rem;
-            z-index: 1;
-          }
-
-          .icon-wrapper {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
-            position: relative;
-            z-index: 1;
-          }
-
-          .icon-pulse {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
-            border-radius: 50%;
-            opacity: 0.2;
-            animation: pulse 2s infinite;
-          }
-
-          @keyframes pulse {
-            0% {
-              transform: scale(1);
-              opacity: 0.2;
-            }
-
-            50% {
-              transform: scale(1.2);
-              opacity: 0.1;
-            }
-
-            100% {
-              transform: scale(1);
-              opacity: 0.2;
-            }
-          }
-
-          .upload-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-          }
-
-          .upload-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
-          }
-
-          .upload-subtitle {
-            font-size: 0.875rem;
-            color: #64748b;
-            margin-bottom: 1.25rem;
-          }
-
-          .upload-form {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-          }
-
-          .upload-input {
-            display: none;
-          }
-
-          .upload-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            background: rgba(241, 245, 249, 0.8);
-            border: 1px dashed #cbd5e1;
-            border-radius: 0.5rem;
-            color: #64748b;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-
-          .upload-label:hover {
-            background: rgba(226, 232, 240, 0.8);
-            border-color: #94a3b8;
-          }
-
-          .label-text {
-            font-weight: 500;
-          }
-
-          .upload-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
-            border: none;
-            border-radius: 0.5rem;
-            color: white;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-
-          .upload-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
-          }
-
-          .upload-button:active {
-            transform: translateY(0);
-          }
-
-          .upload-hint {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-            font-size: 0.75rem;
-            color: #94a3b8;
-          }
-
-          .upload-hint i {
-            font-size: 0.875rem;
-          }
-
-          @media (max-width: 768px) {
-            .upload-container {
-              padding: 0.75rem;
-            }
-
-            .upload-card {
-              padding: 1.25rem;
-            }
-
-            .upload-icon {
-              width: 56px;
-              height: 56px;
-            }
-
-            .icon-wrapper {
-              font-size: 1.25rem;
-            }
-
-            .upload-title {
-              font-size: 1.125rem;
-            }
-
-            .upload-subtitle {
-              font-size: 0.8125rem;
-            }
-          }
-
-          #uploadSection {
-            display: flex !important;
-            opacity: 1;
-          }
-
-          #loaderSection, #recommendationSection {
-            display: none !important;
-            opacity: 0;
-          }
-
-          #loaderSection.show, #recommendationSection.show {
-            display: flex !important;
-            opacity: 1;
-          }
-
-          .loader-step {
-            opacity: 0.5;
-            transition: opacity 0.3s ease-in-out;
-          }
-
-          .loader-step.active {
-            opacity: 1;
-          }
-
-          .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-          }
-
-          .progress-bar .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #0ea5e9);
-            transition: width 0.3s ease-in-out;
-          }
-        </style>
+       
       </section>
 
       <!-- Loader Section (Initially Hidden) -->
@@ -582,8 +329,20 @@
               return;
             }
 
+            // Show loading state
+            $(this).addClass('loading');
+            $(this).find('.btn-text').addClass('d-none');
+            $(this).find('.btn-loading').removeClass('d-none');
+            $(this).find('.btn-icon').addClass('d-none');
+
             // Hide upload section with fade out
             $('#uploadSection').fadeOut(300, function() {
+              // Reset button state
+              $('#uploadBtn').removeClass('loading');
+              $('#uploadBtn').find('.btn-text').removeClass('d-none');
+              $('#uploadBtn').find('.btn-loading').addClass('d-none');
+              $('#uploadBtn').find('.btn-icon').removeClass('d-none');
+              
               // Show loader section with fade in
               $('#loaderSection').addClass('show').fadeIn(300, function() {
                 // Start the loader animation and get the number of steps
@@ -596,6 +355,49 @@
                   });
                 }, totalSteps * 1000 + 500); // Total animation time + buffer
               });
+            });
+          });
+          
+          // Add drag and drop functionality
+          const uploadArea = document.querySelector('.upload-card');
+          const fileInput = document.getElementById('invoiceFile');
+
+          uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+          });
+
+          uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+          });
+
+          uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            
+            if (e.dataTransfer.files.length) {
+              fileInput.files = e.dataTransfer.files;
+              // Update file name display if needed
+              const fileName = e.dataTransfer.files[0].name;
+              document.querySelector('.label-text').textContent = fileName;
+            }
+          });
+          
+          // Add file input change handler
+          document.getElementById('invoiceFile').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'Choose File';
+            document.querySelector('.label-text').textContent = fileName;
+          });
+          
+          // Add back to upload button handler
+          document.getElementById('backToUpload').addEventListener('click', function() {
+            $('#recommendationSection').fadeOut(300, function() {
+              // Reset file input
+              document.getElementById('invoiceFile').value = '';
+              document.querySelector('.label-text').textContent = 'Choose File';
+              
+              // Show upload section
+              $('#uploadSection').fadeIn(300);
             });
           });
         </script>
@@ -781,6 +583,10 @@
                     </div>
                   </div>
                   <div class="header-actions">
+                    <button class="action-button back" id="backToUpload">
+                      <i class="bi bi-arrow-left"></i>
+                      <span>Upload New</span>
+                    </button>
                     <button class="action-button refresh">
                       <i class="bi bi-arrow-clockwise"></i>
                       <span>Refresh</span>
@@ -805,16 +611,6 @@
                             <h3>Dispute Risk Analysis</h3>
                             <p>Based on historical data and current patterns</p>
                           </div>
-                        </div>
-                        <div class="header-actions">
-                          <button class="header-btn refresh">
-                            <i class="bi bi-arrow-clockwise"></i>
-                            <span class="btn-tooltip">Refresh Analysis</span>
-                          </button>
-                          <button class="header-btn">
-                            <i class="bi bi-three-dots-vertical"></i>
-                            <span class="btn-tooltip">More Options</span>
-                          </button>
                         </div>
                       </div>
 
@@ -958,36 +754,7 @@
                         <h3>Key Recommendations</h3>
                         <span class="issue-count">3 Issues Found</span>
                       </div>
-                      <div class="chips-group">
-                        <button class="chip active" data-filter="all">
-                          <div class="chip-icon">
-                            <i class="bi bi-grid"></i>
-                          </div>
-                          <span>All</span>
-                          <div class="chip-badge">3</div>
-                        </button>
-                        <button class="chip high" data-filter="high">
-                          <div class="chip-icon">
-                            <i class="bi bi-exclamation-triangle"></i>
-                          </div>
-                          <span>High</span>
-                          <div class="chip-badge">1</div>
-                        </button>
-                        <button class="chip medium" data-filter="medium">
-                          <div class="chip-icon">
-                            <i class="bi bi-exclamation"></i>
-                          </div>
-                          <span>Medium</span>
-                          <div class="chip-badge">1</div>
-                        </button>
-                        <button class="chip low" data-filter="low">
-                          <div class="chip-icon">
-                            <i class="bi bi-info-circle"></i>
-                          </div>
-                          <span>Low</span>
-                          <div class="chip-badge">1</div>
-                        </button>
-                      </div>
+                      
                     </div>
 
                     <div class="recommendations-grid">
@@ -1060,25 +827,88 @@
 
                     <div class="impact-summary">
                       <div class="impact-header">
-                        <h4>Potential Impact Summary</h4>
+                        <div class="header-content">
+                          <div class="header-icon">
+                            <i class="bi bi-graph-up"></i>
+                          </div>
+                          <div class="header-text">
+                            <h4>Potential Impact Summary</h4>
+                            <div class="header-meta">
+                              <span class="meta-item">
+                                <i class="bi bi-clock"></i>
+                                Last updated: 2 hours ago
+                              </span>
+                              <span class="meta-divider">•</span>
+                              <span class="meta-item">
+                                <i class="bi bi-graph-up"></i>
+                                85% Accuracy
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                         <div class="total-savings">
-                          <span>Potential Savings</span>
-                          <strong>$245,670</strong>
+                          <div class="savings-card">
+                            <div class="savings-icon">
+                              <i class="bi bi-cash-stack"></i>
+                            </div>
+                            <div class="savings-content">
+                              <span class="savings-label">Potential Savings</span>
+                              <span class="savings-value">$245,670</span>
+                              <div class="savings-trend">
+                                <i class="bi bi-arrow-up-right"></i>
+                                <span>12.5% vs Last Month</span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div class="impact-chart">
-                        <div class="chart-segment high" style="width: 45%">
-                          <span class="segment-label">High Impact</span>
-                          <span class="segment-value">45%</span>
+                      <div class="impact-metrics">
+                        <div class="metric-card">
+                          <div class="metric-icon high">
+                            <i class="bi bi-exclamation-triangle"></i>
+                          </div>
+                          <div class="metric-content">
+                            <div class="metric-value">High Impact Issues</div>
+                            <div class="metric-label">Pricing discrepancies requiring immediate attention</div>
+                          </div>
+                          <div class="metric-bar">
+                            <div class="bar-fill high" style="width: 45%"></div>
+                          </div>
                         </div>
-                        <div class="chart-segment medium" style="width: 35%">
-                          <span class="segment-label">Medium Impact</span>
-                          <span class="segment-value">35%</span>
+                        <div class="metric-card">
+                          <div class="metric-icon medium">
+                            <i class="bi bi-exclamation"></i>
+                          </div>
+                          <div class="metric-content">
+                            <div class="metric-value">Medium Impact Issues</div>
+                            <div class="metric-label">Documentation gaps and compliance concerns</div>
+                          </div>
+                          <div class="metric-bar">
+                            <div class="bar-fill medium" style="width: 35%"></div>
+                          </div>
                         </div>
-                        <div class="chart-segment low" style="width: 20%">
-                          <span class="segment-label">Low Impact</span>
-                          <span class="segment-value">20%</span>
+                        <div class="metric-card">
+                          <div class="metric-icon low">
+                            <i class="bi bi-info-circle"></i>
+                          </div>
+                          <div class="metric-content">
+                            <div class="metric-value">Low Impact Issues</div>
+                            <div class="metric-label">Minor timeline and procedural discrepancies</div>
+                          </div>
+                          <div class="metric-bar">
+                            <div class="bar-fill low" style="width: 20%"></div>
+                          </div>
                         </div>
+                      </div>
+                      <div class="impact-actions">
+                        <button class="action-button primary">
+                          <i class="bi bi-file-earmark-text"></i>
+                          <span>Generate Report</span>
+                        </button>
+                        <button class="action-button secondary">
+                          <i class="bi bi-share"></i>
+                          <span>Share Analysis</span>
+                        </button>
                       </div>
                     </div>
                   </div>
