@@ -1,3 +1,28 @@
+:root {
+  --bs-primary: #4f46e5;
+  --bs-primary-dark: #4338ca;
+  --bs-gray-50: #f9fafb;
+  --bs-gray-100: #f3f4f6;
+  --bs-gray-200: #e5e7eb;
+  --bs-gray-300: #d1d5db;
+  --bs-gray-600: #4b5563;
+  --bs-gray-700: #374151;
+  --bs-gray-800: #1f2937;
+  --bs-success: #10b981;
+  --bs-warning: #f59e0b;
+  --bs-info: #3b82f6;
+  --bs-danger: #ef4444;
+  --background-color: #ffffff;
+  --background-light: #f8fafc;
+  --background-hover: #f1f5f9;
+  --border-color: #e2e8f0;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --primary-color: #4f46e5;
+  --primary-light: #6366f1;
+  --primary-gradient: linear-gradient(135deg, #4f46e5, #6366f1);
+}
+
 /* Upload Section Styles */
 .upload-container {
   position: relative;
