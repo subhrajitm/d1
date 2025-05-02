@@ -14,132 +14,192 @@ document.addEventListener('DOMContentLoaded', function() {
   const recommendationSection = document.getElementById('recommendationSection');
   const backToUploadBtn = document.getElementById('backToUpload');
   const uploadArea = document.querySelector('.upload-card');
+  const viewToggle = document.querySelector('.view-toggle');
+  const toggleButtons = viewToggle?.querySelectorAll('.toggle-btn');
+  const statsGrid = document.querySelector('.stats-grid');
 
   // Initialize sections
   function initializeSections() {
-    // Hide all sections initially
-    loaderSection.style.display = 'none';
-    loaderSection.style.opacity = '0';
-    recommendationSection.style.display = 'none';
-    recommendationSection.style.opacity = '0';
-    
-    // Show upload section
-    uploadSection.style.display = 'flex';
-    uploadSection.style.opacity = '1';
+    if (loaderSection && recommendationSection && uploadSection) {
+      // Hide all sections initially
+      loaderSection.style.display = 'none';
+      loaderSection.style.opacity = '0';
+      recommendationSection.style.display = 'none';
+      recommendationSection.style.opacity = '0';
+      
+      // Show upload section
+      uploadSection.style.display = 'flex';
+      uploadSection.style.opacity = '1';
+    }
   }
 
   // Initialize sections on page load
   initializeSections();
 
   // Handle file selection
-  fileInput.addEventListener('change', function(e) {
-    if (this.files.length > 0) {
-      const fileName = this.files[0].name;
-      document.querySelector('.label-text').textContent = fileName;
-    }
-  });
+  if (fileInput) {
+    fileInput.addEventListener('change', function(e) {
+      if (this.files.length > 0) {
+        const fileName = this.files[0].name;
+        const labelText = document.querySelector('.label-text');
+        if (labelText) {
+          labelText.textContent = fileName;
+        }
+      }
+    });
+  }
 
   // Handle upload button click
-  uploadBtn.addEventListener('click', function() {
-    // Hide upload section with transition
-    uploadSection.style.opacity = '0';
-    setTimeout(() => {
-      uploadSection.style.display = 'none';
-      
-      // Show loader
-      loaderSection.style.display = 'flex';
+  if (uploadBtn && uploadSection && loaderSection && recommendationSection) {
+    uploadBtn.addEventListener('click', function() {
+      // Hide upload section with transition
+      uploadSection.style.opacity = '0';
       setTimeout(() => {
-        loaderSection.style.opacity = '1';
+        uploadSection.style.display = 'none';
         
-        // Start loader animation
-        animateLoaderSteps();
-        
-        // Simulate processing delay
+        // Show loader
+        loaderSection.style.display = 'flex';
         setTimeout(() => {
-          // Hide loader with transition
-          loaderSection.style.opacity = '0';
+          loaderSection.style.opacity = '1';
+          
+          // Start loader animation
+          animateLoaderSteps();
+          
+          // Simulate processing delay
           setTimeout(() => {
-            loaderSection.style.display = 'none';
-            
-            // Remove d-flex class from upload section
-            uploadSection.classList.remove('d-flex');
-            
-            // Show recommendation section
-            recommendationSection.style.display = 'block';
+            // Hide loader with transition
+            loaderSection.style.opacity = '0';
             setTimeout(() => {
-              recommendationSection.style.opacity = '1';
-            }, 50);
-          }, 300);
-        }, 5000);
-      }, 50);
-    }, 300);
-  });
+              loaderSection.style.display = 'none';
+              
+              // Remove d-flex class from upload section
+              uploadSection.classList.remove('d-flex');
+              
+              // Show recommendation section
+              recommendationSection.style.display = 'block';
+              setTimeout(() => {
+                recommendationSection.style.opacity = '1';
+              }, 50);
+            }, 300);
+          }, 5000);
+        }, 50);
+      }, 300);
+    });
+  }
 
   // Handle back to upload button
-  backToUploadBtn.addEventListener('click', function() {
-    // Reset file input
-    fileInput.value = '';
-    document.querySelector('.label-text').textContent = 'Choose File';
-    
-    // Hide recommendation section with transition
-    recommendationSection.style.opacity = '0';
-    setTimeout(() => {
-      recommendationSection.style.display = 'none';
+  if (backToUploadBtn && fileInput && uploadSection && recommendationSection) {
+    backToUploadBtn.addEventListener('click', function() {
+      // Reset file input
+      fileInput.value = '';
+      const labelText = document.querySelector('.label-text');
+      if (labelText) {
+        labelText.textContent = 'Choose File';
+      }
       
-      // Add d-flex class back to upload section
-      uploadSection.classList.add('d-flex');
-      
-      // Show upload section
-      uploadSection.style.display = 'flex';
+      // Hide recommendation section with transition
+      recommendationSection.style.opacity = '0';
       setTimeout(() => {
-        uploadSection.style.opacity = '1';
-      }, 50);
-    }, 300);
-  });
+        recommendationSection.style.display = 'none';
+        
+        // Add d-flex class back to upload section
+        uploadSection.classList.add('d-flex');
+        
+        // Show upload section
+        uploadSection.style.display = 'flex';
+        setTimeout(() => {
+          uploadSection.style.opacity = '1';
+        }, 50);
+      }, 300);
+    });
+  }
 
   // Handle drag and drop
-  uploadArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    uploadArea.classList.add('drag-over');
-  });
+  if (uploadArea) {
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('drag-over');
+    });
 
-  uploadArea.addEventListener('dragleave', () => {
-    uploadArea.classList.remove('drag-over');
-  });
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('drag-over');
+    });
 
-  uploadArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadArea.classList.remove('drag-over');
-    
-    if (e.dataTransfer.files.length) {
-      fileInput.files = e.dataTransfer.files;
-      fileInput.dispatchEvent(new Event('change'));
-    }
-  });
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('drag-over');
+      
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
+      }
+    });
+  }
 
   // Recommendation Filtering
   const filterButtons = document.querySelectorAll('.filter-btn');
   const recommendationCards = document.querySelectorAll('.rec-card');
 
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Remove active class from all buttons
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      // Add active class to clicked button
-      this.classList.add('active');
+  if (filterButtons.length > 0 && recommendationCards.length > 0) {
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        this.classList.add('active');
 
-      const priority = this.dataset.priority;
+        const priority = this.dataset.priority;
 
-      // Filter cards
-      recommendationCards.forEach(card => {
-        if (priority === 'all') {
-          card.style.display = 'block';
+        // Filter cards
+        recommendationCards.forEach(card => {
+          if (priority === 'all') {
+            card.style.display = 'block';
+          } else {
+            card.style.display = card.classList.contains(priority) ? 'block' : 'none';
+          }
+        });
+      });
+    });
+  }
+
+  // View Toggle Functionality
+  if (viewToggle && toggleButtons && statsGrid) {
+    // Initialize view based on active button
+    const activeButton = viewToggle.querySelector('.toggle-btn.active');
+    if (activeButton && activeButton.dataset.view === 'list') {
+      statsGrid.classList.add('list-view');
+    }
+
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        toggleButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // Toggle grid/list view with animation
+        if (this.dataset.view === 'list') {
+          statsGrid.style.opacity = '0';
+          setTimeout(() => {
+            statsGrid.classList.add('list-view');
+            statsGrid.style.opacity = '1';
+          }, 150);
         } else {
-          card.style.display = card.classList.contains(priority) ? 'block' : 'none';
+          statsGrid.style.opacity = '0';
+          setTimeout(() => {
+            statsGrid.classList.remove('list-view');
+            statsGrid.style.opacity = '1';
+          }, 150);
         }
       });
     });
-  });
+  }
+
+  // Initialize other components
+  initializeCharts();
+  initializeRiskFactors();
+  initializeRecommendations();
 });
 
 // Loader animation function
@@ -290,12 +350,16 @@ viewOptions.forEach(option => {
 const exportBtn = document.querySelector('.action-btn.primary');
 const printBtn = document.querySelector('.action-btn.secondary');
 
-exportBtn.addEventListener('click', () => {
-  // Add export functionality here
-  console.log('Export clicked');
-});
+if (exportBtn) {
+  exportBtn.addEventListener('click', () => {
+    // Add export functionality here
+    console.log('Export clicked');
+  });
+}
 
-printBtn.addEventListener('click', () => {
-  // Add print functionality here
-  console.log('Print clicked');
-});
+if (printBtn) {
+  printBtn.addEventListener('click', () => {
+    // Add print functionality here
+    console.log('Print clicked');
+  });
+}
