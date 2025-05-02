@@ -307,6 +307,10 @@
                       <i class="bi bi-list-ul"></i>
                       <span>List</span>
                     </button>
+                    <button class="toggle-btn" data-view="invoice">
+                      <i class="bi bi-file-earmark-text"></i>
+                      <span>Invoice</span>
+                    </button>
                   </div>
                 </div>
 
@@ -479,6 +483,105 @@
                       <div class="card-value">-</div>
                       <div class="card-percentage">0%</div>
                     </div>
+                  </div>
+                </div>
+                <!-- Move invoice-view here -->
+                <div class="invoice-view" style="display:none; margin-top:1.5rem;">
+                  <div class="invoice-table-wrapper">
+                    <table class="invoice-table">
+                      <thead>
+                        <tr>
+                          <th colspan="4" class="invoice-title modern-invoice-title">FINAL INVOICE</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="invoice-label">WORK PERFORMED AT:</td>
+                          <td class="invoice-label">FOREIGN AFFILIATE OF:</td>
+                          <td class="invoice-label">SEND PAYMENT SHOWING:</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>BE ORISSA Ltda<br>356 Rua Alice Herve<br>Petropolis - RJ<br>25669-900BR<br>Tel No. 55 24 2233-4000</td>
+                          <td>BE Engine Services, LLC<br>1 Neumann Way<br>Cincinnati, OH 45215</td>
+                          <td>BE Engine Services, LLC, C/o PNC BANK<br>NATIONAL ASSOCIATION<br>PITTSBURGH, PA<br>S.W.I.F.T.: PNCCUS33 ABA # 043000096<br>ACCOUNT: 1010933861</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td class="invoice-label">1. ENGINE SERIAL NO.</td>
+                          <td class="invoice-label">2. INVOICE NO</td>
+                          <td class="invoice-label">3. INVOICE DATE</td>
+                          <td class="invoice-label">4. PAGE</td>
+                        </tr>
+                        <tr>
+                          <td>DELTA</td>
+                          <td>10001</td>
+                          <td>TBD</td>
+                          <td>02-05-2025</td>
+                        </tr>
+                        <tr>
+                          <td class="invoice-label">5. Shipping Address:</td>
+                          <td class="invoice-label">6. Billing Address</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>BE ENGINE SERVICES, LLC<br>BLD 500, COLUMN K12 1<br>NEUMANN WAY CINCINNATI<br>45215, Ohio<br>ORISSA</td>
+                          <td>DELTA AIRLINES INC<br>233 S. Wacker Drive<br>Chicago<br>60606, Illinois<br>USA</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td class="invoice-label">7. CUSTOMER ORDER NO. :</td>
+                          <td class="invoice-label">8. NOTIFICATION</td>
+                          <td class="invoice-label">9. PAYMENT TERMS:</td>
+                          <td class="invoice-label">10. PAYMENT DUE ON:</td>
+                        </tr>
+                        <tr>
+                          <td>10270200</td>
+                          <td>30 DAYS FROM INV DATE</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td class="invoice-label">11. SHIPPING REF. No</td>
+                          <td class="invoice-label">12. SHIPPED DATE</td>
+                          <td class="invoice-label">13. WBS</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>TBD</td>
+                          <td>TBD</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- Add the T&M MFP and Final Cost table below as in the image -->
+                    <table class="invoice-table" style="margin-top:1.5rem;">
+                      <thead>
+                        <tr>
+                          <th>T&M MFP</th>
+                          <th>Final Cost</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>In-Scope CharBEs</td><td>#REF!</td></tr>
+                        <tr><td>Out-Of-Scope LLPs Replacement</td><td>#REF!</td></tr>
+                        <tr><td>Out-Of-Scope QEC & LRU Replacement</td><td>#REF!</td></tr>
+                        <tr><td>Out-of-Scope Material & Repair</td><td>#REF!</td></tr>
+                        <tr><td>Out-of-Scope PMA & DER</td><td>#REF!</td></tr>
+                        <tr><td>Out-Of-Scope Missing Items</td><td>#REF!</td></tr>
+                        <tr><td>Out-Of-Scope Service Bulletin</td><td>#REF!</td></tr>
+                        <tr><td>Stand repair</td><td>$427.00</td></tr>
+                        <tr><td>Excluded Material Transportation</td><td>#REF!</td></tr>
+                        <tr><td>Taxes</td><td>#REF!</td></tr>
+                        <tr><td>TAT remedy</td><td>$-3,000.00</td></tr>
+                        <tr><td colspan="2">Delivered 12-Nov-24 Redelivered ######## Hold Days 0</td></tr>
+                        <tr><td>Total</td><td>#REF!</td></tr>
+                      </tbody>
+                    </table>
+                    <div class="invoice-note">**All Values are demonstrated in US Dollars</div>
                   </div>
                 </div>
               </div>

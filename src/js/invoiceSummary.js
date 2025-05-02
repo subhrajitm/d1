@@ -15,8 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const backToUploadBtn = document.getElementById('backToUpload');
   const uploadArea = document.querySelector('.upload-card');
   const viewToggle = document.querySelector('.view-toggle');
-  const toggleButtons = viewToggle?.querySelectorAll('.toggle-btn');
+  const toggleButtons = viewToggle ? viewToggle.querySelectorAll('.toggle-btn') : [];
   const statsGrid = document.querySelector('.stats-grid');
+  const invoiceView = document.querySelector('.invoice-view');
+  const summaryLineSection = document.querySelector('.invoice-summary-line-section');
+  const totalSummaryCard = document.querySelector('.total-summary-card');
 
   // Initialize sections
   function initializeSections() {
@@ -163,34 +166,31 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // View Toggle Functionality
-  if (viewToggle && toggleButtons && statsGrid) {
-    // Initialize view based on active button
-    const activeButton = viewToggle.querySelector('.toggle-btn.active');
-    if (activeButton && activeButton.dataset.view === 'list') {
-      statsGrid.classList.add('list-view');
-    }
-
+  if (toggleButtons.length) {
     toggleButtons.forEach(button => {
       button.addEventListener('click', function() {
         // Remove active class from all buttons
         toggleButtons.forEach(btn => btn.classList.remove('active'));
-        
         // Add active class to clicked button
         this.classList.add('active');
-        
-        // Toggle grid/list view with animation
+        // Toggle views
         if (this.dataset.view === 'list') {
-          statsGrid.style.opacity = '0';
-          setTimeout(() => {
-            statsGrid.classList.add('list-view');
-            statsGrid.style.opacity = '1';
-          }, 150);
-        } else {
-          statsGrid.style.opacity = '0';
-          setTimeout(() => {
-            statsGrid.classList.remove('list-view');
-            statsGrid.style.opacity = '1';
-          }, 150);
+          statsGrid && statsGrid.classList.add('list-view');
+          statsGrid && (statsGrid.style.display = '');
+          invoiceView && (invoiceView.style.display = 'none');
+          summaryLineSection && (summaryLineSection.style.display = '');
+          totalSummaryCard && (totalSummaryCard.style.display = '');
+        } else if (this.dataset.view === 'grid') {
+          statsGrid && statsGrid.classList.remove('list-view');
+          statsGrid && (statsGrid.style.display = '');
+          invoiceView && (invoiceView.style.display = 'none');
+          summaryLineSection && (summaryLineSection.style.display = '');
+          totalSummaryCard && (totalSummaryCard.style.display = '');
+        } else if (this.dataset.view === 'invoice') {
+          statsGrid && (statsGrid.style.display = 'none');
+          invoiceView && (invoiceView.style.display = 'block');
+          summaryLineSection && (summaryLineSection.style.display = 'none');
+          totalSummaryCard && (totalSummaryCard.style.display = 'none');
         }
       });
     });
