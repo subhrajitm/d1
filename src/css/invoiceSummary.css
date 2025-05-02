@@ -3183,3 +3183,111 @@
     font-size: 0.75rem;
   }
 }
+
+/* Invoice Summary Line Section */
+.invoice-summary-line-section {
+  background: #f9fafb;
+  border: 2.5px solid #e0e7ef;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 16px rgba(56,189,248,0.07);
+  padding: 1.1rem 1.5rem 1rem 1.5rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.invoice-summary-line.ultra-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.14rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.field-chip {
+  display: flex;
+  align-items: center;
+  background: #f4f6fa;
+  border-radius: 2em;
+  border: 1px solid #e5e7eb;
+  padding: 0.13em 0.7em 0.13em 0.5em;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1e293b;
+  min-height: 1.7em;
+  max-width: 100vw;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: box-shadow 0.12s, transform 0.12s, border 0.12s;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  box-shadow: none;
+}
+
+.field-chip i {
+  font-size: 1em;
+  margin-right: 0.35em;
+  opacity: 0.92;
+  vertical-align: middle;
+}
+
+.field-label {
+  color: #6366f1;
+  font-weight: 700;
+  margin-right: 0.18em;
+  font-size: 0.93em;
+  letter-spacing: 0.01em;
+}
+
+.field-value {
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 1em;
+  letter-spacing: -0.01em;
+}
+
+.field-chip.airline i { color: #0ea5e9; }
+.field-chip.address i { color: #f59e42; }
+.field-chip.order i { color: #6366f1; }
+.field-chip.shipping i { color: #10b981; }
+.field-chip.payment i { color: #db2777; }
+.field-chip.contract i { color: #3b82f6; }
+.field-chip.invoice i { color: #ef4444; }
+.field-chip.date i { color: #8b5cf6; }
+
+.field-chip:hover {
+  background: #e5e7eb;
+  border-color: #6366f1;
+  color: #111827;
+  transform: translateY(-1px) scale(1.01);
+}
+
+@media (max-width: 900px) {
+  .invoice-summary-line-section {
+    padding: 0.7rem 0.7rem 0.6rem 0.7rem;
+    border-radius: 1rem;
+  }
+  .invoice-summary-line.ultra-compact {
+    gap: 0.09rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .invoice-summary-line-section {
+    padding: 0.4rem 0.3rem 0.3rem 0.3rem;
+    border-radius: 0.7rem;
+  }
+  .invoice-summary-line.ultra-compact {
+    gap: 0.05rem;
+    font-size: 0.68rem;
+  }
+  .field-chip {
+    padding: 0.09em 0.3em 0.09em 0.2em;
+    min-height: 1.2em;
+  }
+}
