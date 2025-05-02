@@ -2257,8 +2257,8 @@
 /* Impact Summary Styles */
 .impact-summary {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: 12px;
+  padding: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(226, 232, 240, 0.5);
   backdrop-filter: blur(8px);
