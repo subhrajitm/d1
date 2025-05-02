@@ -116,6 +116,30 @@ document.addEventListener('DOMContentLoaded', function() {
       fileInput.dispatchEvent(new Event('change'));
     }
   });
+
+  // Recommendation Filtering
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const recommendationCards = document.querySelectorAll('.rec-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all buttons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      // Add active class to clicked button
+      this.classList.add('active');
+
+      const priority = this.dataset.priority;
+
+      // Filter cards
+      recommendationCards.forEach(card => {
+        if (priority === 'all') {
+          card.style.display = 'block';
+        } else {
+          card.style.display = card.classList.contains(priority) ? 'block' : 'none';
+        }
+      });
+    });
+  });
 });
 
 // Loader animation function
@@ -209,3 +233,178 @@ function initializeRiskFactors() {
 function initializeRecommendations() {
   // Recommendations initialization code here
 }
+
+// Invoice Review Section
+const invoiceReviewSection = document.getElementById('invoiceReviewSection');
+const closeReviewBtn = document.querySelector('.close-btn');
+const statCards = document.querySelectorAll('.stat-card');
+const searchInput = document.querySelector('.search-input');
+const sortSelect = document.querySelector('.sort-select');
+const viewOptions = document.querySelectorAll('.view-option');
+const addNoteBtn = document.querySelector('.add-note-btn');
+const noteTextarea = document.querySelector('.add-note textarea');
+
+// Function to show invoice review
+function showInvoiceReview(card) {
+  const title = card.querySelector('.card-title').textContent;
+  const value = card.querySelector('.card-value').textContent;
+  const percentage = card.querySelector('.card-percentage').textContent;
+  
+  // Update review section content
+  document.querySelector('.review-title').textContent = title;
+  document.querySelector('.card-value').textContent = value;
+  document.querySelector('.card-trend span').textContent = percentage;
+  
+  // Show the review section
+  invoiceReviewSection.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// Function to hide invoice review
+function hideInvoiceReview() {
+  invoiceReviewSection.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Function to handle search
+function handleSearch() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const rows = document.querySelectorAll('.details-table tbody tr');
+  
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(searchTerm) ? '' : 'none';
+  });
+}
+
+// Function to handle sorting
+function handleSort() {
+  const sortValue = sortSelect.value;
+  const tbody = document.querySelector('.details-table tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  
+  rows.sort((a, b) => {
+    const aValue = a.cells[sortValue.includes('date') ? 1 : 3].textContent;
+    const bValue = b.cells[sortValue.includes('date') ? 1 : 3].textContent;
+    
+    if (sortValue.includes('date')) {
+      return sortValue.includes('desc') 
+        ? new Date(bValue) - new Date(aValue)
+        : new Date(aValue) - new Date(bValue);
+    } else {
+      const aAmount = parseFloat(aValue.replace(/[^0-9.-]+/g, ''));
+      const bAmount = parseFloat(bValue.replace(/[^0-9.-]+/g, ''));
+      return sortValue.includes('desc') ? bAmount - aAmount : aAmount - bAmount;
+    }
+  });
+  
+  rows.forEach(row => tbody.appendChild(row));
+}
+
+// Function to handle view options
+function handleViewOption(option) {
+  viewOptions.forEach(opt => opt.classList.remove('active'));
+  option.classList.add('active');
+  
+  // Add logic here to filter by date range
+  const rows = document.querySelectorAll('.details-table tbody tr');
+  const now = new Date();
+  const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  
+  rows.forEach(row => {
+    const date = new Date(row.cells[1].textContent);
+    let show = true;
+    
+    switch(option.textContent) {
+      case 'This Month':
+        show = date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+        break;
+      case 'Last Month':
+        show = date.getMonth() === lastMonth.getMonth() && date.getFullYear() === lastMonth.getFullYear();
+        break;
+      case 'Custom Range':
+        // Implement custom date range picker
+        break;
+    }
+    
+    row.style.display = show ? '' : 'none';
+  });
+}
+
+// Function to add a note
+function addNote() {
+  const noteText = noteTextarea.value.trim();
+  if (!noteText) return;
+  
+  const notesList = document.querySelector('.notes-list');
+  const now = new Date();
+  const dateStr = now.toISOString().split('T')[0];
+  
+  const noteItem = document.createElement('div');
+  noteItem.className = 'note-item';
+  noteItem.innerHTML = `
+    <div class="note-header">
+      <span class="note-date">${dateStr}</span>
+      <span class="note-author">Current User</span>
+    </div>
+    <div class="note-content">${noteText}</div>
+  `;
+  
+  notesList.appendChild(noteItem);
+  noteTextarea.value = '';
+}
+
+// Add event listeners
+statCards.forEach(card => {
+  card.addEventListener('click', () => showInvoiceReview(card));
+});
+
+closeReviewBtn.addEventListener('click', hideInvoiceReview);
+
+invoiceReviewSection.addEventListener('click', (e) => {
+  if (e.target === invoiceReviewSection) {
+    hideInvoiceReview();
+  }
+});
+
+searchInput.addEventListener('input', handleSearch);
+
+sortSelect.addEventListener('change', handleSort);
+
+viewOptions.forEach(option => {
+  option.addEventListener('click', () => handleViewOption(option));
+});
+
+addNoteBtn.addEventListener('click', addNote);
+
+noteTextarea.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    addNote();
+  }
+});
+
+// Handle action buttons
+const exportBtn = document.querySelector('.action-btn.primary');
+
+exportBtn.addEventListener('click', () => {
+  // Add export functionality here
+  console.log('Export clicked');
+});
+
+// Handle action icons
+document.querySelectorAll('.action-icon').forEach(icon => {
+  icon.addEventListener('click', (e) => {
+    const action = icon.getAttribute('title');
+    const row = icon.closest('tr');
+    const invoiceId = row.cells[0].textContent;
+    
+    if (action === 'View Details') {
+      // Implement view details functionality
+      console.log(`View details for ${invoiceId}`);
+    } else if (action === 'Add Note') {
+      // Implement add note functionality
+      console.log(`Add note for ${invoiceId}`);
+    }
+  });
+});

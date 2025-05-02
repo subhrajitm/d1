@@ -64,7 +64,7 @@
             </div>
           </div>
 
-          
+
         </a>
       </div>
 
@@ -166,8 +166,11 @@
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
                 <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -206,7 +209,7 @@
           </div>
         </div>
 
-       
+
       </section>
 
       <!-- Loader Section -->
@@ -281,7 +284,8 @@
       <!-- Recommendation Section (Initially Hidden) -->
       <section id="recommendationSection">
         <div class="container-fluid animate__animated animate__fadeIn">
-          <div class="row g-2 align-items-stretch creative-summary-row">
+          <div class="row g-4">
+            <!-- Invoice Summary Section -->
             <div class="col-lg-12">
               <div class="invoice-summary-section">
                 <!-- Header -->
@@ -427,8 +431,191 @@
               </div>
             </div>
 
-            <!-- Recommendation Section -->
-            <div class="col-lg-12 mt-3">
+            <!-- Recommendations Container -->
+            <div class="col-lg-12">
+              <div class="recommendations-container">
+                <div class="recommendations-header">
+                  <div class="header-left">
+                    <h3>Key Recommendations</h3>
+                    <span class="issue-count">3 Issues Found</span>
+                  </div>
+                  <div class="header-right">
+                    <div class="filter-group">
+                      <button class="filter-btn active" data-priority="all">
+                        <i class="bi bi-funnel"></i>
+                        All
+                      </button>
+                      <button class="filter-btn" data-priority="high">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        High
+                      </button>
+                      <button class="filter-btn" data-priority="medium">
+                        <i class="bi bi-exclamation"></i>
+                        Medium
+                      </button>
+                      <button class="filter-btn" data-priority="low">
+                        <i class="bi bi-info-circle"></i>
+                        Low
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="recommendations-grid">
+                  <div class="rec-card high">
+                    <div class="card-header">
+                      <div class="priority-badge">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        High Priority
+                      </div>
+                      <div class="impact-badge">85%</div>
+                    </div>
+                    <div class="card-content">
+                      <h4>Pricing Review Required</h4>
+                      <p>Material pricing exceeds CLP by significant margin. Review and adjust rates.</p>
+                      <div class="card-actions">
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <button class="action-btn">
+                          <i class="bi bi-arrow-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="rec-card medium">
+                    <div class="card-header">
+                      <div class="priority-badge">
+                        <i class="bi bi-exclamation"></i>
+                        Medium Priority
+                      </div>
+                      <div class="impact-badge">45%</div>
+                    </div>
+                    <div class="card-content">
+                      <h4>Documentation Gap</h4>
+                      <p>Missing supporting documents for repair charges. Request additional documentation.</p>
+                      <div class="card-actions">
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                        <button class="action-btn">
+                          <i class="bi bi-arrow-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="rec-card low">
+                    <div class="card-header">
+                      <div class="priority-badge">
+                        <i class="bi bi-info-circle"></i>
+                        Low Priority
+                      </div>
+                      <div class="impact-badge">20%</div>
+                    </div>
+                    <div class="card-content">
+                      <h4>Timeline Review</h4>
+                      <p>Minor discrepancies in delivery dates noted. Verify transportation timeline.</p>
+                      <div class="card-actions">
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 20%"></div>
+                        </div>
+                        <button class="action-btn">
+                          <i class="bi bi-arrow-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Impact Summary -->
+            <div class="col-lg-12">
+              <div class="impact-summary">
+                <div class="impact-header">
+                  <div class="header-content">
+                    <div class="header-icon">
+                      <i class="bi bi-graph-up"></i>
+                    </div>
+                    <div class="header-text">
+                      <h4>Potential Impact Summary</h4>
+                      <div class="header-meta">
+                        <span class="meta-item">
+                          <i class="bi bi-clock"></i>
+                          Last updated: 2 hours ago
+                        </span>
+                        <span class="meta-divider">•</span>
+                        <span class="meta-item">
+                          <i class="bi bi-graph-up"></i>
+                          85% Accuracy
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="total-savings">
+                    <div class="savings-card">
+                      <div class="savings-icon">
+                        <i class="bi bi-cash-stack"></i>
+                      </div>
+                      <div class="savings-content">
+                        <span class="savings-label">Potential Savings</span>
+                        <span class="savings-value">$245,670</span>
+                        <div class="savings-trend">
+                          <i class="bi bi-arrow-up-right"></i>
+                          <span>12.5% vs Last Month</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="impact-metrics">
+                  <div class="metric-card">
+                    <div class="metric-icon high">
+                      <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <div class="metric-content">
+                      <div class="metric-value">High Impact Issues</div>
+                      <div class="metric-label">Pricing discrepancies requiring immediate attention</div>
+                    </div>
+                    <div class="metric-bar">
+                      <div class="bar-fill high" style="width: 45%"></div>
+                    </div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-icon medium">
+                      <i class="bi bi-exclamation"></i>
+                    </div>
+                    <div class="metric-content">
+                      <div class="metric-value">Medium Impact Issues</div>
+                      <div class="metric-label">Documentation gaps and compliance concerns</div>
+                    </div>
+                    <div class="metric-bar">
+                      <div class="bar-fill medium" style="width: 35%"></div>
+                    </div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-icon low">
+                      <i class="bi bi-info-circle"></i>
+                    </div>
+                    <div class="metric-content">
+                      <div class="metric-value">Low Impact Issues</div>
+                      <div class="metric-label">Minor timeline and procedural discrepancies</div>
+                    </div>
+                    <div class="metric-bar">
+                      <div class="bar-fill low" style="width: 20%"></div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <!-- Dispute Prediction Section -->
+            <div class="col-lg-12">
               <div class="recommendation-section">
                 <div class="section-background">
                   <div class="gradient-orb"></div>
@@ -462,7 +649,7 @@
                       <i class="bi bi-arrow-left"></i>
                       <span>Upload New</span>
                     </button> -->
-                   
+
                     <button class="action-button export">
                       <i class="bi bi-download"></i>
                       <span>Export</span>
@@ -621,170 +808,178 @@
                     </div>
                   </div>
 
-                  <div class="recommendations-container">
-                    <div class="recommendations-header">
-                      <div class="header-left">
-                        <h3>Key Recommendations</h3>
-                        <span class="issue-count">3 Issues Found</span>
-                      </div>
-                      
-                    </div>
 
-                    <div class="recommendations-grid">
-                      <div class="rec-card high">
-                        <div class="card-header">
-                          <div class="priority-badge">
-                            <i class="bi bi-exclamation-triangle"></i>
-                            High Priority
-                          </div>
-                          <div class="impact-badge">85%</div>
-                        </div>
-                        <div class="card-content">
-                          <h4>Pricing Review Required</h4>
-                          <p>Material pricing exceeds CLP by significant margin. Review and adjust rates.</p>
-                          <div class="card-actions">
-                            <div class="progress-bar">
-                              <div class="progress-fill" style="width: 85%"></div>
-                            </div>
-                            <button class="action-btn">
-                              <i class="bi bi-arrow-right"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="rec-card medium">
-                        <div class="card-header">
-                          <div class="priority-badge">
-                            <i class="bi bi-exclamation"></i>
-                            Medium Priority
-                          </div>
-                          <div class="impact-badge">45%</div>
-                        </div>
-                        <div class="card-content">
-                          <h4>Documentation Gap</h4>
-                          <p>Missing supporting documents for repair charges. Request additional documentation.</p>
-                          <div class="card-actions">
-                            <div class="progress-bar">
-                              <div class="progress-fill" style="width: 45%"></div>
-                            </div>
-                            <button class="action-btn">
-                              <i class="bi bi-arrow-right"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="rec-card low">
-                        <div class="card-header">
-                          <div class="priority-badge">
-                            <i class="bi bi-info-circle"></i>
-                            Low Priority
-                          </div>
-                          <div class="impact-badge">20%</div>
-                        </div>
-                        <div class="card-content">
-                          <h4>Timeline Review</h4>
-                          <p>Minor discrepancies in delivery dates noted. Verify transportation timeline.</p>
-                          <div class="card-actions">
-                            <div class="progress-bar">
-                              <div class="progress-fill" style="width: 20%"></div>
-                            </div>
-                            <button class="action-btn">
-                              <i class="bi bi-arrow-right"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-
-                  <div class="impact-summary">
-                    <div class="impact-header">
-                      <div class="header-content">
-                        <div class="header-icon">
-                          <i class="bi bi-graph-up"></i>
-                        </div>
-                        <div class="header-text">
-                          <h4>Potential Impact Summary</h4>
-                          <div class="header-meta">
-                            <span class="meta-item">
-                              <i class="bi bi-clock"></i>
-                              Last updated: 2 hours ago
-                            </span>
-                            <span class="meta-divider">•</span>
-                            <span class="meta-item">
-                              <i class="bi bi-graph-up"></i>
-                              85% Accuracy
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="total-savings">
-                        <div class="savings-card">
-                          <div class="savings-icon">
-                            <i class="bi bi-cash-stack"></i>
-                          </div>
-                          <div class="savings-content">
-                            <span class="savings-label">Potential Savings</span>
-                            <span class="savings-value">$245,670</span>
-                            <div class="savings-trend">
-                              <i class="bi bi-arrow-up-right"></i>
-                              <span>12.5% vs Last Month</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="impact-metrics">
-                      <div class="metric-card">
-                        <div class="metric-icon high">
-                          <i class="bi bi-exclamation-triangle"></i>
-                        </div>
-                        <div class="metric-content">
-                          <div class="metric-value">High Impact Issues</div>
-                          <div class="metric-label">Pricing discrepancies requiring immediate attention</div>
-                        </div>
-                        <div class="metric-bar">
-                          <div class="bar-fill high" style="width: 45%"></div>
-                        </div>
-                      </div>
-                      <div class="metric-card">
-                        <div class="metric-icon medium">
-                          <i class="bi bi-exclamation"></i>
-                        </div>
-                        <div class="metric-content">
-                          <div class="metric-value">Medium Impact Issues</div>
-                          <div class="metric-label">Documentation gaps and compliance concerns</div>
-                        </div>
-                        <div class="metric-bar">
-                          <div class="bar-fill medium" style="width: 35%"></div>
-                        </div>
-                      </div>
-                      <div class="metric-card">
-                        <div class="metric-icon low">
-                          <i class="bi bi-info-circle"></i>
-                        </div>
-                        <div class="metric-content">
-                          <div class="metric-value">Low Impact Issues</div>
-                          <div class="metric-label">Minor timeline and procedural discrepancies</div>
-                        </div>
-                        <div class="metric-bar">
-                          <div class="bar-fill low" style="width: 20%"></div>
-                        </div>
-                      </div>
-                    </div>
-                   
-                    
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- Invoice Review Section -->
+      <div id="invoiceReviewSection" class="invoice-review-section">
+        <div class="review-container">
+          <div class="review-header">
+            <div class="header-left">
+              <div class="header-icon">
+                <i class="bi bi-file-text"></i>
+              </div>
+              <div class="header-content">
+                <h3 class="review-title">Invoice Review</h3>
+                <p class="review-subtitle">Detailed analysis of selected category</p>
+              </div>
+            </div>
+            <button class="close-btn" id="closeReview">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+
+          <div class="review-content">
+            <div class="review-summary">
+              <div class="summary-card">
+                <div class="card-icon">
+                  <i class="bi bi-cash-coin"></i>
+                </div>
+                <div class="card-content">
+                  <div class="card-title">Total Amount</div>
+                  <div class="card-value">$2,752,670</div>
+                  <div class="card-trend">
+                    <i class="bi bi-arrow-up-right"></i>
+                    <span>12.5% vs Last Month</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="review-details">
+              <div class="details-header">
+                <h4>Detailed Breakdown</h4>
+                <div class="view-options">
+                  <button class="view-option active">All</button>
+                  <button class="view-option">This Month</button>
+                  <button class="view-option">Last Month</button>
+                  <button class="view-option">Custom Range</button>
+                </div>
+              </div>
+
+              <div class="search-filter">
+                <div class="search-box">
+                  <i class="bi bi-search"></i>
+                  <input type="text" placeholder="Search invoices..." class="search-input">
+                </div>
+                <div class="filter-options">
+                  <select class="sort-select">
+                    <option value="date-desc">Date (Newest First)</option>
+                    <option value="date-asc">Date (Oldest First)</option>
+                    <option value="amount-desc">Amount (High to Low)</option>
+                    <option value="amount-asc">Amount (Low to High)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="details-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Invoice ID</th>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>INV-2024-001</td>
+                      <td>2024-03-15</td>
+                      <td>LLP Replacement Service</td>
+                      <td>$450,000</td>
+                      <td><span class="status-badge completed">Completed</span></td>
+                      <td>
+                        <button class="action-icon" title="View Details">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="action-icon" title="Add Note">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>INV-2024-002</td>
+                      <td>2024-03-18</td>
+                      <td>QEC Maintenance</td>
+                      <td>$75,000</td>
+                      <td><span class="status-badge pending">Pending</span></td>
+                      <td>
+                        <button class="action-icon" title="View Details">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="action-icon" title="Add Note">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>INV-2024-003</td>
+                      <td>2024-03-20</td>
+                      <td>Material Transportation</td>
+                      <td>$12,500</td>
+                      <td><span class="status-badge completed">Completed</span></td>
+                      <td>
+                        <button class="action-icon" title="View Details">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="action-icon" title="Add Note">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="notes-section">
+              <h4>Notes & Comments</h4>
+              <div class="notes-list">
+                <div class="note-item">
+                  <div class="note-header">
+                    <span class="note-date">2024-03-15</span>
+                    <span class="note-author">John Doe</span>
+                  </div>
+                  <div class="note-content">
+                    Invoice approved after verification of all supporting documents.
+                  </div>
+                </div>
+                <div class="note-item">
+                  <div class="note-header">
+                    <span class="note-date">2024-03-18</span>
+                    <span class="note-author">Jane Smith</span>
+                  </div>
+                  <div class="note-content">
+                    Pending approval from finance team for additional charges.
+                  </div>
+                </div>
+              </div>
+              <div class="add-note">
+                <textarea placeholder="Add a note or comment..." rows="2"></textarea>
+                <button class="add-note-btn">
+                  <i class="bi bi-plus-lg"></i>
+                  Add Note
+                </button>
+              </div>
+            </div>
+
+            <div class="review-actions">
+              <button class="action-btn primary">
+                <i class="bi bi-download"></i>
+                Export Data
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 
