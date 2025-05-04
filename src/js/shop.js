@@ -71,19 +71,88 @@ const shopDetailsData = [
   }
 ];
 
-function showShopDetails(shopName) {
-  // Hide overview, show details
+// Centralized section show/hide logic and step indicator
+function showSection(section) {
+  // Hide all main sections
   document.querySelector('.table-section').style.display = 'none';
-  document.getElementById('shop-details-section').style.display = '';
-  // Hide the table footer
-  document.querySelector('.table-footer').style.display = 'none';
+  document.getElementById('shop-details-section').style.display = 'none';
+  document.getElementById('billing-readiness-section').style.display = 'none';
+  document.getElementById('invoice-details-section').style.display = 'none';
+  const footer = document.querySelector('.table-footer');
+  if (footer) footer.style.display = 'none';
 
+  // Stepper: remove .active and .completed from all steps
+  const steps = [
+    'stepper-shop-overview',
+    'stepper-shop-details',
+    'stepper-billing-readiness',
+    'stepper-invoice-details'
+  ];
+  steps.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.remove('active', 'completed');
+    }
+  });
+
+  // Determine current step index
+  let currentIdx = 0;
+  if (section === 'overview') currentIdx = 0;
+  else if (section === 'shop-details') currentIdx = 1;
+  else if (section === 'billing-readiness') currentIdx = 2;
+  else if (section === 'invoice-details') currentIdx = 3;
+
+  // Mark completed and active steps
+  steps.forEach((id, idx) => {
+    const el = document.getElementById(id);
+    if (el) {
+      if (idx < currentIdx) el.classList.add('completed');
+      else if (idx === currentIdx) el.classList.add('active');
+    }
+  });
+
+  // Animate progress bar
+  const progressBar = document.querySelector('.stepper-progress-bar');
+  if (progressBar) {
+    const percent = [0, 33, 66, 100][currentIdx];
+    progressBar.style.background =
+      `linear-gradient(90deg, #10b981 ${percent}%, #e5e7eb ${percent}%)`;
+  }
+
+  // Show the requested section and manage focus
+  if (section === 'overview') {
+    document.querySelector('.table-section').style.display = '';
+    if (footer) footer.style.display = '';
+    // Focus first View Details button
+    const btn = document.querySelector('.view-details-btn');
+    if (btn) btn.focus();
+  } else if (section === 'shop-details') {
+    document.getElementById('shop-details-section').style.display = '';
+    // Focus first row
+    const row = document.querySelector('#shop-details-table tbody tr');
+    if (row) row.focus();
+  } else if (section === 'billing-readiness') {
+    document.getElementById('billing-readiness-section').style.display = '';
+    // Focus first Action Recommendation button
+    const btn = document.querySelector('.action-recommendation-btn');
+    if (btn) btn.focus();
+  } else if (section === 'invoice-details') {
+    document.getElementById('invoice-details-section').style.display = '';
+    // Focus first select
+    const sel = document.querySelector('#invoice-details-table select');
+    if (sel) sel.focus();
+  }
+}
+
+function showShopDetails(shopName) {
+  showSection('shop-details');
   // Filter data for the selected shop
   const filtered = shopDetailsData.filter(row => row.Shop === shopName);
   const tbody = document.querySelector('#shop-details-table tbody');
   tbody.innerHTML = '';
   filtered.forEach(row => {
     const tr = document.createElement('tr');
+    tr.tabIndex = 0;
     tr.innerHTML = `
       <td>${row.Shop}</td>
       <td>${row.Customer}</td>
@@ -99,7 +168,7 @@ function showShopDetails(shopName) {
     `;
     tbody.appendChild(tr);
   });
-  // Re-attach row click handlers
+  // Re-attach row click handlers and highlight
   setupShopDetailsRowClick();
 }
 
@@ -166,12 +235,7 @@ const invoiceDetailsData = [
 ];
 
 function showBillingReadiness(esn) {
-  document.getElementById('shop-details-section').style.display = 'none';
-  document.getElementById('billing-readiness-section').style.display = '';
-  // Hide table footer if present
-  const footer = document.querySelector('.table-footer');
-  if (footer) footer.style.display = 'none';
-
+  showSection('billing-readiness');
   // Filter data for the selected ESN
   const filtered = billingReadinessData.filter(row => row.ESN === esn);
   const tbody = document.querySelector('#billing-readiness-table tbody');
@@ -192,12 +256,7 @@ function showBillingReadiness(esn) {
 }
 
 function showInvoiceDetails(esn) {
-  document.getElementById('billing-readiness-section').style.display = 'none';
-  document.getElementById('invoice-details-section').style.display = '';
-  // Hide table footer if present
-  const footer = document.querySelector('.table-footer');
-  if (footer) footer.style.display = 'none';
-
+  showSection('invoice-details');
   // Filter data for the selected ESN
   const filtered = invoiceDetailsData.filter(row => row.ESN === esn);
   const tbody = document.querySelector('#invoice-details-table tbody');
@@ -220,8 +279,19 @@ function showInvoiceDetails(esn) {
 function setupShopDetailsRowClick() {
   document.querySelectorAll('#shop-details-table tbody tr').forEach(row => {
     row.addEventListener('click', function() {
+      // Remove highlight from all rows
+      document.querySelectorAll('#shop-details-table tbody tr').forEach(r => r.classList.remove('table-active'));
+      // Highlight this row
+      this.classList.add('table-active');
       const esn = this.querySelector('td:nth-child(3)').textContent.trim();
       showBillingReadiness(esn);
+    });
+    // Keyboard accessibility: Enter/Space triggers click
+    row.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
     });
   });
 }
@@ -234,23 +304,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Back button: Billing Readiness -> Shop Details
   document.getElementById('back-to-shop-details').addEventListener('click', function() {
-    document.getElementById('billing-readiness-section').style.display = 'none';
-    document.getElementById('shop-details-section').style.display = '';
-    // Hide Invoice Details if open
-    document.getElementById('invoice-details-section').style.display = 'none';
-    // Hide table footer if present
-    const footer = document.querySelector('.table-footer');
-    if (footer) footer.style.display = 'none';
+    showSection('shop-details');
     setupShopDetailsRowClick();
   });
 
   // Back button: Invoice Details -> Billing Readiness
   document.getElementById('back-to-billing-readiness').addEventListener('click', function() {
-    document.getElementById('invoice-details-section').style.display = 'none';
-    document.getElementById('billing-readiness-section').style.display = '';
-    // Hide table footer if present
-    const footer = document.querySelector('.table-footer');
-    if (footer) footer.style.display = 'none';
+    showSection('billing-readiness');
   });
 
   // Delegate click for Action Recommendation (Review Invoice)
@@ -261,4 +321,42 @@ document.addEventListener('DOMContentLoaded', function() {
       showInvoiceDetails(esn);
     }
   });
-}); 
+
+  setupStepperNavigation();
+});
+
+// Stepper navigation: allow clicking or pressing Enter/Space on completed steps
+function setupStepperNavigation() {
+  const steps = [
+    { id: 'stepper-shop-overview', section: 'overview' },
+    { id: 'stepper-shop-details', section: 'shop-details' },
+    { id: 'stepper-billing-readiness', section: 'billing-readiness' },
+    { id: 'stepper-invoice-details', section: 'invoice-details' }
+  ];
+  steps.forEach((step, idx) => {
+    const el = document.getElementById(step.id);
+    if (!el) return;
+    // Remove previous listeners
+    el.onclick = null;
+    el.onkeydown = null;
+    // Only allow navigation to completed steps (not current or future)
+    el.addEventListener('click', function() {
+      if (el.classList.contains('completed')) {
+        showSection(step.section);
+      }
+    });
+    el.addEventListener('keydown', function(e) {
+      if ((e.key === 'Enter' || e.key === ' ') && el.classList.contains('completed')) {
+        e.preventDefault();
+        showSection(step.section);
+      }
+    });
+  });
+}
+
+// Also call setupStepperNavigation after every showSection to update listeners
+const _originalShowSection = showSection;
+showSection = function(section) {
+  _originalShowSection(section);
+  setupStepperNavigation();
+}; 
