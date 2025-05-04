@@ -159,474 +159,412 @@
         </div>
       </header>
 
-      <!-- Shop Content -->
+      <!-- Dashboard Content -->
       <div class="content">
-        <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-          <div class="d-flex align-items-center gap-3">
-            <button class="back-button" onclick="window.location.href='index.html'">
-              <i class="bi bi-arrow-left"></i>
-            </button>
-            <div>
-              <h1 class="h4 mb-1">Shop Status</h1>
-              <div class="text-muted small">Manage and monitor shop performance</div>
-            </div>
-          </div>
-          <div class="page-header-actions">
-            <div class="period-select">
-              <i class="bi bi-calendar3"></i>
-              <select>
-                <option>Last 7 Days</option>
-                <option>Last 30 Days</option>
-                <option>Last 90 Days</option>
-                <option>Custom Range</option>
-              </select>
-            </div>
-            <button class="action-button primary with-text">
-              <i class="bi bi-download"></i>
-              Export Report
-            </button>
-          </div>
-        </div>
-
-        <!-- Quick Stats -->
-        <div class="row g-2 mb-3">
-          <div class="col-md-4 col-sm-12">
-            <div class="stat-card h-100">
-              <div class="stat-content">
-                <div class="stat-main">
-                  <div class="stat-value">27</div>
-                  <div class="stat-title">Total SV</div>
-                </div>
-                <div class="stat-icon-wrapper">
+        <!-- Metrics Section -->
+        <div class="metrics-section">
+          <div class="row g-2">
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="metric-card shop-card">
+                <div class="metric-icon">
                   <i class="bi bi-shop"></i>
                 </div>
-              </div>
-              <div class="stat-footer">
-                <div class="stat-trend positive">
-                  <i class="bi bi-arrow-up-right"></i>
-                  <span>8.2%</span>
+                <div class="metric-content">
+                  <div class="metric-value">3</div>
+                  <div class="metric-label">Active Shops</div>
+                  <div class="metric-trend positive">
+                    <i class="bi bi-arrow-up"></i>
+                    <span>2.5%</span>
+                  </div>
                 </div>
-                <div class="stat-comparison">
-                  <span class="comparison-value">25</span>
-                  <span class="comparison-label">prev</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="stat-card h-100">
-              <div class="stat-content">
-                <div class="stat-main">
-                  <div class="stat-value">2</div>
-                  <div class="stat-title">Past Due</div>
-                </div>
-                <div class="stat-icon-wrapper">
-                  <i class="bi bi-exclamation-circle"></i>
-                </div>
-              </div>
-              <div class="stat-footer">
-                <div class="stat-trend negative">
-                  <i class="bi bi-arrow-down-right"></i>
-                  <span>2.5%</span>
-                </div>
-                <div class="stat-comparison">
-                  <span class="comparison-value">3</span>
-                  <span class="comparison-label">prev</span>
+                <div class="metric-chart">
+                  <div class="chart-bar" style="height: 60%"></div>
+                  <div class="chart-bar" style="height: 80%"></div>
+                  <div class="chart-bar" style="height: 40%"></div>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div class="col-md-4 col-sm-12">
-            <div class="stat-card h-100">
-              <div class="stat-content">
-                <div class="stat-main">
-                  <div class="stat-value">20</div>
-                  <div class="stat-title">No Due</div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="metric-card service-card">
+                <div class="metric-icon">
+                  <i class="bi bi-clock-history"></i>
                 </div>
-                <div class="stat-icon-wrapper">
-                  <i class="bi bi-check-circle"></i>
+                <div class="metric-content">
+                  <div class="metric-value">59</div>
+                  <div class="metric-label">Total Services</div>
+                  <div class="metric-trend positive">
+                    <i class="bi bi-arrow-up"></i>
+                    <span>5.1%</span>
+                  </div>
+                </div>
+                <div class="metric-chart">
+                  <div class="chart-bar" style="height: 70%"></div>
+                  <div class="chart-bar" style="height: 90%"></div>
+                  <div class="chart-bar" style="height: 50%"></div>
                 </div>
               </div>
-              <div class="stat-footer">
-                <div class="stat-trend positive">
-                  <i class="bi bi-arrow-up-right"></i>
-                  <span>12.5%</span>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="metric-card due-card">
+                <div class="metric-icon">
+                  <i class="bi bi-exclamation-triangle"></i>
                 </div>
-                <div class="stat-comparison">
-                  <span class="comparison-value">18</span>
-                  <span class="comparison-label">prev</span>
+                <div class="metric-content">
+                  <div class="metric-value">3</div>
+                  <div class="metric-label">Past Due</div>
+                  <div class="metric-trend negative">
+                    <i class="bi bi-arrow-down"></i>
+                    <span>1.2%</span>
+                  </div>
+                </div>
+                <div class="metric-chart">
+                  <div class="chart-bar" style="height: 30%"></div>
+                  <div class="chart-bar" style="height: 20%"></div>
+                  <div class="chart-bar" style="height: 40%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="metric-card upcoming-card">
+                <div class="metric-icon">
+                  <i class="bi bi-calendar-check"></i>
+                </div>
+                <div class="metric-content">
+                  <div class="metric-value">8</div>
+                  <div class="metric-label">Upcoming</div>
+                  <div class="metric-trend positive">
+                    <i class="bi bi-arrow-up"></i>
+                    <span>3.8%</span>
+                  </div>
+                </div>
+                <div class="metric-chart">
+                  <div class="chart-bar" style="height: 50%"></div>
+                  <div class="chart-bar" style="height: 70%"></div>
+                  <div class="chart-bar" style="height: 60%"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Shop Status Section -->
-        <div id="shopStatusSection" class="table-section">
+        <!-- Shop Status Overview Section -->
+        <div class="table-section">
           <div class="table-header">
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
-              <div class="table-title-wrapper">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="d-flex align-items-center gap-2">
                 <h2 class="table-title">
-                  Shop Details
-                  <span class="badge bg-primary-subtle text-primary">27 Total Records</span>
+                  <i class="bi bi-shop"></i>
+                  Shop Status Overview
                 </h2>
+                <div class="table-badge">
+                  <i class="bi bi-buildings"></i>
+                  3 Active Shops
+                </div>
               </div>
-              <div class="table-actions">
-                <div class="search-wrapper">
+            </div>
+
+            <div class="table-toolbar">
+              <div class="search-filter-group">
+                <div class="table-search">
                   <i class="bi bi-search search-icon"></i>
-                  <input type="text" class="form-control" id="shopSearch" placeholder="Search shops, customers, ESN...">
+                  <input type="text" placeholder="Search shops...">
                 </div>
-                <div class="queue-tabs">
-                  <div class="queue-tab active" data-queue="my">
-                    <i class="bi bi-person"></i>
+                <button class="filter-btn">
+                  <i class="bi bi-funnel"></i>
+                  Filters
+                  <i class="bi bi-chevron-down"></i>
+                </button>
+              </div>
+              
+              <div class="view-options">
+                <div class="btn-group" role="tablist">
+                  <button class="view-btn active" id="my-queue-tab" data-bs-toggle="tab" data-bs-target="#my-queue" type="button" role="tab">
                     My Queue
-                  </div>
-                  <div class="queue-tab" data-queue="overall">
-                    <i class="bi bi-people"></i>
+                  </button>
+                  <button class="view-btn" id="overall-queue-tab" data-bs-toggle="tab" data-bs-target="#overall-queue" type="button" role="tab">
                     Overall Queue
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="table-container">
-            <table id="shopStatusTable" class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Shop</th>
-                  <th>Customer</th>
-                  <th>ESN</th>
-                  <th>SV No</th>
-                  <th>SV Type</th>
-                  <th>Induction Date</th>
-                  <th>Shipment Date</th>
-                  <th>Entitlement Date</th>
-                  <th>Invoice Type</th>
-                  <th>Invoice Status</th>
-                  <th>Priority</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Shop1 Data -->
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <div class="shop-icon">
-                        <i class="bi bi-shop"></i>
-                      </div>
-                      <div class="text-truncate">
-                        <div class="fw-medium">Shop1</div>
-                        <div class="small text-muted">ID: SH001</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="text-truncate">
-                      <div class="fw-medium">Customer1</div>
-                      <div class="small text-muted">CID: C001</div>
-                    </div>
-                  </td>
-                  <td>SN101</td>
-                  <td>3</td>
-                  <td><span class="badge bg-primary">FULL</span></td>
-                  <td>2024-11-21</td>
-                  <td>2025-03-20</td>
-                  <td>2025-04-10</td>
-                  <td>Final</td>
-                  <td><span class="badge bg-danger">Past Due</span></td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <div class="shop-icon">
-                        <i class="bi bi-shop"></i>
-                      </div>
-                      <div class="text-truncate">
-                        <div class="fw-medium">Shop1</div>
-                        <div class="small text-muted">ID: SH001</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="text-truncate">
-                      <div class="fw-medium">Customer1</div>
-                      <div class="small text-muted">CID: C001</div>
-                    </div>
-                  </td>
-                  <td>SN103</td>
-                  <td>2</td>
-                  <td><span class="badge bg-primary">FULL</span></td>
-                  <td>2024-11-21</td>
-                  <td>2025-03-20</td>
-                  <td>2025-04-10</td>
-                  <td>Final</td>
-                  <td><span class="badge bg-danger">Past Due</span></td>
-                  <td>2</td>
-                </tr>
-              </tbody>
-            </table>
+
+          <div class="tab-content">
+            <!-- My Queue Tab -->
+            <div class="tab-pane fade show active" id="my-queue" role="tabpanel" aria-labelledby="my-queue-tab">
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead>
+                    <tr>
+                      <th>Shop</th>
+                      <th>Total SV</th>
+                      <th>Past Due</th>
+                      <th>Upcoming</th>
+                      <th>No Due</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-icon">
+                            <i class="bi bi-shop"></i>
+                          </div>
+                          <div class="shop-details">
+                            <div class="shop-name">Shop1</div>
+                            <div class="shop-meta">
+                              <span class="shop-id">SH001</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current">27</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger">2</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning">5</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success">20</span>
+                        </div>
+                      </td>
+                      <td>
+                        <a href="#" class="view-details-btn">
+                          <i class="bi bi-arrow-right-circle"></i>
+                          View Details
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Overall Queue Tab -->
+            <div class="tab-pane fade" id="overall-queue" role="tabpanel" aria-labelledby="overall-queue-tab">
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead>
+                    <tr>
+                      <th>Shop</th>
+                      <th>Total SV</th>
+                      <th>Past Due</th>
+                      <th>Upcoming</th>
+                      <th>No Due</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-icon">
+                            <i class="bi bi-shop"></i>
+                          </div>
+                          <div class="shop-details">
+                            <div class="shop-name">Shop2</div>
+                            <div class="shop-meta">
+                              <span class="shop-id">SH002</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current">16</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger">0</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning">3</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success">13</span>
+                        </div>
+                      </td>
+                      <td>
+                        <a href="#" class="view-details-btn">
+                          <i class="bi bi-arrow-right-circle"></i>
+                          View Details
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-icon">
+                            <i class="bi bi-shop"></i>
+                          </div>
+                          <div class="shop-details">
+                            <div class="shop-name">Shop1</div>
+                            <div class="shop-meta">
+                              <span class="shop-id">SH001</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current">27</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger">2</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning">5</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success">20</span>
+                        </div>
+                      </td>
+                      <td>
+                        <a href="#" class="view-details-btn">
+                          <i class="bi bi-arrow-right-circle"></i>
+                          View Details
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-icon">
+                            <i class="bi bi-shop"></i>
+                          </div>
+                          <div class="shop-details">
+                            <div class="shop-name">Shop3</div>
+                            <div class="shop-meta">
+                              <span class="shop-id">SH003</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current">16</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger">1</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning">0</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success">15</span>
+                        </div>
+                      </td>
+                      <td>
+                        <a href="#" class="view-details-btn">
+                          <i class="bi bi-arrow-right-circle"></i>
+                          View Details
+                        </a>
+                      </td>
+                    </tr>
+                    <tr class="table-active">
+                      <td>
+                        <div class="shop-info">
+                          <div class="shop-details">
+                            <div class="shop-name fw-bold">Total</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="volume-info">
+                          <div class="volume-stats">
+                            <div class="volume-current fw-bold">59</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Past Due</span>
+                          <span class="status-badge danger fw-bold">3</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">Upcoming</span>
+                          <span class="status-badge warning fw-bold">8</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-cell">
+                          <span class="status-label">No Due</span>
+                          <span class="status-badge success fw-bold">48</span>
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Shop Details Section -->
-        <div id="shopDetailsSection" class="table-section">
-          <div class="table-header">
-            <div class="d-flex align-items-center">
-              <button class="back-button" onclick="showSection('shopStatusSection')">
-                <i class="bi bi-arrow-left"></i>
+        <div class="table-footer">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="table-info">
+              Showing <span class="highlight">1-10</span> of <span class="highlight">27</span> shops
+            </div>
+            <div class="pagination-controls">
+              <button class="page-btn" disabled>
+                <i class="bi bi-chevron-left"></i>
               </button>
-              <h2 class="table-title">Shop Details</h2>
+              <span class="page-indicator">Page 1 of 3</span>
+              <button class="page-btn">
+                <i class="bi bi-chevron-right"></i>
+              </button>
             </div>
-          </div>
-          <div class="table-container">
-            <table id="shopDetailsTable" class="table align-middle">
-              <thead>
-                <tr>
-                  <th>Shop</th>
-                  <th>Customer</th>
-                  <th>ESN</th>
-                  <th>SV No</th>
-                  <th>SV Type</th>
-                  <th>Induction Date</th>
-                  <th>Shipment Date</th>
-                  <th>Entitlement Date</th>
-                  <th>Invoice Type</th>
-                  <th>Invoice Status</th>
-                  <th>Priority</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Data will be populated dynamically -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Billing Readiness Section -->
-        <div id="billingReadinessSection" class="table-section">
-          <div class="table-header mb-3">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-              <div class="d-flex align-items-center gap-3">
-                <button class="back-button" onclick="showSection('shopStatusSection')">
-                  <i class="bi bi-arrow-left"></i>
-                </button>
-                <div>
-                  <h2 class="table-title m-0">Billing Readiness</h2>
-                  <div class="text-muted small mt-1">ESN: SN101 - Shop1</div>
-                </div>
-              </div>
-              <div class="d-flex align-items-center gap-2">
-                <button class="action-button" title="Refresh">
-                  <i class="bi bi-arrow-clockwise"></i>
-                </button>
-                <button class="action-button primary with-text view-invoice-details">
-                  <i class="bi bi-check-circle"></i>
-                  Action Recommendation
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-container">
-            <table id="billingReadinessTable" class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Status</th>
-                  <th>Details</th>
-                  <th>Last Updated</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <i class="bi bi-file-text text-primary"></i>
-                      <span>Contract Details</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="readiness-indicator yes">
-                      <i class="bi bi-check"></i>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="small">Contract #C123456 verified and validated</div>
-                    <div class="small text-muted">All terms and conditions checked</div>
-                  </td>
-                  <td>
-                    <div class="small">2024-03-15</div>
-                    <div class="small text-muted">10:30 AM</div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-light view-invoice-details">
-                      <i class="bi bi-eye me-1"></i>View
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <i class="bi bi-shop text-primary"></i>
-                      <span>SV Details</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="readiness-indicator yes">
-                      <i class="bi bi-check"></i>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="small">SV Details verified</div>
-                    <div class="small text-muted">All information complete</div>
-                  </td>
-                  <td>
-                    <div class="small">2024-03-15</div>
-                    <div class="small text-muted">10:35 AM</div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-light view-invoice-details">
-                      <i class="bi bi-eye me-1"></i>View
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <i class="bi bi-receipt text-primary"></i>
-                      <span>Billing Receipt</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="readiness-indicator yes">
-                      <i class="bi bi-check"></i>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="small">Receipt generated and verified</div>
-                    <div class="small text-muted">All amounts reconciled</div>
-                  </td>
-                  <td>
-                    <div class="small">2024-03-15</div>
-                    <div class="small text-muted">10:40 AM</div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-light view-invoice-details">
-                      <i class="bi bi-eye me-1"></i>View
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <i class="bi bi-percent text-danger"></i>
-                      <span>Warranty & Discount</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="readiness-indicator no">
-                      <i class="bi bi-x"></i>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="small text-danger">Pending verification</div>
-                    <div class="small text-muted">Warranty details incomplete</div>
-                  </td>
-                  <td>
-                    <div class="small">2024-03-15</div>
-                    <div class="small text-muted">10:45 AM</div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-light view-invoice-details">
-                      <i class="bi bi-eye me-1"></i>View
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Invoice Details Section -->
-        <div id="invoiceDetailsSection" class="table-section">
-          <div class="table-header mb-3">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-              <div class="d-flex align-items-center gap-3">
-                <button class="back-button" onclick="showSection('billingReadinessSection')">
-                  <i class="bi bi-arrow-left"></i>
-                </button>
-                <div>
-                  <h2 class="table-title m-0">Invoice Details</h2>
-                  <div class="text-muted small mt-1">ESN: SN101 - Shop1</div>
-                </div>
-              </div>
-              <div class="d-flex align-items-center gap-2">
-                <button class="action-button" title="Refresh">
-                  <i class="bi bi-arrow-clockwise"></i>
-                </button>
-                <button class="action-button primary with-text">
-                  <i class="bi bi-plus-lg"></i>
-                  Create Invoice
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-container">
-            <table id="invoiceDetailsTable" class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Invoice No</th>
-                  <th>Generated Date</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="fw-medium">INV-2024-001</div>
-                    <div class="small text-muted">Ref: REF001</div>
-                  </td>
-                  <td>
-                    <div class="small">2024-03-15</div>
-                    <div class="small text-muted">10:30 AM</div>
-                  </td>
-                  <td>
-                    <div class="fw-medium">$5,245.00</div>
-                    <div class="small text-success">+TAX</div>
-                  </td>
-                  <td>
-                    <span class="badge bg-success">Paid</span>
-                  </td>
-                  <td>
-                    <div class="action-buttons">
-                      <button class="action-button" title="Download">
-                        <i class="bi bi-download"></i>
-                      </button>
-                      <button class="action-button" title="Print">
-                        <i class="bi bi-printer"></i>
-                      </button>
-                      <div class="dropdown">
-                        <button class="action-button" data-bs-toggle="dropdown">
-                          <i class="bi bi-three-dots"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
-                          <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
