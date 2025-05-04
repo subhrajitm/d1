@@ -159,8 +159,7 @@ function hideAllTableSections() {
 }
 
 function showShopDetails(shopName) {
-  hideAllTableSections();
-  document.getElementById('shop-details-section').style.display = '';
+  showSection('shop-details');
   // Filter data for the selected shop
   const filtered = shopDetailsData.filter(row => row.Shop === shopName);
   const tbody = document.querySelector('#shop-details-table tbody');
