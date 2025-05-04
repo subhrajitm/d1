@@ -1847,4 +1847,84 @@
     padding: 0.35rem 0.5rem;
     font-size: 0.82rem;
   }
+}
+
+/* Compact table for Billing Readiness */
+.compact-table th, .compact-table td {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.97rem;
+}
+.compact-table th {
+  background: #f8fafc;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.compact-table tbody tr:hover {
+  background: #e0f7fa;
+  transition: background 0.2s;
+}
+
+/* Status badges for Yes/No */
+.status-badge-yes {
+  display: inline-flex;
+  align-items: center;
+  background: #e6f9ed;
+  color: #10b981;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 0.15em 0.7em 0.15em 0.5em;
+  font-size: 0.95em;
+  gap: 0.3em;
+}
+.status-badge-no {
+  display: inline-flex;
+  align-items: center;
+  background: #ffeaea;
+  color: #e11d48;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 0.15em 0.7em 0.15em 0.5em;
+  font-size: 0.95em;
+  gap: 0.3em;
+}
+.status-badge-yes i {
+  font-size: 1em;
+  color: #10b981;
+}
+.status-badge-no i {
+  font-size: 1em;
+  color: #e11d48;
+}
+
+/* Action Recommendation button */
+.compact-table .action-recommendation-btn {
+  background: linear-gradient(90deg, #10b981 60%, #34d399 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.3em 1.1em;
+  font-size: 0.97em;
+  box-shadow: 0 1px 4px 0 #10b98122;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.compact-table .action-recommendation-btn:hover {
+  background: linear-gradient(90deg, #059669 60%, #10b981 100%);
+  box-shadow: 0 2px 8px 0 #10b98133;
+}
+
+/* Info icon for tooltips */
+.compact-table th .bi-info-circle {
+  color: #64748b;
+  margin-left: 0.25em;
+  font-size: 1em;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+/* Sticky header for table */
+.compact-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
 } 

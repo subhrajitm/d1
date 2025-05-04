@@ -481,14 +481,20 @@ function showBillingReadiness(esn) {
   const tbody = document.querySelector('#billing-readiness-table tbody');
   tbody.innerHTML = '';
   filtered.forEach(row => {
+    const yesBadge = '<span class="status-badge-yes"><i class="bi bi-check-circle"></i> Yes</span>';
+    const noBadge = '<span class="status-badge-no"><i class="bi bi-x-circle"></i> No</span>';
+    const contractDetails = row['Contract Details'] === 'Yes' ? yesBadge : noBadge;
+    const svDetails = row['SV Details'] === 'Yes' ? yesBadge : noBadge;
+    const billingReceipt = row['Billing Receipt'] === 'Yes' ? yesBadge : noBadge;
+    const warrantyDiscount = row['Warranty & Discount'] === 'Yes' ? yesBadge : noBadge;
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${row.ESN}</td>
       <td>${row.Shop}</td>
-      <td class="bg-success text-white">${row['Contract Details'] === 'Yes' ? 'Yes' : 'No'}</td>
-      <td class="bg-success text-white">${row['SV Details'] === 'Yes' ? 'Yes' : 'No'}</td>
-      <td class="bg-success text-white">${row['Billing Receipt'] === 'Yes' ? 'Yes' : 'No'}</td>
-      <td class="${row['Warranty & Discount'] === 'No' ? 'bg-danger text-white' : 'bg-success text-white'}">${row['Warranty & Discount']}</td>
+      <td>${contractDetails}</td>
+      <td>${svDetails}</td>
+      <td>${billingReceipt}</td>
+      <td>${warrantyDiscount}</td>
       <td><button class="btn btn-primary btn-sm action-recommendation-btn">${row['Action Recommendation']}</button></td>
     `;
     tbody.appendChild(tr);
@@ -499,6 +505,14 @@ function showBillingReadiness(esn) {
   if (actionBtn) {
     actionBtn.addEventListener('click', function() {
       showInvoiceDetails(esn);
+    });
+  }
+
+  // Re-initialize tooltips for info icons
+  if (window.bootstrap) {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
     });
   }
 }
