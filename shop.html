@@ -567,6 +567,102 @@
             </div>
           </div>
         </div>
+
+        <!-- Shop Details Section (hidden by default) -->
+        <div id="shop-details-section" class="table-section" style="display:none;">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="table-title">
+              <i class="bi bi-info-circle"></i>
+              Shop Details
+            </h2>
+            <button class="btn btn-sm btn-outline-secondary" id="back-to-overview">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle" id="shop-details-table">
+              <thead>
+                <tr>
+                  <th>Shop</th>
+                  <th>Customer</th>
+                  <th>ESN</th>
+                  <th>SV No</th>
+                  <th>SV Type</th>
+                  <th>Induction Date</th>
+                  <th>Shipment Date</th>
+                  <th>Entitlement Date</th>
+                  <th>Invoice Type</th>
+                  <th>Invoice Status</th>
+                  <th>Priority</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Billing Readiness Section (hidden by default) -->
+        <div id="billing-readiness-section" class="table-section" style="display:none;">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="table-title">
+              <i class="bi bi-clipboard-check"></i>
+              Billing Readiness
+            </h2>
+            <button class="btn btn-sm btn-outline-secondary" id="back-to-shop-details">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle" id="billing-readiness-table">
+              <thead>
+                <tr>
+                  <th>ESN</th>
+                  <th>Shop</th>
+                  <th>Contract Details</th>
+                  <th>SV Details</th>
+                  <th>Billing Receipt</th>
+                  <th>Warranty & Discount</th>
+                  <th>Action Recommendation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Invoice Details Section (hidden by default) -->
+        <div id="invoice-details-section" class="table-section" style="display:none;">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="table-title">
+              <i class="bi bi-file-earmark-text"></i>
+              Invoice Details
+            </h2>
+            <button class="btn btn-sm btn-outline-secondary" id="back-to-billing-readiness">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle" id="invoice-details-table">
+              <thead>
+                <tr>
+                  <th>ESN</th>
+                  <th>Invoice Generated?</th>
+                  <th>Do you want to create Invoice?</th>
+                  <th>Do you want to get Reminder?</th>
+                  <th>Frequency?</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </main>
   </div>
