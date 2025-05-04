@@ -247,7 +247,7 @@
           </div>
         </div>
 
-        <!-- Unified Card Section: Stepper + Table Section -->
+        <!-- Unified Card Section: Stepper + All Table Sections -->
         <div class="unified-table-card">
           <div id="step-indicator" class="stepper-card d-flex align-items-center justify-content-center">
             <div class="step-card" id="stepper-shop-overview" title="View all shops" aria-label="Shop Overview" tabindex="0" role="button">
@@ -271,7 +271,7 @@
             </div>
           </div>
 
-          <!-- Shop Status Overview Section (and other table sections) go here, no extra margin-top -->
+          <!-- All workflow table sections go here, no extra margin-top -->
           <div class="table-section">
             <div class="table-header">
               <div class="d-flex justify-content-between align-items-center mb-2">
@@ -377,6 +377,22 @@
                       </tr>
                     </tbody>
                   </table>
+                </div>
+                <div class="table-footer">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div class="table-info">
+                      Showing <span class="highlight">1-10</span> of <span class="highlight">27</span> shops
+                    </div>
+                    <div class="pagination-controls">
+                      <button class="page-btn" disabled>
+                        <i class="bi bi-chevron-left"></i>
+                      </button>
+                      <span class="page-indicator">Page 1 of 3</span>
+                      <button class="page-btn">
+                        <i class="bi bi-chevron-right"></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -571,23 +587,22 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-footer">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-              <div class="table-info">
-                Showing <span class="highlight">1-10</span> of <span class="highlight">27</span> shops
-              </div>
-              <div class="pagination-controls">
-                <button class="page-btn" disabled>
-                  <i class="bi bi-chevron-left"></i>
-                </button>
-                <span class="page-indicator">Page 1 of 3</span>
-                <button class="page-btn">
-                  <i class="bi bi-chevron-right"></i>
-                </button>
+                <div class="table-footer">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div class="table-info">
+                      Showing <span class="highlight">1-10</span> of <span class="highlight">27</span> shops
+                    </div>
+                    <div class="pagination-controls">
+                      <button class="page-btn" disabled>
+                        <i class="bi bi-chevron-left"></i>
+                      </button>
+                      <span class="page-indicator">Page 1 of 3</span>
+                      <button class="page-btn">
+                        <i class="bi bi-chevron-right"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -671,6 +686,102 @@
             </div>
             <div class="table-responsive">
               <table class="table align-middle" id="invoice-details-table">
+                <thead>
+                  <tr>
+                    <th>ESN</th>
+                    <th>Invoice Generated?</th>
+                    <th>Do you want to create Invoice?</th>
+                    <th>Do you want to get Reminder?</th>
+                    <th>Frequency?</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Detailed Data Section (hidden by default) -->
+          <div id="overall-details-section" class="table-section" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h2 class="table-title">
+                <i class="bi bi-table"></i>
+                Shop2 - Details
+              </h2>
+              <button class="btn btn-sm btn-outline-secondary" id="back-to-overall-queue">
+                <i class="bi bi-arrow-left"></i> Back
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-middle" id="overall-details-table">
+                <thead>
+                  <tr>
+                    <th>Shop</th>
+                    <th>Customer</th>
+                    <th>ESN</th>
+                    <th>SV No</th>
+                    <th>SV Type</th>
+                    <th>Induction Date</th>
+                    <th>Shipment Date</th>
+                    <th>Entitlement Date</th>
+                    <th>Invoice Type</th>
+                    <th>Invoice Status</th>
+                    <th>Priority</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Billing Readiness for Shop2 Details (hidden by default) -->
+          <div id="shop2-billing-readiness-section" class="table-section" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h2 class="table-title">
+                <i class="bi bi-clipboard-check"></i>
+                Billing Readiness (Shop2)
+              </h2>
+              <button class="btn btn-sm btn-outline-secondary" id="back-to-shop2-details">
+                <i class="bi bi-arrow-left"></i> Back
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-middle" id="shop2-billing-readiness-table">
+                <thead>
+                  <tr>
+                    <th>ESN</th>
+                    <th>Shop</th>
+                    <th>Contract Details</th>
+                    <th>SV Details</th>
+                    <th>Billing Receipt</th>
+                    <th>Warranty & Discount</th>
+                    <th>Action Recommendation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Invoice Details for Shop2 Details (hidden by default) -->
+          <div id="shop2-invoice-details-section" class="table-section" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h2 class="table-title">
+                <i class="bi bi-file-earmark-text"></i>
+                Invoice Details (Shop2)
+              </h2>
+              <button class="btn btn-sm btn-outline-secondary" id="back-to-shop2-billing-readiness">
+                <i class="bi bi-arrow-left"></i> Back
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-middle" id="shop2-invoice-details-table">
                 <thead>
                   <tr>
                     <th>ESN</th>

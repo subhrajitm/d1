@@ -78,8 +78,11 @@ function showSection(section) {
   document.getElementById('shop-details-section').style.display = 'none';
   document.getElementById('billing-readiness-section').style.display = 'none';
   document.getElementById('invoice-details-section').style.display = 'none';
-  const footer = document.querySelector('.table-footer');
-  if (footer) footer.style.display = 'none';
+  
+  // Hide all table footers
+  document.querySelectorAll('.table-footer').forEach(footer => {
+    footer.style.display = 'none';
+  });
 
   // Stepper: remove .active and .completed from all steps
   const steps = [
@@ -122,7 +125,12 @@ function showSection(section) {
   // Show the requested section and manage focus
   if (section === 'overview') {
     document.querySelector('.table-section').style.display = '';
-    if (footer) footer.style.display = '';
+    // Show the footer for the active tab
+    const activeTab = document.querySelector('.tab-pane.active');
+    if (activeTab) {
+      const footer = activeTab.querySelector('.table-footer');
+      if (footer) footer.style.display = '';
+    }
     // Focus first View Details button
     const btn = document.querySelector('.view-details-btn');
     if (btn) btn.focus();
@@ -144,8 +152,15 @@ function showSection(section) {
   }
 }
 
+function hideAllTableSections() {
+  document.querySelectorAll('.table-section').forEach(section => {
+    section.style.display = 'none';
+  });
+}
+
 function showShopDetails(shopName) {
-  showSection('shop-details');
+  hideAllTableSections();
+  document.getElementById('shop-details-section').style.display = '';
   // Filter data for the selected shop
   const filtered = shopDetailsData.filter(row => row.Shop === shopName);
   const tbody = document.querySelector('#shop-details-table tbody');
@@ -168,7 +183,6 @@ function showShopDetails(shopName) {
     `;
     tbody.appendChild(tr);
   });
-  // Re-attach row click handlers and highlight
   setupShopDetailsRowClick();
 }
 
@@ -190,7 +204,233 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show the table footer again
     document.querySelector('.table-footer').style.display = '';
   });
+
+  // Add click handler for Overall Queue table rows
+  document.querySelectorAll('#overall-queue table tbody tr').forEach(row => {
+    row.addEventListener('click', function() {
+      showOverallDetailsTable();
+    });
+  });
+  // Back button handler for Shop2 Details
+  const backBtn = document.getElementById('back-to-overall-queue');
+  if (backBtn) {
+    backBtn.addEventListener('click', function() {
+      hideAllTableSections();
+      document.querySelector('.tab-pane#overall-queue').style.display = '';
+      // Show the table footer again
+      const footer = document.querySelector('.table-footer');
+      if (footer) footer.style.display = '';
+    });
+  }
+  // Back button: Billing Readiness -> Shop2 Details
+  document.getElementById('back-to-shop2-details').addEventListener('click', function() {
+    hideAllTableSections();
+    document.getElementById('overall-details-section').style.display = '';
+  });
+  // Back button: Invoice Details -> Billing Readiness
+  document.getElementById('back-to-shop2-billing-readiness').addEventListener('click', function() {
+    hideAllTableSections();
+    document.getElementById('shop2-billing-readiness-section').style.display = '';
+  });
+  // Back button: Billing Readiness -> Shop Details
+  document.getElementById('back-to-shop-details').addEventListener('click', function() {
+    hideAllTableSections();
+    document.getElementById('shop-details-section').style.display = '';
+    setupShopDetailsRowClick();
+  });
+  // Back button: Invoice Details -> Billing Readiness (Shop Details flow)
+  document.getElementById('back-to-billing-readiness').addEventListener('click', function() {
+    hideAllTableSections();
+    document.getElementById('billing-readiness-section').style.display = '';
+  });
+
+  setupStepperNavigation();
 });
+
+// Stepper navigation: allow clicking or pressing Enter/Space on completed steps
+function setupStepperNavigation() {
+  const steps = [
+    { id: 'stepper-shop-overview', section: 'overview' },
+    { id: 'stepper-shop-details', section: 'shop-details' },
+    { id: 'stepper-billing-readiness', section: 'billing-readiness' },
+    { id: 'stepper-invoice-details', section: 'invoice-details' }
+  ];
+  steps.forEach((step, idx) => {
+    const el = document.getElementById(step.id);
+    if (!el) return;
+    // Remove previous listeners
+    el.onclick = null;
+    el.onkeydown = null;
+    // Only allow navigation to completed steps (not current or future)
+    el.addEventListener('click', function() {
+      if (el.classList.contains('completed')) {
+        showSection(step.section);
+      }
+    });
+    el.addEventListener('keydown', function(e) {
+      if ((e.key === 'Enter' || e.key === ' ') && el.classList.contains('completed')) {
+        e.preventDefault();
+        showSection(step.section);
+      }
+    });
+  });
+}
+
+// Also call setupStepperNavigation after every showSection to update listeners
+const _originalShowSection = showSection;
+showSection = function(section) {
+  _originalShowSection(section);
+  setupStepperNavigation();
+};
+
+// Data from the user's image for Shop2
+const overallDetailsData = [
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN107', 'SV No': 2, 'SV Type': 'FULL', 'Induction Date': '2024-08-22', 'Shipment Date': '2024-10-27', 'Entitlement Date': '2024-11-17', 'Invoice Type': 'Initial', 'Invoice Status': 'Upcoming', Priority: 1 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN102', 'SV No': 4, 'SV Type': 'NDT', 'Induction Date': '2024-09-22', 'Shipment Date': '2024-11-28', 'Entitlement Date': '2024-12-19', 'Invoice Type': 'Initial', 'Invoice Status': 'Upcoming', Priority: 2 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN109', 'SV No': 5, 'SV Type': 'FULL', 'Induction Date': '2024-09-12', 'Shipment Date': '2024-11-21', 'Entitlement Date': '2024-12-12', 'Invoice Type': 'Progress', 'Invoice Status': 'No Due', Priority: 3 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN104', 'SV No': 4, 'SV Type': 'QT', 'Induction Date': '2024-09-11', 'Shipment Date': '2024-11-14', 'Entitlement Date': '2024-12-05', 'Invoice Type': 'Initial', 'Invoice Status': 'Upcoming', Priority: 4 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN132', 'SV No': 2, 'SV Type': 'QT', 'Induction Date': '2024-09-04', 'Shipment Date': '2024-11-05', 'Entitlement Date': '2024-11-26', 'Invoice Type': 'Progress', 'Invoice Status': 'No Due', Priority: 5 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN140', 'SV No': 4, 'SV Type': 'QT', 'Induction Date': '2024-08-27', 'Shipment Date': '2024-11-04', 'Entitlement Date': '2024-11-25', 'Invoice Type': 'Progress', 'Invoice Status': 'No Due', Priority: 6 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN118', 'SV No': 3, 'SV Type': 'QT', 'Induction Date': '2024-09-14', 'Shipment Date': '2024-11-20', 'Entitlement Date': '2024-12-11', 'Invoice Type': 'Progress', 'Invoice Status': 'No Due', Priority: 7 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN137', 'SV No': 3, 'SV Type': 'NDT', 'Induction Date': '2024-09-25', 'Shipment Date': '2024-12-01', 'Entitlement Date': '2024-12-22', 'Invoice Type': 'Progress', 'Invoice Status': 'No Due', Priority: 8 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN153', 'SV No': 3, 'SV Type': 'FULL', 'Induction Date': '2024-08-26', 'Shipment Date': '2024-11-01', 'Entitlement Date': '2024-11-22', 'Invoice Type': 'Progress', 'Invoice Status': 'No Due', Priority: 9 },
+  { Shop: 'Shop2', Customer: 'Customer1', ESN: 'SN115', 'SV No': 5, 'SV Type': 'QT', 'Induction Date': '2024-08-27', 'Shipment Date': '2024-11-02', 'Entitlement Date': '2024-11-23', 'Invoice Type': 'Progress', 'Invoice Status': 'No Due', Priority: 10 }
+];
+
+function showOverallDetailsTable() {
+  hideAllTableSections();
+  document.getElementById('overall-details-section').style.display = '';
+  // Hide the table footer
+  const footer = document.querySelector('.table-footer');
+  if (footer) footer.style.display = 'none';
+  // Populate the table
+  const tbody = document.querySelector('#overall-details-table tbody');
+  tbody.innerHTML = '';
+  overallDetailsData.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.Shop}</td>
+      <td>${row.Customer}</td>
+      <td>${row.ESN}</td>
+      <td>${row['SV No']}</td>
+      <td>${row['SV Type']}</td>
+      <td>${row['Induction Date']}</td>
+      <td>${row['Shipment Date']}</td>
+      <td>${row['Entitlement Date']}</td>
+      <td>${row['Invoice Type']}</td>
+      <td><span class="badge ${row['Invoice Status'] === 'Upcoming' ? 'bg-warning' : 'bg-success'}">${row['Invoice Status']}</span></td>
+      <td>${row.Priority}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  setupShop2DetailsRowClick();
+}
+
+function setupShop2DetailsRowClick() {
+  document.querySelectorAll('#overall-details-table tbody tr').forEach(row => {
+    row.addEventListener('click', function() {
+      const esn = this.querySelector('td:nth-child(3)').textContent.trim();
+      showShop2BillingReadiness(esn);
+    });
+  });
+}
+
+// Sample Billing Readiness data for Shop2 (demo, all Yes except Warranty & Discount)
+const shop2BillingReadinessData = [
+  // This demo will use the ESN from the row clicked
+  // You can expand this array for more ESNs if needed
+  {
+    ESN: '', // to be filled dynamically
+    Shop: 'Shop2',
+    'Contract Details': 'Yes',
+    'SV Details': 'Yes',
+    'Billing Receipt': 'Yes',
+    'Warranty & Discount': 'No',
+    'Action Recommendation': 'Review Invoice'
+  }
+];
+
+// Sample Invoice Details data for Shop2 (demo)
+const shop2InvoiceDetailsData = [
+  {
+    ESN: '', // to be filled dynamically
+    'Invoice Generated?': 'Yes',
+    'Do you want to create Invoice?': 'NA',
+    'Do you want to get Reminder?': 'No',
+    'Frequency?': 'NA',
+    Action: 'Review Invoice'
+  }
+];
+
+function showShop2BillingReadiness(esn) {
+  // Hide all table sections
+  document.querySelectorAll('.table-section').forEach(section => {
+    section.style.display = 'none';
+  });
+  document.getElementById('shop2-billing-readiness-section').style.display = '';
+  // Fill ESN in demo data
+  const data = shop2BillingReadinessData.map(row => ({ ...row, ESN: esn }));
+  const tbody = document.querySelector('#shop2-billing-readiness-table tbody');
+  tbody.innerHTML = '';
+  data.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.ESN}</td>
+      <td>${row.Shop}</td>
+      <td class="bg-success text-white">${row['Contract Details']}</td>
+      <td class="bg-success text-white">${row['SV Details']}</td>
+      <td class="bg-success text-white">${row['Billing Receipt']}</td>
+      <td class="bg-danger text-white">${row['Warranty & Discount']}</td>
+      <td><button class="btn btn-primary btn-sm shop2-action-recommendation-btn">${row['Action Recommendation']}</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function showShop2InvoiceDetails(esn) {
+  // Hide all table sections
+  document.querySelectorAll('.table-section').forEach(section => {
+    section.style.display = 'none';
+  });
+  document.getElementById('shop2-invoice-details-section').style.display = '';
+  // Fill ESN in demo data
+  const data = shop2InvoiceDetailsData.map(row => ({ ...row, ESN: esn }));
+  const tbody = document.querySelector('#shop2-invoice-details-table tbody');
+  tbody.innerHTML = '';
+  data.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.ESN}</td>
+      <td><select class="form-select form-select-sm"><option>Yes</option><option>No</option></select></td>
+      <td><select class="form-select form-select-sm"><option>NA</option><option>Yes</option><option>No</option></select></td>
+      <td><select class="form-select form-select-sm"><option>No</option><option>Yes</option></select></td>
+      <td><select class="form-select form-select-sm"><option>NA</option><option>Daily</option><option>Weekly</option></select></td>
+      <td><button class="btn btn-primary btn-sm">Review Invoice</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Add event listeners for new navigation and actions
+function setupShopDetailsRowClick() {
+  document.querySelectorAll('#shop-details-table tbody tr').forEach(row => {
+    row.addEventListener('click', function() {
+      // Remove highlight from all rows
+      document.querySelectorAll('#shop-details-table tbody tr').forEach(r => r.classList.remove('table-active'));
+      // Highlight this row
+      this.classList.add('table-active');
+      const esn = this.querySelector('td:nth-child(3)').textContent.trim();
+      showBillingReadiness(esn);
+    });
+    // Keyboard accessibility: Enter/Space triggers click
+    row.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
+}
 
 // Billing Readiness data (from image)
 const billingReadinessData = [
@@ -253,6 +493,14 @@ function showBillingReadiness(esn) {
     `;
     tbody.appendChild(tr);
   });
+
+  // Add click handler for the action recommendation button
+  const actionBtn = tbody.querySelector('.action-recommendation-btn');
+  if (actionBtn) {
+    actionBtn.addEventListener('click', function() {
+      showInvoiceDetails(esn);
+    });
+  }
 }
 
 function showInvoiceDetails(esn) {
@@ -273,90 +521,4 @@ function showInvoiceDetails(esn) {
     `;
     tbody.appendChild(tr);
   });
-}
-
-// Add event listeners for new navigation and actions
-function setupShopDetailsRowClick() {
-  document.querySelectorAll('#shop-details-table tbody tr').forEach(row => {
-    row.addEventListener('click', function() {
-      // Remove highlight from all rows
-      document.querySelectorAll('#shop-details-table tbody tr').forEach(r => r.classList.remove('table-active'));
-      // Highlight this row
-      this.classList.add('table-active');
-      const esn = this.querySelector('td:nth-child(3)').textContent.trim();
-      showBillingReadiness(esn);
-    });
-    // Keyboard accessibility: Enter/Space triggers click
-    row.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.click();
-      }
-    });
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  // ... existing code ...
-
-  // After populating shop details, set up row click
-  setupShopDetailsRowClick();
-
-  // Back button: Billing Readiness -> Shop Details
-  document.getElementById('back-to-shop-details').addEventListener('click', function() {
-    showSection('shop-details');
-    setupShopDetailsRowClick();
-  });
-
-  // Back button: Invoice Details -> Billing Readiness
-  document.getElementById('back-to-billing-readiness').addEventListener('click', function() {
-    showSection('billing-readiness');
-  });
-
-  // Delegate click for Action Recommendation (Review Invoice)
-  document.getElementById('billing-readiness-table').addEventListener('click', function(e) {
-    if (e.target && e.target.classList.contains('action-recommendation-btn')) {
-      // Find ESN from the row
-      const esn = e.target.closest('tr').querySelector('td').textContent.trim();
-      showInvoiceDetails(esn);
-    }
-  });
-
-  setupStepperNavigation();
-});
-
-// Stepper navigation: allow clicking or pressing Enter/Space on completed steps
-function setupStepperNavigation() {
-  const steps = [
-    { id: 'stepper-shop-overview', section: 'overview' },
-    { id: 'stepper-shop-details', section: 'shop-details' },
-    { id: 'stepper-billing-readiness', section: 'billing-readiness' },
-    { id: 'stepper-invoice-details', section: 'invoice-details' }
-  ];
-  steps.forEach((step, idx) => {
-    const el = document.getElementById(step.id);
-    if (!el) return;
-    // Remove previous listeners
-    el.onclick = null;
-    el.onkeydown = null;
-    // Only allow navigation to completed steps (not current or future)
-    el.addEventListener('click', function() {
-      if (el.classList.contains('completed')) {
-        showSection(step.section);
-      }
-    });
-    el.addEventListener('keydown', function(e) {
-      if ((e.key === 'Enter' || e.key === ' ') && el.classList.contains('completed')) {
-        e.preventDefault();
-        showSection(step.section);
-      }
-    });
-  });
-}
-
-// Also call setupStepperNavigation after every showSection to update listeners
-const _originalShowSection = showSection;
-showSection = function(section) {
-  _originalShowSection(section);
-  setupStepperNavigation();
-}; 
+} 
