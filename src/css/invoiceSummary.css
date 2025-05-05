@@ -3551,3 +3551,277 @@
     font-size: 0.72rem;
   }
 }
+
+/* Stat Card Styles */
+.stat-card {
+  position: relative;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--card-bg, #fff);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  min-height: 120px;
+}
+
+.card-action-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  color: var(--text-color, #333);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  z-index: 2;
+}
+
+.card-action-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card.primary .card-action-btn {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card.info .card-action-btn {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card.warning .card-action-btn {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card.success .card-action-btn {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card.secondary .card-action-btn {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card.light .card-action-btn {
+  color: #333;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Styles */
+.invoice-review-section {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.invoice-review-section.active {
+  display: block;
+}
+
+.review-container {
+  background: white;
+  border-radius: 1rem;
+  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .stat-card {
+      position: relative;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      background: var(--card-bg, #fff);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      min-height: 120px;
+    }
+
+    .card-action-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.1);
+      border: none;
+      color: var(--text-color, #333);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    .card-action-btn:hover {
+      background: rgba(0, 0, 0, 0.2);
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card.primary .card-action-btn {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card.info .card-action-btn {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card.warning .card-action-btn {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card.success .card-action-btn {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card.secondary .card-action-btn {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card.light .card-action-btn {
+      color: #333;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .invoice-review-section {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .invoice-review-section.active {
+      display: block;
+    }
+
+    .review-container {
+      background: white;
+      border-radius: 1rem;
+      padding: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+/* Compact List View Styles */
+.stats-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stats-grid.list-view .stat-card {
+  padding: 0.75rem;
+  min-height: auto;
+  margin: 0;
+}
+
+.stats-grid.list-view .card-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0;
+}
+
+.stats-grid.list-view .card-title {
+  font-size: 0.875rem;
+  margin: 0;
+  min-width: 150px;
+}
+
+.stats-grid.list-view .card-value {
+  font-size: 0.875rem;
+  margin: 0;
+  min-width: 100px;
+}
+
+.stats-grid.list-view .card-percentage {
+  font-size: 0.75rem;
+  margin: 0;
+  min-width: 60px;
+}
+
+.stats-grid.list-view .card-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.stats-grid.list-view .card-action-btn {
+  width: 24px;
+  height: 24px;
+  font-size: 0.75rem;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .stats-grid.list-view .stat-card {
+    padding: 0.5rem;
+  }
+  
+  .stats-grid.list-view .card-content {
+    gap: 0.5rem;
+  }
+  
+  .stats-grid.list-view .card-title,
+  .stats-grid.list-view .card-value,
+  .stats-grid.list-view .card-percentage {
+    font-size: 0.75rem;
+  }
+  
+  .stats-grid.list-view .card-title {
+    min-width: 120px;
+  }
+  
+  .stats-grid.list-view .card-value {
+    min-width: 80px;
+  }
+  
+  .stats-grid.list-view .card-percentage {
+    min-width: 50px;
+  }
+}

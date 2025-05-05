@@ -196,6 +196,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Remove any existing click handlers from stat cards
+  const statCards = document.querySelectorAll('.stat-card');
+  statCards.forEach(card => {
+    card.style.cursor = 'default';
+    card.onclick = null;
+  });
+
   // Initialize other components
   initializeCharts();
   initializeRiskFactors();
@@ -294,46 +301,76 @@ function initializeRecommendations() {
   // Recommendations initialization code here
 }
 
-// Invoice Review Section
-const invoiceReviewSection = document.getElementById('invoiceReviewSection');
-const closeReviewBtn = document.querySelector('.close-btn');
-const statCards = document.querySelectorAll('.stat-card');
+// Initialize modal functionality
+function initializeModal() {
+  // Get all card action buttons
+  const actionButtons = document.querySelectorAll('.card-action-btn');
+  const reviewSection = document.getElementById('invoiceReviewSection');
+  const closeButton = document.getElementById('closeReview');
 
-// Function to show invoice review
-function showInvoiceReview(card) {
-  const title = card.querySelector('.card-title').textContent;
-  const value = card.querySelector('.card-value').textContent;
-  const percentage = card.querySelector('.card-percentage').textContent;
-  
-  // Update review section content
-  document.querySelector('.review-title').textContent = title;
-  document.querySelector('.card-value').textContent = value;
-  document.querySelector('.card-trend span').textContent = percentage;
-  
-  // Show the review section
-  invoiceReviewSection.classList.add('active');
-  document.body.style.overflow = 'hidden';
+  // Remove any existing click handlers from stat cards
+  const statCards = document.querySelectorAll('.stat-card');
+  statCards.forEach(card => {
+    card.style.cursor = 'default';
+    card.onclick = null;
+    card.style.pointerEvents = 'none'; // Disable pointer events on the card itself
+  });
+
+  // Enable pointer events only on the action button
+  actionButtons.forEach(button => {
+    button.style.pointerEvents = 'auto';
+    button.onclick = null; // Remove any existing handlers
+    
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const category = this.getAttribute('data-category');
+      const card = this.closest('.stat-card');
+      const cardTitle = card.querySelector('.card-title').textContent;
+      
+      // Update modal title with selected category
+      const reviewTitle = reviewSection.querySelector('.review-title');
+      reviewTitle.textContent = `Invoice Review - ${cardTitle}`;
+      
+      // Show the review section
+      reviewSection.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Close button functionality
+  closeButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    reviewSection.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  // Close modal when clicking outside
+  reviewSection.addEventListener('click', function(e) {
+    if (e.target === reviewSection) {
+      reviewSection.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close modal when pressing Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && reviewSection.classList.contains('active')) {
+      reviewSection.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
 }
 
-// Function to hide invoice review
-function hideInvoiceReview() {
-  invoiceReviewSection.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-// Add click event listeners to stat cards
-statCards.forEach(card => {
-  card.addEventListener('click', () => showInvoiceReview(card));
-});
-
-// Add click event listener to close button
-closeReviewBtn.addEventListener('click', hideInvoiceReview);
-
-// Close review section when clicking outside
-invoiceReviewSection.addEventListener('click', (e) => {
-  if (e.target === invoiceReviewSection) {
-    hideInvoiceReview();
-  }
+// Initialize everything when the page loads
+window.addEventListener('load', function() {
+  // Initialize other components
+  initializeCharts();
+  initializeRiskFactors();
+  initializeRecommendations();
+  initializeModal();
 });
 
 // Handle view options
