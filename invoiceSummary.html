@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/css/main.css">
   <link rel="stylesheet" href="src/css/invoiceSummary.css">
-  
+
 </head>
 
 <body>
@@ -287,7 +287,7 @@
 
         <div class="container-fluid animate__animated animate__fadeIn">
           <div class="row g-4">
-            
+
             <!-- Invoice Summary Section -->
             <div class="col-lg-12">
               <div class="invoice-summary-section">
@@ -325,7 +325,8 @@
                     <span class="field-chip address">
                       <i class="bi bi-geo-alt"></i>
                       <span class="field-label">Address:</span>
-                      <span class="field-value">UNITED AIRLINES INC 233 S. Wacker Drive Chicago 60606, Illinois USA</span>
+                      <span class="field-value">UNITED AIRLINES INC 233 S. Wacker Drive Chicago 60606, Illinois
+                        USA</span>
                     </span>
                     <span class="field-chip order">
                       <i class="bi bi-receipt"></i>
@@ -515,300 +516,186 @@
                 </div>
                 <!-- Move invoice-view here -->
                 <div class="invoice-view" style="display:none; margin-top:1.5rem;">
-                  <style>
-                    :root {
-                      --primary: #4f46e5;
-                      --primary-light: #e0e7ff;
-                      --light: #f9f9f9;
-                      --dark: #333;
-                      --gray: #666;
-                      --border: #e5e7eb;
-                      --success: #10b981;
-                      --warning: #f59e0b;
-                      --danger: #ef4444;
-                    }
-                
-                    .invoice-view {
-                      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                      background-color: white;
-                      color: var(--dark);
-                      margin: 2rem;
-                      padding: 2rem;
-                      line-height: 1.6;
-                      border-radius: 12px;
-                      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                    }
-                
-                    .invoice-view h2 {
-                      text-align: center;
-                      text-transform: uppercase;
-                      color: var(--primary);
-                      font-size: 1.75rem;
-                      margin-bottom: 2rem;
-                      font-weight: 600;
-                      letter-spacing: -0.025em;
-                    }
-                
-                    .invoice-view table {
-                      width: 100%;
-                      border-collapse: separate;
-                      border-spacing: 0;
-                      margin-top: 1.5rem;
-                      font-size: 0.875rem;
-                      border: 1px solid var(--border);
-                      border-radius: 8px;
-                      overflow: hidden;
-                      table-layout: fixed;
-                    }
-                
-                    .invoice-view th, .invoice-view td {
-                      padding: 1rem;
-                      border: 1px solid var(--border);
-                      vertical-align: top;
-                    }
-                
-                    .invoice-view th {
-                      background-color: var(--primary-light);
-                      color: var(--primary);
-                      text-align: left;
-                      font-weight: 600;
-                      text-transform: uppercase;
-                      font-size: 0.75rem;
-                      letter-spacing: 0.05em;
-                    }
-                
-                    .invoice-view .section-title {
-                      background-color: var(--primary);
-                      color: white;
-                      font-weight: 600;
-                      text-align: left;
-                      padding: 1rem;
-                    }
-                
-                    .invoice-view .right {
-                      text-align: right;
-                    }
-                
-                    .invoice-view .note {
-                      font-size: 0.75rem;
-                      text-align: center;
-                      margin-top: 1.5rem;
-                      color: var(--gray);
-                      padding: 0.75rem;
-                      background: var(--light);
-                      border-radius: 6px;
-                    }
 
-                    .invoice-view .address-block {
-                      line-height: 1.6;
-                      margin: 0;
-                    }
 
-                    .invoice-view .total-row {
-                      background-color: var(--primary-light);
-                      font-weight: 600;
-                    }
+                  <h2>Final Invoice</h2>
 
-                    .invoice-view .status-badge {
-                      display: inline-block;
-                      padding: 0.5rem 1rem;
-                      border-radius: 6px;
-                      background: var(--light);
-                      color: var(--gray);
-                      font-size: 0.75rem;
-                      font-weight: 500;
-                    }
+                  <!-- Top Section -->
+                  <table>
+                    <colgroup>
+                      <col style="width: 33.33%">
+                      <col style="width: 33.33%">
+                      <col style="width: 33.33%">
+                    </colgroup>
+                    <tr>
+                      <th>WORK PERFORMED AT</th>
+                      <th>FOREIGN AFFILIATE OF</th>
+                      <th>SEND PAYMENT SHOWING</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="address-block">
+                          BE ORISSA Ltda<br>
+                          356 Rua Alice Herve<br>
+                          Petropolis - RJ<br>
+                          25669-900BR<br>
+                          Tel No. - 55 24 2233-4000
+                        </div>
+                      </td>
+                      <td>
+                        <div class="address-block">
+                          BE Engine Services, LLC<br>
+                          1 Neumann Way<br>
+                          Cincinnati, OH 45215
+                        </div>
+                      </td>
+                      <td>
+                        <div class="address-block">
+                          BE Engine Services, LLC, C/o PNC BANK<br>
+                          NATIONAL ASSOCIATION<br>
+                          PITTSBURGH, PA<br>
+                          S.W.I.F.T. : PNCCUS33 ABA # 043000096<br>
+                          ACCOUNT : 10100933861
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
 
-                    .invoice-view .amount {
-                      font-family: 'Roboto Mono', monospace;
-                      font-weight: 500;
-                    }
+                  <!-- Invoice Details -->
+                  <table>
+                    <colgroup>
+                      <col style="width: 20%">
+                      <col style="width: 20%">
+                      <col style="width: 20%">
+                      <col style="width: 20%">
+                      <col style="width: 20%">
+                    </colgroup>
+                    <tr>
+                      <th>Customer</th>
+                      <th>Engine Serial No.</th>
+                      <th>Invoice No</th>
+                      <th>Invoice Date</th>
+                      <th>Page</th>
+                    </tr>
+                    <tr>
+                      <td>DELTA</td>
+                      <td>10001</td>
+                      <td>TBD</td>
+                      <td>05-05-2025</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <th>Shipping Address</th>
+                      <th>Billing Address</th>
+                      <th colspan="3">Customer Order No. / Notification</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="address-block">
+                          BE ENGINE SERVICES, LLC<br>
+                          BLD 500, COLUMN K12 1<br>
+                          NEUMANN WAY CINCINNATI<br>
+                          45215, Ohio<br>
+                          ORISSA
+                        </div>
+                      </td>
+                      <td>
+                        <div class="address-block">
+                          DELTA AIRLINES INC<br>
+                          233 S. Wacker Drive<br>
+                          Chicago<br>
+                          60606, Illinois<br>
+                          USA
+                        </div>
+                      </td>
+                      <td colspan="3">10270200</td>
+                    </tr>
+                    <tr>
+                      <th>Payment Terms</th>
+                      <th>Payment Due On</th>
+                      <th>Shipping Ref. No.</th>
+                      <th>Shipped Date</th>
+                      <th>WBS</th>
+                    </tr>
+                    <tr>
+                      <td>30 DAYS FROM INV DATE</td>
+                      <td></td>
+                      <td>TBD</td>
+                      <td>TBD</td>
+                      <td></td>
+                    </tr>
+                  </table>
 
-                    .invoice-view .amount.negative {
-                      color: var(--danger);
-                    }
-                  </style>  
-            
-              <h2>Final Invoice</h2>
-            
-              <!-- Top Section -->
-              <table>
-                <colgroup>
-                  <col style="width: 33.33%">
-                  <col style="width: 33.33%">
-                  <col style="width: 33.33%">
-                </colgroup>
-                <tr>
-                  <th>WORK PERFORMED AT</th>
-                  <th>FOREIGN AFFILIATE OF</th>
-                  <th>SEND PAYMENT SHOWING</th>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="address-block">
-                      BE ORISSA Ltda<br>
-                      356 Rua Alice Herve<br>
-                      Petropolis - RJ<br>
-                      25669-900BR<br>
-                      Tel No. - 55 24 2233-4000
-                    </div>
-                  </td>
-                  <td>
-                    <div class="address-block">
-                      BE Engine Services, LLC<br>
-                      1 Neumann Way<br>
-                      Cincinnati, OH 45215
-                    </div>
-                  </td>
-                  <td>
-                    <div class="address-block">
-                      BE Engine Services, LLC, C/o PNC BANK<br>
-                      NATIONAL ASSOCIATION<br>
-                      PITTSBURGH, PA<br>
-                      S.W.I.F.T. : PNCCUS33 ABA # 043000096<br>
-                      ACCOUNT : 10100933861
-                    </div>
-                  </td>
-                </tr>
-              </table>
+                  <!-- Cost Table -->
+                  <h3 class="section-title">T&M MFP</h3>
+                  <table>
+                    <colgroup>
+                      <col style="width: 80%">
+                      <col style="width: 20%">
+                    </colgroup>
+                    <tr>
+                      <th>Description</th>
+                      <th class="right">Final Cost (USD)</th>
+                    </tr>
+                    <tr>
+                      <td>In-Scope CharBEs</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>Out-Of-Scope LLPs Replacement</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>Out-Of Scope QEC & LRU Replacement</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>Out-of-Scope Material & Repair</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>Out-of-Scope PMA & DER</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>Out-Of Scope Missing Items</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>Out-Of Scope Service Bulletin</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>Stand repair</td>
+                      <td class="right amount">$427.00</td>
+                    </tr>
+                    <tr>
+                      <td>Excluded Material Transportation</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>Taxes</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                    <tr>
+                      <td>TAT remedy</td>
+                      <td class="right amount negative">- $3,000.00</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <div class="status-badge">
+                          Delivered: 12-Nov-24 | Redelivered: 09-Feb-25 | Hold Days: 0
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="total-row">
+                      <td>Total</td>
+                      <td class="right amount">--</td>
+                    </tr>
+                  </table>
 
-              <!-- Invoice Details -->
-              <table>
-                <colgroup>
-                  <col style="width: 20%">
-                  <col style="width: 20%">
-                  <col style="width: 20%">
-                  <col style="width: 20%">
-                  <col style="width: 20%">
-                </colgroup>
-                <tr>
-                  <th>Customer</th>
-                  <th>Engine Serial No.</th>
-                  <th>Invoice No</th>
-                  <th>Invoice Date</th>
-                  <th>Page</th>
-                </tr>
-                <tr>
-                  <td>DELTA</td>
-                  <td>10001</td>
-                  <td>TBD</td>
-                  <td>05-05-2025</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <th>Shipping Address</th>
-                  <th>Billing Address</th>
-                  <th colspan="3">Customer Order No. / Notification</th>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="address-block">
-                      BE ENGINE SERVICES, LLC<br>
-                      BLD 500, COLUMN K12 1<br>
-                      NEUMANN WAY CINCINNATI<br>
-                      45215, Ohio<br>
-                      ORISSA
-                    </div>
-                  </td>
-                  <td>
-                    <div class="address-block">
-                      DELTA AIRLINES INC<br>
-                      233 S. Wacker Drive<br>
-                      Chicago<br>
-                      60606, Illinois<br>
-                      USA
-                    </div>
-                  </td>
-                  <td colspan="3">10270200</td>
-                </tr>
-                <tr>
-                  <th>Payment Terms</th>
-                  <th>Payment Due On</th>
-                  <th>Shipping Ref. No.</th>
-                  <th>Shipped Date</th>
-                  <th>WBS</th>
-                </tr>
-                <tr>
-                  <td>30 DAYS FROM INV DATE</td>
-                  <td></td>
-                  <td>TBD</td>
-                  <td>TBD</td>
-                  <td></td>
-                </tr>
-              </table>
+                  <p class="note">***All Values are demonstrated in US Dollars</p>
 
-              <!-- Cost Table -->
-              <table>
-                <colgroup>
-                  <col style="width: 80%">
-                  <col style="width: 20%">
-                </colgroup>
-                <tr>
-                  <th colspan="2" class="section-title">T&M MFP</th>
-                </tr>
-                <tr>
-                  <th>Description</th>
-                  <th class="right">Final Cost (USD)</th>
-                </tr>
-                <tr>
-                  <td>In-Scope CharBEs</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>Out-Of-Scope LLPs Replacement</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>Out-Of Scope QEC & LRU Replacement</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>Out-of-Scope Material & Repair</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>Out-of-Scope PMA & DER</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>Out-Of Scope Missing Items</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>Out-Of Scope Service Bulletin</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>Stand repair</td>
-                  <td class="right amount">$427.00</td>
-                </tr>
-                <tr>
-                  <td>Excluded Material Transportation</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>Taxes</td>
-                  <td class="right amount">--</td>
-                </tr>
-                <tr>
-                  <td>TAT remedy</td>
-                  <td class="right amount negative">- $3,000.00</td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <div class="status-badge">
-                      Delivered: 12-Nov-24 | Redelivered: 09-Feb-25 | Hold Days: 0
-                    </div>
-                  </td>
-                </tr>
-                <tr class="total-row">
-                  <td>Total</td>
-                  <td class="right amount">--</td>
-                </tr>
-              </table>
-            
-              <p class="note">***All Values are demonstrated in US Dollars</p>
-                  
                 </div>
               </div>
             </div>
