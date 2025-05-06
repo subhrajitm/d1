@@ -3589,23 +3589,7 @@
 }
 
 .invoice-view {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: 
-    linear-gradient(120deg, #f0f4ff 0%, #ffffff 100%),
-    repeating-linear-gradient(
-      45deg,
-      rgba(79, 70, 229, 0.02) 0px,
-      rgba(79, 70, 229, 0.02) 1px,
-      transparent 1px,
-      transparent 10px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      rgba(14, 165, 233, 0.02) 0px,
-      rgba(14, 165, 233, 0.02) 1px,
-      transparent 1px,
-      transparent 10px
-    );
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   color: var(--dark);
   margin: 0;
   padding: 1.5rem;

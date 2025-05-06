@@ -16,7 +16,61 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/css/main.css">
   <link rel="stylesheet" href="src/css/invoiceSummary.css">
-
+  <style>
+    .view-style-tabs {
+      display: flex;
+      gap: 0.5rem;
+      list-style: none;
+      background: #f3f4f6;
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.7rem;
+      margin-bottom: 0.5rem;
+      justify-content: flex-start;
+    }
+    .view-style-tab {
+      border: 1.5px solid #d1d5db;
+      border-radius: 0.5rem;
+      background: #fff;
+      color: #6366f1;
+      font-weight: 500;
+      padding: 0.38rem 1.15rem;
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-width: 44px;
+      box-shadow: 0 1px 4px rgba(99,102,241,0.04);
+      box-sizing: border-box;
+      transition: background 0.18s, color 0.18s, border 0.18s, box-shadow 0.18s;
+      cursor: pointer;
+      outline: none;
+    }
+    .view-style-tab .tab-icon {
+      font-size: 1.1em;
+      color: #818cf8;
+      transition: color 0.16s;
+    }
+    .view-style-tab.active {
+      background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+      color: #fff;
+      border-color: #4338ca;
+      box-shadow: 0 4px 16px rgba(99,102,241,0.18);
+      font-weight: 700;
+    }
+    .view-style-tab.active .tab-icon {
+      color: #fffbe6;
+      font-weight: 700;
+    }
+    .view-style-tab:hover:not(.active), .view-style-tab:focus:not(.active) {
+      background: #e0e7ff;
+      color: #6366f1;
+      border-color: #b6bffb;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+    }
+    .view-style-tab:hover:not(.active) .tab-icon, .view-style-tab:focus:not(.active) .tab-icon {
+      color: #6366f1;
+    }
+  </style>
 </head>
 
 <body>
@@ -1085,12 +1139,14 @@
           </div>
 
           <div class="review-content">
-            <div class="review-summary">
-              <div class="summary-card">
+            <div class="review-summary d-flex flex-column flex-md-row align-items-stretch gap-3">
+              <div class="summary-card flex-fill" style="min-width:260px;">
                 <div class="card-icon">
                   <i class="bi bi-cash-coin"></i>
                 </div>
-                <div class="card-content">
+                <div class="card-content" style="width:100%; display:flex; flex-direction:column; align-items:flex-start;">
+                  <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
                   <div class="card-title">Total Amount</div>
                   <div class="card-value">$2,752,670</div>
                   <div class="card-trend">
@@ -1100,7 +1156,39 @@
                 </div>
               </div>
             </div>
+              </div>
+              <div class="summary-footer flex-fill d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 p-3 mt-0" style="background:linear-gradient(90deg, #f3f4f6 60%, #e0e7ff 100%); border:1px solid #e5e7eb; border-radius:0.5rem; box-shadow:0 2px 8px rgba(30,64,175,0.04); min-width:260px;">
+                
+                <div class="d-flex align-items-center gap-2" style="font-size:0.97em; color:#374151;">
+                  <i class="bi bi-sliders" style="color:#6366f1;"></i>
+                  <span>Want to select specific parts?</span>
+                  <a href="#" class="btn btn-sm btn-outline-secondary ms-1" style="font-weight:500; border-radius:1rem; padding:0.25rem 0.9rem;">Part-level Selection</a>
+                </div>
 
+                <div class="d-flex align-items-center gap-2 mb-1 mb-md-0" style="font-size:0.97em; color:#374151;">
+                  <i class="bi bi-lightbulb" style="color:#f59e42;"></i>
+                  <span>Accept all recommendations?</span>
+                  <a href="#" class="btn btn-sm btn-outline-primary ms-1" style="font-weight:500; border-radius:1rem; padding:0.25rem 0.9rem;">See Revised Invoice</a>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Tabbed View for Breakdown and Recommendations -->
+            <ul class="view-style-tabs mt-4" id="reviewTab" role="tablist" style="border:none; gap:0.4rem;">
+               <li class="nav-item" role="presentation" style="border:none;">
+                 <button class="view-style-tab active" id="recommendations-tab" data-bs-toggle="tab" data-bs-target="#recommendations" type="button" role="tab" aria-controls="recommendations" aria-selected="true">
+                   <i class="bi bi-lightbulb tab-icon"></i> <span class="d-none d-sm-inline">Recommendations</span>
+                 </button>
+               </li>
+               <li class="nav-item" role="presentation" style="border:none;">
+                 <button class="view-style-tab" id="breakdown-tab" data-bs-toggle="tab" data-bs-target="#breakdown" type="button" role="tab" aria-controls="breakdown" aria-selected="false">
+                   <i class="bi bi-table tab-icon"></i> <span class="d-none d-sm-inline">Detailed Breakdown</span>
+                 </button>
+               </li>
+             </ul>
+            <div class="tab-content p-0 " id="reviewTabContent">
+              <div class="tab-pane fade" id="breakdown" role="tabpanel" aria-labelledby="breakdown-tab">
             <div class="review-details">
               <div class="details-header">
                 <h4>Detailed Breakdown</h4>
@@ -1110,52 +1198,73 @@
                   <button class="view-option">Last Month</button>
                 </div>
               </div>
-
               <div class="details-table">
                 <table>
                   <thead>
                     <tr>
-                      <th>Invoice ID</th>
-                      <th>Date</th>
-                      <th>Description</th>
-                      <th>Amount</th>
-                      <th>Status</th>
+                          <th>Module</th>
+                          <th>Total Price</th>
+                          <th>Invoice Price</th>
+                          <th>Difference</th>
+                          <th>Overbilled</th>
+                          <th>Underbilled</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>INV-2024-001</td>
-                      <td>2024-03-15</td>
-                      <td>LLP Replacement Service</td>
-                      <td>$450,000</td>
-                      <td><span class="status-badge completed">Completed</span></td>
+                          <td>21x</td>
+                          <td>$521,900</td>
+                          <td>$563,700</td>
+                          <td>-$41,800</td>
+                          <td>$41,800</td>
+                          <td></td>
                     </tr>
                     <tr>
-                      <td>INV-2024-002</td>
-                      <td>2024-03-18</td>
-                      <td>QEC Maintenance</td>
-                      <td>$75,000</td>
-                      <td><span class="status-badge pending">Pending</span></td>
+                          <td>22x</td>
+                          <td>$279,400</td>
+                          <td>$132,814</td>
+                          <td>$146,586</td>
+                          <td></td>
+                          <td>$146,586</td>
                     </tr>
                     <tr>
-                      <td>INV-2024-003</td>
-                      <td>2024-03-20</td>
-                      <td>Material Transportation</td>
-                      <td>$12,500</td>
-                      <td><span class="status-badge completed">Completed</span></td>
+                          <td>31x</td>
+                          <td>$815,100</td>
+                          <td>$886,000</td>
+                          <td>-$70,900</td>
+                          <td>$70,900</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>52x</td>
+                          <td>$1,352,600</td>
+                          <td>$1,470,000</td>
+                          <td>-$117,400</td>
+                          <td>$117,400</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>54x</td>
+                          <td>$1,179,500</td>
+                          <td>$1,273,900</td>
+                          <td>-$94,400</td>
+                          <td>$94,400</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>55x</td>
+                          <td>$416,300</td>
+                          <td>$449,600</td>
+                          <td>-$33,300</td>
+                          <td>$33,300</td>
+                          <td></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-
-            <div class="review-actions">
-              <button class="action-btn primary">
-                <i class="bi bi-download"></i>
-                Export Data
-              </button>
             </div>
-
+              <div class="tab-pane fade show active" id="recommendations" role="tabpanel" aria-labelledby="recommendations-tab">
             <div class="review-recommendations">
               <div class="recommendations-header">
                 <div class="header-left">
@@ -1183,7 +1292,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="recommendations-list">
                 <div class="rec-card high">
                   <div class="card-header">
@@ -1206,7 +1314,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="rec-card medium">
                   <div class="card-header">
                     <div class="priority-badge">
@@ -1228,7 +1335,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="rec-card low">
                   <div class="card-header">
                     <div class="priority-badge">
@@ -1251,6 +1357,11 @@
                   </div>
                 </div>
               </div>
+                </div>
+              </div>
+            </div>
+
+           
             </div>
           </div>
         </div>
