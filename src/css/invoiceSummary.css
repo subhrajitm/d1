@@ -3590,13 +3590,34 @@
 
 .invoice-view {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: white;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   color: var(--dark);
   margin: 0;
-  padding: 1rem;
+  padding: 1.5rem;
   line-height: 1.4;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.invoice-view::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.05), transparent 70%),
+              radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.05), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.invoice-view > * {
+  position: relative;
+  z-index: 1;
 }
 
 .invoice-view h2 {
@@ -3605,7 +3626,7 @@
   color: var(--primary);
   font-size: 1.25rem;
   margin-bottom: 1rem;
-  font-weight: 600;
+  font-weight: bold;
   letter-spacing: -0.025em;
 }
 
@@ -3632,7 +3653,7 @@
   background-color: var(--primary-light);
   color: var(--primary);
   text-align: left;
-  font-weight: 600;
+  font-weight: bold;
   text-transform: uppercase;
   font-size: 0.68rem;
   letter-spacing: 0.05em;
