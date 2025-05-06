@@ -494,18 +494,19 @@ function showBillingReadiness(esn) {
       <td>${svDetails}</td>
       <td>${billingReceipt}</td>
       <td>${warrantyDiscount}</td>
-      <td><button class="btn btn-primary btn-sm action-recommendation-btn">${row['Action Recommendation']}</button></td>
+      <td><button class="btn btn-primary btn-sm action-recommendation-btn" data-esn="${row.ESN}">${row['Action Recommendation']}</button></td>
     `;
     tbody.appendChild(tr);
   });
 
-  // Add click handler for the action recommendation button
-  const actionBtn = tbody.querySelector('.action-recommendation-btn');
-  if (actionBtn) {
-    actionBtn.addEventListener('click', function() {
+  // Add click handlers for all action recommendation buttons
+  document.querySelectorAll('.action-recommendation-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const esn = this.getAttribute('data-esn');
+      showSection('invoice-details');
       showInvoiceDetails(esn);
     });
-  }
+  });
 
   // Re-initialize tooltips for info icons
   if (window.bootstrap) {
@@ -518,20 +519,35 @@ function showBillingReadiness(esn) {
 
 function showInvoiceDetails(esn) {
   showSection('invoice-details');
-  // Filter data for the selected ESN
-  const filtered = invoiceDetailsData.filter(row => row.ESN === esn);
-  const tbody = document.querySelector('#invoice-details-table tbody');
-  tbody.innerHTML = '';
-  filtered.forEach(row => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${row.ESN}</td>
-      <td><select class="form-select form-select-sm"><option>Yes</option><option>No</option></select></td>
-      <td><select class="form-select form-select-sm"><option>NA</option><option>Yes</option><option>No</option></select></td>
-      <td><select class="form-select form-select-sm"><option>No</option><option>Yes</option></select></td>
-      <td><select class="form-select form-select-sm"><option>NA</option><option>Daily</option><option>Weekly</option></select></td>
-      <td><button class="btn btn-primary btn-sm">Review Invoice</button></td>
-    `;
-    tbody.appendChild(tr);
+  const invoiceGenerated = document.getElementById('invoiceGenerated');
+  const createInvoice = document.getElementById('createInvoice');
+  const reviewInvoiceBtn = document.getElementById('reviewInvoiceBtn');
+  const createInvoiceBtn = document.getElementById('createInvoiceBtn');
+
+  // Add event listeners for dynamic behavior
+  invoiceGenerated.addEventListener('change', updateActionButtons);
+  createInvoice.addEventListener('change', updateActionButtons);
+
+  // Function to update action buttons based on selections
+  function updateActionButtons() {
+    const isGenerated = invoiceGenerated.value === 'yes';
+    const shouldCreate = createInvoice.value === 'yes';
+
+    reviewInvoiceBtn.style.display = isGenerated ? 'flex' : 'none';
+    createInvoiceBtn.style.display = shouldCreate ? 'flex' : 'none';
+  }
+
+  // Initialize button states
+  updateActionButtons();
+
+  // Add click handlers for the buttons
+  reviewInvoiceBtn.addEventListener('click', () => {
+    console.log('Reviewing invoice for ESN:', esn);
+    // Add your review invoice logic here
+  });
+
+  createInvoiceBtn.addEventListener('click', () => {
+    console.log('Creating invoice for ESN:', esn);
+    // Add your create invoice logic here
   });
 } 
