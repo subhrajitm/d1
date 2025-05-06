@@ -3705,10 +3705,12 @@
   background-color: var(--bs-primary);
   color: white;
   font-weight: 500;
-  padding: 1rem;
+  font-size: 0.875rem;
+  padding: 0.625rem 0.75rem;
   text-align: left;
   border: 1px solid var(--bs-primary-dark);
   border-radius: 0;
+  line-height: 1.2;
 }
 
 .invoice-view th:first-child {
