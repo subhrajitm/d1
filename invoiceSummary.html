@@ -70,6 +70,101 @@
     .view-style-tab:hover:not(.active) .tab-icon, .view-style-tab:focus:not(.active) .tab-icon {
       color: #6366f1;
     }
+    /* Compact recommendations-list styles */
+    .recommendations-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .rec-card {
+      background: #fff;
+      border-radius: 0.4rem;
+      padding: 0.6rem 0.8rem;
+      box-shadow: 0 1px 3px rgba(30,64,175,0.04);
+      border-left: 4px solid #e0e7ff;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .rec-card .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.2rem;
+      gap: 0.5rem;
+    }
+    .rec-card .priority-badge {
+      font-size: 0.78em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 0.3rem;
+      background: #f3f4f6;
+      color: #6366f1;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .rec-card .impact-badge {
+      font-size: 0.78em;
+      color: #818cf8;
+      font-weight: 600;
+    }
+    .rec-card .card-content {
+      margin-bottom: 0.1rem;
+    }
+    .rec-card .card-content h4 {
+      margin: 0 0 0.1rem 0;
+      font-size: 0.98em;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .rec-card .card-content p {
+      margin: 0;
+      font-size: 0.89em;
+      color: #64748b;
+      line-height: 1.3;
+    }
+    .rec-card .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.1rem;
+      padding-top: 0.1rem;
+      border-top: 1px solid #f3f4f6;
+    }
+    .rec-card .progress-bar {
+      flex: 1;
+      height: 3px;
+      background: #e0e7ff;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .rec-card .progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: #6366f1;
+    }
+    .rec-card .action-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 0.3rem;
+      border: 1px solid #e0e7ff;
+      background: #f3f4f6;
+      color: #6366f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border 0.15s;
+      font-size: 1em;
+      padding: 0;
+    }
+    .rec-card .action-btn:hover {
+      background: #6366f1;
+      color: #fff;
+      border-color: #6366f1;
+    }
   </style>
 </head>
 
