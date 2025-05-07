@@ -165,6 +165,64 @@
       color: #fff;
       border-color: #6366f1;
     }
+    .summary-footer {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 0.7rem;
+      background: linear-gradient(90deg, #f3f4f6 60%, #e0e7ff 100%);
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(30,64,175,0.04);
+      min-width: 260px;
+      margin-top: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+    .summary-footer-section {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0.7rem 0.8rem;
+      min-height: 100%;
+    }
+    .summary-footer-divider {
+      width: 1px;
+      background: #e0e7ef;
+      margin: 0.3rem 0;
+      align-self: stretch;
+    }
+    .summary-footer-section .footer-line {
+      font-size: 0.93em;
+      color: #374151;
+      margin-bottom: 0.3rem;
+    }
+    .summary-footer-section .btn {
+      margin-left: 0;
+      padding: 0.32rem 1rem;
+      font-size: 0.97em;
+    }
+    @media (max-width: 700px) {
+      .summary-footer {
+        flex-direction: column;
+        gap: 0.3rem;
+        padding: 0;
+        min-height: auto;
+      }
+      .summary-footer-divider {
+        width: 100%;
+        height: 1px;
+        margin: 0;
+      }
+      .summary-footer-section {
+        padding: 0.6rem 0.7rem;
+        align-items: flex-start;
+        min-height: auto;
+      }
+    }
   </style>
 </head>
 
@@ -1252,20 +1310,22 @@
               </div>
             </div>
               </div>
-              <div class="summary-footer flex-fill d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 p-3 mt-0" style="background:linear-gradient(90deg, #f3f4f6 60%, #e0e7ff 100%); border:1px solid #e5e7eb; border-radius:0.5rem; box-shadow:0 2px 8px rgba(30,64,175,0.04); min-width:260px;">
-                
-                <div class="d-flex align-items-center gap-2" style="font-size:0.97em; color:#374151;">
-                  <i class="bi bi-sliders" style="color:#6366f1;"></i>
-                  <span>Want to select specific parts?</span>
-                  <a href="#" class="btn btn-sm btn-outline-secondary ms-1" style="font-weight:500; border-radius:1rem; padding:0.25rem 0.9rem;">Part-level Selection</a>
+              <div class="summary-footer">
+                <div class="summary-footer-section">
+                  <div class="footer-line mb-1">
+                    <i class="bi bi-lightbulb" style="color:#f59e42;"></i>
+                    Accept all recommendations and generate a revised invoice.
+                  </div>
+                  <a href="#" class="btn btn-outline-primary">See Revised Invoice</a>
                 </div>
-
-                <div class="d-flex align-items-center gap-2 mb-1 mb-md-0" style="font-size:0.97em; color:#374151;">
-                  <i class="bi bi-lightbulb" style="color:#f59e42;"></i>
-                  <span>Accept all recommendations?</span>
-                  <a href="#" class="btn btn-sm btn-outline-primary ms-1" style="font-weight:500; border-radius:1rem; padding:0.25rem 0.9rem;">See Revised Invoice</a>
+                <div class="summary-footer-divider"></div>
+                <div class="summary-footer-section">
+                  <div class="footer-line mb-1">
+                    <i class="bi bi-sliders" style="color:#6366f1;"></i>
+                    Review recommendations at the part level and select specific items.
+                  </div>
+                  <a href="#" class="btn btn-outline-secondary">Part-level Selection</a>
                 </div>
-
               </div>
             </div>
 
