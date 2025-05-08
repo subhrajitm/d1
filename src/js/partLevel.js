@@ -27,12 +27,7 @@ function renderInvoiceDashboard() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input type="checkbox" class="row-select"></td>
-      <td>
-        <div class="d-flex align-items-center gap-2">
-          <div class="avatar avatar-sm bg-primary text-white fw-bold">${row.Part[0]}</div>
-          <span>${row.Part}</span>
-        </div>
-      </td>
+      <td>${row.Part}</td>
       <td>${row.Module}</td>
       <td>${row.Class}</td>
       <td class="text-muted">${row.Desc}</td>
