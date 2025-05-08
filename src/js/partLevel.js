@@ -299,8 +299,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updateBulkActions() {
         const bulkActions = document.querySelector('.bulk-actions');
+        const selectedCount = document.querySelector('.bulk-actions .selected-count');
+        const checked = document.querySelectorAll('.row-select:checked').length;
         if (bulkActions) {
-            bulkActions.style.display = selectedInvoices.size > 0 ? 'flex' : 'none';
+            bulkActions.style.display = checked > 0 ? 'flex' : 'none';
+            if (selectedCount) {
+                selectedCount.textContent = `${checked} item${checked === 1 ? '' : 's'} selected`;
+            }
         }
     }
     
@@ -327,12 +332,17 @@ document.addEventListener('DOMContentLoaded', function() {
     bulkActions.innerHTML = `
         <div class="selected-count">${selectedInvoices.size} selected</div>
         <div class="action-buttons">
-            <button class="btn btn-sm btn-outline-primary" onclick="approveSelected()">Approve</button>
-            <button class="btn btn-sm btn-outline-danger" onclick="flagSelected()">Flag</button>
-            <button class="btn btn-sm btn-outline-secondary" onclick="exportSelected()">Export</button>
+            <button class="btn btn-sm btn-primary" onclick="submitSelected()">Submit</button>
         </div>
     `;
     document.querySelector('.dashboard-card').insertBefore(bulkActions, document.querySelector('.table-responsive'));
+
+    // Ensure bulk-actions shows on any selection
+    tableBody.addEventListener('change', function(e) {
+        if (e.target.classList.contains('row-select')) {
+            updateBulkActions();
+        }
+    });
 });
 
 // Action Functions
@@ -349,6 +359,12 @@ function flagSelected() {
 function exportSelected() {
     // Implementation for exporting selected invoices
     console.log('Exporting selected invoices...');
+}
+
+// Add submitSelected function
+function submitSelected() {
+    // Implementation for submitting selected invoices
+    console.log('Submitting selected invoices...');
 }
 
 // Pagination and Items Per Page Functionality
