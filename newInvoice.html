@@ -177,16 +177,51 @@
 
       <!-- Invoice View -->
       <div class="invoice-view">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="mb-0">Final Invoice</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4 p-3" style="
+          background: linear-gradient(to right, #f8fafc, #f1f5f9);
+          border-radius: 12px;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        ">
+          <div>
+            <h2 class="mb-1" style="
+              font-size: 1.5rem;
+              font-weight: 600;
+              color: #1e293b;
+              letter-spacing: -0.01em;
+            ">Final Invoice</h2>
+            <p class="mb-0" style="
+              font-size: 0.875rem;
+              color: #64748b;
+              font-weight: 500;
+            ">Review and submit invoice for processing</p>
+          </div>
           <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-light d-flex align-items-center gap-2 px-3 py-2" style="border: 1px solid #e2e8f0; font-weight: 500; transition: all 0.2s;">
-              <i class="bi bi-download" style="font-size: 0.9rem;"></i>
-              <span style="font-size: 0.875rem;">Download Copy</span>
+            <button class="btn d-flex align-items-center gap-2 px-3 py-2" style="
+              font-weight: 600; 
+              font-size: 0.9rem;
+              border: 2px solid #4f46e5;
+              color: #4f46e5;
+              background: #f8fafc;
+              border-radius: 6px;
+              transition: all 0.2s;
+              box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+            ">
+              <i class="bi bi-download" style="font-size: 1rem;"></i>
+              <span>Download</span>
             </button>
-            <button class="btn btn-sm btn-primary d-flex align-items-center gap-2 px-3 py-2" style="font-weight: 500; transition: all 0.2s; background: #4f46e5; border: none;">
-              <i class="bi bi-send" style="font-size: 0.9rem;"></i>
-              <span style="font-size: 0.875rem;">Send for Review</span>
+            <button class="btn d-flex align-items-center gap-2 px-3 py-2" style="
+              font-weight: 600;
+              font-size: 0.9rem;
+              background: linear-gradient(135deg, #4f46e5, #4338ca);
+              color: white;
+              border: none;
+              border-radius: 6px;
+              transition: all 0.2s;
+              box-shadow: 0 2px 4px rgba(79, 70, 229, 0.25);
+            ">
+              <i class="bi bi-send" style="font-size: 1rem;"></i>
+              <span>Send for Review</span>
             </button>
           </div>
         </div>
