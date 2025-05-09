@@ -177,7 +177,19 @@
 
       <!-- Invoice View -->
       <div class="invoice-view">
-        <h2>Final Invoice</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0">Final Invoice</h2>
+          <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-light d-flex align-items-center gap-2 px-3 py-2" style="border: 1px solid #e2e8f0; font-weight: 500; transition: all 0.2s;">
+              <i class="bi bi-download" style="font-size: 0.9rem;"></i>
+              <span style="font-size: 0.875rem;">Download Copy</span>
+            </button>
+            <button class="btn btn-sm btn-primary d-flex align-items-center gap-2 px-3 py-2" style="font-weight: 500; transition: all 0.2s; background: #4f46e5; border: none;">
+              <i class="bi bi-send" style="font-size: 0.9rem;"></i>
+              <span style="font-size: 0.875rem;">Send for Review</span>
+            </button>
+          </div>
+        </div>
 
         <!-- Top Section -->
         <table>
