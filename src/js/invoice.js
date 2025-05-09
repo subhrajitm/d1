@@ -217,41 +217,20 @@ function prevStep() {
   }
 }
 
-// Handle process completion
+// Complete process and redirect to revised invoice
 function completeProcess() {
-  const processContent = document.querySelector('.process-content');
-  processContent.style.position = 'relative';
-  
-  const overlay = document.createElement('div');
-  overlay.style.cssText = `
-    position: absolute;
-    inset: 0;
-    background: var(--primary-gradient);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.25rem;
-    font-weight: 600;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: var(--compact-border-radius);
-  `;
-  overlay.innerHTML = `
-    <div style="text-align: center;">
-      <i class="bi bi-check-circle-fill" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-      Invoice Creation Complete!
-    </div>
-  `;
-  
-  processContent.appendChild(overlay);
-  setTimeout(() => {
-    overlay.style.opacity = '1';
-  }, 100);
+  // Show loading state
+  const nextButton = document.querySelector('.step-btn.primary');
+  if (nextButton) {
+    nextButton.innerHTML = '<i class="bi bi-arrow-repeat spin"></i> Processing...';
+    nextButton.disabled = true;
+  }
 
+  // Simulate processing delay
   setTimeout(() => {
-    window.location.href = 'index.html';
-  }, 2000);
+    // Redirect to revised invoice page
+    window.location.href = 'revisedInvoice.html';
+  }, 1500);
 }
 
 // Toggle collapsible sections
