@@ -139,4 +139,102 @@
   font-weight: 600;
   color: var(--text-primary);
   background: var(--background-color);
+}
+
+.invoice-view {
+  padding: 0;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: 0;
+}
+
+.invoice-view table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.invoice-view table th {
+  background: #f8fafc;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+}
+
+.invoice-view table td {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.address-block {
+  line-height: 1.5;
+  color: #475569;
+}
+
+.right {
+  text-align: right;
+}
+
+.amount {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
+}
+
+.amount.negative {
+  color: #ef4444;
+}
+
+.total-row {
+  background: #f8fafc;
+}
+
+.total-row td {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.total-amount {
+  font-size: 1.125rem;
+}
+
+.status-badge {
+  background: #f1f5f9;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #475569;
+  text-align: center;
+}
+
+.note {
+  font-size: 0.875rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Button hover effects */
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Step Content Styles */
+.step-content {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.step-content.active {
+  display: block;
+  opacity: 1;
 } 

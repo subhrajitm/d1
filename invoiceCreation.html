@@ -316,58 +316,205 @@
 
             <!-- Draft Invoice Content -->
             <div id="step2" class="step-content">
-              <div class="draft-invoice">
-                <div class="table-container">
-                  <table class="billing-table">
-                    <tbody>
-                      <tr>
-                        <td>This Value does exceed the NTE Price of $3,806,452 for the Specified
-                          Workscope (Core).</td>
-                        <td class="amount-column"></td>
-                      </tr>
-                      <tr>
-                        <td>Therefore Charge NTE Value</td>
-                        <td class="amount-column">$3,806,452</td>
-                      </tr>
-                      <tr>
-                        <td>Add Back Exclusions</td>
-                        <td class="amount-column">$165,094</td>
-                      </tr>
-                      <tr>
-                        <td>TAT Penalties</td>
-                        <td class="amount-column">$3,800,194</td>
-                      </tr>
-                      <tr>
-                        <td>$(67,500)</td>
-                        <td class="amount-column">$7,704,239</td>
-                      </tr>
-                      <tr>
-                        <td>Less Progress Invoice No. 2600X093Y09 Dated 04/09/23</td>
-                        <td class="amount-column">$(1,141,936)</td>
-                      </tr>
-                      <tr>
-                        <td>Less Initial Invoice 1 No. 2600X093YX17 Dated 27/10/23</td>
-                        <td class="amount-column">$(1,522,581)</td>
-                      </tr>
-                      <tr>
-                        <td>Less Initial Invoice 2 No. 2600F93GH76 Dated 08/02/24</td>
-                        <td class="amount-column">$(1,141,936)</td>
-                      </tr>
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <td>Terms Payment</td>
-                        <td class="amount-column">$3,897,787</td>
-                      </tr>
-                    </tfoot>
-                  </table>
+              <div class="invoice-view">
+                <div class="d-flex justify-content-between align-items-center mb-4 p-3" style="
+                  background: linear-gradient(to right, #f8fafc, #f1f5f9);
+                  border-radius: 12px;
+                  border: 1px solid #e2e8f0;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                ">
+                  <div>
+                    <h2 class="mb-1" style="
+                      font-size: 1.5rem;
+                      font-weight: 600;
+                      color: #1e293b;
+                      letter-spacing: -0.01em;
+                    ">Final Invoice</h2>
+                    <p class="mb-0" style="
+                      font-size: 0.875rem;
+                      color: #64748b;
+                      font-weight: 500;
+                    ">Review and submit invoice for processing</p>
+                  </div>
+                  
                 </div>
-                <div class="d-flex justify-content-center mt-4">
-                  <button class="step-btn primary" onclick="completeProcess()">
-                    Accept Invoice
-                    <i class="bi bi-check-circle"></i>
-                  </button>
-                </div>
+
+                <!-- Top Section -->
+                <table>
+                  <colgroup>
+                    <col style="width: 33.33%">
+                    <col style="width: 33.33%">
+                    <col style="width: 33.33%">
+                  </colgroup>
+                  <tr>
+                    <th>WORK PERFORMED AT</th>
+                    <th>FOREIGN AFFILIATE OF</th>
+                    <th>SEND PAYMENT SHOWING</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="address-block">
+                        BE ORISSA Ltda<br>
+                        356 Rua Alice Herve<br>
+                        Petropolis - RJ<br>
+                        25669-900BR<br>
+                        Tel No. - 55 24 2233-4000
+                      </div>
+                    </td>
+                    <td>
+                      <div class="address-block">
+                        BE Engine Services, LLC<br>
+                        1 Neumann Way<br>
+                        Cincinnati, OH 45215
+                      </div>
+                    </td>
+                    <td>
+                      <div class="address-block">
+                        BE Engine Services, LLC, C/o PNC BANK<br>
+                        NATIONAL ASSOCIATION<br>
+                        PITTSBURGH, PA<br>
+                        S.W.I.F.T. : PNCCUS33 ABA # 043000096<br>
+                        ACCOUNT : 10100933861
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Invoice Details -->
+                <table>
+                  <colgroup>
+                    <col style="width: 20%">
+                    <col style="width: 20%">
+                    <col style="width: 20%">
+                    <col style="width: 20%">
+                    <col style="width: 20%">
+                  </colgroup>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Engine Serial No.</th>
+                    <th>Invoice No</th>
+                    <th>Invoice Date</th>
+                    <th>Page</th>
+                  </tr>
+                  <tr>
+                    <td>DELTA</td>
+                    <td>10001</td>
+                    <td>TBD</td>
+                    <td>05-05-2025</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <th>Shipping Address</th>
+                    <th>Billing Address</th>
+                    <th>Customer Order No.</th>
+                    <th colspan="2">Notification</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="address-block">
+                        BE ENGINE SERVICES, LLC<br>
+                        BLD 500, COLUMN K12 1<br>
+                        NEUMANN WAY CINCINNATI<br>
+                        45215, Ohio<br>
+                        ORISSA
+                      </div>
+                    </td>
+                    <td>
+                      <div class="address-block">
+                        DELTA AIRLINES INC<br>
+                        233 S. Wacker Drive<br>
+                        Chicago<br>
+                        60606, Illinois<br>
+                        USA
+                      </div>
+                    </td>
+                    <td>10270200</td>
+                    <td colspan="2"></td>
+                  </tr>
+                  <tr>
+                    <th>Payment Terms</th>
+                    <th>Payment Due On</th>
+                    <th>Shipping Ref. No.</th>
+                    <th>Shipped Date</th>
+                    <th>WBS</th>
+                  </tr>
+                  <tr>
+                    <td>30 DAYS FROM INV DATE</td>
+                    <td></td>
+                    <td>TBD</td>
+                    <td>TBD</td>
+                    <td></td>
+                  </tr>
+                </table>
+
+                <!-- Cost Table -->
+                <table>
+                  <colgroup>
+                    <col style="width: 80%">
+                    <col style="width: 20%">
+                  </colgroup>
+                  <tr>
+                    <th>T&M MFP</th>
+                    <th class="right">Final Cost (USD)</th>
+                  </tr>
+                  <tr>
+                    <td>In-Scope CharBEs</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>Out-Of-Scope LLPs Replacement</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>Out-Of Scope QEC & LRU Replacement</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>Out-of-Scope Material & Repair</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>Out-of-Scope PMA & DER</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>Out-Of Scope Missing Items</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>Out-Of Scope Service Bulletin</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>Stand repair</td>
+                    <td class="right amount">$427.00</td>
+                  </tr>
+                  <tr>
+                    <td>Excluded Material Transportation</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>Taxes</td>
+                    <td class="right amount">--</td>
+                  </tr>
+                  <tr>
+                    <td>TAT remedy</td>
+                    <td class="right amount negative">- $3,000.00</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <div class="status-badge">
+                        Delivered: 12-Nov-24 | Redelivered: 09-Feb-25 | Hold Days: 0
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="total-row">
+                    <td class="total-label">Total Amount</td>
+                    <td class="right amount total-amount">--</td>
+                  </tr>
+                </table>
+
+                <p class="note">***All Values are demonstrated in US Dollars</p>
               </div>
             </div>
           </div>
