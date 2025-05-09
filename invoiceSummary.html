@@ -607,7 +607,7 @@
                   </table>
 
                   <!-- Cost Table -->
-                  
+
                   <table>
                     <colgroup>
                       <col style="width: 80%">
@@ -722,8 +722,8 @@
                     <div class="card-content">
                       <h4>Pricing Review Required</h4>
                       <p>Material pricing exceeds CLP by significant margin. Review and adjust rates.</p>
-                        <div class="progress-bar">
-                          <div class="progress-fill" style="width: 85%"></div>
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
                       </div>
                     </div>
                   </div>
@@ -739,8 +739,8 @@
                     <div class="card-content">
                       <h4>Documentation Gap</h4>
                       <p>Missing supporting documents for repair charges. Request additional documentation.</p>
-                        <div class="progress-bar">
-                          <div class="progress-fill" style="width: 45%"></div>
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
                       </div>
                     </div>
                   </div>
@@ -756,8 +756,8 @@
                     <div class="card-content">
                       <h4>Timeline Review</h4>
                       <p>Minor discrepancies in delivery dates noted. Verify transportation timeline.</p>
-                        <div class="progress-bar">
-                          <div class="progress-fill" style="width: 20%"></div>
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 20%"></div>
                       </div>
                     </div>
                   </div>
@@ -1074,87 +1074,95 @@
                 <div class="card-icon">
                   <i class="bi bi-cash-coin"></i>
                 </div>
-                <div class="card-content" style="width:100%; display:flex; flex-direction:column; align-items:flex-start;">
+                <div class="card-content"
+                  style="width:100%; display:flex; flex-direction:column; align-items:flex-start;">
                   <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
                     <div>
-                  <div class="card-title">Total Amount</div>
-                  <div class="card-value">$2,752,670</div>
-                  <div class="card-trend">
-                    <i class="bi bi-arrow-up-right"></i>
-                    <span>12.5% vs Last Month</span>
+                      <div class="card-title">Total Amount</div>
+                      <div class="card-value">$2,752,670</div>
+                      <div class="card-trend">
+                        <i class="bi bi-arrow-up-right"></i>
+                        <span>12.5% vs Last Month</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
               </div>
               <div class="summary-footer">
-                <div class="summary-footer-section">
-                  <div class="footer-line mb-1">
-                    <i class="bi bi-lightbulb" style="color:#f59e42;"></i>
-                    Accept all recommendations and generate a revised invoice.
-                  </div>
-                  <a href="#" class="btn btn-outline-primary">See Revised Invoice</a>
-                </div>
-                <div class="summary-footer-divider"></div>
+
                 <div class="summary-footer-section">
                   <div class="footer-line mb-1">
                     <i class="bi bi-sliders" style="color:#6366f1;"></i>
                     Review recommendations at the part level and select specific items.
                   </div>
-                  <a href="#" class="btn btn-outline-secondary">Part-level Selection</a>
+                  <a href="partLevel.html" class="btn btn-outline-secondary">Part-level Selection</a>
                 </div>
+
+                <div class="summary-footer-divider"></div>
+
+                <div class="summary-footer-section">
+                  <div class="footer-line mb-1">
+                    <i class="bi bi-lightbulb" style="color:#f59e42;"></i>
+                    Accept all recommendations and generate a revised invoice.
+                  </div>
+                  <a href="newInvoice.html" class="btn btn-outline-primary">See Revised Invoice</a>
+                </div>
+
               </div>
             </div>
 
             <!-- Tabbed View for Breakdown and Recommendations -->
             <ul class="view-style-tabs mt-4" id="reviewTab" role="tablist" style="border:none; gap:0.4rem;">
-               <li class="nav-item" role="presentation" style="border:none;">
-                 <button class="view-style-tab active" id="recommendations-tab" data-bs-toggle="tab" data-bs-target="#recommendations" type="button" role="tab" aria-controls="recommendations" aria-selected="true">
-                   <i class="bi bi-lightbulb tab-icon"></i> <span class="d-none d-sm-inline">Recommendations</span>
-                 </button>
-               </li>
-               <li class="nav-item" role="presentation" style="border:none;">
-                 <button class="view-style-tab" id="breakdown-tab" data-bs-toggle="tab" data-bs-target="#breakdown" type="button" role="tab" aria-controls="breakdown" aria-selected="false">
-                   <i class="bi bi-table tab-icon"></i> <span class="d-none d-sm-inline">Module Level Breakdown</span>
-                 </button>
-               </li>
-             </ul>
+              <li class="nav-item" role="presentation" style="border:none;">
+                <button class="view-style-tab active" id="recommendations-tab" data-bs-toggle="tab"
+                  data-bs-target="#recommendations" type="button" role="tab" aria-controls="recommendations"
+                  aria-selected="true">
+                  <i class="bi bi-lightbulb tab-icon"></i> <span class="d-none d-sm-inline">Recommendations</span>
+                </button>
+              </li>
+              <li class="nav-item" role="presentation" style="border:none;">
+                <button class="view-style-tab" id="breakdown-tab" data-bs-toggle="tab" data-bs-target="#breakdown"
+                  type="button" role="tab" aria-controls="breakdown" aria-selected="false">
+                  <i class="bi bi-table tab-icon"></i> <span class="d-none d-sm-inline">Module Level Breakdown</span>
+                </button>
+              </li>
+            </ul>
             <div class="tab-content p-0 " id="reviewTabContent">
               <div class="tab-pane fade" id="breakdown" role="tabpanel" aria-labelledby="breakdown-tab">
-            <div class="review-details">
-              <div class="details-header">
-                <h4>Detailed Breakdown</h4>
-              </div>
-              <div class="details-table">
-                <table>
-                  <thead>
-                    <tr>
+                <div class="review-details">
+                  <div class="details-header">
+                    <h4>Detailed Breakdown</h4>
+                  </div>
+                  <div class="details-table">
+                    <table>
+                      <thead>
+                        <tr>
                           <th>Module</th>
                           <th>Total Price</th>
                           <th>Invoice Price</th>
                           <th>Difference</th>
                           <th>Overbilled</th>
                           <th>Underbilled</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
                           <td>21x</td>
                           <td>$521,900</td>
                           <td>$563,700</td>
                           <td>-$41,800</td>
                           <td>$41,800</td>
                           <td></td>
-                    </tr>
-                    <tr>
+                        </tr>
+                        <tr>
                           <td>22x</td>
                           <td>$279,400</td>
                           <td>$132,814</td>
                           <td>$146,586</td>
                           <td></td>
                           <td>$146,586</td>
-                    </tr>
-                    <tr>
+                        </tr>
+                        <tr>
                           <td>31x</td>
                           <td>$815,100</td>
                           <td>$886,000</td>
@@ -1185,80 +1193,81 @@
                           <td>-$33,300</td>
                           <td>$33,300</td>
                           <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            </div>
-              <div class="tab-pane fade show active" id="recommendations" role="tabpanel" aria-labelledby="recommendations-tab">
-            <div class="review-recommendations">
-              <div class="recommendations-header">
-                <div class="header-left">
-                  <h4>Recommendations</h4>
-                  <span class="issue-count">3 Issues Found</span>
-                </div>
-              </div>
-              <div class="recommendations-list">
-                <div class="rec-card high">
-                  <div class="card-header">
-                    <div class="priority-badge">
-                      <i class="bi bi-exclamation-triangle"></i>
-                      High Priority
-                    </div>
-                    <div class="impact-badge">85%</div>
-                  </div>
-                  <div class="card-content">
-                    <h4>Pricing Review Required</h4>
-                    <p>Material pricing exceeds CLP by significant margin. Review and adjust rates.</p>
-                      <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="rec-card medium">
-                  <div class="card-header">
-                    <div class="priority-badge">
-                      <i class="bi bi-exclamation"></i>
-                      Medium Priority
-                    </div>
-                    <div class="impact-badge">45%</div>
-                  </div>
-                  <div class="card-content">
-                    <h4>Documentation Gap</h4>
-                    <p>Missing supporting documents for repair charges. Request additional documentation.</p>
-                      <div class="progress-bar">
-                        <div class="progress-fill" style="width: 45%"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="rec-card low">
-                  <div class="card-header">
-                    <div class="priority-badge">
-                      <i class="bi bi-info-circle"></i>
-                      Low Priority
-                    </div>
-                    <div class="impact-badge">20%</div>
-                  </div>
-                  <div class="card-content">
-                    <h4>Timeline Review</h4>
-                    <p>Minor discrepancies in delivery dates noted. Verify transportation timeline.</p>
-                      <div class="progress-bar">
-                        <div class="progress-fill" style="width: 20%"></div>
-                    </div>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
+              <div class="tab-pane fade show active" id="recommendations" role="tabpanel"
+                aria-labelledby="recommendations-tab">
+                <div class="review-recommendations">
+                  <div class="recommendations-header">
+                    <div class="header-left">
+                      <h4>Recommendations</h4>
+                      <span class="issue-count">3 Issues Found</span>
+                    </div>
+                  </div>
+                  <div class="recommendations-list">
+                    <div class="rec-card high">
+                      <div class="card-header">
+                        <div class="priority-badge">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          High Priority
+                        </div>
+                        <div class="impact-badge">85%</div>
+                      </div>
+                      <div class="card-content">
+                        <h4>Pricing Review Required</h4>
+                        <p>Material pricing exceeds CLP by significant margin. Review and adjust rates.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rec-card medium">
+                      <div class="card-header">
+                        <div class="priority-badge">
+                          <i class="bi bi-exclamation"></i>
+                          Medium Priority
+                        </div>
+                        <div class="impact-badge">45%</div>
+                      </div>
+                      <div class="card-content">
+                        <h4>Documentation Gap</h4>
+                        <p>Missing supporting documents for repair charges. Request additional documentation.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rec-card low">
+                      <div class="card-header">
+                        <div class="priority-badge">
+                          <i class="bi bi-info-circle"></i>
+                          Low Priority
+                        </div>
+                        <div class="impact-badge">20%</div>
+                      </div>
+                      <div class="card-content">
+                        <h4>Timeline Review</h4>
+                        <p>Minor discrepancies in delivery dates noted. Verify transportation timeline.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 20%"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-           
-            </div>
+
           </div>
         </div>
       </div>
-    </main>
+  </div>
+  </main>
   </div>
 
   <!-- Bootstrap JS Bundle with Popper -->
