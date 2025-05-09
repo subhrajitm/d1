@@ -225,7 +225,7 @@
   font-family: 'Roboto Mono', monospace;
   font-weight: 600;
   font-size: 0.875rem;
-  color: var(--text-primary);
+  color: white;
   transition: all var(--transition-speed) ease;
 }
 
