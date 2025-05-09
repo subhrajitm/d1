@@ -12,7 +12,7 @@ const invoiceData = [
   { Module: '54x', Class: 'Clas1', Part: 'PN10', Desc: 'Desc10', Qty: 1, Unit: 241800, Total: 241800, Included: 0, Excluded: 241800, Insights: 'CLP Mismatch/Exclusion as LLP material', Group: '-' },
   { Module: '54x', Class: 'Clas1', Part: 'PN11', Desc: 'Desc11', Qty: 1, Unit: 237400, Total: 237400, Included: 0, Excluded: 237400, Insights: 'CLP Mismatch/Exclusion as LLP material', Group: '-' },
   { Module: '54x', Class: 'Class2', Part: 'PN12', Desc: 'Desc12', Qty: 1, Unit: 210900, Total: 210900, Included: 0, Excluded: 210900, Insights: 'CLP Mismatch/Exclusion as LLP material', Group: '-' },
-  { Module: '54x', Class: 'Class2', Part: 'PN13', Desc: 'Desc13', Qty: 1, Unit: 281000, Total: 281000, Included: 0, Excluded: 281000, Insights: 'CLP Mismatch/Exclusion as LLP material', Group: '-' },
+  { Module: '54x', Class: 'Class2', Part: 'PN13', Desc: 'Desc13', Qty: 1, Unit: 281000, Total: 281000, Included: 0, Excluded: 281000, Insights: 'CLP Mismatch/Exclusion as LLP material', Group: '-' }
 ];
 
 // Utility for formatting currency
@@ -20,463 +20,322 @@ function formatCurrency(num) {
   return '$' + num.toLocaleString();
 }
 
-function renderInvoiceDashboard() {
-  const tbody = document.getElementById('invoiceDashboardBody');
-  tbody.innerHTML = '';
-  invoiceData.forEach((row, idx) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input type="checkbox" class="row-select"></td>
-      <td>${row.Part}</td>
-      <td>${row.Module}</td>
-      <td>${row.Class}</td>
-      <td class="text-muted">${row.Desc}</td>
-      <td>${row.Qty}</td>
-      <td>$${row.Unit.toLocaleString()}</td>
-      <td>$${row.Total.toLocaleString()}</td>
-      <td>
-        <span class="badge badge-${row.Group === 'Underbilled' ? 'underbilled' : 'approved'}">
-          ${row.Group === 'Underbilled' ? 'Underbilled' : 'Approved'}
-        </span>
-      </td>
-      <td>
-        <span class="badge badge-pending">${row.Insights}</span>
-      </td>
-      <td>${row.Group || '-'}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
+// Initialize DataTable
+$(document).ready(function() {
+  console.log('Document ready');
+  console.log('Invoice data:', invoiceData);
+  console.log('Table element exists:', $('#invoiceTable').length > 0);
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderInvoiceDashboard();
+  // Wait for DataTables to be fully loaded
+  if (typeof $.fn.DataTable === 'undefined') {
+    console.error('DataTables is not loaded!');
+    return;
+  }
 
-  // Select All functionality
-  const selectAll = document.getElementById('selectAllInvoices');
-  selectAll.addEventListener('change', function() {
-    document.querySelectorAll('.row-select').forEach(cb => {
-      cb.checked = selectAll.checked;
+  let table; // Declare table variable in wider scope
+
+  try {
+    // Initialize DataTable
+    table = $('#invoiceTable').DataTable({
+      data: invoiceData,
+      responsive: true,
+      pageLength: 10,
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      columns: [
+        {
+          data: null,
+          defaultContent: '<input type="checkbox" class="form-check-input row-select">',
+          orderable: false,
+          width: '40px'
+        },
+        { data: 'Part' },
+        { data: 'Module' },
+        { data: 'Class' },
+        { data: 'Desc' },
+        { data: 'Qty' },
+        { 
+          data: 'Unit',
+          render: function(data) {
+            return formatCurrency(data);
+          }
+        },
+        { 
+          data: 'Total',
+          render: function(data) {
+            return formatCurrency(data);
+          }
+        },
+        { 
+          data: 'Group',
+          render: function(data) {
+            const badgeClass = data === 'Underbilled' ? 'badge-underbilled' : 'badge-approved';
+            const text = data === 'Underbilled' ? 'Underbilled' : 'Approved';
+            return `<span class="badge ${badgeClass}">${text}</span>`;
+          }
+        },
+        { 
+          data: 'Insights',
+          render: function(data) {
+            return `<span class="badge badge-pending">${data}</span>`;
+          }
+        },
+        { data: 'Group' }
+      ],
+      order: [[1, 'asc']],
+      dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+      language: {
+        search: "",
+        searchPlaceholder: "Search invoices...",
+        lengthMenu: "Show _MENU_ entries",
+        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+        paginate: {
+          first: '<i class="bi bi-chevron-double-left"></i>',
+          previous: '<i class="bi bi-chevron-left"></i>',
+          next: '<i class="bi bi-chevron-right"></i>',
+          last: '<i class="bi bi-chevron-double-right"></i>'
+        }
+      },
+      initComplete: function() {
+        console.log('Table initialization complete');
+        // Add custom classes to DataTables elements
+        $('.dataTables_length select').addClass('form-select form-select-sm');
+        $('.dataTables_filter input').addClass('form-control form-control-sm');
+        
+        // Update tab counts after table is initialized
+        if (table) {
+          updateTabCounts();
+        }
+      }
     });
-  });
 
-  // Row select: update Select All if any unchecked
-  document.getElementById('invoiceDashboardBody').addEventListener('change', function(e) {
-    if (e.target.classList.contains('row-select')) {
-      const all = document.querySelectorAll('.row-select');
-      const checked = document.querySelectorAll('.row-select:checked');
-      selectAll.checked = all.length === checked.length;
+    console.log('DataTable initialized successfully');
+
+    // Select All functionality
+    $('#selectAllInvoices').on('change', function() {
+      $('.row-select').prop('checked', this.checked);
+    });
+
+    // Row select: update Select All if any unchecked
+    $('#invoiceTable').on('change', '.row-select', function() {
+      const allChecked = $('.row-select:checked').length === $('.row-select').length;
+      $('#selectAllInvoices').prop('checked', allChecked);
+    });
+
+    // Tab filtering
+    function filterTable(filter) {
+      // Clear all filters first
+      table.search('').columns().search('').draw();
+      
+      if (filter === 'all') {
+        // Show all records
+        table.draw();
+        return;
+      }
+
+      // Apply the appropriate filter
+      if (filter === 'pending' || filter === 'flagged') {
+        table.column(9).search('CLP Mismatch').draw();
+      } else if (filter === 'approved') {
+        table.column(8).search('Approved').draw();
+      }
     }
-  });
 
-  // Close info banner
-  const closeBanner = document.querySelector('.close-banner');
-  if (closeBanner) {
-    closeBanner.addEventListener('click', function() {
-      this.parentElement.style.display = 'none';
+    // Bind click events to tabs
+    $('.dashboard-tabs .tab').off('click').on('click', function() {
+      // Update active state
+      $('.dashboard-tabs .tab').removeClass('active');
+      $(this).addClass('active');
+      
+      // Get filter type from tab text
+      const filter = $(this).text().trim().toLowerCase();
+      filterTable(filter);
     });
+
+    // Update tab counts
+    function updateTabCounts() {
+      if (!table) return;
+      
+      const total = table.rows().count();
+      let pending = 0;
+      let approved = 0;
+      let flagged = 0;
+
+      // Count rows for each category
+      table.rows().every(function() {
+        const data = this.data();
+        if (data.Insights && data.Insights.includes('CLP Mismatch')) {
+          pending++;
+          flagged++;
+        }
+        if (data.Group && data.Group.includes('Approved')) {
+          approved++;
+        }
+      });
+
+      // Update badge counts
+      $('.tab-badge').each(function() {
+        const tab = $(this).parent().text().trim().toLowerCase();
+        if (tab.includes('all')) $(this).text(total);
+        if (tab.includes('pending')) $(this).text(pending);
+        if (tab.includes('approved')) $(this).text(approved);
+        if (tab.includes('flagged')) $(this).text(flagged);
+      });
+    }
+
+    // Initial tab count update
+    updateTabCounts();
+
+    // Update counts when table is filtered
+    table.on('search.dt', function() {
+      updateTabCounts();
+    });
+
+    // Add row hover effect
+    $('#invoiceTable tbody').on('mouseenter', 'tr', function() {
+      $(this).addClass('table-hover');
+    }).on('mouseleave', 'tr', function() {
+      $(this).removeClass('table-hover');
+    });
+
+    // Add error handling for table operations
+    table.on('error.dt', function(e, settings, techNote, message) {
+      console.error('DataTables error:', message);
+    });
+
+  } catch (error) {
+    console.error('Error initializing DataTable:', error);
   }
 });
 
-// Combine all styles into one
+// Add custom styles for DataTables
 const style = document.createElement('style');
 style.textContent = `
-    .bulk-actions {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.75rem 1.25rem;
-        background: #f8f9fa;
-        border-bottom: 1px solid #e9ecef;
-    }
-    
-    .selected-count {
-        font-size: 0.875rem;
-        color: #6c757d;
-    }
-    
-    .action-buttons {
-        display: flex;
-        gap: 0.5rem;
-    }
-    
-    .dashboard-table th.sort-asc::after {
-        content: '↑';
-        margin-left: 0.5rem;
-    }
-    
-    .dashboard-table th.sort-desc::after {
-        content: '↓';
-        margin-left: 0.5rem;
-    }
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter {
+    margin-bottom: 1rem;
+  }
+  
+  .dataTables_wrapper .dataTables_info {
+    padding-top: 1rem;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate {
+    padding-top: 1rem;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.5rem 0.75rem;
+    margin: 0 0.25rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background: white;
+    color: #0d6efd !important;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #0d6efd !important;
+    color: white !important;
+    border-color: #0d6efd;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #e9ecef !important;
+    border-color: #dee2e6;
+    color: #0d6efd !important;
+  }
+  
+  .badge-underbilled {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .badge-approved {
+    background-color: #198754;
+    color: white;
+  }
+  
+  .badge-pending {
+    background-color: #ffc107;
+    color: #000;
+  }
 
-    .invoice-card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-    
-    .invoice-card {
-        background: #fff;
-        border-radius: 0.75rem;
-        padding: 1rem 0.75rem 0.75rem 0.75rem;
-        box-shadow: 0 1px 4px #0072ce11;
-        border: 1px solid #e5e7eb;
-        transition: box-shadow 0.18s, transform 0.18s, opacity 0.4s, border-color 0.18s;
-        position: relative;
-        min-width: 0;
-    }
-    
-    .invoice-card:hover {
-        box-shadow: 0 4px 16px #0072ce22;
-        transform: translateY(-2px) scale(1.015);
-        border-color: #b6d4fe;
-    }
-    
-    .invoice-card .badge {
-        font-size: 0.75em;
-        padding: 0.3em 0.6em;
-        border-radius: 0.5em;
-    }
-    
-    .invoice-card .small, .invoice-card .text-muted {
-        font-size: 0.92em;
-    }
+  .dashboard-table {
+    width: 100% !important;
+  }
+
+  .dashboard-table td, 
+  .dashboard-table th {
+    padding: 0.75rem;
+    vertical-align: middle;
+  }
+
+  .dashboard-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  .table-hover {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+  }
+
+  .dataTables_wrapper .dataTables_filter input {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .dataTables_wrapper .dataTables_length select {
+    min-width: 80px;
+  }
+
+  .dataTables_wrapper .dataTables_info {
+    color: #6c757d;
+  }
+
+  .dataTables_wrapper .dataTables_processing {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
 `;
 document.head.appendChild(style);
 
-// Invoice Dashboard Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize variables
-    let currentFilter = 'all';
-    let currentSort = { column: null, direction: 'asc' };
-    let selectedInvoices = new Set();
-    
-    // DOM Elements
-    const tabButtons = document.querySelectorAll('.dashboard-tabs .tab');
-    const selectAllCheckbox = document.getElementById('selectAllInvoices');
-    const tableBody = document.getElementById('invoiceDashboardBody');
-    const searchInput = document.createElement('input');
-    
-    // Initialize search input
-    searchInput.type = 'text';
-    searchInput.className = 'form-control form-control-sm dashboard-search-input';
-    searchInput.placeholder = 'Search invoices...';
-    searchInput.style.maxWidth = '250px';
-    // Add a search icon
-    const searchWrapper = document.createElement('div');
-    searchWrapper.className = 'search-input-wrapper position-relative';
-    searchWrapper.appendChild(searchInput);
-    const searchIcon = document.createElement('i');
-    searchIcon.className = 'bi bi-search search-input-icon';
-    searchWrapper.appendChild(searchIcon);
-    document.querySelector('.dashboard-search').appendChild(searchWrapper);
-    
-    // Tab Filtering
-    tabButtons.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Update active state
-            tabButtons.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Update filter
-            currentFilter = this.textContent.trim().toLowerCase().split(' ')[0];
-            filterTable();
-        });
-    });
-    
-    // Search Functionality
-    searchInput.addEventListener('input', debounce(function() {
-        filterTable();
-    }, 300));
-    
-    // Select All Functionality
-    selectAllCheckbox.addEventListener('change', function() {
-        const checkboxes = tableBody.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = this.checked;
-            const invoiceId = checkbox.value;
-            if (this.checked) {
-                selectedInvoices.add(invoiceId);
-            } else {
-                selectedInvoices.delete(invoiceId);
-            }
-        });
-        updateBulkActions();
-    });
-    
-    // Table Sorting
-    document.querySelectorAll('.dashboard-table th').forEach(header => {
-        if (header.dataset.sortable !== 'false') {
-            header.style.cursor = 'pointer';
-            header.addEventListener('click', () => {
-                const column = header.dataset.column;
-                sortTable(column);
-            });
-        }
-    });
-    
-    // Functions
-    function filterTable() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const rows = tableBody.querySelectorAll('tr');
-        
-        rows.forEach(row => {
-            const status = row.querySelector('.badge').textContent.toLowerCase();
-            const text = row.textContent.toLowerCase();
-            const matchesFilter = currentFilter === 'all' || status.includes(currentFilter);
-            const matchesSearch = text.includes(searchTerm);
-            
-            row.style.display = matchesFilter && matchesSearch ? '' : 'none';
-        });
-        
-        updateTabCounts();
-    }
-    
-    function sortTable(column) {
-        const rows = Array.from(tableBody.querySelectorAll('tr'));
-        const header = document.querySelector(`th[data-column="${column}"]`);
-        if (!header) return;
-        
-        // Update sort direction
-        if (currentSort.column === column) {
-            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
-        } else {
-            currentSort.column = column;
-            currentSort.direction = 'asc';
-        }
-        
-        // Update header indicators
-        document.querySelectorAll('.dashboard-table th').forEach(th => {
-            th.classList.remove('sort-asc', 'sort-desc');
-        });
-        header.classList.add(`sort-${currentSort.direction}`);
-        
-        // Sort rows
-        rows.sort((a, b) => {
-            const aCell = a.querySelector(`td[data-column="${column}"]`);
-            const bCell = b.querySelector(`td[data-column="${column}"]`);
-            const aValue = aCell ? aCell.textContent : '';
-            const bValue = bCell ? bCell.textContent : '';
-            
-            if (currentSort.direction === 'asc') {
-                return aValue.localeCompare(bValue);
-            } else {
-                return bValue.localeCompare(aValue);
-            }
-        });
-        
-        // Reorder rows
-        rows.forEach(row => tableBody.appendChild(row));
-    }
-    
-    function updateTabCounts() {
-        const counts = {
-            all: 0,
-            pending: 0,
-            approved: 0,
-            flagged: 0
-        };
-        
-        tableBody.querySelectorAll('tr').forEach(row => {
-            if (row.style.display !== 'none') {
-                counts.all++;
-                const status = row.querySelector('.badge').textContent.toLowerCase();
-                if (status.includes('pending')) counts.pending++;
-                if (status.includes('approved')) counts.approved++;
-                if (status.includes('flagged')) counts.flagged++;
-            }
-        });
-        
-        tabButtons.forEach(tab => {
-            const status = tab.textContent.trim().toLowerCase().split(' ')[0];
-            const badge = tab.querySelector('.tab-badge');
-            if (badge) {
-                badge.textContent = counts[status] || '0';
-            }
-        });
-    }
-    
-    function updateBulkActions() {
-        const bulkActions = document.querySelector('.bulk-actions');
-        const selectedCount = document.querySelector('.bulk-actions .selected-count');
-        const checked = document.querySelectorAll('.row-select:checked').length;
-        if (bulkActions) {
-            bulkActions.style.display = checked > 0 ? 'flex' : 'none';
-            if (selectedCount) {
-                selectedCount.textContent = `${checked} item${checked === 1 ? '' : 's'} selected`;
-            }
-        }
-    }
-    
-    // Utility Functions
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-    
-    // Initialize
-    filterTable();
-    
-    // Add bulk actions container
-    const bulkActions = document.createElement('div');
-    bulkActions.className = 'bulk-actions';
-    bulkActions.style.display = 'none';
-    bulkActions.innerHTML = `
-        <div class="selected-count">${selectedInvoices.size} selected</div>
-        <div class="action-buttons">
-            <button class="btn btn-sm btn-primary" onclick="submitSelected()">Submit</button>
-        </div>
-    `;
-    document.querySelector('.dashboard-card').insertBefore(bulkActions, document.querySelector('.table-responsive'));
-
-    // Ensure bulk-actions shows on any selection
-    tableBody.addEventListener('change', function(e) {
-        if (e.target.classList.contains('row-select')) {
-            updateBulkActions();
-        }
-    });
-});
-
 // Action Functions
 function approveSelected() {
-    // Implementation for approving selected invoices
+    const selectedRows = $('.row-select:checked').length;
+    if (selectedRows === 0) {
+        alert('Please select at least one invoice to approve.');
+        return;
+    }
     console.log('Approving selected invoices...');
 }
 
 function flagSelected() {
-    // Implementation for flagging selected invoices
+    const selectedRows = $('.row-select:checked').length;
+    if (selectedRows === 0) {
+        alert('Please select at least one invoice to flag.');
+        return;
+    }
     console.log('Flagging selected invoices...');
 }
 
 function exportSelected() {
-    // Implementation for exporting selected invoices
+    const selectedRows = $('.row-select:checked').length;
+    if (selectedRows === 0) {
+        alert('Please select at least one invoice to export.');
+        return;
+    }
     console.log('Exporting selected invoices...');
 }
 
-// Add submitSelected function
 function submitSelected() {
-    // Implementation for submitting selected invoices
+    const selectedRows = $('.row-select:checked').length;
+    if (selectedRows === 0) {
+        alert('Please select at least one invoice to submit.');
+        return;
+    }
     console.log('Submitting selected invoices...');
 }
 
-// Pagination and Items Per Page Functionality
-let currentPage = 1;
-let itemsPerPage = 10;
-let totalPages = Math.ceil(invoiceData.length / itemsPerPage);
-
-function updatePagination() {
-    const startEntry = document.getElementById('startEntry');
-    const endEntry = document.getElementById('endEntry');
-    const totalEntries = document.getElementById('totalEntries');
-    const pageNumbers = document.querySelector('.page-numbers');
-    
-    // Update entry information
-    const start = (currentPage - 1) * itemsPerPage + 1;
-    const end = Math.min(start + itemsPerPage - 1, invoiceData.length);
-    startEntry.textContent = start;
-    endEntry.textContent = end;
-    totalEntries.textContent = invoiceData.length;
-    
-    // Update page numbers
-    pageNumbers.innerHTML = '';
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-    
-    if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
-    
-    for (let i = startPage; i <= endPage; i++) {
-        const button = document.createElement('button');
-        button.className = `btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline-secondary'}`;
-        button.textContent = i;
-        button.onclick = () => goToPage(i);
-        pageNumbers.appendChild(button);
-    }
-    
-    // Update navigation buttons
-    document.getElementById('firstPage').disabled = currentPage === 1;
-    document.getElementById('prevPage').disabled = currentPage === 1;
-    document.getElementById('nextPage').disabled = currentPage === totalPages;
-    document.getElementById('lastPage').disabled = currentPage === totalPages;
-}
-
-function goToPage(page) {
-    if (page < 1 || page > totalPages) return;
-    currentPage = page;
-    renderPage(currentPage);
-    updatePagination();
-}
-
-function updateItemsPerPage() {
-    itemsPerPage = parseInt(document.getElementById('itemsPerPage').value);
-    totalPages = Math.ceil(invoiceData.length / itemsPerPage);
-    currentPage = 1;
-    renderPage(currentPage);
-    updatePagination();
-}
-
-// Initialize footer functionality
-document.addEventListener('DOMContentLoaded', () => {
-    // ... existing initialization code ...
-    
-    // Add event listeners for pagination
-    document.getElementById('firstPage').addEventListener('click', () => goToPage(1));
-    document.getElementById('prevPage').addEventListener('click', () => goToPage(currentPage - 1));
-    document.getElementById('nextPage').addEventListener('click', () => goToPage(currentPage + 1));
-    document.getElementById('lastPage').addEventListener('click', () => goToPage(totalPages));
-    
-    // Add event listener for items per page
-    document.getElementById('itemsPerPage').addEventListener('change', updateItemsPerPage);
-    
-    // Initialize pagination
-    updatePagination();
-});
-
-// Update renderPage function to use itemsPerPage
-function renderPage(page) {
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageData = invoiceData.slice(start, end);
-    
-    const tbody = document.getElementById('invoiceDashboardBody');
-    tbody.innerHTML = '';
-    
-    pageData.forEach((row, idx) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td><input type="checkbox" class="row-select" value="${start + idx + 1}"></td>
-            <td>${row.Part}</td>
-            <td>${row.Module}</td>
-            <td>${row.Class}</td>
-            <td class="text-muted">${row.Desc}</td>
-            <td>${row.Qty}</td>
-            <td>$${row.Unit.toLocaleString()}</td>
-            <td>$${row.Total.toLocaleString()}</td>
-            <td>
-                <span class="badge badge-${row.Group === 'Underbilled' ? 'underbilled' : 'approved'}">
-                    ${row.Group === 'Underbilled' ? 'Underbilled' : 'Approved'}
-                </span>
-            </td>
-            <td>
-                <span class="badge badge-pending">${row.Insights}</span>
-            </td>
-            <td>${row.Group || '-'}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-// Add action menu functionality
+// Action menu functionality
 function toggleActionsMenu(button) {
     const menu = button.nextElementSibling;
     const allMenus = document.querySelectorAll('.actions-menu');
@@ -500,21 +359,12 @@ document.addEventListener('click', (e) => {
 // Action handlers
 function viewDetails(id) {
     console.log('Viewing details for invoice:', id);
-    // Implement view details functionality
 }
 
 function editInvoice(id) {
     console.log('Editing invoice:', id);
-    // Implement edit functionality
 }
 
 function deleteInvoice(id) {
     console.log('Deleting invoice:', id);
-    // Implement delete functionality
-}
-
-// Initialize the dashboard
-document.addEventListener('DOMContentLoaded', () => {
-    renderPage(1);
-    // ... existing initialization code ...
-}); 
+} 
