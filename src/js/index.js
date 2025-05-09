@@ -282,4 +282,123 @@ function initializeCharts() {
       }
     });
   }
+
+  // Contract Status Chart (Customer breakdown)
+  const contractStatusCtx = document.getElementById('contractStatusChart')?.getContext('2d');
+  if (contractStatusCtx) {
+    // Data
+    const customers = ['Customer1', 'Customer2', 'Customer3', 'Customer4', 'Customer5', 'Customer6', 'Customer7', 'Customer8', 'Customer9', 'Customer10'];
+    const late = [20, 17, 16, 6, 15, 15, 14, 7, 4, 2];
+    const onTime = [9, 8, 1, 56, 61, 3, 0, 32, 1, 7];
+    // Calculate totals and percentages
+    const totals = late.map((l, i) => l + onTime[i]);
+    const latePct = late.map((l, i) => totals[i] ? (l / totals[i]) * 100 : 0);
+    const onTimePct = onTime.map((o, i) => totals[i] ? (o / totals[i]) * 100 : 0);
+    const totalContracts = totals.reduce((a, b) => a + b, 0);
+    const totalLate = late.reduce((a, b) => a + b, 0);
+    const totalOnTime = onTime.reduce((a, b) => a + b, 0);
+    const overallLatePct = totalContracts ? (totalLate / totalContracts) * 100 : 0;
+    const overallOnTimePct = totalContracts ? (totalOnTime / totalContracts) * 100 : 0;
+    // Find best/worst
+    const bestIdx = onTimePct.indexOf(Math.max(...onTimePct));
+    const worstIdx = latePct.indexOf(Math.max(...latePct));
+    // Bar colors
+    const lateColors = late.map((_, i) => i === worstIdx ? 'rgba(239, 68, 68, 1)' : 'rgba(239, 68, 68, 0.7)');
+    const onTimeColors = onTime.map((_, i) => i === bestIdx ? 'rgba(16, 185, 129, 1)' : 'rgba(16, 185, 129, 0.7)');
+    // Chart
+    new Chart(contractStatusCtx, {
+      type: 'bar',
+      data: {
+        labels: customers,
+        datasets: [
+          {
+            label: 'Late',
+            data: late,
+            backgroundColor: lateColors,
+            borderColor: 'rgba(239, 68, 68, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'On Time',
+            data: onTime,
+            backgroundColor: onTimeColors,
+            borderColor: 'rgba(16, 185, 129, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true },
+          tooltip: {
+            backgroundColor: 'white',
+            titleColor: '#1e293b',
+            bodyColor: '#1e293b',
+            borderColor: '#e2e8f0',
+            borderWidth: 1,
+            padding: 8,
+            boxPadding: 4,
+            usePointStyle: true,
+            callbacks: {
+              label: function(context) {
+                const idx = context.dataIndex;
+                const l = late[idx];
+                const o = onTime[idx];
+                const t = totals[idx];
+                const lPct = latePct[idx].toFixed(1);
+                const oPct = onTimePct[idx].toFixed(1);
+                if (context.dataset.label === 'Late') {
+                  return `Late: ${l} (${lPct}%) of ${t}`;
+                } else {
+                  return `On Time: ${o} (${oPct}%) of ${t}`;
+                }
+              },
+              afterBody: function(context) {
+                const idx = context[0].dataIndex;
+                return `Total: ${totals[idx]}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            stacked: true,
+            ticks: { color: '#64748b', font: { size: 10 } }
+          },
+          y: {
+            stacked: true,
+            beginAtZero: true,
+            ticks: { color: '#64748b', font: { size: 10 } }
+          }
+        }
+      }
+    });
+    // Summary box
+    const summaryDiv = document.getElementById('contractSummary');
+    if (summaryDiv) {
+      summaryDiv.innerHTML = `
+        <style>
+          .contract-pill { display: flex; align-items: center; gap: 0.28em; border-radius: 999px; padding: 0.12em 0.65em; font-weight: 500; font-size: 0.93em; box-shadow: 0 1px 4px #0001; transition: box-shadow 0.18s, transform 0.18s; background: linear-gradient(90deg, #f8fafc 60%, #e0e7ef 100%); margin-bottom: 1px; min-height: 1.7em; }
+          .contract-pill:hover { box-shadow: 0 4px 12px #6366f122; transform: translateY(-1px) scale(1.02); cursor: pointer; }
+          .contract-pill .contract-num { font-size: 1em; font-weight: 600; margin-left: 0.2em; }
+          .contract-pill i { font-size: 1em; }
+          .contract-pill-total { background: linear-gradient(90deg, #e0e7ef 60%, #f1f5f9 100%); color: #334155; }
+          .contract-pill-late { background: linear-gradient(90deg, #fee2e2 60%, #fecaca 100%); color: #b91c1c; }
+          .contract-pill-ontime { background: linear-gradient(90deg, #dcfce7 60%, #bbf7d0 100%); color: #15803d; }
+          .contract-pill-best { background: linear-gradient(90deg, #ede9fe 60%, #c7d2fe 100%); color: #6d28d9; }
+          .contract-pill-worst { background: linear-gradient(90deg, #fef9c3 60%, #fde68a 100%); color: #b45309; }
+          .contract-summary-divider { width: 1.2px; height: 1.3em; background: #e5e7eb; border-radius: 2px; margin: 0 0.4em; display: inline-block; }
+          @media (max-width: 600px) { #contractSummary { flex-direction: column !important; align-items: stretch !important; gap: 0.3rem !important; } .contract-summary-divider { display: none; } }
+        </style>
+        <span class="contract-pill contract-pill-total"><i class='bi bi-collection me-1'></i> Total <span class='contract-num'>${totalContracts}</span></span>
+        <span class="contract-pill contract-pill-late"><i class='bi bi-exclamation-circle me-1'></i> Late <span class='contract-num'>${totalLate} (${overallLatePct.toFixed(1)}%)</span></span>
+        <span class="contract-pill contract-pill-ontime"><i class='bi bi-check-circle me-1'></i> On Time <span class='contract-num'>${totalOnTime} (${overallOnTimePct.toFixed(1)}%)</span></span>
+        <span class="contract-summary-divider"></span>
+        <span class="contract-pill contract-pill-best"><i class='bi bi-star-fill me-1'></i> Best <span class='contract-num'>${customers[bestIdx]} (${onTimePct[bestIdx].toFixed(1)}% On Time)</span></span>
+        <span class="contract-pill contract-pill-worst"><i class='bi bi-emoji-frown-fill me-1'></i> Worst <span class='contract-num'>${customers[worstIdx]} (${latePct[worstIdx].toFixed(1)}% Late)</span></span>
+      `;
+    }
+  }
 }
