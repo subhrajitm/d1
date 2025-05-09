@@ -20,103 +20,12 @@ $(document).ready(function () {
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
-  // Initialize DataTables
-  const shopTable = $('#shopStatusOverviewTable').DataTable({
-    pageLength: 10,
-    order: [[0, 'asc']],
-    dom: '<"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-    language: {
-      info: "Showing _START_ to _END_ of _TOTAL_ shops",
-      paginate: {
-        first: '<i class="bi bi-chevron-double-left"></i>',
-        last: '<i class="bi bi-chevron-double-right"></i>',
-        next: '<i class="bi bi-chevron-right"></i>',
-        previous: '<i class="bi bi-chevron-left"></i>'
-      }
-    }
-  });
-
-  // Shop search functionality
-  $('#shopSearch').on('keyup', function () {
-    shopTable.search(this.value).draw();
-  });
-
-  // Filter functionality
-  $('.table-filters .btn').on('click', function () {
-    $('.table-filters .btn').removeClass('active');
-    $(this).addClass('active');
-
-    const filter = $(this).data('filter');
-    if (filter === 'all') {
-      shopTable.search('').draw();
-    } else {
-      shopTable.search(filter).draw();
-    }
-  });
-
-  // Queue tab switching with animation
-  $('.queue-tab').on('click', function () {
-    $('.queue-tab').removeClass('active');
-    $(this).addClass('active');
-
-    $('.table-container').fadeOut(200, function () {
-      $(this).fadeIn(200);
-    });
-  });
-
   // Initialize Charts
   initializeCharts();
 });
 
 // Charts Initialization
 function initializeCharts() {
-  // Mini charts initialization
-  const createMiniChart = (ctx, data, color) => {
-    if (!ctx) return;
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: new Array(data.length).fill(''),
-        datasets: [{
-          data: data,
-          borderColor: color,
-          borderWidth: 2,
-          tension: 0.4,
-          pointRadius: 0,
-          fill: true,
-          backgroundColor: color + '10'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { display: false },
-          y: { display: false }
-        }
-      }
-    });
-  };
-
-  // Initialize mini charts
-  createMiniChart(document.getElementById('invoicesChart')?.getContext('2d'),
-    [30, 35, 25, 45, 30, 55, 45],
-    '#4f46e5'
-  );
-  createMiniChart(document.getElementById('pendingBillingChart')?.getContext('2d'),
-    [25, 30, 35, 40, 35, 45, 40],
-    '#f59e0b'
-  );
-  createMiniChart(document.getElementById('paidBillingChart')?.getContext('2d'),
-    [45, 50, 40, 60, 45, 70, 60],
-    '#10b981'
-  );
-  createMiniChart(document.getElementById('overdueBillingChart')?.getContext('2d'),
-    [15, 20, 25, 15, 20, 10, 15],
-    '#ef4444'
-  );
-
   // Delay Reasons Analysis Chart
   const delayReasonsOverviewCtx = document.getElementById('delayReasonsOverviewChart')?.getContext('2d');
   if (delayReasonsOverviewCtx) {

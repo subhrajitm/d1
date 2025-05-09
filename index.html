@@ -21,7 +21,6 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="src/css/main.css">
   <link rel="stylesheet" href="src/css/index.css">
-  <link rel="stylesheet" href="src/css/shop-status.css">
 </head>
 
 <body>
@@ -313,30 +312,52 @@
 
               <div class="row g-2 mb-2">
                 <div class="col-4">
-                  <div class="bg-light rounded p-2">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <span class="small text-muted">Average</span>
-                      <span class="badge bg-success-subtle text-success">+15.3%</span>
+                  <div class="bg-light rounded p-2 h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="small text-muted fw-medium">Average</span>
                     </div>
-                    <div class="h5 mb-0">48.6</div>
+                    <div class="mt-auto">
+                      <div class="d-flex align-items-baseline">
+                        <span class="h4 mb-0 fw-semibold">48.6</span>
+                        <span class="ms-2 px-2 py-1 rounded-pill small fw-medium" style="background: rgba(25, 135, 84, 0.1); color: #198754;">
+                          <i class="bi bi-arrow-up-right me-1"></i>+15.3%
+                        </span>
+                      </div>
+                      <div class="small text-muted mt-1">vs last month</div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-4">
-                  <div class="bg-light rounded p-2">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <span class="small text-muted">Peak</span>
-                      <span class="badge bg-primary-subtle text-primary">Jun'23</span>
+                  <div class="bg-light rounded p-2 h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="small text-muted fw-medium">Peak</span>
+                      <span class="badge bg-primary-subtle text-primary rounded-pill px-2 py-1">Jun'23</span>
                     </div>
-                    <div class="h5 mb-0">113</div>
+                    <div class="mt-auto">
+                      <div class="d-flex align-items-baseline">
+                        <span class="h4 mb-0 fw-semibold">113</span>
+                        <span class="ms-2 px-2 py-1 rounded-pill small fw-medium" style="background: rgba(13, 110, 253, 0.1); color: #0d6efd;">
+                          <i class="bi bi-arrow-up-right me-1"></i>+132.5%
+                        </span>
+                      </div>
+                      <div class="small text-muted mt-1">highest recorded</div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-4">
-                  <div class="bg-light rounded p-2">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <span class="small text-muted">Latest</span>
-                      <span class="badge bg-danger-subtle text-danger">-33.3%</span>
+                  <div class="bg-light rounded p-2 h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="small text-muted fw-medium">Latest</span>
                     </div>
-                    <div class="h5 mb-0">50</div>
+                    <div class="mt-auto">
+                      <div class="d-flex align-items-baseline">
+                        <span class="h4 mb-0 fw-semibold">50</span>
+                        <span class="ms-2 px-2 py-1 rounded-pill small fw-medium" style="background: rgba(220, 53, 69, 0.1); color: #dc3545;">
+                          <i class="bi bi-arrow-down-right me-1"></i>-33.3%
+                        </span>
+                      </div>
+                      <div class="small text-muted mt-1">current month</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -438,18 +459,6 @@
                   </div>
                 </div>
               </div>
-
-              <div class="chart-footer mt-2 pt-2 border-top">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="chart-insight small text-muted">
-                    <i class="bi bi-info-circle"></i>
-                    <span>Resource capacity is the primary delay factor</span>
-                  </div>
-                  <div class="small">
-                    <!-- View Details link removed -->
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -473,345 +482,14 @@
               <div class="chart-wrapper" style="height: 180px;">
                 <canvas id="contractStatusChart"></canvas>
               </div>
-              <div class="chart-footer mt-2 pt-2 border-top">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="chart-insight small text-muted">
-                    <i class="bi bi-info-circle"></i>
-                    <span>Customer contract status breakdown</span>
-                  </div>
-                </div>
-                <div id="contractSummary" class="contract-summary-compact" style="background: #f8fafc; border-radius: 0.75rem; padding: 0.5rem; font-size: 0.91em; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; justify-content: flex-start; border: 1px solid #e2e8f0;">
-                  <!-- Summary content will be injected by JS -->
-                </div>
+              <div id="contractSummary" class="contract-summary-compact mt-3" style="background: #f8fafc; border-radius: 0.75rem; padding: 0.5rem; font-size: 0.91em; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; justify-content: flex-start; border: 1px solid #e2e8f0;">
+                <!-- Summary content will be injected by JS -->
               </div>
             </div>
           </div>
 
         </div>
 
-
-        <!-- Shop Status Overview Section -->
-        <div class="table-section">
-          <div class="table-header">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <div class="d-flex align-items-center gap-3">
-                <h2 class="table-title">
-                  <i class="bi bi-shop"></i>
-                  Shop Status Overview
-                </h2>
-                <div class="table-badge">
-                  <i class="bi bi-buildings"></i>
-                  3 Active Shops
-                </div>
-              </div>
-            </div>
-
-            <div class="table-toolbar">
-              <div class="search-filter-group">
-                <div class="table-search">
-                  <i class="bi bi-search search-icon"></i>
-                  <input type="text" placeholder="Search shops...">
-                </div>
-                <button class="filter-btn">
-                  <i class="bi bi-funnel"></i>
-                  Filters
-                  <i class="bi bi-chevron-down"></i>
-                </button>
-              </div>
-
-              <div class="view-options">
-                <div class="btn-group" role="tablist">
-                  <button class="view-btn active" id="my-queue-tab" data-bs-toggle="tab" data-bs-target="#my-queue"
-                    type="button" role="tab">
-                    My Queue
-                  </button>
-                  <button class="view-btn" id="overall-queue-tab" data-bs-toggle="tab" data-bs-target="#overall-queue"
-                    type="button" role="tab">
-                    Overall Queue
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-content">
-            <!-- My Queue Tab -->
-            <div class="tab-pane fade show active" id="my-queue" role="tabpanel" aria-labelledby="my-queue-tab">
-              <div class="table-responsive">
-                <table class="table align-middle">
-                  <thead>
-                    <tr>
-                      <th>Shop</th>
-                      <th>Total SV</th>
-                      <th>Past Due</th>
-                      <th>Upcoming</th>
-                      <th>No Due</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="shop-info">
-                          <div class="shop-icon">
-                            <i class="bi bi-shop"></i>
-                          </div>
-                          <div class="shop-details">
-                            <div class="shop-name">Shop1</div>
-                            <div class="shop-meta">
-                              <span class="shop-id">SH001</span>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="volume-info">
-                          <div class="volume-stats">
-                            <div class="volume-current">27</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Past Due</span>
-                          <span class="status-badge danger">2</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Upcoming</span>
-                          <span class="status-badge warning">5</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">No Due</span>
-                          <span class="status-badge success">20</span>
-                        </div>
-                      </td>
-                      <td>
-                        <a href="shop.html" class="view-details-btn">
-                          <i class="bi bi-arrow-right-circle"></i>
-                          View Details
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Overall Queue Tab -->
-            <div class="tab-pane fade" id="overall-queue" role="tabpanel" aria-labelledby="overall-queue-tab">
-              <div class="table-responsive">
-                <table class="table align-middle">
-                  <thead>
-                    <tr>
-                      <th>Shop</th>
-                      <th>Total SV</th>
-                      <th>Past Due</th>
-                      <th>Upcoming</th>
-                      <th>No Due</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="shop-info">
-                          <div class="shop-icon">
-                            <i class="bi bi-shop"></i>
-                          </div>
-                          <div class="shop-details">
-                            <div class="shop-name">Shop2</div>
-                            <div class="shop-meta">
-                              <span class="shop-id">SH002</span>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="volume-info">
-                          <div class="volume-stats">
-                            <div class="volume-current">16</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Past Due</span>
-                          <span class="status-badge danger">0</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Upcoming</span>
-                          <span class="status-badge warning">3</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">No Due</span>
-                          <span class="status-badge success">13</span>
-                        </div>
-                      </td>
-                      <td>
-                        <a href="shop.html?id=2" class="view-details-btn">
-                          <i class="bi bi-arrow-right-circle"></i>
-                          View Details
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="shop-info">
-                          <div class="shop-icon">
-                            <i class="bi bi-shop"></i>
-                          </div>
-                          <div class="shop-details">
-                            <div class="shop-name">Shop1</div>
-                            <div class="shop-meta">
-                              <span class="shop-id">SH001</span>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="volume-info">
-                          <div class="volume-stats">
-                            <div class="volume-current">27</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Past Due</span>
-                          <span class="status-badge danger">2</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Upcoming</span>
-                          <span class="status-badge warning">5</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">No Due</span>
-                          <span class="status-badge success">20</span>
-                        </div>
-                      </td>
-                      <td>
-                        <a href="shop.html?id=1" class="view-details-btn">
-                          <i class="bi bi-arrow-right-circle"></i>
-                          View Details
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="shop-info">
-                          <div class="shop-icon">
-                            <i class="bi bi-shop"></i>
-                          </div>
-                          <div class="shop-details">
-                            <div class="shop-name">Shop3</div>
-                            <div class="shop-meta">
-                              <span class="shop-id">SH003</span>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="volume-info">
-                          <div class="volume-stats">
-                            <div class="volume-current">16</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Past Due</span>
-                          <span class="status-badge danger">1</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Upcoming</span>
-                          <span class="status-badge warning">0</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">No Due</span>
-                          <span class="status-badge success">15</span>
-                        </div>
-                      </td>
-                      <td>
-                        <a href="shop.html?id=3" class="view-details-btn">
-                          <i class="bi bi-arrow-right-circle"></i>
-                          View Details
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="table-active">
-                      <td>
-                        <div class="shop-info">
-                          <div class="shop-details">
-                            <div class="shop-name fw-bold">Total</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="volume-info">
-                          <div class="volume-stats">
-                            <div class="volume-current fw-bold">59</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Past Due</span>
-                          <span class="status-badge danger fw-bold">3</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">Upcoming</span>
-                          <span class="status-badge warning fw-bold">8</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="status-cell">
-                          <span class="status-label">No Due</span>
-                          <span class="status-badge success fw-bold">48</span>
-                        </div>
-                      </td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="table-footer">
-          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-            <div class="table-info">
-              Showing <span class="highlight">1-10</span> of <span class="highlight">27</span> shops
-            </div>
-            <div class="pagination-controls">
-              <button class="page-btn" disabled>
-                <i class="bi bi-chevron-left"></i>
-              </button>
-              <span class="page-indicator">Page 1 of 3</span>
-              <button class="page-btn">
-                <i class="bi bi-chevron-right"></i>
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
   </div>
