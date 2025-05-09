@@ -380,24 +380,57 @@ function initializeCharts() {
     if (summaryDiv) {
       summaryDiv.innerHTML = `
         <style>
-          .contract-pill { display: flex; align-items: center; gap: 0.28em; border-radius: 999px; padding: 0.12em 0.65em; font-weight: 500; font-size: 0.93em; box-shadow: 0 1px 4px #0001; transition: box-shadow 0.18s, transform 0.18s; background: linear-gradient(90deg, #f8fafc 60%, #e0e7ef 100%); margin-bottom: 1px; min-height: 1.7em; }
-          .contract-pill:hover { box-shadow: 0 4px 12px #6366f122; transform: translateY(-1px) scale(1.02); cursor: pointer; }
-          .contract-pill .contract-num { font-size: 1em; font-weight: 600; margin-left: 0.2em; }
-          .contract-pill i { font-size: 1em; }
-          .contract-pill-total { background: linear-gradient(90deg, #e0e7ef 60%, #f1f5f9 100%); color: #334155; }
-          .contract-pill-late { background: linear-gradient(90deg, #fee2e2 60%, #fecaca 100%); color: #b91c1c; }
-          .contract-pill-ontime { background: linear-gradient(90deg, #dcfce7 60%, #bbf7d0 100%); color: #15803d; }
-          .contract-pill-best { background: linear-gradient(90deg, #ede9fe 60%, #c7d2fe 100%); color: #6d28d9; }
-          .contract-pill-worst { background: linear-gradient(90deg, #fef9c3 60%, #fde68a 100%); color: #b45309; }
-          .contract-summary-divider { width: 1.2px; height: 1.3em; background: #e5e7eb; border-radius: 2px; margin: 0 0.4em; display: inline-block; }
-          @media (max-width: 600px) { #contractSummary { flex-direction: column !important; align-items: stretch !important; gap: 0.3rem !important; } .contract-summary-divider { display: none; } }
+          .contract-pill { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.3em; 
+            border-radius: 999px; 
+            padding: 0.2em 0.7em; 
+            font-weight: 500; 
+            font-size: 0.9em; 
+            background: white; 
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+          }
+          .contract-pill:hover { 
+            transform: translateY(-1px); 
+            cursor: pointer; 
+          }
+          .contract-pill .contract-num { 
+            font-weight: 600; 
+            margin-left: 0.2em; 
+          }
+          .contract-pill i { 
+            font-size: 0.9em; 
+          }
+          .contract-pill-total { color: #334155; }
+          .contract-pill-late { color: #b91c1c; }
+          .contract-pill-ontime { color: #15803d; }
+          .contract-pill-best { color: #6d28d9; }
+          .contract-pill-worst { color: #b45309; }
+          .contract-summary-divider { 
+            width: 1px; 
+            height: 1.2em; 
+            background: #e2e8f0; 
+            margin: 0 0.4em; 
+          }
+          @media (max-width: 600px) { 
+            #contractSummary { 
+              flex-direction: column !important; 
+              align-items: stretch !important; 
+              gap: 0.3rem !important; 
+            } 
+            .contract-summary-divider { 
+              display: none; 
+            } 
+          }
         </style>
         <span class="contract-pill contract-pill-total"><i class='bi bi-collection me-1'></i> Total <span class='contract-num'>${totalContracts}</span></span>
         <span class="contract-pill contract-pill-late"><i class='bi bi-exclamation-circle me-1'></i> Late <span class='contract-num'>${totalLate} (${overallLatePct.toFixed(1)}%)</span></span>
         <span class="contract-pill contract-pill-ontime"><i class='bi bi-check-circle me-1'></i> On Time <span class='contract-num'>${totalOnTime} (${overallOnTimePct.toFixed(1)}%)</span></span>
         <span class="contract-summary-divider"></span>
-        <span class="contract-pill contract-pill-best"><i class='bi bi-star-fill me-1'></i> Best <span class='contract-num'>${customers[bestIdx]} (${onTimePct[bestIdx].toFixed(1)}% On Time)</span></span>
-        <span class="contract-pill contract-pill-worst"><i class='bi bi-emoji-frown-fill me-1'></i> Worst <span class='contract-num'>${customers[worstIdx]} (${latePct[worstIdx].toFixed(1)}% Late)</span></span>
+        <span class="contract-pill contract-pill-best"><i class='bi bi-star-fill me-1'></i> Best <span class='contract-num'>${customers[bestIdx]} (${onTimePct[bestIdx].toFixed(1)}%)</span></span>
+        <span class="contract-pill contract-pill-worst"><i class='bi bi-emoji-frown-fill me-1'></i> Worst <span class='contract-num'>${customers[worstIdx]} (${latePct[worstIdx].toFixed(1)}%)</span></span>
       `;
     }
   }
