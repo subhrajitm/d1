@@ -151,13 +151,13 @@
 .invoice-view table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1.5rem;
-  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.813rem;
 }
 
 .invoice-view table th {
   background: #f8fafc;
-  padding: 0.75rem;
+  padding: 0.5rem 0.75rem;
   text-align: left;
   font-weight: 600;
   color: #1e293b;
@@ -165,14 +165,15 @@
 }
 
 .invoice-view table td {
-  padding: 0.75rem;
+  padding: 0.5rem 0.75rem;
   border: 1px solid #e2e8f0;
   color: #475569;
 }
 
 .address-block {
-  line-height: 1.5;
+  line-height: 1.4;
   color: #475569;
+  font-size: 0.813rem;
 }
 
 .right {
@@ -182,6 +183,7 @@
 .amount {
   font-family: 'Roboto Mono', monospace;
   font-weight: 500;
+  font-size: 0.813rem;
 }
 
 .amount.negative {
@@ -195,26 +197,53 @@
 .total-row td {
   font-weight: 600;
   color: #1e293b;
+  padding: 0.5rem 0.75rem;
 }
 
 .total-amount {
-  font-size: 1.125rem;
+  font-size: 1rem;
 }
 
 .status-badge {
   background: #f1f5f9;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.813rem;
   color: #475569;
   text-align: center;
 }
 
 .note {
-  font-size: 0.875rem;
+  font-size: 0.813rem;
   color: #64748b;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
+}
+
+/* Header section styles */
+.invoice-view .d-flex.justify-content-between {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.invoice-view .d-flex.justify-content-between h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.invoice-view .d-flex.justify-content-between p {
+  font-size: 0.813rem;
+  margin-bottom: 0;
+}
+
+/* Button styles */
+.invoice-view .btn {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.813rem;
+}
+
+.invoice-view .btn i {
+  font-size: 0.875rem;
 }
 
 /* Button hover effects */
