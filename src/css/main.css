@@ -1,6 +1,7 @@
 /* Root Variables */
 :root {
   --primary-color: #4f46e5;
+  --primary-color-rgb: 79, 70, 229;
   --primary-light: #6366f1;
   --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
   --success-color: #10b981;
