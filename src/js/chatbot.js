@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const chatbot = document.getElementById('chatbot');
     const chatbotTrigger = document.getElementById('chatbot-trigger');
-    const chatbotMinimize = document.getElementById('chatbot-minimize');
     const chatbotMaximize = document.getElementById('chatbot-maximize');
     const chatbotFullscreen = document.getElementById('chatbot-fullscreen');
     const chatbotClose = document.getElementById('chatbot-close');
@@ -14,11 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         chatbotTrigger.classList.toggle('active');
         chatbot.classList.toggle('active');
 
-        // If chatbot was minimized before closing, restore it when opened
-        if (chatbot.classList.contains('minimized') && chatbot.classList.contains('active')) {
-            chatbot.classList.remove('minimized');
-        }
-
         // Focus input when chatbot is opened
         if (chatbot.classList.contains('active')) {
             setTimeout(() => {
@@ -27,22 +21,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Minimize chatbot
-    chatbotMinimize.addEventListener('click', function() {
-        chatbot.classList.add('minimized');
-        chatbot.classList.remove('maximized', 'fullscreen');
-    });
-
     // Maximize chatbot
     chatbotMaximize.addEventListener('click', function() {
         chatbot.classList.toggle('maximized');
-        chatbot.classList.remove('minimized', 'fullscreen');
+        chatbot.classList.remove('fullscreen');
     });
 
     // Fullscreen chatbot
     chatbotFullscreen.addEventListener('click', function() {
         chatbot.classList.toggle('fullscreen');
-        chatbot.classList.remove('minimized', 'maximized');
+        chatbot.classList.remove('maximized');
     });
 
     // Close chatbot
@@ -61,24 +49,89 @@ document.addEventListener('DOMContentLoaded', function() {
             // Clear input
             chatbotInput.value = '';
             
-            // Simulate bot response after a short delay
-            setTimeout(() => {
-                const botResponses = [
+            // Process message and generate response
+            processMessage(message);
+        }
+    }
+
+    // Process user message and generate appropriate response
+    function processMessage(message) {
+        // Convert message to lowercase for easier matching
+        const lowerMessage = message.toLowerCase();
+        
+        // Simulate typing delay
+        chatbotTypingIndicator(true);
+        
+        setTimeout(() => {
+            chatbotTypingIndicator(false);
+            
+            // Check for keywords and respond accordingly
+            if (lowerMessage.includes('help') || lowerMessage.includes('assist')) {
+                addMessage("I can help you with information about shop status, invoice processing, and dashboard metrics. What would you like to know?", 'bot');
+            }
+            // Check for dashboard related queries
+            else if (lowerMessage.includes('dashboard') || lowerMessage.includes('metrics') || lowerMessage.includes('performance')) {
+                addMessage("The dashboard shows we have 42 active shops, with an average TAT of 3.5 days. Our on-time performance is at 94.5%, which is 15.8% better than last month.", 'bot');
+            }
+            // Check for shop related queries
+            else if (lowerMessage.includes('shop') || lowerMessage.includes('store')) {
+                addMessage("Our shop status page shows 35 operational shops and 7 in maintenance. Would you like to view more detailed information?", 'bot');
+            }
+            // Check for invoice related queries
+            else if (lowerMessage.includes('invoice') || lowerMessage.includes('billing')) {
+                addMessage("I can help you create new invoices or view summaries of existing ones. Our billing timeliness has shown improvement over the last quarter.", 'bot');
+            }
+            // Default responses for other queries
+            else {
+                const responses = [
                     "I'm here to help you with your SMBA questions.",
                     "That's an interesting question. Let me find that information for you.",
                     "Looking at the dashboard data, I can assist with that.",
                     "I can help you analyze your shop performance metrics.",
-                    "Would you like to know more about your invoice processing?"
+                    "Would you like to know more about your invoice processing?",
+                    "I'm here to help make your SMBA experience better. What else would you like to know?",
+                    "Is there anything specific about the dashboard metrics you'd like me to explain?"
                 ];
                 
-                const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
                 addMessage(randomResponse, 'bot');
-            }, 1000);
+            }
+        }, 1000);
+    }
+
+    // Add typing indicator
+    function chatbotTypingIndicator(isTyping) {
+        // Remove existing typing indicator if any
+        const existingIndicator = document.querySelector('.chatbot-typing');
+        if (existingIndicator) {
+            existingIndicator.remove();
+        }
+        
+        if (isTyping) {
+            const typingElement = document.createElement('div');
+            typingElement.classList.add('chatbot-message', 'bot', 'chatbot-typing');
+            
+            typingElement.innerHTML = `
+                <div class="chatbot-message-content typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            
+            chatbotMessages.appendChild(typingElement);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
         }
     }
 
     // Helper function to add messages to the chat
     function addMessage(text, sender) {
+        // Remove typing indicator if exists
+        const existingIndicator = document.querySelector('.chatbot-typing');
+        if (existingIndicator) {
+            existingIndicator.remove();
+        }
+        
         const messageElement = document.createElement('div');
         messageElement.classList.add('chatbot-message', sender);
         
@@ -96,6 +149,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         chatbotMessages.appendChild(messageElement);
         
+        // Add landing animation class and remove it after animation completes
+        messageElement.classList.add('message-landing');
+        setTimeout(() => {
+            messageElement.classList.remove('message-landing');
+        }, 300);
+        
         // Scroll to the bottom
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
@@ -108,18 +167,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Enter') {
             e.preventDefault();
             sendMessage();
-        }
-    });
-
-    // Header click to restore from minimized state
-    document.querySelector('.chatbot-header').addEventListener('click', function(e) {
-        // Only if target is the header itself or the title, not the action buttons
-        if (e.target.classList.contains('chatbot-header') || 
-            e.target.closest('.chatbot-title') || 
-            e.target === this) {
-            if (chatbot.classList.contains('minimized')) {
-                chatbot.classList.remove('minimized');
-            }
         }
     });
 }); 
