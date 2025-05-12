@@ -205,22 +205,256 @@
                     <i class="bi bi-chevron-up collapse-icon"></i>
                   </div>
                   <div class="section-content">
-                    <div class="contract-grid">
-                      <div class="input-group">
-                        <div class="input-label">Fixed Price Labour</div>
-                        <div class="input-value">$135,756</div>
+                    <div class="accordion" id="contractSummaryAccordion">
+                      <!-- Term Sheet -->
+                      <div class="accordion-item">
+                        <h4 class="accordion-header" id="termSheetHeading">
+                          <button class="accordion-button py-2" type="button" data-bs-toggle="collapse" data-bs-target="#termSheetCollapse" aria-expanded="true" aria-controls="termSheetCollapse">
+                            a. Term Sheet
+                          </button>
+                        </h4>
+                        <div id="termSheetCollapse" class="accordion-collapse collapse show" aria-labelledby="termSheetHeading">
+                          <div class="accordion-body p-2">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th class="fs-6 py-1 px-2">Contract Term</th>
+                                    <th class="fs-6 py-1 px-2">Value</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="small">
+                                  <tr>
+                                    <td class="py-1 px-2">Contract Duration</td>
+                                    <td class="py-1 px-2">5 years (2023-2028)</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Renewal Terms</td>
+                                    <td class="py-1 px-2">Automatic 1-year renewal unless terminated</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Termination Notice</td>
+                                    <td class="py-1 px-2">90 days prior written notice</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Early Termination Fee</td>
+                                    <td class="py-1 px-2">15% of remaining contract value</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="input-group">
-                        <div class="input-label">Over & Above Labour</div>
-                        <div class="input-value">$26,902</div>
+                      
+                      <!-- Pricing -->
+                      <div class="accordion-item">
+                        <h4 class="accordion-header" id="pricingHeading">
+                          <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#pricingCollapse" aria-expanded="false" aria-controls="pricingCollapse">
+                            b. Pricing
+                          </button>
+                        </h4>
+                        <div id="pricingCollapse" class="accordion-collapse collapse" aria-labelledby="pricingHeading">
+                          <div class="accordion-body p-2">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th class="fs-6 py-1 px-2">Service Type</th>
+                                    <th class="fs-6 py-1 px-2">Base Price</th>
+                                    <th class="fs-6 py-1 px-2">Unit</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="small">
+                                  <tr>
+                                    <td class="py-1 px-2">Fixed Price Labour</td>
+                                    <td class="py-1 px-2">$135,756</td>
+                                    <td class="py-1 px-2">Per contract</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Over & Above Labour</td>
+                                    <td class="py-1 px-2">$26,902</td>
+                                    <td class="py-1 px-2">Per contract</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Component Repair</td>
+                                    <td class="py-1 px-2">$264,633</td>
+                                    <td class="py-1 px-2">Per catalogue</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Material Cost</td>
+                                    <td class="py-1 px-2">$7,753,989</td>
+                                    <td class="py-1 px-2">Per contract</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="input-group">
-                        <div class="input-label">Component Repair Catalogue</div>
-                        <div class="input-value">$264,633</div>
+                      
+                      <!-- Conditions/Limitations -->
+                      <div class="accordion-item">
+                        <h4 class="accordion-header" id="conditionsHeading">
+                          <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#conditionsCollapse" aria-expanded="false" aria-controls="conditionsCollapse">
+                            c. Conditions/Limitations
+                          </button>
+                        </h4>
+                        <div id="conditionsCollapse" class="accordion-collapse collapse" aria-labelledby="conditionsHeading">
+                          <div class="accordion-body p-2">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th class="fs-6 py-1 px-2">Condition Type</th>
+                                    <th class="fs-6 py-1 px-2">Description</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="small">
+                                  <tr>
+                                    <td class="py-1 px-2">Service Limitations</td>
+                                    <td class="py-1 px-2">Excludes damage from improper use or maintenance</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Material Limitations</td>
+                                    <td class="py-1 px-2">Excludes LLPs and unscheduled replacements</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Response Time Limitations</td>
+                                    <td class="py-1 px-2">24-hour response time for standard requests</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Force Majeure</td>
+                                    <td class="py-1 px-2">Contract obligations suspended during events outside reasonable control</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="input-group">
-                        <div class="input-label">Material</div>
-                        <div class="input-value">$7,753,989</div>
+                      
+                      <!-- Work Scope -->
+                      <div class="accordion-item">
+                        <h4 class="accordion-header" id="workScopeHeading">
+                          <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#workScopeCollapse" aria-expanded="false" aria-controls="workScopeCollapse">
+                            d. Work Scope
+                          </button>
+                        </h4>
+                        <div id="workScopeCollapse" class="accordion-collapse collapse" aria-labelledby="workScopeHeading">
+                          <div class="accordion-body p-2">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th class="fs-6 py-1 px-2">Service Category</th>
+                                    <th class="fs-6 py-1 px-2">Included Items</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="small">
+                                  <tr>
+                                    <td class="py-1 px-2">Maintenance</td>
+                                    <td class="py-1 px-2">Scheduled maintenance, inspections, and minor repairs</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Repairs</td>
+                                    <td class="py-1 px-2">Component repairs as per repair catalogue</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Materials</td>
+                                    <td class="py-1 px-2">Standard replacements and consumables</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Testing</td>
+                                    <td class="py-1 px-2">Post-maintenance testing and certification</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Guarantees -->
+                      <div class="accordion-item">
+                        <h4 class="accordion-header" id="guaranteesHeading">
+                          <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#guaranteesCollapse" aria-expanded="false" aria-controls="guaranteesCollapse">
+                            e. Guarantees
+                          </button>
+                        </h4>
+                        <div id="guaranteesCollapse" class="accordion-collapse collapse" aria-labelledby="guaranteesHeading">
+                          <div class="accordion-body p-2">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th class="fs-6 py-1 px-2">Guarantee Type</th>
+                                    <th class="fs-6 py-1 px-2">Terms</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="small">
+                                  <tr>
+                                    <td class="py-1 px-2">Workmanship</td>
+                                    <td class="py-1 px-2">90 days guarantee on all labour</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Parts</td>
+                                    <td class="py-1 px-2">12 months or 1,000 flight hours (whichever comes first)</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Performance</td>
+                                    <td class="py-1 px-2">Engine performance as per OEM specifications</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">TAT</td>
+                                    <td class="py-1 px-2">$1,000/day penalty for every day beyond agreed TAT</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Invoicing & Payment Terms -->
+                      <div class="accordion-item">
+                        <h4 class="accordion-header" id="invoicingHeading">
+                          <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#invoicingCollapse" aria-expanded="false" aria-controls="invoicingCollapse">
+                            f. Invoicing & Payment Terms
+                          </button>
+                        </h4>
+                        <div id="invoicingCollapse" class="accordion-collapse collapse" aria-labelledby="invoicingHeading">
+                          <div class="accordion-body p-2">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th class="fs-6 py-1 px-2">Category</th>
+                                    <th class="fs-6 py-1 px-2">Terms</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="small">
+                                  <tr>
+                                    <td class="py-1 px-2">Invoice Frequency</td>
+                                    <td class="py-1 px-2">Monthly for ongoing services, upon completion for repairs</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Payment Terms</td>
+                                    <td class="py-1 px-2">Net 30 days from invoice date</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Late Payment</td>
+                                    <td class="py-1 px-2">1.5% interest per month on overdue amounts</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1 px-2">Currency</td>
+                                    <td class="py-1 px-2">USD (United States Dollars)</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
