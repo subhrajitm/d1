@@ -345,7 +345,7 @@ const shop2BillingReadinessData = [
     'SV Details': 'Yes',
     'Billing Receipt': 'Yes',
     'Warranty & Discount': 'No',
-    'Action Recommendation': 'Review Invoice'
+    'Action Recommendation': 'Review/Create Invoice'
   }
 ];
 
@@ -440,7 +440,7 @@ const billingReadinessData = [
     'SV Details': 'Yes',
     'Billing Receipt': 'Yes',
     'Warranty & Discount': 'No',
-    'Action Recommendation': 'Review Invoice'
+    'Action Recommendation': 'Review/Create Invoice'
   },
   {
     ESN: 'SN101',
@@ -449,7 +449,7 @@ const billingReadinessData = [
     'SV Details': 'Yes',
     'Billing Receipt': 'Yes',
     'Warranty & Discount': 'No',
-    'Action Recommendation': 'Review Invoice'
+    'Action Recommendation': 'Review/Create Invoice'
   }
 ];
 
