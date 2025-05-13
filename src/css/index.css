@@ -134,6 +134,24 @@
   --hover-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* Content and Card Styles */
+.content {
+  position: relative;
+}
+
+.content::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  width: 150px;
+  height: 90px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='90' viewBox='0 0 150 90' fill='none'%3E%3Cpath d='M10,45 Q30,15 60,35 T100,25 T140,45' stroke='%236366f1' stroke-width='1.5' stroke-dasharray='2 2' fill='none'/%3E%3Cpath d='M26,28 l-3,-2 l5,-1 l0,3 z' fill='%236366f1'/%3E%3Cpath d='M72,30 l-3,-2 l5,-1 l0,3 z' fill='%236366f1'/%3E%3Cpath d='M122,37 l-3,-2 l5,-1 l0,3 z' fill='%236366f1'/%3E%3Cpath d='M147,45 l-5,2 l0,-4 z' fill='%236366f1'/%3E%3C/svg%3E");
+  z-index: 1;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 /* Card styles */
 .stat-card,
 .summary-card {
@@ -143,11 +161,15 @@
   padding: 1.25rem;
   box-shadow: var(--card-shadow);
   transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .stat-card:hover,
 .summary-card:hover {
   box-shadow: var(--hover-shadow);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* Chart container styles */
@@ -157,6 +179,14 @@
   border-radius: var(--border-radius-lg);
   padding: 1.25rem;
   box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.chart-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .chart-header {
