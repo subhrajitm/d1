@@ -5,13 +5,15 @@
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--compact-border-radius);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   overflow: hidden;
 }
 
 .section-header {
-  padding: var(--compact-padding);
-  background: var(--background-color);
+  padding: 0.7rem 1.1rem 0.7rem 1.1rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  border-radius: 0.7rem 0.7rem 0 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,9 +27,9 @@
 
 .section-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.08rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #1e293b;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -39,8 +41,11 @@
 }
 
 .section-content {
-  padding: var(--compact-padding);
-  border-top: 1px solid var(--border-color);
+  padding: 1.1rem 1.1rem 1rem 1.1rem;
+  background: #fff;
+  border-radius: 0 0 0.7rem 0.7rem;
+  border: 1px solid #e2e8f0;
+  border-top: none;
   display: block;
   max-height: 1000px;
   opacity: 1;
@@ -116,6 +121,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .input-label {
@@ -140,8 +146,8 @@
 /* Table Styles */
 .table-container {
   overflow-x: auto;
-  margin: 0 -1rem;
-  padding: 0 1rem;
+  margin-bottom: 0;
+  padding: 0;
 }
 
 .billing-table {
@@ -221,6 +227,7 @@
   line-height: 1.4;
   color: #475569;
   font-size: 0.813rem;
+  margin-bottom: 0.3rem;
 }
 
 .right {
@@ -422,4 +429,70 @@
 .spin {
   animation: spin 1s linear infinite;
   display: inline-block;
+}
+
+/* --- Standardized Spacing for Invoice Creation --- */
+.section-container {
+  margin-bottom: 1.5rem;
+}
+.section-header {
+  padding: 0.7rem 1.1rem 0.7rem 1.1rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  border-radius: 0.7rem 0.7rem 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.section-title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-content {
+  padding: 1.1rem 1.1rem 1rem 1.1rem;
+  background: #fff;
+  border-radius: 0 0 0.7rem 0.7rem;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+}
+.table-container {
+  margin-bottom: 0;
+  padding: 0;
+}
+.accordion-body {
+  padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+}
+.summary-grid, .billing-sections {
+  margin-bottom: 0.7rem;
+}
+.input-group {
+  margin-bottom: 0.5rem;
+}
+.address-block {
+  margin-bottom: 0.3rem;
+}
+.content-header, .content-footer {
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+.content-header {
+  margin-bottom: 1.1rem;
+}
+.content-body {
+  padding-bottom: 0.5rem;
+}
+@media (max-width: 600px) {
+  .section-header, .section-content, .content-header, .content-footer {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .section-content {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
 } 
