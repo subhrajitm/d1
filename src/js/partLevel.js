@@ -455,24 +455,44 @@ function renderPage(page) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><input type="checkbox" class="row-select" value="${start + idx + 1}"></td>
-            <td>${row.Part}</td>
-            <td>${row.Module}</td>
-            <td>${row.Class}</td>
-            <td class="text-muted">${row.Desc}</td>
-            <td>${row.Qty}</td>
-            <td>$${row.Unit.toLocaleString()}</td>
-            <td>$${row.Total.toLocaleString()}</td>
-            <td>
+            <td data-column="part">${row.Part}</td>
+            <td data-column="module">${row.Module}</td>
+            <td data-column="class">${row.Class}</td>
+            <td data-column="description" class="text-muted">${row.Desc}</td>
+            <td data-column="qty">${row.Qty}</td>
+            <td data-column="unitValue">$${row.Unit.toLocaleString()}</td>
+            <td data-column="total">$${row.Total.toLocaleString()}</td>
+            <td data-column="status">
                 <span class="badge badge-${row.Group === 'Underbilled' ? 'underbilled' : 'approved'}">
                     ${row.Group === 'Underbilled' ? 'Underbilled' : 'Approved'}
                 </span>
             </td>
-            <td>
+            <td data-column="insights">
                 <span class="badge badge-pending">${row.Insights}</span>
             </td>
-            <td>${row.Group || '-'}</td>
+            <td data-column="group">${row.Group || '-'}</td>
+            <td data-column="actions">
+                <button class="btn btn-sm btn-outline-primary view-details" data-bs-toggle="tooltip" data-bs-title="View Details">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </td>
         `;
         tbody.appendChild(tr);
+    });
+
+    // Reinitialize tooltips for the new buttons
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Reattach click event listeners to view details buttons
+    const viewDetailsButtons = document.querySelectorAll('.view-details');
+    viewDetailsButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('tr');
+            showDetailsModal(row);
+        });
     });
 }
 
@@ -517,4 +537,60 @@ function deleteInvoice(id) {
 document.addEventListener('DOMContentLoaded', () => {
     renderPage(1);
     // ... existing initialization code ...
+});
+
+// Initialize tooltips
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Add click event listeners to all view details buttons
+    const viewDetailsButtons = document.querySelectorAll('.view-details');
+    viewDetailsButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('tr');
+            showDetailsModal(row);
+        });
+    });
+});
+
+// Function to show the details modal
+function showDetailsModal(row) {
+    // Get all the data from the row
+    const part = row.querySelector('[data-column="part"]').textContent;
+    const module = row.querySelector('[data-column="module"]').textContent;
+    const classValue = row.querySelector('[data-column="class"]').textContent;
+    const description = row.querySelector('[data-column="description"]').textContent;
+    const qty = row.querySelector('[data-column="qty"]').textContent;
+    const unitValue = row.querySelector('[data-column="unitValue"]').textContent;
+    const total = row.querySelector('[data-column="total"]').textContent;
+    const status = row.querySelector('[data-column="status"]').innerHTML;
+    const group = row.querySelector('[data-column="group"]').textContent;
+    const insights = row.querySelector('[data-column="insights"]').innerHTML;
+
+    // Populate the modal with the data
+    document.getElementById('modalPart').textContent = part;
+    document.getElementById('modalModule').textContent = module;
+    document.getElementById('modalClass').textContent = classValue;
+    document.getElementById('modalDescription').textContent = description;
+    document.getElementById('modalQty').textContent = qty;
+    document.getElementById('modalUnitValue').textContent = unitValue;
+    document.getElementById('modalTotal').textContent = total;
+    document.getElementById('modalStatus').innerHTML = status;
+    document.getElementById('modalGroup').textContent = group;
+    document.getElementById('modalInsights').innerHTML = insights;
+
+    // Show the modal
+    const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    modal.show();
+}
+
+// Handle the "Take Action" button click
+document.getElementById('modalActionBtn').addEventListener('click', function() {
+    // Add your action handling logic here
+    console.log('Take action clicked');
+    // You can add specific actions based on the invoice status or other conditions
 }); 

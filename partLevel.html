@@ -198,6 +198,7 @@
                   <th data-column="status" data-sortable="true">Status</th>
                   <th data-column="insights" data-sortable="false">Insights</th>
                   <th data-column="group" data-sortable="true">Group</th>
+                  <th data-column="actions" data-sortable="false">Actions</th>
                 </tr>
               </thead>
               <tbody id="invoiceDashboardBody">
@@ -218,6 +219,11 @@
                     </div>
                   </td>
                   <td data-column="group">-</td>
+                  <td data-column="actions">
+                    <button class="btn btn-sm btn-outline-primary view-details" data-bs-toggle="tooltip" data-bs-title="View Details">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </td>
                 </tr>
                 <!-- Add more sample rows here -->
               </tbody>
@@ -272,6 +278,68 @@
   <script src="src/js/script.js"></script>
   <script src="src/js/header.js"></script>
   <script src="src/js/partLevel.js"></script>
+
+  <!-- Details Modal -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalLabel">Invoice Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="details-grid">
+            <div class="detail-item">
+              <span class="detail-label">Part Number</span>
+              <span class="detail-value" id="modalPart"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Module</span>
+              <span class="detail-value" id="modalModule"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Class</span>
+              <span class="detail-value" id="modalClass"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Description</span>
+              <span class="detail-value" id="modalDescription"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Quantity</span>
+              <span class="detail-value" id="modalQty"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Unit Value</span>
+              <span class="detail-value" id="modalUnitValue"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Total Value</span>
+              <span class="detail-value" id="modalTotal"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Status</span>
+              <span class="detail-value" id="modalStatus"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Group</span>
+              <span class="detail-value" id="modalGroup"></span>
+            </div>
+          </div>
+          <div class="insights-section mt-4">
+            <h6 class="section-title">Insights & Analysis</h6>
+            <div class="insights-content" id="modalInsights">
+              <!-- Insights content will be dynamically populated -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="modalActionBtn">Take Action</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
