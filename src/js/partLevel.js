@@ -489,7 +489,8 @@ function renderPage(page) {
     // Reattach click event listeners to view details buttons
     const viewDetailsButtons = document.querySelectorAll('.view-details');
     viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             const row = this.closest('tr');
             showDetailsModal(row);
         });
@@ -533,27 +534,23 @@ function deleteInvoice(id) {
     // Implement delete functionality
 }
 
-// Initialize the dashboard
-document.addEventListener('DOMContentLoaded', () => {
-    renderPage(1);
-    // ... existing initialization code ...
-});
-
 // Function to show the details modal
 function showDetailsModal(row) {
-    // Get all the data from the row
-    const part = row.querySelector('[data-column="part"]').textContent;
-    const module = row.querySelector('[data-column="module"]').textContent;
-    const classValue = row.querySelector('[data-column="class"]').textContent;
-    const description = row.querySelector('[data-column="description"]').textContent;
-    const qty = row.querySelector('[data-column="qty"]').textContent;
-    const unitValue = row.querySelector('[data-column="unitValue"]').textContent;
-    const total = row.querySelector('[data-column="total"]').textContent;
-    const status = row.querySelector('[data-column="status"]').innerHTML;
-    const group = row.querySelector('[data-column="group"]').textContent;
-    const insights = row.querySelector('[data-column="insights"]').innerHTML;
+    if (!row) return;
 
-    // Populate the modal with the data
+    // Get data from the row
+    const part = row.querySelector('[data-column="part"]')?.textContent || '';
+    const module = row.querySelector('[data-column="module"]')?.textContent || '';
+    const classValue = row.querySelector('[data-column="class"]')?.textContent || '';
+    const description = row.querySelector('[data-column="description"]')?.textContent || '';
+    const qty = row.querySelector('[data-column="qty"]')?.textContent || '';
+    const unitValue = row.querySelector('[data-column="unitValue"]')?.textContent || '';
+    const total = row.querySelector('[data-column="total"]')?.textContent || '';
+    const status = row.querySelector('[data-column="status"]')?.innerHTML || '';
+    const group = row.querySelector('[data-column="group"]')?.textContent || '';
+    const insights = row.querySelector('[data-column="insights"]')?.innerHTML || '';
+
+    // Update modal content
     document.getElementById('modalPart').textContent = part;
     document.getElementById('modalModule').textContent = module;
     document.getElementById('modalClass').textContent = classValue;
@@ -565,46 +562,57 @@ function showDetailsModal(row) {
     document.getElementById('modalGroup').textContent = group;
     document.getElementById('modalInsights').innerHTML = insights;
 
-    // Show the modal
+    // Get modal element
     const modalElement = document.getElementById('detailsModal');
-    const modal = new bootstrap.Modal(modalElement);
+    if (!modalElement) return;
+
+    // Initialize modal if not already initialized
+    let modal = bootstrap.Modal.getInstance(modalElement);
+    if (!modal) {
+        modal = new bootstrap.Modal(modalElement, {
+            backdrop: true,
+            keyboard: true,
+            focus: true
+        });
+    }
+
+    // Show modal
     modal.show();
 }
 
-// Initialize tooltips and modal functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all tooltips
+// Initialize the dashboard
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize tooltips
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function(tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    // Add click event listeners to all view details buttons
-    const viewDetailsButtons = document.querySelectorAll('.view-details');
-    viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const row = this.closest('tr');
-            showDetailsModal(row);
+    // Add click handlers for view details buttons
+    function attachViewDetailsListeners() {
+        document.querySelectorAll('.view-details').forEach(button => {
+            // Remove existing listeners by cloning
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            
+            // Add new listener
+            newButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const row = this.closest('tr');
+                showDetailsModal(row);
+            });
         });
-    });
+    }
 
-    // Handle modal close
-    const detailsModal = document.getElementById('detailsModal');
-    detailsModal.addEventListener('hidden.bs.modal', function() {
-        // Remove modal backdrop
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.remove();
-        }
-        // Remove modal-open class from body
-        document.body.classList.remove('modal-open');
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-    });
+    // Initial render and listener attachment
+    renderPage(1);
+    attachViewDetailsListeners();
 
-    // Handle modal show
-    detailsModal.addEventListener('show.bs.modal', function() {
-        // Ensure body has modal-open class
-        document.body.classList.add('modal-open');
-    });
+    // Update renderPage to reattach listeners after rendering
+    const originalRenderPage = renderPage;
+    renderPage = function(page) {
+        originalRenderPage(page);
+        attachViewDetailsListeners();
+    };
 }); 
