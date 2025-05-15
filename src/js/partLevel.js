@@ -539,24 +539,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ... existing initialization code ...
 });
 
-// Initialize tooltips
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
-    // Add click event listeners to all view details buttons
-    const viewDetailsButtons = document.querySelectorAll('.view-details');
-    viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const row = this.closest('tr');
-            showDetailsModal(row);
-        });
-    });
-});
-
 // Function to show the details modal
 function showDetailsModal(row) {
     // Get all the data from the row
@@ -584,13 +566,45 @@ function showDetailsModal(row) {
     document.getElementById('modalInsights').innerHTML = insights;
 
     // Show the modal
-    const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    const modalElement = document.getElementById('detailsModal');
+    const modal = new bootstrap.Modal(modalElement);
     modal.show();
 }
 
-// Handle the "Take Action" button click
-document.getElementById('modalActionBtn').addEventListener('click', function() {
-    // Add your action handling logic here
-    console.log('Take action clicked');
-    // You can add specific actions based on the invoice status or other conditions
+// Initialize tooltips and modal functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Add click event listeners to all view details buttons
+    const viewDetailsButtons = document.querySelectorAll('.view-details');
+    viewDetailsButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('tr');
+            showDetailsModal(row);
+        });
+    });
+
+    // Handle modal close
+    const detailsModal = document.getElementById('detailsModal');
+    detailsModal.addEventListener('hidden.bs.modal', function() {
+        // Remove modal backdrop
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+        // Remove modal-open class from body
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+    });
+
+    // Handle modal show
+    detailsModal.addEventListener('show.bs.modal', function() {
+        // Ensure body has modal-open class
+        document.body.classList.add('modal-open');
+    });
 }); 
