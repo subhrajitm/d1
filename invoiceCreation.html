@@ -216,7 +216,7 @@
                         <div id="termSheetCollapse" class="accordion-collapse collapse show" aria-labelledby="termSheetHeading">
                           <div class="accordion-body p-2">
                             <div class="table-responsive">
-                              <table class="table table-bordered table-sm table-hover mb-0 border-primary">
+                              <table class="billing-table prominent-table table-compact">
                                 <thead class="table-primary">
                                   <tr>
                                     <th class="fs-6 py-1 px-2">Contract Term</th>
@@ -257,7 +257,7 @@
                         <div id="pricingCollapse" class="accordion-collapse collapse" aria-labelledby="pricingHeading">
                           <div class="accordion-body p-2">
                             <div class="table-responsive">
-                              <table class="table table-bordered table-sm table-hover mb-0 border-success">
+                              <table class="billing-table prominent-table table-compact">
                                 <thead class="table-success">
                                   <tr>
                                     <th class="fs-6 py-1 px-2">Service Type</th>
@@ -303,7 +303,7 @@
                         <div id="conditionsCollapse" class="accordion-collapse collapse" aria-labelledby="conditionsHeading">
                           <div class="accordion-body p-2">
                             <div class="table-responsive">
-                              <table class="table table-bordered table-sm table-hover mb-0 border-danger">
+                              <table class="billing-table prominent-table table-compact">
                                 <thead class="table-danger">
                                   <tr>
                                     <th class="fs-6 py-1 px-2">Condition Type</th>
@@ -344,7 +344,7 @@
                         <div id="workScopeCollapse" class="accordion-collapse collapse" aria-labelledby="workScopeHeading">
                           <div class="accordion-body p-2">
                             <div class="table-responsive">
-                              <table class="table table-bordered table-sm table-hover mb-0 border-warning">
+                              <table class="billing-table prominent-table table-compact">
                                 <thead class="table-warning">
                                   <tr>
                                     <th class="fs-6 py-1 px-2">Service Category</th>
@@ -385,7 +385,7 @@
                         <div id="guaranteesCollapse" class="accordion-collapse collapse" aria-labelledby="guaranteesHeading">
                           <div class="accordion-body p-2">
                             <div class="table-responsive">
-                              <table class="table table-bordered table-sm table-hover mb-0 border-info">
+                              <table class="billing-table prominent-table table-compact">
                                 <thead class="table-info">
                                   <tr>
                                     <th class="fs-6 py-1 px-2">Guarantee Type</th>
@@ -426,7 +426,7 @@
                         <div id="invoicingCollapse" class="accordion-collapse collapse" aria-labelledby="invoicingHeading">
                           <div class="accordion-body p-2">
                             <div class="table-responsive">
-                              <table class="table table-bordered table-sm table-hover mb-0 border-dark">
+                              <table class="billing-table prominent-table table-compact">
                                 <thead class="table-secondary">
                                   <tr>
                                     <th class="fs-6 py-1 px-2">Category</th>
@@ -484,6 +484,69 @@
                   </div>
                 </div>
 
+                <!-- USED-LLP Logic Section -->
+                <div class="section-container">
+                  <div class="section-header">
+                    <h3 class="section-title">
+                      <i class="bi bi-gear"></i>
+                      USED-LLP Logic
+                    </h3>
+                    <i class="bi bi-chevron-up collapse-icon"></i>
+                  </div>
+                  <div class="section-content">
+                    <div class="table-container">
+                      <table class="billing-table prominent-table table-compact">
+                        <thead>
+                          <tr>
+                            <th>Part Number</th>
+                            <th>Life Cycles Remaining</th>
+                            <th>Total Life Cycles</th>
+                            <th>Pro-rata %</th>
+                            <th class="right">Pro-rata Factor</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>PN131</td>
+                            <td>1000</td>
+                            <td>2000</td>
+                            <td>20%</td>
+                            <td class="right">0.25</td>
+                          </tr>
+                          <tr>
+                            <td>PN245</td>
+                            <td>750</td>
+                            <td>1500</td>
+                            <td>15%</td>
+                            <td class="right">0.20</td>
+                          </tr>
+                          <tr>
+                            <td>PN367</td>
+                            <td>1200</td>
+                            <td>2400</td>
+                            <td>25%</td>
+                            <td class="right">0.30</td>
+                          </tr>
+                          <tr>
+                            <td>PN489</td>
+                            <td>500</td>
+                            <td>1000</td>
+                            <td>10%</td>
+                            <td class="right">0.15</td>
+                          </tr>
+                          <tr>
+                            <td>PN512</td>
+                            <td>800</td>
+                            <td>1600</td>
+                            <td>18%</td>
+                            <td class="right">0.22</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- Billing Receipt Section -->
                 <div class="section-container">
                   <div class="section-header">
@@ -495,53 +558,46 @@
                   </div>
                   <div class="section-content">
                     <div class="table-container">
-                      <table class="billing-table">
+                      <table class="billing-table prominent-table table-compact">
                         <thead>
                           <tr>
-                            <th>Cost Element</th>
-                            <th>Cost(USD)</th>
+                            <th>Bucket</th>
+                            <th># of Items</th>
+                            <th># Amount</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td>1. Fixed Price Labour</td>
-                            <td class="amount-column">$135,756</td>
+                            <td>New Material</td>
+                            <td>1,004</td>
+                            <td>$7,033,286</td>
                           </tr>
                           <tr>
-                            <td>2. Over & Above Labour</td>
-                            <td class="amount-column">$26,902</td>
+                            <td>Used Material</td>
+                            <td>23</td>
+                            <td>$754,384</td>
                           </tr>
                           <tr>
-                            <td>3. Component Repair Catalogue</td>
-                            <td class="amount-column">$264,633</td>
+                            <td>ICR</td>
+                            <td>13</td>
+                            <td>$71,164</td>
                           </tr>
                           <tr>
-                            <td>4. Material</td>
-                            <td class="amount-column">$7,753,989</td>
+                            <td>ECR</td>
+                            <td>29</td>
+                            <td>$192,469</td>
                           </tr>
                           <tr>
-                            <td>5. Sub-Contract (Vendor) Charge</td>
-                            <td class="amount-column">$1,302,009</td>
+                            <td>Transportation</td>
+                            <td>1</td>
+                            <td>$10,215</td>
                           </tr>
                           <tr>
-                            <td>6. Fuel & Oil</td>
-                            <td class="amount-column">$10,215</td>
-                          </tr>
-                          <tr>
-                            <td>7. Test Cell Charge</td>
-                            <td class="amount-column">$15,597</td>
+                            <td>Test Cell</td>
+                            <td>1</td>
+                            <td>$15,597</td>
                           </tr>
                         </tbody>
-                        <tfoot>
-                          <tr>
-                            <td>Subtotal</td>
-                            <td class="amount-column">$9,509,131</td>
-                          </tr>
-                          <tr>
-                            <td>Less Exclusions</td>
-                            <td class="amount-column">$3,800,194</td>
-                          </tr>
-                        </tfoot>
                       </table>
                     </div>
                   </div>
