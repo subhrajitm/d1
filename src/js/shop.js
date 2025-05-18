@@ -7,22 +7,7 @@ $(document).ready(function() {
   // Initialize DataTables
   const shopStatusTable = $('#shop-status-table').DataTable({
     order: [[1, 'desc']],
-    pageLength: 10,
-    language: {
-      search: '',
-      searchPlaceholder: 'Search shops...'
-    }
-  });
-
-  // Handle search input
-  $('.table-search input').on('keyup', function() {
-    shopStatusTable.search(this.value).draw();
-  });
-
-  // Handle filter button click
-  $('.filter-btn').on('click', function() {
-    // Add filter functionality here
-    console.log('Filter button clicked');
+    pageLength: 10
   });
 
   // Handle tab changes
