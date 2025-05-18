@@ -428,8 +428,8 @@ const billingReadinessData = [
   {
     ESN: 'SN101',
     Shop: 'Shop1',
-    'Contract Details': 'Yes',
-    'SV Details': 'Yes',
+    'Contract Details': 'No',
+    'SV Details': 'No',
     'Billing Receipt': 'Yes',
     'Warranty & Discount': 'No',
     'Action Recommendation': 'Review/Create Invoice'
