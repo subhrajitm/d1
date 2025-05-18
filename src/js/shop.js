@@ -172,7 +172,7 @@ function showShopDetails(shopName) {
       <td>
         <div class="d-flex align-items-center gap-2">
           <span class="highlight-esn">${row.ESN}</span>
-          <button class="btn btn-sm btn-primary proceed-btn" data-esn="${row.ESN}">
+          <button class="btn btn-sm btn-primary proceed-btn" data-esn="${row.ESN}" onclick="showBillingReadiness('${row.ESN}')">
             <i class="bi bi-arrow-right"></i>
           </button>
         </div>
@@ -187,14 +187,6 @@ function showShopDetails(shopName) {
       <td>${row.Priority}</td>
     `;
     tbody.appendChild(tr);
-  });
-
-  // Add click handlers for proceed buttons
-  document.querySelectorAll('.proceed-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const esn = this.getAttribute('data-esn');
-      showBillingReadiness(esn);
-    });
   });
 }
 
@@ -430,7 +422,7 @@ const billingReadinessData = [
     'Contract Details': 'Yes',
     'SV Details': 'Yes',
     'Billing Receipt': 'Yes',
-    'Warranty & Discount': 'No',
+    'Warranty & Discount': 'Yes',
     'Action Recommendation': 'Review/Create Invoice'
   },
   {
@@ -506,11 +498,11 @@ function showBillingReadiness(esn) {
       });
     }
 
-    // If all checks pass, show success message
+    // If all checks pass, show success message with proceed button
     if (recommendations.length === 0) {
       recommendations.push({
         text: 'All checks passed',
-        button: '<button class="btn btn-sm btn-success ms-2">Proceed</button>'
+        button: '<button class="btn btn-sm btn-success proceed-btn" onclick="showInvoiceDetails(\'' + row.ESN + '\')">Proceed</button>'
       });
     }
 
@@ -537,15 +529,6 @@ function showBillingReadiness(esn) {
       </td>
     `;
     tbody.appendChild(tr);
-  });
-
-  // Add click handlers for all action recommendation buttons
-  document.querySelectorAll('.action-recommendation-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const esn = this.getAttribute('data-esn');
-      showSection('invoice-details');
-      showInvoiceDetails(esn);
-    });
   });
 
   // Re-initialize tooltips for info icons
