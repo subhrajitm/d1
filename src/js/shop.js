@@ -166,11 +166,17 @@ function showShopDetails(shopName) {
   tbody.innerHTML = '';
   filtered.forEach(row => {
     const tr = document.createElement('tr');
-    tr.tabIndex = 0;
     tr.innerHTML = `
       <td>${row.Shop}</td>
       <td>${row.Customer}</td>
-      <td>${row.ESN}</td>
+      <td>
+        <div class="d-flex align-items-center gap-2">
+          <span class="highlight-esn">${row.ESN}</span>
+          <button class="btn btn-sm btn-primary proceed-btn" data-esn="${row.ESN}">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </td>
       <td>${row['SV No']}</td>
       <td>${row['SV Type']}</td>
       <td>${row['Induction Date']}</td>
@@ -182,7 +188,14 @@ function showShopDetails(shopName) {
     `;
     tbody.appendChild(tr);
   });
-  setupShopDetailsRowClick();
+
+  // Add click handlers for proceed buttons
+  document.querySelectorAll('.proceed-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const esn = this.getAttribute('data-esn');
+      showBillingReadiness(esn);
+    });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -235,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('back-to-shop-details').addEventListener('click', function() {
     hideAllTableSections();
     document.getElementById('shop-details-section').style.display = '';
-    setupShopDetailsRowClick();
   });
   // Back button: Invoice Details -> Billing Readiness (Shop Details flow)
   document.getElementById('back-to-billing-readiness').addEventListener('click', function() {
@@ -410,27 +422,6 @@ function showShop2InvoiceDetails(esn) {
   });
 }
 
-// Add event listeners for new navigation and actions
-function setupShopDetailsRowClick() {
-  document.querySelectorAll('#shop-details-table tbody tr').forEach(row => {
-    row.addEventListener('click', function() {
-      // Remove highlight from all rows
-      document.querySelectorAll('#shop-details-table tbody tr').forEach(r => r.classList.remove('table-active'));
-      // Highlight this row
-      this.classList.add('table-active');
-      const esn = this.querySelector('td:nth-child(3)').textContent.trim();
-      showBillingReadiness(esn);
-    });
-    // Keyboard accessibility: Enter/Space triggers click
-    row.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.click();
-      }
-    });
-  });
-}
-
 // Billing Readiness data (from image)
 const billingReadinessData = [
   {
@@ -486,6 +477,51 @@ function showBillingReadiness(esn) {
     const svDetails = row['SV Details'] === 'Yes' ? yesBadge : noBadge;
     const billingReceipt = row['Billing Receipt'] === 'Yes' ? yesBadge : noBadge;
     const warrantyDiscount = row['Warranty & Discount'] === 'Yes' ? yesBadge : noBadge;
+
+    // Create recommendations array for all "No" values
+    const recommendations = [];
+    
+    if (row['Contract Details'] === 'No') {
+      recommendations.push({
+        text: 'Contract details need to be updated',
+        button: '<button class="btn btn-sm btn-primary ms-2">Update Contract</button>'
+      });
+    }
+    if (row['SV Details'] === 'No') {
+      recommendations.push({
+        text: 'Service visit details need to be completed',
+        button: '<button class="btn btn-sm btn-primary ms-2">Complete SV Details</button>'
+      });
+    }
+    if (row['Billing Receipt'] === 'No') {
+      recommendations.push({
+        text: 'Billing receipt needs to be uploaded',
+        button: '<button class="btn btn-sm btn-primary ms-2">Upload Receipt</button>'
+      });
+    }
+    if (row['Warranty & Discount'] === 'No') {
+      recommendations.push({
+        text: 'Warranty and discount information needs to be verified',
+        button: '<button class="btn btn-sm btn-primary ms-2">Verify Warranty</button>'
+      });
+    }
+
+    // If all checks pass, show success message
+    if (recommendations.length === 0) {
+      recommendations.push({
+        text: 'All checks passed',
+        button: '<button class="btn btn-sm btn-success ms-2">Proceed</button>'
+      });
+    }
+
+    // Create recommendation HTML
+    const recommendationHTML = recommendations.map(rec => `
+      <div class="recommendation-item">
+        <span class="recommendation-text">${rec.text}</span>
+        ${rec.button}
+      </div>
+    `).join('');
+
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${row.ESN}</td>
@@ -494,7 +530,11 @@ function showBillingReadiness(esn) {
       <td>${svDetails}</td>
       <td>${billingReceipt}</td>
       <td>${warrantyDiscount}</td>
-      <td><button class="btn btn-primary btn-sm action-recommendation-btn" data-esn="${row.ESN}">${row['Action Recommendation']}</button></td>
+      <td>
+        <div class="recommendations-container">
+          ${recommendationHTML}
+        </div>
+      </td>
     `;
     tbody.appendChild(tr);
   });
