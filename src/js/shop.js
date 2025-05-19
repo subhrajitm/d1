@@ -643,6 +643,15 @@ function showBillingReadiness(esn) {
 
 function showInvoiceDetails(esn) {
   showSection('invoice-details');
+  
+  // Find the shop name from the billing readiness data
+  const billingData = billingReadinessData.find(row => row.ESN === esn);
+  const shopName = billingData ? billingData.Shop : '';
+  
+  // Update the shop and ESN information
+  document.getElementById('invoice-shop-name').textContent = shopName;
+  document.getElementById('invoice-esn').textContent = esn;
+
   const invoiceGenerated = document.getElementById('invoiceGenerated');
   const createInvoice = document.getElementById('createInvoice');
   const reviewInvoiceBtn = document.getElementById('reviewInvoiceBtn');
