@@ -441,6 +441,95 @@ const invoiceDetailsData = [
   }
 ];
 
+// Function to format file size
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// Function to handle file upload
+function handleFileUpload(files) {
+  const fileList = document.getElementById('modal-file-list');
+  
+  Array.from(files).forEach(file => {
+    const fileItem = document.createElement('div');
+    fileItem.className = 'file-item';
+    
+    const fileIcon = document.createElement('i');
+    fileIcon.className = 'bi bi-file-earmark';
+    
+    const fileInfo = document.createElement('div');
+    fileInfo.className = 'file-info';
+    
+    const fileName = document.createElement('div');
+    fileName.className = 'file-name';
+    fileName.textContent = file.name;
+    
+    const fileSize = document.createElement('div');
+    fileSize.className = 'file-size';
+    fileSize.textContent = formatFileSize(file.size);
+    
+    const removeBtn = document.createElement('i');
+    removeBtn.className = 'bi bi-x-circle file-remove';
+    removeBtn.addEventListener('click', () => {
+      fileItem.remove();
+    });
+    
+    fileInfo.appendChild(fileName);
+    fileInfo.appendChild(fileSize);
+    fileItem.appendChild(fileIcon);
+    fileItem.appendChild(fileInfo);
+    fileItem.appendChild(removeBtn);
+    fileList.appendChild(fileItem);
+  });
+}
+
+// Update showActionRecommendationModal function to include file upload handling
+function showActionRecommendationModal(row) {
+  const modal = new bootstrap.Modal(document.getElementById('actionRecommendationModal'));
+  const fileList = document.getElementById('modal-file-list');
+  const fileInput = document.querySelector('.file-input');
+  const uploadArea = document.querySelector('.file-upload-area');
+  const proceedBtn = document.getElementById('modal-proceed-btn');
+
+  // Clear previous files
+  fileList.innerHTML = '';
+  fileInput.value = '';
+
+  // Handle file input change
+  fileInput.addEventListener('change', (e) => {
+    handleFileUpload(e.target.files);
+  });
+
+  // Handle drag and drop
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+  });
+
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
+  });
+
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    handleFileUpload(e.dataTransfer.files);
+  });
+
+  // Handle proceed button
+  proceedBtn.addEventListener('click', () => {
+    // Here you would typically handle the file upload to your server
+    modal.hide();
+  });
+
+  modal.show();
+}
+
+// Update the showBillingReadiness function to add click handlers
 function showBillingReadiness(esn) {
   showSection('billing-readiness');
   // Filter data for the selected ESN
@@ -514,6 +603,14 @@ function showBillingReadiness(esn) {
       </td>
     `;
     tbody.appendChild(tr);
+    
+    // Add click handler to the recommendation items
+    const recommendationItems = tr.querySelectorAll('.recommendation-item');
+    recommendationItems.forEach(item => {
+      item.addEventListener('click', () => {
+        showActionRecommendationModal(row);
+      });
+    });
   });
 
   // Re-initialize tooltips for info icons

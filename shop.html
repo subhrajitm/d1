@@ -829,5 +829,34 @@
   <!-- Custom JS -->
   <script src="src/js/script.js"></script>
   <script src="src/js/shop.js"></script>
+
+  <!-- Action Recommendation Modal -->
+  <div class="modal fade" id="actionRecommendationModal" tabindex="-1" aria-labelledby="actionRecommendationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="actionRecommendationModalLabel">Upload Documents</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="file-upload-container">
+            <div class="file-upload-area">
+              <i class="bi bi-cloud-upload"></i>
+              <span>Drag & drop files here or</span>
+              <label class="file-upload-btn">
+                Browse Files
+                <input type="file" class="file-input" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              </label>
+            </div>
+            <div class="file-list" id="modal-file-list"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="modal-proceed-btn">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
