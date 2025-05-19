@@ -499,32 +499,51 @@ function showActionRecommendationModal(row) {
   fileList.innerHTML = '';
   fileInput.value = '';
 
+  // Remove any existing event listeners
+  const newFileInput = fileInput.cloneNode(true);
+  fileInput.parentNode.replaceChild(newFileInput, fileInput);
+
   // Handle file input change
-  fileInput.addEventListener('change', (e) => {
+  newFileInput.addEventListener('change', (e) => {
     handleFileUpload(e.target.files);
   });
 
   // Handle drag and drop
-  uploadArea.addEventListener('dragover', (e) => {
+  const handleDragOver = (e) => {
     e.preventDefault();
     uploadArea.classList.add('dragover');
-  });
+  };
 
-  uploadArea.addEventListener('dragleave', () => {
+  const handleDragLeave = () => {
     uploadArea.classList.remove('dragover');
-  });
+  };
 
-  uploadArea.addEventListener('drop', (e) => {
+  const handleDrop = (e) => {
     e.preventDefault();
     uploadArea.classList.remove('dragover');
     handleFileUpload(e.dataTransfer.files);
-  });
+  };
+
+  uploadArea.addEventListener('dragover', handleDragOver);
+  uploadArea.addEventListener('dragleave', handleDragLeave);
+  uploadArea.addEventListener('drop', handleDrop);
 
   // Handle proceed button
-  proceedBtn.addEventListener('click', () => {
+  const handleProceed = () => {
     // Here you would typically handle the file upload to your server
     modal.hide();
-  });
+  };
+
+  proceedBtn.addEventListener('click', handleProceed);
+
+  // Clean up event listeners when modal is hidden
+  const modalElement = document.getElementById('actionRecommendationModal');
+  modalElement.addEventListener('hidden.bs.modal', () => {
+    uploadArea.removeEventListener('dragover', handleDragOver);
+    uploadArea.removeEventListener('dragleave', handleDragLeave);
+    uploadArea.removeEventListener('drop', handleDrop);
+    proceedBtn.removeEventListener('click', handleProceed);
+  }, { once: true });
 
   modal.show();
 }
