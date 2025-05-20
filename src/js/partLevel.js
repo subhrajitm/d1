@@ -15,460 +15,46 @@ const invoiceData = [
   { Module: '54x', Class: 'Class2', Part: 'PN13', Desc: 'Desc13', Qty: 1, Unit: 281000, Total: 281000, Included: 0, Excluded: 281000, Insights: 'CLP Mismatch/Exclusion as LLP material', Group: '-' },
 ];
 
-// Utility for formatting currency
-function formatCurrency(num) {
-  return '$' + num.toLocaleString();
-}
+// Data organization by category
+const partsData = {
+    all: invoiceData,
+    engine: invoiceData.filter(item => item.Module.startsWith('31') || item.Module.startsWith('32')),
+    transmission: invoiceData.filter(item => item.Module.startsWith('21') || item.Module.startsWith('22')),
+    electrical: invoiceData.filter(item => item.Module.startsWith('52') || item.Module.startsWith('54')),
+    body: invoiceData.filter(item => item.Module.startsWith('55') || item.Module.startsWith('56'))
+};
 
-function renderInvoiceDashboard() {
-  const tbody = document.getElementById('invoiceDashboardBody');
-  tbody.innerHTML = '';
-  invoiceData.forEach((row, idx) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input type="checkbox" class="row-select"></td>
-      <td>${row.Part}</td>
-      <td>${row.Module}</td>
-      <td>${row.Class}</td>
-      <td class="text-muted">${row.Desc}</td>
-      <td>${row.Qty}</td>
-      <td>$${row.Unit.toLocaleString()}</td>
-      <td>$${row.Total.toLocaleString()}</td>
-      <td>
-        <span class="badge badge-${row.Group === 'Underbilled' ? 'underbilled' : 'approved'}">
-          ${row.Group === 'Underbilled' ? 'Underbilled' : 'Approved'}
-        </span>
-      </td>
-      <td>
-        <span class="badge badge-pending">${row.Insights}</span>
-      </td>
-      <td>${row.Group || '-'}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderInvoiceDashboard();
-
-  // Select All functionality
-  const selectAll = document.getElementById('selectAllInvoices');
-  selectAll.addEventListener('change', function() {
-    document.querySelectorAll('.row-select').forEach(cb => {
-      cb.checked = selectAll.checked;
-    });
-  });
-
-  // Row select: update Select All if any unchecked
-  document.getElementById('invoiceDashboardBody').addEventListener('change', function(e) {
-    if (e.target.classList.contains('row-select')) {
-      const all = document.querySelectorAll('.row-select');
-      const checked = document.querySelectorAll('.row-select:checked');
-      selectAll.checked = all.length === checked.length;
-    }
-  });
-
-  // Close info banner
-  const closeBanner = document.querySelector('.close-banner');
-  if (closeBanner) {
-    closeBanner.addEventListener('click', function() {
-      this.parentElement.style.display = 'none';
-    });
-  }
-});
-
-// Combine all styles into one
-const style = document.createElement('style');
-style.textContent = `
-    .bulk-actions {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.75rem 1.25rem;
-        background: #f8f9fa;
-        border-bottom: 1px solid #e9ecef;
-    }
-    
-    .selected-count {
-        font-size: 0.875rem;
-        color: #6c757d;
-    }
-    
-    .action-buttons {
-        display: flex;
-        gap: 0.5rem;
-    }
-    
-    .dashboard-table th.sort-asc::after {
-        content: '↑';
-        margin-left: 0.5rem;
-    }
-    
-    .dashboard-table th.sort-desc::after {
-        content: '↓';
-        margin-left: 0.5rem;
-    }
-
-    .invoice-card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-    
-    .invoice-card {
-        background: #fff;
-        border-radius: 0.75rem;
-        padding: 1rem 0.75rem 0.75rem 0.75rem;
-        box-shadow: 0 1px 4px #0072ce11;
-        border: 1px solid #e5e7eb;
-        transition: box-shadow 0.18s, transform 0.18s, opacity 0.4s, border-color 0.18s;
-        position: relative;
-        min-width: 0;
-    }
-    
-    .invoice-card:hover {
-        box-shadow: 0 4px 16px #0072ce22;
-        transform: translateY(-2px) scale(1.015);
-        border-color: #b6d4fe;
-    }
-    
-    .invoice-card .badge {
-        font-size: 0.75em;
-        padding: 0.3em 0.6em;
-        border-radius: 0.5em;
-    }
-    
-    .invoice-card .small, .invoice-card .text-muted {
-        font-size: 0.92em;
-    }
-`;
-document.head.appendChild(style);
-
-// Invoice Dashboard Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize variables
-    let currentFilter = 'all';
-    let currentSort = { column: null, direction: 'asc' };
-    let selectedInvoices = new Set();
-    
-    // DOM Elements
-    const tabButtons = document.querySelectorAll('.dashboard-tabs .tab');
-    const selectAllCheckbox = document.getElementById('selectAllInvoices');
-    const tableBody = document.getElementById('invoiceDashboardBody');
-    const searchInput = document.createElement('input');
-    
-    // Initialize search input
-    searchInput.type = 'text';
-    searchInput.className = 'form-control form-control-sm dashboard-search-input';
-    searchInput.placeholder = 'Search invoices...';
-    searchInput.style.maxWidth = '250px';
-    // Add a search icon
-    const searchWrapper = document.createElement('div');
-    searchWrapper.className = 'search-input-wrapper position-relative';
-    searchWrapper.appendChild(searchInput);
-    const searchIcon = document.createElement('i');
-    searchIcon.className = 'bi bi-search search-input-icon';
-    searchWrapper.appendChild(searchIcon);
-    document.querySelector('.dashboard-search').appendChild(searchWrapper);
-    
-    // Tab Filtering
-    tabButtons.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Update active state
-            tabButtons.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Update filter
-            currentFilter = this.textContent.trim().toLowerCase().split(' ')[0];
-            filterTable();
-        });
-    });
-    
-    // Search Functionality
-    searchInput.addEventListener('input', debounce(function() {
-        filterTable();
-    }, 300));
-    
-    // Select All Functionality
-    selectAllCheckbox.addEventListener('change', function() {
-        const checkboxes = tableBody.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = this.checked;
-            const invoiceId = checkbox.value;
-            if (this.checked) {
-                selectedInvoices.add(invoiceId);
-            } else {
-                selectedInvoices.delete(invoiceId);
-            }
-        });
-        updateBulkActions();
-    });
-    
-    // Table Sorting
-    document.querySelectorAll('.dashboard-table th').forEach(header => {
-        if (header.dataset.sortable !== 'false') {
-            header.style.cursor = 'pointer';
-            header.addEventListener('click', () => {
-                const column = header.dataset.column;
-                sortTable(column);
-            });
-        }
-    });
-    
-    // Functions
-    function filterTable() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const rows = tableBody.querySelectorAll('tr');
-        
-        rows.forEach(row => {
-            const status = row.querySelector('.badge').textContent.toLowerCase();
-            const text = row.textContent.toLowerCase();
-            const matchesFilter = currentFilter === 'all' || status.includes(currentFilter);
-            const matchesSearch = text.includes(searchTerm);
-            
-            row.style.display = matchesFilter && matchesSearch ? '' : 'none';
-        });
-        
-        updateTabCounts();
-    }
-    
-    function sortTable(column) {
-        const rows = Array.from(tableBody.querySelectorAll('tr'));
-        const header = document.querySelector(`th[data-column="${column}"]`);
-        if (!header) return;
-        
-        // Update sort direction
-        if (currentSort.column === column) {
-            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
-        } else {
-            currentSort.column = column;
-            currentSort.direction = 'asc';
-        }
-        
-        // Update header indicators
-        document.querySelectorAll('.dashboard-table th').forEach(th => {
-            th.classList.remove('sort-asc', 'sort-desc');
-        });
-        header.classList.add(`sort-${currentSort.direction}`);
-        
-        // Sort rows
-        rows.sort((a, b) => {
-            const aCell = a.querySelector(`td[data-column="${column}"]`);
-            const bCell = b.querySelector(`td[data-column="${column}"]`);
-            const aValue = aCell ? aCell.textContent : '';
-            const bValue = bCell ? bCell.textContent : '';
-            
-            if (currentSort.direction === 'asc') {
-                return aValue.localeCompare(bValue);
-            } else {
-                return bValue.localeCompare(aValue);
-            }
-        });
-        
-        // Reorder rows
-        rows.forEach(row => tableBody.appendChild(row));
-    }
-    
-    function updateTabCounts() {
-        const counts = {
-            all: 0,
-            pending: 0,
-            approved: 0,
-            flagged: 0
-        };
-        
-        tableBody.querySelectorAll('tr').forEach(row => {
-            if (row.style.display !== 'none') {
-                counts.all++;
-                const status = row.querySelector('.badge').textContent.toLowerCase();
-                if (status.includes('pending')) counts.pending++;
-                if (status.includes('approved')) counts.approved++;
-                if (status.includes('flagged')) counts.flagged++;
-            }
-        });
-        
-        tabButtons.forEach(tab => {
-            const status = tab.textContent.trim().toLowerCase().split(' ')[0];
-            const badge = tab.querySelector('.tab-badge');
-            if (badge) {
-                badge.textContent = counts[status] || '0';
-            }
-        });
-    }
-    
-    function updateBulkActions() {
-        const bulkActions = document.querySelector('.bulk-actions');
-        const selectedCount = document.querySelector('.bulk-actions .selected-count');
-        const checked = document.querySelectorAll('.row-select:checked').length;
-        if (bulkActions) {
-            bulkActions.style.display = checked > 0 ? 'flex' : 'none';
-            if (selectedCount) {
-                selectedCount.textContent = `${checked} item${checked === 1 ? '' : 's'} selected`;
-            }
-        }
-    }
-    
-    // Utility Functions
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-    
-    // Initialize
-    filterTable();
-    
-    // Add bulk actions container
-    const bulkActions = document.createElement('div');
-    bulkActions.className = 'bulk-actions';
-    bulkActions.style.display = 'none';
-    bulkActions.innerHTML = `
-        <div class="selected-count">${selectedInvoices.size} selected</div>
-        <div class="action-buttons">
-            <button class="btn btn-sm btn-primary" onclick="submitSelected()">Submit</button>
-        </div>
-    `;
-    document.querySelector('.dashboard-card').insertBefore(bulkActions, document.querySelector('.table-responsive'));
-
-    // Ensure bulk-actions shows on any selection
-    tableBody.addEventListener('change', function(e) {
-        if (e.target.classList.contains('row-select')) {
-            updateBulkActions();
-        }
-    });
-});
-
-// Action Functions
-function approveSelected() {
-    // Implementation for approving selected invoices
-    console.log('Approving selected invoices...');
-}
-
-function flagSelected() {
-    // Implementation for flagging selected invoices
-    console.log('Flagging selected invoices...');
-}
-
-function exportSelected() {
-    // Implementation for exporting selected invoices
-    console.log('Exporting selected invoices...');
-}
-
-// Add submitSelected function
-function submitSelected() {
-    // Implementation for submitting selected invoices
-    console.log('Submitting selected invoices...');
-}
-
-// Pagination and Items Per Page Functionality
+// Pagination variables
 let currentPage = 1;
 let itemsPerPage = 10;
 let totalPages = Math.ceil(invoiceData.length / itemsPerPage);
 
-function updatePagination() {
-    const startEntry = document.getElementById('startEntry');
-    const endEntry = document.getElementById('endEntry');
-    const totalEntries = document.getElementById('totalEntries');
-    const pageNumbers = document.querySelector('.page-numbers');
-    
-    // Update entry information
-    const start = (currentPage - 1) * itemsPerPage + 1;
-    const end = Math.min(start + itemsPerPage - 1, invoiceData.length);
-    startEntry.textContent = start;
-    endEntry.textContent = end;
-    totalEntries.textContent = invoiceData.length;
-    
-    // Update page numbers
-    pageNumbers.innerHTML = '';
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-    
-    if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
-    
-    for (let i = startPage; i <= endPage; i++) {
-        const button = document.createElement('button');
-        button.className = `btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline-secondary'}`;
-        button.textContent = i;
-        button.onclick = () => goToPage(i);
-        pageNumbers.appendChild(button);
-    }
-    
-    // Update navigation buttons
-    document.getElementById('firstPage').disabled = currentPage === 1;
-    document.getElementById('prevPage').disabled = currentPage === 1;
-    document.getElementById('nextPage').disabled = currentPage === totalPages;
-    document.getElementById('lastPage').disabled = currentPage === totalPages;
+// Utility for formatting currency
+function formatCurrency(num) {
+    return '$' + num.toLocaleString();
 }
 
-function goToPage(page) {
-    if (page < 1 || page > totalPages) return;
-    currentPage = page;
-    renderPage(currentPage);
-    updatePagination();
-}
-
-function updateItemsPerPage() {
-    itemsPerPage = parseInt(document.getElementById('itemsPerPage').value);
-    totalPages = Math.ceil(invoiceData.length / itemsPerPage);
-    currentPage = 1;
-    renderPage(currentPage);
-    updatePagination();
-}
-
-// Initialize footer functionality
-document.addEventListener('DOMContentLoaded', () => {
-    // ... existing initialization code ...
-    
-    // Add event listeners for pagination
-    document.getElementById('firstPage').addEventListener('click', () => goToPage(1));
-    document.getElementById('prevPage').addEventListener('click', () => goToPage(currentPage - 1));
-    document.getElementById('nextPage').addEventListener('click', () => goToPage(currentPage + 1));
-    document.getElementById('lastPage').addEventListener('click', () => goToPage(totalPages));
-    
-    // Add event listener for items per page
-    document.getElementById('itemsPerPage').addEventListener('change', updateItemsPerPage);
-    
-    // Initialize pagination
-    updatePagination();
-});
-
-// Update renderPage function to use itemsPerPage
-function renderPage(page) {
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageData = invoiceData.slice(start, end);
-    
-    const tbody = document.getElementById('invoiceDashboardBody');
-    tbody.innerHTML = '';
-    
-    pageData.forEach((row, idx) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td><input type="checkbox" class="row-select" value="${start + idx + 1}"></td>
+// Function to create table row HTML
+function createTableRow(row, index) {
+    return `
+        <tr>
+            <td><input type="checkbox" class="form-check-input invoice-checkbox" value="${index + 1}"></td>
             <td data-column="part">${row.Part}</td>
             <td data-column="module">${row.Module}</td>
             <td data-column="class">${row.Class}</td>
-            <td data-column="description" class="text-muted">${row.Desc}</td>
+            <td data-column="description">${row.Desc}</td>
             <td data-column="qty">${row.Qty}</td>
-            <td data-column="unitValue">$${row.Unit.toLocaleString()}</td>
-            <td data-column="total">$${row.Total.toLocaleString()}</td>
+            <td data-column="unitValue">${formatCurrency(row.Unit)}</td>
+            <td data-column="total">${formatCurrency(row.Total)}</td>
             <td data-column="status">
                 <span class="badge badge-${row.Group === 'Underbilled' ? 'underbilled' : 'approved'}">
                     ${row.Group === 'Underbilled' ? 'Underbilled' : 'Approved'}
                 </span>
             </td>
             <td data-column="insights">
-                <span class="badge badge-pending">${row.Insights}</span>
+                <div class="progress-bar">
+                    <div class="progress-bar-inner" style="width: 75%"></div>
+                </div>
             </td>
             <td data-column="group">${row.Group || '-'}</td>
             <td data-column="actions">
@@ -476,143 +62,356 @@ function renderPage(page) {
                     <i class="bi bi-eye"></i>
                 </button>
             </td>
+        </tr>
+    `;
+}
+
+// Function to render table content
+function renderTableContent(tableId, page) {
+    console.log(`Rendering table: ${tableId}, page: ${page}`);
+    const category = tableId.replace('PartsBody', '');
+    const data = partsData[category] || partsData.all;
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageData = data.slice(start, end);
+    
+    const tbody = document.getElementById(tableId);
+    if (!tbody) {
+        console.error(`Table body not found: ${tableId}`);
+        return;
+    }
+    
+    tbody.innerHTML = pageData.map((row, idx) => createTableRow(row, start + idx)).join('');
+    
+    // Add event listeners for checkboxes
+    const checkboxes = tbody.querySelectorAll('.invoice-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectedActions);
+    });
+
+    // Update pagination info
+    updatePaginationInfo(data.length);
+    
+    // Initialize tooltips and attach event listeners
+    initializeTooltips();
+    attachViewDetailsListeners();
+}
+
+// Update pagination info
+function updatePaginationInfo(totalItems) {
+    const startEntry = document.getElementById('startEntry');
+    const endEntry = document.getElementById('endEntry');
+    const totalEntries = document.getElementById('totalEntries');
+    
+    if (!startEntry || !endEntry || !totalEntries) {
+        console.error('Pagination elements not found');
+        return;
+    }
+    
+    const start = (currentPage - 1) * itemsPerPage + 1;
+    const end = Math.min(start + itemsPerPage - 1, totalItems);
+    
+    startEntry.textContent = start;
+    endEntry.textContent = end;
+    totalEntries.textContent = totalItems;
+    
+    // Update total pages
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+    updatePagination();
+}
+
+// Update pagination
+function updatePagination() {
+    const pageNumbers = document.querySelector('.page-numbers');
+    if (!pageNumbers) {
+        console.error('Page numbers container not found');
+        return;
+    }
+
+    let paginationHTML = '';
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage + 1 < maxVisiblePages) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    // First page
+    if (startPage > 1) {
+        paginationHTML += `<button class="btn btn-sm btn-outline-secondary page-number" data-page="1">1</button>`;
+        if (startPage > 2) {
+            paginationHTML += `<span class="page-ellipsis">...</span>`;
+        }
+    }
+
+    // Page numbers
+    for (let i = startPage; i <= endPage; i++) {
+        paginationHTML += `
+            <button class="btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline-secondary'} page-number" data-page="${i}">
+                ${i}
+            </button>
         `;
-        tbody.appendChild(tr);
+    }
+
+    // Last page
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            paginationHTML += `<span class="page-ellipsis">...</span>`;
+        }
+        paginationHTML += `<button class="btn btn-sm btn-outline-secondary page-number" data-page="${totalPages}">${totalPages}</button>`;
+    }
+
+    pageNumbers.innerHTML = paginationHTML;
+
+    // Add event listeners to page number buttons
+    const pageButtons = pageNumbers.querySelectorAll('.page-number');
+    pageButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const page = parseInt(button.dataset.page);
+            if (page !== currentPage) {
+                currentPage = page;
+                const activeTable = document.querySelector('.tab-pane.active');
+                const tableBody = activeTable.querySelector('tbody');
+                if (tableBody) {
+                    renderTableContent(tableBody.id, currentPage);
+                }
+            }
+        });
     });
 
-    // Reinitialize tooltips for the new buttons
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+    // Update pagination button states
+    document.getElementById('firstPage').disabled = currentPage === 1;
+    document.getElementById('prevPage').disabled = currentPage === 1;
+    document.getElementById('nextPage').disabled = currentPage === totalPages;
+    document.getElementById('lastPage').disabled = currentPage === totalPages;
+}
 
-    // Reattach click event listeners to view details buttons
+// Show details modal
+function showDetailsModal(row) {
+    const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    const modalTitle = document.getElementById('detailsModalLabel');
+    const modalBody = document.querySelector('#detailsModal .modal-body');
+
+    // Get row data
+    const part = row.querySelector('[data-column="part"]').textContent;
+    const module = row.querySelector('[data-column="module"]').textContent;
+    const description = row.querySelector('[data-column="description"]').textContent;
+    const qty = row.querySelector('[data-column="qty"]').textContent;
+    const unitValue = row.querySelector('[data-column="unitValue"]').textContent;
+    const total = row.querySelector('[data-column="total"]').textContent;
+    const status = row.querySelector('[data-column="status"] .badge').textContent;
+    const group = row.querySelector('[data-column="group"]').textContent;
+
+    // Update modal content
+    modalTitle.textContent = `Part Details: ${part}`;
+    modalBody.innerHTML = `
+        <div class="details-grid">
+            <div class="detail-item">
+                <label>Module</label>
+                <span>${module}</span>
+            </div>
+            <div class="detail-item">
+                <label>Description</label>
+                <span>${description}</span>
+            </div>
+            <div class="detail-item">
+                <label>Quantity</label>
+                <span>${qty}</span>
+            </div>
+            <div class="detail-item">
+                <label>Unit Value</label>
+                <span>${unitValue}</span>
+            </div>
+            <div class="detail-item">
+                <label>Total</label>
+                <span>${total}</span>
+            </div>
+            <div class="detail-item">
+                <label>Status</label>
+                <span class="badge badge-${status === 'Underbilled' ? 'underbilled' : 'approved'}">${status}</span>
+            </div>
+            <div class="detail-item">
+                <label>Group</label>
+                <span>${group}</span>
+            </div>
+        </div>
+    `;
+
+    modal.show();
+}
+
+// Initialize table sorting
+function initializeTableSorting() {
+    const sortableHeaders = document.querySelectorAll('th[data-sortable="true"]');
+    sortableHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const column = header.dataset.column;
+            const activeTable = document.querySelector('.tab-pane.active');
+            const tbody = activeTable.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // Sort rows
+            rows.sort((a, b) => {
+                const aValue = a.querySelector(`[data-column="${column}"]`).textContent;
+                const bValue = b.querySelector(`[data-column="${column}"]`).textContent;
+                
+                if (column === 'unitValue' || column === 'total') {
+                    return parseFloat(aValue.replace(/[^0-9.-]+/g, '')) - parseFloat(bValue.replace(/[^0-9.-]+/g, ''));
+                }
+                
+                return aValue.localeCompare(bValue);
+            });
+            
+            // Update table
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        });
+    });
+}
+
+// Update selected actions
+function updateSelectedActions() {
+    const activeTable = document.querySelector('.tab-pane.active');
+    const selectedRows = activeTable.querySelectorAll('.invoice-checkbox:checked');
+    const selectedActions = document.querySelector('.selected-actions');
+    
+    if (selectedActions) {
+        selectedActions.style.display = selectedRows.length > 0 ? 'block' : 'none';
+    }
+}
+
+// Submit selected
+function submitSelected(selectedIds) {
+    console.log('Submitting selected IDs:', selectedIds);
+    // Here you would typically make an API call to submit the selected items
+    alert(`Successfully submitted ${selectedIds.length} items!`);
+    
+    // Reset checkboxes
+    const activeTable = document.querySelector('.tab-pane.active');
+    const checkboxes = activeTable.querySelectorAll('.invoice-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    
+    // Hide selected actions
+    const selectedActions = document.querySelector('.selected-actions');
+    if (selectedActions) {
+        selectedActions.style.display = 'none';
+    }
+}
+
+// Initialize tooltips
+function initializeTooltips() {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+}
+
+// Attach view details listeners
+function attachViewDetailsListeners() {
     const viewDetailsButtons = document.querySelectorAll('.view-details');
     viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const row = this.closest('tr');
+        button.addEventListener('click', () => {
+            const row = button.closest('tr');
             showDetailsModal(row);
         });
     });
 }
 
-// Add action menu functionality
-function toggleActionsMenu(button) {
-    const menu = button.nextElementSibling;
-    const allMenus = document.querySelectorAll('.actions-menu');
+// Initialize the page
+function initializePage() {
+    console.log('Initializing page...');
     
-    allMenus.forEach(m => {
-        if (m !== menu) m.classList.remove('show');
+    // First, ensure all tables exist in the DOM
+    const categories = ['all', 'engine', 'transmission', 'electrical', 'body'];
+    categories.forEach(category => {
+        const tableBody = document.getElementById(`${category}PartsBody`);
+        if (!tableBody) {
+            console.error(`Table body not found for category: ${category}`);
+            return;
+        }
     });
-    
-    menu.classList.toggle('show');
-}
 
-// Close action menus when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.actions')) {
-        document.querySelectorAll('.actions-menu').forEach(menu => {
-            menu.classList.remove('show');
-        });
-    }
-});
+    // Update tab badges with actual counts
+    Object.entries(partsData).forEach(([category, data]) => {
+        const badge = document.querySelector(`#${category}-tab .badge`);
+        if (badge) {
+            badge.textContent = data.length;
+        }
+    });
 
-// Action handlers
-function viewDetails(id) {
-    console.log('Viewing details for invoice:', id);
-    // Implement view details functionality
-}
+    // Initialize Bootstrap tabs
+    const tabElList = document.querySelectorAll('[data-bs-toggle="tab"]');
+    const tabList = [...tabElList].map(tabEl => new bootstrap.Tab(tabEl));
 
-function editInvoice(id) {
-    console.log('Editing invoice:', id);
-    // Implement edit functionality
-}
-
-function deleteInvoice(id) {
-    console.log('Deleting invoice:', id);
-    // Implement delete functionality
-}
-
-// Function to show the details modal
-function showDetailsModal(row) {
-    if (!row) return;
-
-    // Get data from the row
-    const part = row.querySelector('[data-column="part"]')?.textContent || '';
-    const module = row.querySelector('[data-column="module"]')?.textContent || '';
-    const classValue = row.querySelector('[data-column="class"]')?.textContent || '';
-    const description = row.querySelector('[data-column="description"]')?.textContent || '';
-    const qty = row.querySelector('[data-column="qty"]')?.textContent || '';
-    const unitValue = row.querySelector('[data-column="unitValue"]')?.textContent || '';
-    const total = row.querySelector('[data-column="total"]')?.textContent || '';
-    const status = row.querySelector('[data-column="status"]')?.innerHTML || '';
-    const group = row.querySelector('[data-column="group"]')?.textContent || '';
-    const insights = row.querySelector('[data-column="insights"]')?.innerHTML || '';
-
-    // Update modal content
-    document.getElementById('modalPart').textContent = part;
-    document.getElementById('modalModule').textContent = module;
-    document.getElementById('modalClass').textContent = classValue;
-    document.getElementById('modalDescription').textContent = description;
-    document.getElementById('modalQty').textContent = qty;
-    document.getElementById('modalUnitValue').textContent = unitValue;
-    document.getElementById('modalTotal').textContent = total;
-    document.getElementById('modalStatus').innerHTML = status;
-    document.getElementById('modalGroup').textContent = group;
-    document.getElementById('modalInsights').innerHTML = insights;
-
-    // Get modal element
-    const modalElement = document.getElementById('detailsModal');
-    if (!modalElement) return;
-
-    // Initialize modal if not already initialized
-    let modal = bootstrap.Modal.getInstance(modalElement);
-    if (!modal) {
-        modal = new bootstrap.Modal(modalElement, {
-            backdrop: true,
-            keyboard: true,
-            focus: true
-        });
-    }
-
-    // Show modal
-    modal.show();
-}
-
-// Initialize the dashboard
-document.addEventListener('DOMContentLoaded', () => {
     // Initialize tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+    initializeTooltips();
 
-    // Add click handlers for view details buttons
-    function attachViewDetailsListeners() {
-        document.querySelectorAll('.view-details').forEach(button => {
-            // Remove existing listeners by cloning
-            const newButton = button.cloneNode(true);
-            button.parentNode.replaceChild(newButton, button);
-            
-            // Add new listener
-            newButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const row = this.closest('tr');
-                showDetailsModal(row);
+    // Initialize table sorting
+    initializeTableSorting();
+
+    // Handle select all checkbox
+    const selectAllCheckbox = document.getElementById('selectAllInvoices');
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', () => {
+            const activeTable = document.querySelector('.tab-pane.active');
+            const checkboxes = activeTable.querySelectorAll('.invoice-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
             });
+            updateSelectedActions();
         });
     }
 
-    // Initial render and listener attachment
-    renderPage(1);
-    attachViewDetailsListeners();
+    // Add submit button event listener
+    const submitButton = document.getElementById('submitSelected');
+    if (submitButton) {
+        submitButton.addEventListener('click', function() {
+            const activeTable = document.querySelector('.tab-pane.active');
+            const selectedRows = activeTable.querySelectorAll('.invoice-checkbox:checked');
+            
+            if (selectedRows.length > 0) {
+                const selectedIds = Array.from(selectedRows).map(checkbox => checkbox.value);
+                submitSelected(selectedIds);
+            }
+        });
+    }
 
-    // Update renderPage to reattach listeners after rendering
-    const originalRenderPage = renderPage;
-    renderPage = function(page) {
-        originalRenderPage(page);
-        attachViewDetailsListeners();
-    };
+    // Handle tab changes
+    document.getElementById('partsTab').addEventListener('shown.bs.tab', function(e) {
+        const targetId = e.target.getAttribute('data-bs-target').substring(1);
+        const tableBody = document.querySelector(`#${targetId} tbody`);
+        if (tableBody) {
+            currentPage = 1; // Reset to first page on tab change
+            renderTableContent(tableBody.id, currentPage);
+        }
+    });
+
+    // Initial render of all tables
+    categories.forEach(category => {
+        const tableBody = document.getElementById(`${category}PartsBody`);
+        if (tableBody) {
+            console.log(`Rendering table for category: ${category}`);
+            renderTableContent(tableBody.id, 1);
+        }
+    });
+
+    // Force render the active tab's content
+    const activeTab = document.querySelector('.nav-link.active');
+    if (activeTab) {
+        const targetId = activeTab.getAttribute('data-bs-target').substring(1);
+        const tableBody = document.querySelector(`#${targetId} tbody`);
+        if (tableBody) {
+            console.log(`Force rendering active tab: ${targetId}`);
+            renderTableContent(tableBody.id, 1);
+        }
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded');
+    initializePage();
 }); 

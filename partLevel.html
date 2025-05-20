@@ -16,6 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/css/main.css">
   <link rel="stylesheet" href="src/css/partLevel.css">
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -168,83 +170,194 @@
         
       </div>
       <section class="invoice-dashboard-section">
-        <!-- Tabs/Filters -->
-        <div class="dashboard-tabs-row d-flex align-items-center justify-content-between flex-wrap mb-2">
-          <div class="dashboard-tabs d-flex align-items-center gap-2 flex-wrap mb-0">
-            <button class="tab active">All Invoices <span class="tab-badge">14</span></button>
-            <button class="tab">Pending <span class="tab-badge">3</span></button>
-            <button class="tab">Approved <span class="tab-badge">8</span></button>
-            <button class="tab">Flagged <span class="tab-badge">3</span></button>
-          </div>
-          <div class="dashboard-search ms-auto">
-            <!-- Search input will be appended here by JS -->
+        <!-- Tabs -->
+        <div class="dashboard-tabs-row d-flex align-items-center justify-content-between flex-wrap mb-3">
+          <ul class="nav nav-tabs nav-tabs-sm" id="partsTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-table" type="button" role="tab" aria-controls="all-table" aria-selected="true">
+                All Parts <span class="badge bg-secondary ms-1">14</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="engine-tab" data-bs-toggle="tab" data-bs-target="#engine-table" type="button" role="tab" aria-controls="engine-table" aria-selected="false">
+                Engine <span class="badge bg-secondary ms-1">5</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="transmission-tab" data-bs-toggle="tab" data-bs-target="#transmission-table" type="button" role="tab" aria-controls="transmission-table" aria-selected="false">
+                Transmission <span class="badge bg-secondary ms-1">4</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="electrical-tab" data-bs-toggle="tab" data-bs-target="#electrical-table" type="button" role="tab" aria-controls="electrical-table" aria-selected="false">
+                Electrical <span class="badge bg-secondary ms-1">3</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="body-tab" data-bs-toggle="tab" data-bs-target="#body-table" type="button" role="tab" aria-controls="body-table" aria-selected="false">
+                Body <span class="badge bg-secondary ms-1">2</span>
+              </button>
+            </li>
+          </ul>
+          <div class="selected-actions" style="display: none;">
+            <button class="btn btn-primary submit-selected" id="submitSelected">
+              <i class="bi bi-check-circle me-1"></i>Submit Selected
+            </button>
           </div>
         </div>
 
-        <!-- Table Card -->
-        <div class="dashboard-card">
-          <div class="table-responsive">
-            <table class="dashboard-table">
-              <thead>
-                <tr>
-                  <th width="40"><input type="checkbox" id="selectAllInvoices" class="form-check-input"></th>
-                  <th data-column="part" data-sortable="true">Part</th>
-                  <th data-column="module" data-sortable="true">Module</th>
-                  <th data-column="class" data-sortable="true">Class</th>
-                  <th data-column="description" data-sortable="true">Description</th>
-                  <th data-column="qty" data-sortable="true">Qty</th>
-                  <th data-column="unitValue" data-sortable="true">Unit Value</th>
-                  <th data-column="total" data-sortable="true">Total</th>
-                  <th data-column="status" data-sortable="true">Status</th>
-                  <th data-column="insights" data-sortable="false">Insights</th>
-                  <th data-column="group" data-sortable="true">Group</th>
-                  <th data-column="actions" data-sortable="false">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="invoiceDashboardBody">
-                <!-- Sample row for reference -->
-                <tr>
-                  <td><input type="checkbox" class="form-check-input invoice-checkbox" value="1"></td>
-                  <td data-column="part">ABC123</td>
-                  <td data-column="module">Engine</td>
-                  <td data-column="class">A</td>
-                  <td data-column="description">Engine Block Assembly</td>
-                  <td data-column="qty">2</td>
-                  <td data-column="unitValue">$1,500.00</td>
-                  <td data-column="total">$3,000.00</td>
-                  <td data-column="status"><span class="badge badge-pending">Pending</span></td>
-                  <td data-column="insights">
-                    <div class="progress-bar">
-                      <div class="progress-bar-inner" style="width: 75%"></div>
-                    </div>
-                  </td>
-                  <td data-column="group">-</td>
-                  <td data-column="actions">
-                    <button class="btn btn-sm btn-outline-primary view-details" data-bs-toggle="tooltip" data-bs-title="View Details">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                  </td>
-                </tr>
-                <!-- Add more sample rows here -->
-              </tbody>
-            </table>
+        <!-- Table Cards -->
+        <div class="tab-content" id="partsTabContent">
+          <!-- All Parts Table -->
+          <div class="tab-pane fade show active" id="all-table" role="tabpanel" aria-labelledby="all-tab">
+            <div class="table-responsive">
+              <table class="dashboard-table table-sm">
+                <thead>
+                  <tr>
+                    <th width="40"><input type="checkbox" id="selectAllInvoices" class="form-check-input"></th>
+                    <th data-column="part" data-sortable="true">Part</th>
+                    <th data-column="module" data-sortable="true">Module</th>
+                    <th data-column="class" data-sortable="true">Class</th>
+                    <th data-column="description" data-sortable="true">Description</th>
+                    <th data-column="qty" data-sortable="true">Qty</th>
+                    <th data-column="unitValue" data-sortable="true">Unit Value</th>
+                    <th data-column="total" data-sortable="true">Total</th>
+                    <th data-column="status" data-sortable="true">Status</th>
+                    <th data-column="insights" data-sortable="false">Insights</th>
+                    <th data-column="group" data-sortable="true">Group</th>
+                    <th data-column="actions" data-sortable="false">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="allPartsBody">
+                  <!-- Rows will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Engine Parts Table -->
+          <div class="tab-pane fade" id="engine-table" role="tabpanel" aria-labelledby="engine-tab">
+            <div class="table-responsive">
+              <table class="dashboard-table table-sm">
+                <thead>
+                  <tr>
+                    <th width="40"><input type="checkbox" class="form-check-input"></th>
+                    <th data-column="part" data-sortable="true">Part</th>
+                    <th data-column="module" data-sortable="true">Module</th>
+                    <th data-column="class" data-sortable="true">Class</th>
+                    <th data-column="description" data-sortable="true">Description</th>
+                    <th data-column="qty" data-sortable="true">Qty</th>
+                    <th data-column="unitValue" data-sortable="true">Unit Value</th>
+                    <th data-column="total" data-sortable="true">Total</th>
+                    <th data-column="status" data-sortable="true">Status</th>
+                    <th data-column="insights" data-sortable="false">Insights</th>
+                    <th data-column="group" data-sortable="true">Group</th>
+                    <th data-column="actions" data-sortable="false">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="enginePartsBody">
+                  <!-- Engine parts rows will be populated here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Transmission Table -->
+          <div class="tab-pane fade" id="transmission-table" role="tabpanel" aria-labelledby="transmission-tab">
+            <div class="table-responsive">
+              <table class="dashboard-table table-sm">
+                <thead>
+                  <tr>
+                    <th width="40"><input type="checkbox" class="form-check-input"></th>
+                    <th data-column="part" data-sortable="true">Part</th>
+                    <th data-column="module" data-sortable="true">Module</th>
+                    <th data-column="class" data-sortable="true">Class</th>
+                    <th data-column="description" data-sortable="true">Description</th>
+                    <th data-column="qty" data-sortable="true">Qty</th>
+                    <th data-column="unitValue" data-sortable="true">Unit Value</th>
+                    <th data-column="total" data-sortable="true">Total</th>
+                    <th data-column="status" data-sortable="true">Status</th>
+                    <th data-column="insights" data-sortable="false">Insights</th>
+                    <th data-column="group" data-sortable="true">Group</th>
+                    <th data-column="actions" data-sortable="false">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="transmissionPartsBody">
+                  <!-- Transmission parts rows will be populated here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Electrical Table -->
+          <div class="tab-pane fade" id="electrical-table" role="tabpanel" aria-labelledby="electrical-tab">
+            <div class="table-responsive">
+              <table class="dashboard-table table-sm">
+                <thead>
+                  <tr>
+                    <th width="40"><input type="checkbox" class="form-check-input"></th>
+                    <th data-column="part" data-sortable="true">Part</th>
+                    <th data-column="module" data-sortable="true">Module</th>
+                    <th data-column="class" data-sortable="true">Class</th>
+                    <th data-column="description" data-sortable="true">Description</th>
+                    <th data-column="qty" data-sortable="true">Qty</th>
+                    <th data-column="unitValue" data-sortable="true">Unit Value</th>
+                    <th data-column="total" data-sortable="true">Total</th>
+                    <th data-column="status" data-sortable="true">Status</th>
+                    <th data-column="insights" data-sortable="false">Insights</th>
+                    <th data-column="group" data-sortable="true">Group</th>
+                    <th data-column="actions" data-sortable="false">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="electricalPartsBody">
+                  <!-- Electrical parts rows will be populated here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Body Parts Table -->
+          <div class="tab-pane fade" id="body-table" role="tabpanel" aria-labelledby="body-tab">
+            <div class="table-responsive">
+              <table class="dashboard-table table-sm">
+                <thead>
+                  <tr>
+                    <th width="40"><input type="checkbox" class="form-check-input"></th>
+                    <th data-column="part" data-sortable="true">Part</th>
+                    <th data-column="module" data-sortable="true">Module</th>
+                    <th data-column="class" data-sortable="true">Class</th>
+                    <th data-column="description" data-sortable="true">Description</th>
+                    <th data-column="qty" data-sortable="true">Qty</th>
+                    <th data-column="unitValue" data-sortable="true">Unit Value</th>
+                    <th data-column="total" data-sortable="true">Total</th>
+                    <th data-column="status" data-sortable="true">Status</th>
+                    <th data-column="insights" data-sortable="false">Insights</th>
+                    <th data-column="group" data-sortable="true">Group</th>
+                    <th data-column="actions" data-sortable="false">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="bodyPartsBody">
+                  <!-- Body parts rows will be populated here -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
         <!-- Pagination -->
-        <div class="dashboard-footer">
+        <div class="dashboard-footer mt-3">
           <div class="footer-left">
             <div class="items-per-page">
-              <label for="itemsPerPage">Show</label>
+              <label for="itemsPerPage" class="form-label-sm">Show</label>
               <select id="itemsPerPage" class="form-select form-select-sm">
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>entries</span>
+              <span class="ms-2">entries</span>
             </div>
-            <div class="summary-info">
+            <div class="summary-info ms-3">
               Showing <span id="startEntry">1</span> to <span id="endEntry">10</span> of <span id="totalEntries">14</span> entries
             </div>
           </div>
@@ -257,8 +370,7 @@
                 <i class="bi bi-chevron-left"></i>
               </button>
               <div class="page-numbers">
-                <button class="btn btn-sm btn-primary">1</button>
-                <button class="btn btn-sm btn-outline-secondary">2</button>
+                <!-- Page numbers will be populated by JavaScript -->
               </div>
               <button class="btn btn-sm btn-outline-secondary" id="nextPage" title="Next Page">
                 <i class="bi bi-chevron-right"></i>
@@ -273,8 +385,7 @@
     </main>
   </div>
 
-  <!-- Bootstrap JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Scripts -->
   <script src="src/js/script.js"></script>
   <script src="src/js/header.js"></script>
   <script src="src/js/partLevel.js"></script>
