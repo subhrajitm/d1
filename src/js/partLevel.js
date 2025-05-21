@@ -52,9 +52,7 @@ function createTableRow(row, index) {
                 </span>
             </td>
             <td data-column="insights">
-                <div class="progress-bar">
-                    <div class="progress-bar-inner" style="width: 75%"></div>
-                </div>
+                <span class="insights-text">${row.Insights}</span>
             </td>
             <td data-column="group">${row.Group || '-'}</td>
             <td data-column="actions">
