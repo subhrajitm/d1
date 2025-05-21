@@ -1126,6 +1126,12 @@
                   <i class="bi bi-table tab-icon"></i> <span class="d-none d-sm-inline">Module Level Breakdown</span>
                 </button>
               </li>
+              <li class="nav-item" role="presentation" style="border:none;">
+                <button class="view-style-tab" id="all-recommendations-tab" data-bs-toggle="tab" data-bs-target="#all-recommendations"
+                  type="button" role="tab" aria-controls="all-recommendations" aria-selected="false">
+                  <i class="bi bi-list-check tab-icon"></i> <span class="d-none d-sm-inline">All Recommendations</span>
+                </button>
+              </li>
             </ul>
             <div class="tab-content p-0 " id="reviewTabContent">
               <div class="tab-pane fade" id="breakdown" role="tabpanel" aria-labelledby="breakdown-tab">
@@ -1210,6 +1216,45 @@
                   </div>
                   <div class="recommendations-list">
                     <div class="rec-card high">
+                      <div class="card-content">
+                        <h4>Pricing Review Required</h4>
+                        <p>Material pricing exceeds CLP by significant margin. Review and adjust rates.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rec-card medium">
+                      <div class="card-content">
+                        <h4>Documentation Gap</h4>
+                        <p>Missing supporting documents for repair charges. Request additional documentation.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rec-card low">
+                      <div class="card-content">
+                        <h4>Timeline Review</h4>
+                        <p>Minor discrepancies in delivery dates noted. Verify transportation timeline.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 20%"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="all-recommendations" role="tabpanel" aria-labelledby="all-recommendations-tab">
+                <div class="review-recommendations">
+                  <div class="recommendations-header">
+                    <div class="header-left">
+                      <h4>All Recommendations</h4>
+                      <span class="issue-count">6 Issues Found</span>
+                    </div>
+                  </div>
+                  <div class="recommendations-list">
+                    <div class="rec-card high">
                       <div class="card-header">
                         <div class="priority-badge">
                           <i class="bi bi-exclamation-triangle"></i>
@@ -1254,6 +1299,54 @@
                         <p>Minor discrepancies in delivery dates noted. Verify transportation timeline.</p>
                         <div class="progress-bar">
                           <div class="progress-fill" style="width: 20%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rec-card high">
+                      <div class="card-header">
+                        <div class="priority-badge">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          High Priority
+                        </div>
+                        <div class="impact-badge">75%</div>
+                      </div>
+                      <div class="card-content">
+                        <h4>Contract Compliance</h4>
+                        <p>Service level agreement terms not met. Review contract terms and conditions.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rec-card medium">
+                      <div class="card-header">
+                        <div class="priority-badge">
+                          <i class="bi bi-exclamation"></i>
+                          Medium Priority
+                        </div>
+                        <div class="impact-badge">35%</div>
+                      </div>
+                      <div class="card-content">
+                        <h4>Quality Check Required</h4>
+                        <p>Quality metrics below threshold. Schedule quality review meeting.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 35%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rec-card low">
+                      <div class="card-header">
+                        <div class="priority-badge">
+                          <i class="bi bi-info-circle"></i>
+                          Low Priority
+                        </div>
+                        <div class="impact-badge">15%</div>
+                      </div>
+                      <div class="card-content">
+                        <h4>Process Optimization</h4>
+                        <p>Opportunity to streamline workflow identified. Consider automation options.</p>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 15%"></div>
                         </div>
                       </div>
                     </div>

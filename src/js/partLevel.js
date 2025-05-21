@@ -31,7 +31,7 @@ let totalPages = Math.ceil(invoiceData.length / itemsPerPage);
 
 // Utility for formatting currency
 function formatCurrency(num) {
-    return '$' + num.toLocaleString();
+  return '$' + num.toLocaleString();
 }
 
 // Function to create table row HTML
@@ -47,10 +47,10 @@ function createTableRow(row, index) {
             <td data-column="unitValue">${formatCurrency(row.Unit)}</td>
             <td data-column="total">${formatCurrency(row.Total)}</td>
             <td data-column="status">
-                <span class="badge badge-${row.Group === 'Underbilled' ? 'underbilled' : 'approved'}">
-                    ${row.Group === 'Underbilled' ? 'Underbilled' : 'Approved'}
-                </span>
-            </td>
+        <span class="badge badge-${row.Group === 'Underbilled' ? 'underbilled' : 'approved'}">
+          ${row.Group === 'Underbilled' ? 'Underbilled' : 'Approved'}
+        </span>
+      </td>
             <td data-column="insights">
                 <span class="insights-text">${row.Insights}</span>
             </td>
@@ -59,7 +59,7 @@ function createTableRow(row, index) {
                 <button class="btn btn-sm btn-outline-primary view-details" data-bs-toggle="tooltip" data-bs-title="View Details">
                     <i class="bi bi-eye"></i>
                 </button>
-            </td>
+      </td>
         </tr>
     `;
 }
@@ -83,7 +83,7 @@ function renderTableContent(tableId, page) {
     
     // Add event listeners for checkboxes
     const checkboxes = tbody.querySelectorAll('.invoice-checkbox');
-    checkboxes.forEach(checkbox => {
+        checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateSelectedActions);
     });
 
@@ -93,7 +93,7 @@ function renderTableContent(tableId, page) {
     // Initialize tooltips and attach event listeners
     initializeTooltips();
     attachViewDetailsListeners();
-}
+        }
 
 // Update pagination info
 function updatePaginationInfo(totalItems) {
@@ -130,11 +130,11 @@ function updatePagination() {
     const maxVisiblePages = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
+    
     if (endPage - startPage + 1 < maxVisiblePages) {
         startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
-
+    
     // First page
     if (startPage > 1) {
         paginationHTML += `<button class="btn btn-sm btn-outline-secondary page-number" data-page="1">1</button>`;
@@ -173,11 +173,11 @@ function updatePagination() {
                 const tableBody = activeTable.querySelector('tbody');
                 if (tableBody) {
                     renderTableContent(tableBody.id, currentPage);
-                }
+    }
             }
         });
     });
-
+    
     // Update pagination button states
     document.getElementById('firstPage').disabled = currentPage === 1;
     document.getElementById('prevPage').disabled = currentPage === 1;
@@ -337,8 +337,8 @@ function initializePage() {
         const badge = document.querySelector(`#${category}-tab .badge`);
         if (badge) {
             badge.textContent = data.length;
-        }
-    });
+    }
+});
 
     // Initialize Bootstrap tabs
     const tabElList = document.querySelectorAll('[data-bs-toggle="tab"]');
@@ -393,7 +393,7 @@ function initializePage() {
         if (tableBody) {
             console.log(`Rendering table for category: ${category}`);
             renderTableContent(tableBody.id, 1);
-        }
+}
     });
 
     // Force render the active tab's content
@@ -406,7 +406,7 @@ function initializePage() {
             renderTableContent(tableBody.id, 1);
         }
     }
-}
+    }
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
