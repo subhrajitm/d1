@@ -1088,50 +1088,35 @@
                   </div>
                 </div>
               </div>
-              <div class="summary-footer">
-
-                <div class="summary-footer-section">
-                  <div class="footer-line mb-1">
-                    <i class="bi bi-sliders" style="color:#6366f1;"></i>
-                    Review recommendations at the part level and select specific items.
-                  </div>
-                  <a href="partLevel.html" class="btn btn-outline-secondary">Part-level Selection</a>
-                </div>
-
-                <div class="summary-footer-divider"></div>
-
-                <div class="summary-footer-section">
-                  <div class="footer-line mb-1">
-                    <i class="bi bi-lightbulb" style="color:#f59e42;"></i>
-                    Accept all recommendations and generate a revised invoice.
-                  </div>
-                  <a href="revisedInvoice.html" class="btn btn-outline-primary">See Revised Invoice</a>
-                </div>
-
-              </div>
             </div>
 
             <!-- Tabbed View for Breakdown and Recommendations -->
-            <ul class="view-style-tabs mt-4" id="reviewTab" role="tablist" style="border:none; gap:0.4rem;">
-              <li class="nav-item" role="presentation" style="border:none;">
-                <button class="view-style-tab active" id="recommendations-tab" data-bs-toggle="tab"
-                  data-bs-target="#recommendations" type="button" role="tab" aria-controls="recommendations"
-                  aria-selected="true">
-                  <i class="bi bi-lightbulb tab-icon"></i> <span class="d-none d-sm-inline">Recommendations</span>
-                </button>
-              </li>
-              <li class="nav-item" role="presentation" style="border:none;">
-                <button class="view-style-tab" id="breakdown-tab" data-bs-toggle="tab" data-bs-target="#breakdown"
-                  type="button" role="tab" aria-controls="breakdown" aria-selected="false">
-                  <i class="bi bi-table tab-icon"></i> <span class="d-none d-sm-inline">Module Level Breakdown</span>
-                </button>
-              </li>
-              <li class="nav-item" role="presentation" style="border:none;">
-                <button class="view-style-tab" id="all-recommendations-tab" data-bs-toggle="tab" data-bs-target="#all-recommendations"
-                  type="button" role="tab" aria-controls="all-recommendations" aria-selected="false">
-                  <i class="bi bi-list-check tab-icon"></i> <span class="d-none d-sm-inline">All Recommendations</span>
-                </button>
-              </li>
+            <ul class="view-style-tabs mt-4" id="reviewTab" role="tablist" style="border:none; gap:0.4rem; display:flex; justify-content:space-between; align-items:center;">
+              <div style="display:flex; gap:0.4rem;">
+                <li class="nav-item" role="presentation" style="border:none;">
+                  <button class="view-style-tab active" id="recommendations-tab" data-bs-toggle="tab"
+                    data-bs-target="#recommendations" type="button" role="tab" aria-controls="recommendations"
+                    aria-selected="true">
+                    <i class="bi bi-lightbulb tab-icon"></i> <span class="d-none d-sm-inline">Recommendations</span>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation" style="border:none;">
+                  <button class="view-style-tab" id="breakdown-tab" data-bs-toggle="tab" data-bs-target="#breakdown"
+                    type="button" role="tab" aria-controls="breakdown" aria-selected="false">
+                    <i class="bi bi-table tab-icon"></i> <span class="d-none d-sm-inline">Module Level Breakdown</span>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation" style="border:none;">
+                  <button class="view-style-tab" id="all-recommendations-tab" data-bs-toggle="tab" data-bs-target="#all-recommendations"
+                    type="button" role="tab" aria-controls="all-recommendations" aria-selected="false">
+                    <i class="bi bi-list-check tab-icon"></i> <span class="d-none d-sm-inline">All Recommendations</span>
+                  </button>
+                </li>
+              </div>
+              <a href="revisedInvoice.html" class="btn btn-primary" style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 1rem; font-weight:500; font-size:0.875rem; background:linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); border:none; box-shadow:0 2px 4px rgba(99, 102, 241, 0.2); transition:all 0.2s ease;">
+                <i class="bi bi-file-earmark-text"></i>
+                <span>Revised Invoice</span>
+              </a>
             </ul>
             <div class="tab-content p-0 " id="reviewTabContent">
               <div class="tab-pane fade" id="breakdown" role="tabpanel" aria-labelledby="breakdown-tab">
@@ -1354,8 +1339,16 @@
                 </div>
               </div>
             </div>
-
-
+          </div>
+          <div class="review-footer" style="padding:0.75rem 1rem; border-top:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+            <div class="footer-left" style="display:flex; align-items:center; gap:0.5rem;">
+              <i class="bi bi-sliders" style="color:#6366f1;"></i>
+              <span style="font-size:0.875rem; color:#6b7280;">Review recommendations at the part level</span>
+            </div>
+            <a href="partLevel.html" class="btn btn-primary" style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 1rem; font-weight:500; font-size:0.875rem; background:linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); border:none; box-shadow:0 2px 4px rgba(99, 102, 241, 0.2); transition:all 0.2s ease;">
+              <span>Part Level</span>
+              <i class="bi bi-arrow-right" style="font-size:1em; transition:transform 0.2s ease;"></i>
+            </a>
           </div>
         </div>
       </div>
