@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="src/css/shop.css">
   <style>
     .loader-overlay {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
@@ -30,7 +30,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      z-index: 1000;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s, visibility 0.3s;
@@ -55,7 +55,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    .table-section {
+    .unified-table-card {
       position: relative;
     }
   </style>
@@ -293,6 +293,11 @@
 
         <!-- Unified Card Section: Stepper + All Table Sections -->
         <div class="unified-table-card">
+          <!-- Add loader here -->
+          <div id="table-loader" class="loader-overlay">
+            <div class="loader-spinner"></div>
+          </div>
+          
           <div id="step-indicator" class="stepper-card d-flex align-items-center justify-content-center">
             <div class="step-card" id="stepper-shop-overview" title="View all shops" aria-label="Shop Overview" tabindex="0" role="button">
               <div class="step-card-icon"><i class="bi bi-list-ul"></i><span class="step-card-check"><i class="bi bi-check-lg"></i></span></div>

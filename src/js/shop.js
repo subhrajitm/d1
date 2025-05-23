@@ -58,7 +58,7 @@ const shopDetailsData = [
 
 // Function to show loader
 function showLoader() {
-    const loader = document.getElementById('global-loader');
+    const loader = document.getElementById('table-loader');
     if (loader) {
         loader.classList.add('active');
         console.log('Showing loader');
@@ -67,7 +67,7 @@ function showLoader() {
 
 // Function to hide loader
 function hideLoader() {
-    const loader = document.getElementById('global-loader');
+    const loader = document.getElementById('table-loader');
     if (loader) {
         loader.classList.remove('active');
         console.log('Hiding loader');
