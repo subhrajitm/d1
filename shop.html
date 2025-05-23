@@ -19,8 +19,53 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="src/css/main.css">
   <link rel="stylesheet" href="src/css/shop.css">
+  <style>
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .loader-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .loader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .table-section {
+      position: relative;
+    }
+  </style>
 </head>
 <body>
+  <!-- Add global loader -->
+  <div id="global-loader" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+  
   <div class="wrapper">
     <!-- Sidebar -->
     <nav class="sidebar">
@@ -272,6 +317,9 @@
 
           <!-- All workflow table sections go here, no extra margin-top -->
           <div class="table-section">
+            <div class="loader-overlay">
+              <div class="loader-spinner"></div>
+            </div>
             <div class="table-header">
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="d-flex align-items-center gap-2">
@@ -581,6 +629,9 @@
 
           <!-- Shop Details Section (hidden by default) -->
           <div id="shop-details-section" class="table-section" style="display:none;">
+            <div class="loader-overlay">
+              <div class="loader-spinner"></div>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="table-title">
                 <i class="bi bi-info-circle"></i>
@@ -616,6 +667,9 @@
 
           <!-- Billing Readiness Section (hidden by default) -->
           <div id="billing-readiness-section" class="table-section" style="display:none;">
+            <div class="loader-overlay">
+              <div class="loader-spinner"></div>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="table-title">
                 <i class="bi bi-clipboard-check"></i>
@@ -647,6 +701,9 @@
 
           <!-- Invoice Details Section (hidden by default) -->
           <div id="invoice-details-section" class="table-section" style="display:none;">
+            <div class="loader-overlay">
+              <div class="loader-spinner"></div>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="table-title">
                 <i class="bi bi-file-earmark-text"></i>
@@ -750,6 +807,9 @@
 
           <!-- Detailed Data Section (hidden by default) -->
           <div id="overall-details-section" class="table-section" style="display:none;">
+            <div class="loader-overlay">
+              <div class="loader-spinner"></div>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="table-title">
                 <i class="bi bi-table"></i>
@@ -785,6 +845,9 @@
 
           <!-- Billing Readiness for Shop2 Details (hidden by default) -->
           <div id="shop2-billing-readiness-section" class="table-section" style="display:none;">
+            <div class="loader-overlay">
+              <div class="loader-spinner"></div>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="table-title">
                 <i class="bi bi-clipboard-check"></i>
@@ -816,6 +879,9 @@
 
           <!-- Invoice Details for Shop2 Details (hidden by default) -->
           <div id="shop2-invoice-details-section" class="table-section" style="display:none;">
+            <div class="loader-overlay">
+              <div class="loader-spinner"></div>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="table-title">
                 <i class="bi bi-file-earmark-text"></i>
