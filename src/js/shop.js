@@ -56,41 +56,46 @@ const shopDetailsData = [
   }
 ];
 
-// Function to show loader
-function showLoader() {
-    const loader = document.getElementById('table-loader');
-    if (loader) {
-        loader.classList.add('active');
-        console.log('Showing loader');
+// Fixed loader implementation with proper timing
+const Loader = {
+    show: function(elementId = 'table-loader') {
+        const loader = document.getElementById(elementId);
+        if (loader) {
+            // Force a reflow to ensure the loader becomes visible
+            loader.offsetHeight;
+            loader.classList.add('active');
+        }
+    },
+    
+    hide: function(elementId = 'table-loader') {
+        const loader = document.getElementById(elementId);
+        if (loader) {
+            loader.classList.remove('active');
+        }
+    },
+    
+    withLoading: function(callback, elementId = 'table-loader') {
+        // Show loader first
+        this.show(elementId);
+        
+        // Execute callback immediately to prepare data
+        callback();
+        
+        // Keep loader visible for a moment before hiding
+        setTimeout(() => {
+            this.hide(elementId);
+        }, 800);
     }
-}
+};
 
-// Function to hide loader
-function hideLoader() {
-    const loader = document.getElementById('table-loader');
-    if (loader) {
-        loader.classList.remove('active');
-        console.log('Hiding loader');
-    }
-}
-
-// Function to simulate loading with a delay
-function simulateLoading(callback, delay = 1000) {
-    console.log('Starting loading simulation');
-    showLoader();
-    setTimeout(() => {
-        hideLoader();
-        if (callback) callback();
-        console.log('Finished loading simulation');
-    }, delay);
-}
-
-// Centralized section show/hide logic and step indicator
+// Update showSection to prepare data before showing
 function showSection(section) {
     const sectionId = section + '-section';
     console.log('Showing section:', sectionId);
     
-    simulateLoading(() => {
+    // Prepare all data and UI changes first
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
         // Hide all main sections
         document.querySelector('.table-section').style.display = 'none';
         document.getElementById('shop-details-section').style.display = 'none';
@@ -102,13 +107,15 @@ function showSection(section) {
             footer.style.display = 'none';
         });
 
-        // Stepper: remove .active and .completed from all steps
+        // Update stepper
         const steps = [
             'stepper-shop-overview',
             'stepper-shop-details',
             'stepper-billing-readiness',
             'stepper-invoice-details'
         ];
+        
+        // Reset all steps
         steps.forEach(id => {
             const el = document.getElementById(id);
             if (el) {
@@ -132,32 +139,20 @@ function showSection(section) {
             }
         });
 
-        // Animate progress bar
-        const progressBar = document.querySelector('.stepper-progress-bar');
-        if (progressBar) {
-            const percent = [0, 33, 66, 100][currentIdx];
-            progressBar.style.background =
-                `linear-gradient(90deg, #10b981 ${percent}%, #e5e7eb ${percent}%)`;
+        // Show the section immediately
+        targetSection.style.display = 'block';
+        
+        // Show the footer for the active tab
+        const activeTab = document.querySelector('.tab-pane.active');
+        if (activeTab) {
+            const footer = activeTab.querySelector('.table-footer');
+            if (footer) footer.style.display = '';
         }
-
-        // Show the requested section and manage focus
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = 'block';
-            console.log('Section displayed:', sectionId);
-            // Show the footer for the active tab
-            const activeTab = document.querySelector('.tab-pane.active');
-            if (activeTab) {
-                const footer = activeTab.querySelector('.table-footer');
-                if (footer) footer.style.display = '';
-            }
-            // Focus first View Details button
-            const btn = document.querySelector('.view-details-btn');
-            if (btn) btn.focus();
-        } else {
-            console.log('Section not found:', sectionId);
-        }
-    });
+        
+        // Focus first View Details button
+        const btn = document.querySelector('.view-details-btn');
+        if (btn) btn.focus();
+    }
 }
 
 function hideAllTableSections() {
@@ -166,38 +161,44 @@ function hideAllTableSections() {
     });
 }
 
+// Update showShopDetails to prepare data before showing
 function showShopDetails(shopName) {
     console.log('Showing shop details for:', shopName);
-    simulateLoading(() => {
+    
+    // Prepare data first
+    const filtered = shopDetailsData.filter(row => row.Shop === shopName);
+    const tbody = document.querySelector('#shop-details-table tbody');
+    tbody.innerHTML = '';
+    
+    // Create all rows
+    filtered.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.Shop}</td>
+            <td>${row.Customer}</td>
+            <td>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="highlight-esn">${row.ESN}</span>
+                    <button class="btn btn-sm btn-primary proceed-btn" data-esn="${row.ESN}" onclick="showBillingReadiness('${row.ESN}')">
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            </td>
+            <td>${row['SV No']}</td>
+            <td>${row['SV Type']}</td>
+            <td>${row['Induction Date']}</td>
+            <td>${row['Shipment Date']}</td>
+            <td>${row['Entitlement Date']}</td>
+            <td>${row['Invoice Type']}</td>
+            <td><span class="badge bg-danger">${row['Invoice Status']}</span></td>
+            <td>${row.Priority}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+    
+    // Show loader and update UI
+    Loader.withLoading(() => {
         showSection('shop-details');
-        // Filter data for the selected shop
-        const filtered = shopDetailsData.filter(row => row.Shop === shopName);
-        const tbody = document.querySelector('#shop-details-table tbody');
-        tbody.innerHTML = '';
-        filtered.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${row.Shop}</td>
-                <td>${row.Customer}</td>
-                <td>
-                    <div class="d-flex align-items-center gap-2">
-                        <span class="highlight-esn">${row.ESN}</span>
-                        <button class="btn btn-sm btn-primary proceed-btn" data-esn="${row.ESN}" onclick="showBillingReadiness('${row.ESN}')">
-                            <i class="bi bi-arrow-right"></i>
-                        </button>
-                    </div>
-                </td>
-                <td>${row['SV No']}</td>
-                <td>${row['SV Type']}</td>
-                <td>${row['Induction Date']}</td>
-                <td>${row['Shipment Date']}</td>
-                <td>${row['Entitlement Date']}</td>
-                <td>${row['Invoice Type']}</td>
-                <td><span class="badge bg-danger">${row['Invoice Status']}</span></td>
-                <td>${row.Priority}</td>
-            `;
-            tbody.appendChild(tr);
-        });
     });
 }
 
@@ -314,7 +315,7 @@ const overallDetailsData = [
 ];
 
 function showOverallDetailsTable() {
-    simulateLoading('overall-details-section', () => {
+    Loader.withLoading(() => {
         hideAllTableSections();
         document.getElementById('overall-details-section').style.display = '';
         // Hide the table footer
@@ -581,7 +582,7 @@ function showActionRecommendationModal(row) {
 // Update the showBillingReadiness function to add click handlers
 function showBillingReadiness(esn) {
     console.log('Showing billing readiness for ESN:', esn);
-    simulateLoading(() => {
+    Loader.withLoading(() => {
         showSection('billing-readiness');
         // Filter data for the selected ESN
         const filtered = billingReadinessData.filter(row => row.ESN === esn);
@@ -676,7 +677,7 @@ function showBillingReadiness(esn) {
 
 function showInvoiceDetails(esn) {
     console.log('Showing invoice details for ESN:', esn);
-    simulateLoading(() => {
+    Loader.withLoading(() => {
         showSection('invoice-details');
         
         // Find the shop name from the billing readiness data
@@ -739,7 +740,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const backToOverviewBtn = document.getElementById('back-to-overview');
     if (backToOverviewBtn) {
         backToOverviewBtn.addEventListener('click', function() {
-            simulateLoading(() => {
+            Loader.withLoading(() => {
                 document.getElementById('shop-details-section').style.display = 'none';
                 document.querySelector('.table-section').style.display = 'block';
             });
@@ -750,7 +751,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const billingReadinessBtn = document.getElementById('stepper-billing-readiness');
     if (billingReadinessBtn) {
         billingReadinessBtn.addEventListener('click', function() {
-            simulateLoading(() => {
+            Loader.withLoading(() => {
                 document.getElementById('shop-details-section').style.display = 'none';
                 document.getElementById('billing-readiness-section').style.display = 'block';
             });
@@ -761,7 +762,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const backToShopDetailsBtn = document.getElementById('back-to-shop-details');
     if (backToShopDetailsBtn) {
         backToShopDetailsBtn.addEventListener('click', function() {
-            simulateLoading(() => {
+            Loader.withLoading(() => {
                 document.getElementById('billing-readiness-section').style.display = 'none';
                 document.getElementById('shop-details-section').style.display = 'block';
             });
@@ -772,7 +773,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const invoiceDetailsBtn = document.getElementById('stepper-invoice-details');
     if (invoiceDetailsBtn) {
         invoiceDetailsBtn.addEventListener('click', function() {
-            simulateLoading(() => {
+            Loader.withLoading(() => {
                 document.getElementById('billing-readiness-section').style.display = 'none';
                 document.getElementById('invoice-details-section').style.display = 'block';
             });
@@ -783,7 +784,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const backToBillingReadinessBtn = document.getElementById('back-to-billing-readiness');
     if (backToBillingReadinessBtn) {
         backToBillingReadinessBtn.addEventListener('click', function() {
-            simulateLoading(() => {
+            Loader.withLoading(() => {
                 document.getElementById('invoice-details-section').style.display = 'none';
                 document.getElementById('billing-readiness-section').style.display = 'block';
             });
@@ -794,7 +795,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const overallQueueTab = document.getElementById('overall-queue-tab');
     if (overallQueueTab) {
         overallQueueTab.addEventListener('click', function() {
-            simulateLoading(() => {
+            Loader.withLoading(() => {
                 // Your existing overall queue tab logic here
             });
         });
@@ -804,7 +805,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const backToOverallQueueBtn = document.getElementById('back-to-overall-queue');
     if (backToOverallQueueBtn) {
         backToOverallQueueBtn.addEventListener('click', function() {
-            simulateLoading(() => {
+            Loader.withLoading(() => {
                 document.getElementById('overall-details-section').style.display = 'none';
                 // Show the appropriate section
             });
