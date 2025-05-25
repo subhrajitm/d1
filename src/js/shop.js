@@ -655,12 +655,15 @@ function showBillingReadiness(esn) {
             `;
             tbody.appendChild(tr);
             
-            // Add click handler to the recommendation items
+            // Add click handler to the recommendation items, but skip for proceed button
             const recommendationItems = tr.querySelectorAll('.recommendation-item');
             recommendationItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    showActionRecommendationModal(row);
-                });
+                const proceedBtn = item.querySelector('.proceed-btn');
+                if (!proceedBtn) {
+                    item.addEventListener('click', () => {
+                        showActionRecommendationModal(row);
+                    });
+                }
             });
         });
 
