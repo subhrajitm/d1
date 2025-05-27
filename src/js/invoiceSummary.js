@@ -400,3 +400,48 @@ if (printBtn) {
     console.log('Print clicked');
   });
 }
+
+function openInvoiceReview(category) {
+  const modal = document.getElementById('invoiceReviewSection');
+  if (modal) {
+    modal.classList.add('active');
+    // Update modal content based on category
+    updateModalContent(category);
+  }
+}
+
+function updateModalContent(category) {
+  // Update modal title and content based on category
+  const title = document.querySelector('.review-title');
+  if (title) {
+    title.textContent = category === 'inscope' ? 'In-Scope CharBEs Review' : 'Service Bulletin Review';
+  }
+  
+  // Update recommendations tab content based on category
+  const recommendationsTab = document.getElementById('recommendations');
+  if (recommendationsTab) {
+    // You can update the recommendations content here based on the category
+    // This is just a placeholder - you'll need to implement the actual content update logic
+    recommendationsTab.innerHTML = `
+      <div class="review-recommendations">
+        <div class="recommendations-header">
+          <div class="header-left">
+            <h4>Recommendations</h4>
+            <span class="issue-count">3 Issues Found</span>
+          </div>
+        </div>
+        <div class="recommendations-list">
+          <!-- Recommendations will be dynamically populated based on category -->
+        </div>
+      </div>
+    `;
+  }
+}
+
+// Close modal function
+document.getElementById('closeReview')?.addEventListener('click', () => {
+  const modal = document.getElementById('invoiceReviewSection');
+  if (modal) {
+    modal.classList.remove('active');
+  }
+});

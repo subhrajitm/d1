@@ -588,7 +588,7 @@
                       <div class="card-trend neutral">
                         <div class="trend-icon">
                           <i class="bi bi-dash"></i>
-                        </div>
+                    </div>
                         <div class="trend-content">
                           <span class="trend-label">No Change</span>
                           <span class="trend-value">-</span>
@@ -726,7 +726,12 @@
                       <th class="right">Final Cost (USD)</th>
                     </tr>
                     <tr>
-                      <td>In-Scope CharBEs</td>
+                      <td>
+                        In-Scope CharBEs
+                        <a href="#" class="table-link" data-category="inscope" style="float: right;" onclick="openInvoiceReview('inscope')">
+                          <i class="bi bi-arrow-right"></i>
+                        </a>
+                      </td>
                       <td class="right amount">--</td>
                     </tr>
                     <tr>
@@ -750,7 +755,12 @@
                       <td class="right amount">--</td>
                     </tr>
                     <tr>
-                      <td>Out-Of Scope Service Bulletin</td>
+                      <td>
+                        Out-Of Scope Service Bulletin
+                        <a href="#" class="table-link" data-category="service" style="float: right;" onclick="openInvoiceReview('service')">
+                          <i class="bi bi-arrow-right"></i>
+                        </a>
+                      </td>
                       <td class="right amount">--</td>
                     </tr>
                     <tr>

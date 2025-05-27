@@ -660,9 +660,9 @@ function showBillingReadiness(esn) {
             recommendationItems.forEach(item => {
                 const proceedBtn = item.querySelector('.proceed-btn');
                 if (!proceedBtn) {
-                    item.addEventListener('click', () => {
-                        showActionRecommendationModal(row);
-                    });
+                item.addEventListener('click', () => {
+                    showActionRecommendationModal(row);
+                });
                 }
             });
         });
