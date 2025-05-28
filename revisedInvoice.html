@@ -420,13 +420,94 @@
       // Create workbook
       const wb = XLSX.utils.book_new();
       
+      // Define styles
+      const headerStyle = {
+        font: { bold: true, color: { rgb: "FFFFFF" } },
+        fill: { fgColor: { rgb: "4F46E5" } },
+        alignment: { horizontal: "center", vertical: "center" },
+        border: {
+          top: { style: "thin", color: { rgb: "FFFFFF" } },
+          bottom: { style: "thin", color: { rgb: "FFFFFF" } },
+          left: { style: "thin", color: { rgb: "FFFFFF" } },
+          right: { style: "thin", color: { rgb: "FFFFFF" } }
+        }
+      };
+
+      const cellStyle = {
+        alignment: { vertical: "center" },
+        border: {
+          top: { style: "thin", color: { rgb: "E5E7EB" } },
+          bottom: { style: "thin", color: { rgb: "E5E7EB" } },
+          left: { style: "thin", color: { rgb: "E5E7EB" } },
+          right: { style: "thin", color: { rgb: "E5E7EB" } }
+        }
+      };
+
+      const amountStyle = {
+        ...cellStyle,
+        alignment: { horizontal: "right", vertical: "center" },
+        numFmt: '"$"#,##0.00'
+      };
+
+      const totalStyle = {
+        ...headerStyle,
+        font: { bold: true, color: { rgb: "4F46E5" } },
+        fill: { fgColor: { rgb: "F8FAFC" } }
+      };
+      
       // Process each table
       tables.forEach((table, index) => {
         // Convert table to worksheet
-        const ws = XLSX.utils.table_to_sheet(table);
+        const ws = XLSX.utils.table_to_sheet(table, { raw: true });
         
-        // Add worksheet to workbook
-        XLSX.utils.book_append_sheet(wb, ws, `Sheet${index + 1}`);
+        // Get range of data
+        const range = XLSX.utils.decode_range(ws['!ref']);
+        
+        // Apply styles
+        for(let R = range.s.r; R <= range.e.r; ++R) {
+          for(let C = range.s.c; C <= range.e.c; ++C) {
+            const cell_address = {c: C, r: R};
+            const cell_ref = XLSX.utils.encode_cell(cell_address);
+            
+            if(!ws[cell_ref]) continue;
+            
+            // Apply header style to first row
+            if(R === 0) {
+              ws[cell_ref].s = headerStyle;
+            } 
+            // Apply amount style to cells in last column
+            else if(C === range.e.c && ws[cell_ref].v !== undefined) {
+              ws[cell_ref].s = amountStyle;
+            }
+            // Apply total style to total row
+            else if(R === range.e.r && ws[cell_ref].v !== undefined) {
+              ws[cell_ref].s = totalStyle;
+            }
+            // Apply default cell style
+            else {
+              ws[cell_ref].s = cellStyle;
+            }
+          }
+        }
+        
+        // Set column widths
+        const colWidths = [];
+        for(let C = range.s.c; C <= range.e.c; ++C) {
+          let maxWidth = 10;
+          for(let R = range.s.r; R <= range.e.r; ++R) {
+            const cell = ws[XLSX.utils.encode_cell({c: C, r: R})];
+            if(cell && cell.v) {
+              const cellWidth = String(cell.v).length;
+              maxWidth = Math.max(maxWidth, cellWidth);
+            }
+          }
+          colWidths.push({ wch: maxWidth + 2 });
+        }
+        ws['!cols'] = colWidths;
+        
+        // Add worksheet to workbook with descriptive name
+        const sheetNames = ['Address_Info', 'Invoice_Details', 'Cost_Breakdown'];
+        XLSX.utils.book_append_sheet(wb, ws, sheetNames[index] || `Sheet${index + 1}`);
       });
       
       // Generate Excel file
