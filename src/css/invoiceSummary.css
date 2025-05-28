@@ -1243,16 +1243,6 @@
   display: flex;
 }
 
-#loaderSection {
-  height: 100vh;
-  background: transparent;
-  display: none;
-}
-
-#recommendationSection {
-  display: none;
-}
-
 /* Chart Styles */
 .chart-bar {
   height: 60%;
@@ -4967,3 +4957,7 @@
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
 }
+
+/* #recommendationSection {
+  display: none;
+} */
