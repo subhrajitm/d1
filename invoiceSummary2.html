@@ -1007,6 +1007,111 @@
   <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
   <!-- Custom JS -->
   <script src="src/js/invoiceSummary2.js"></script>
+
+  <!-- Action Recommendation Modal -->
+  <div class="modal fade" id="actionRecommendationModal" tabindex="-1" aria-labelledby="actionRecommendationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="actionRecommendationModalLabel">Upload Documents</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="file-upload-container">
+            <div class="upload-text mb-2">
+              <i class="bi bi-info-circle"></i>
+              <span>Upload contract documents, service visit details, or billing receipts</span>
+            </div>
+            <div class="file-upload-area">
+              <i class="bi bi-cloud-upload"></i>
+              <span>Drag & drop files here or</span>
+              <label class="file-upload-btn">
+                Browse Files
+                <input type="file" class="file-input" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              </label>
+            </div>
+            <div class="file-list" id="modal-file-list"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="modal-proceed-btn">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to open invoice review
+    function openInvoiceReview(category) {
+      const reviewSection = document.getElementById('invoiceReviewSection');
+      reviewSection.style.display = 'block';
+      reviewSection.classList.add('show');
+      
+      // Update review title based on category
+      const reviewTitle = document.querySelector('.review-title');
+      if (category === 'inscope') {
+        reviewTitle.textContent = 'InScope Charges Review';
+      } else if (category === 'service') {
+        reviewTitle.textContent = 'Service Bulletin Review';
+      }
+    }
+
+    // Function to close invoice review
+    function closeInvoiceReview() {
+      const reviewSection = document.getElementById('invoiceReviewSection');
+      reviewSection.style.display = 'none';
+      reviewSection.classList.remove('show');
+    }
+
+    // Add click event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Close review button
+      const closeReviewBtn = document.getElementById('closeReview');
+      if (closeReviewBtn) {
+        closeReviewBtn.addEventListener('click', closeInvoiceReview);
+      }
+
+      // Card action buttons
+      const actionButtons = document.querySelectorAll('.card-action-btn');
+      actionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const category = this.getAttribute('data-category');
+          openInvoiceReview(category);
+        });
+      });
+
+      // Table links
+      const tableLinks = document.querySelectorAll('.table-link');
+      tableLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const category = this.getAttribute('data-category');
+          openInvoiceReview(category);
+        });
+      });
+
+      // View toggle buttons
+      const viewToggleButtons = document.querySelectorAll('.toggle-btn');
+      viewToggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          viewToggleButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const view = this.getAttribute('data-view');
+          const invoiceView = document.querySelector('.invoice-view');
+          
+          if (view === 'invoice') {
+            invoiceView.style.display = 'block';
+          } else {
+            invoiceView.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

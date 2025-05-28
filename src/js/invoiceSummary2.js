@@ -64,14 +64,128 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Initialize card action buttons
-  const cardActionButtons = document.querySelectorAll('.card-action-btn');
-  cardActionButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const category = this.dataset.category;
-      openInvoiceReview(category);
+  // Initialize event listeners for card action buttons
+  document.querySelectorAll('.card-action-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const category = btn.getAttribute('data-category');
+      const cardTitle = btn.closest('.rec-card').querySelector('h4').textContent;
+      
+      // Initialize and show the modal
+      const modal = new bootstrap.Modal(document.getElementById('actionRecommendationModal'));
+      const modalTitle = document.getElementById('actionRecommendationModalLabel');
+      const fileList = document.getElementById('modal-file-list');
+      const fileInput = document.querySelector('.file-input');
+      const uploadArea = document.querySelector('.file-upload-area');
+      const proceedBtn = document.getElementById('modal-proceed-btn');
+      
+      // Update modal title
+      modalTitle.textContent = `Upload Documents - ${cardTitle}`;
+      
+      // Clear previous files
+      fileList.innerHTML = '';
+      fileInput.value = '';
+      
+      // Remove any existing event listeners
+      const newFileInput = fileInput.cloneNode(true);
+      fileInput.parentNode.replaceChild(newFileInput, fileInput);
+      
+      // Handle file input change
+      newFileInput.addEventListener('change', (e) => {
+        handleFileUpload(e.target.files);
+      });
+      
+      // Handle drag and drop
+      const handleDragOver = (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+      };
+      
+      const handleDragLeave = () => {
+        uploadArea.classList.remove('dragover');
+      };
+      
+      const handleDrop = (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        handleFileUpload(e.dataTransfer.files);
+      };
+      
+      uploadArea.addEventListener('dragover', handleDragOver);
+      uploadArea.addEventListener('dragleave', handleDragLeave);
+      uploadArea.addEventListener('drop', handleDrop);
+      
+      // Handle proceed button
+      const handleProceed = () => {
+        // Here you would typically handle the file upload to your server
+        modal.hide();
+      };
+      
+      proceedBtn.addEventListener('click', handleProceed);
+      
+      // Clean up event listeners when modal is hidden
+      const modalElement = document.getElementById('actionRecommendationModal');
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        uploadArea.removeEventListener('dragover', handleDragOver);
+        uploadArea.removeEventListener('dragleave', handleDragLeave);
+        uploadArea.removeEventListener('drop', handleDrop);
+        proceedBtn.removeEventListener('click', handleProceed);
+      }, { once: true });
+      
+      modal.show();
     });
   });
+
+  // Function to handle file uploads
+  function handleFileUpload(files) {
+    const fileList = document.getElementById('modal-file-list');
+    
+    Array.from(files).forEach(file => {
+      const fileItem = document.createElement('div');
+      fileItem.className = 'file-item';
+      
+      const fileInfo = document.createElement('div');
+      fileInfo.className = 'file-info';
+      
+      const fileIcon = document.createElement('div');
+      fileIcon.className = 'file-icon';
+      fileIcon.innerHTML = '<i class="bi bi-file-earmark"></i>';
+      
+      const fileName = document.createElement('div');
+      fileName.className = 'file-name';
+      fileName.textContent = file.name;
+      
+      const fileSize = document.createElement('div');
+      fileSize.className = 'file-size';
+      fileSize.textContent = formatFileSize(file.size);
+      
+      fileInfo.appendChild(fileIcon);
+      fileInfo.appendChild(fileName);
+      fileInfo.appendChild(fileSize);
+      
+      const removeButton = document.createElement('button');
+      removeButton.className = 'remove-file';
+      removeButton.innerHTML = '<i class="bi bi-x"></i>';
+      removeButton.addEventListener('click', () => {
+        fileItem.remove();
+      });
+      
+      fileItem.appendChild(fileInfo);
+      fileItem.appendChild(removeButton);
+      fileList.appendChild(fileItem);
+    });
+  }
+
+  // Function to format file size
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
 
   // Initialize filter buttons
   const filterButtons = document.querySelectorAll('.filter-btn');
