@@ -7,10 +7,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Show all sections by default
-  const sections = document.querySelectorAll('.invoice-summary-section, .recommendations-container, .impact-summary, .recommendation-section, .stats-grid, .total-summary-card, .invoice-summary-line-section');
+  const sections = document.querySelectorAll('.invoice-summary-section, .recommendations-container, .impact-summary, .recommendation-section, .total-summary-card, .invoice-summary-line-section');
   sections.forEach(section => {
     section.style.display = 'block';
   });
+
+  // Set stats-grid to grid display
+  const statsGrid = document.querySelector('.stats-grid');
+  if (statsGrid) {
+    statsGrid.style.display = 'grid';
+  }
 
   // Hide invoice view by default
   const invoiceView = document.querySelector('.invoice-view');
@@ -20,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // View toggle for stats-grid and invoice-view
   const viewToggleButtons = document.querySelectorAll('.toggle-btn');
-  const statsGrid = document.querySelector('.stats-grid');
+  const totalSummaryCard = document.querySelector('.total-summary-card');
+  const summaryLineSection = document.querySelector('.invoice-summary-line-section');
   
   viewToggleButtons.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -45,9 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (view === 'invoice') {
           invoiceView.style.display = 'block';
           if (statsGrid) statsGrid.style.display = 'none';
+          if (totalSummaryCard) totalSummaryCard.style.display = 'none';
+          if (summaryLineSection) summaryLineSection.style.display = 'none';
         } else {
           invoiceView.style.display = 'none';
           if (statsGrid) statsGrid.style.display = 'grid';
+          if (totalSummaryCard) totalSummaryCard.style.display = 'block';
+          if (summaryLineSection) summaryLineSection.style.display = 'flex';
         }
       }
     });
