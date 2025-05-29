@@ -16,6 +16,178 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/css/main.css">
   <link rel="stylesheet" href="src/css/invoiceSummary2.css">
+  <style>
+    .stat-card.updated {
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      color: white;
+      border-radius: 8px;
+      padding: 0.75rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.1), 0 2px 4px -1px rgba(79, 70, 229, 0.06);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stat-card.updated::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .stat-card.updated:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px -8px rgba(79, 70, 229, 0.3), 0 4px 8px -4px rgba(79, 70, 229, 0.2);
+      background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+    }
+
+    .stat-card.updated:hover::before {
+      opacity: 1;
+    }
+
+    .stat-card.updated:hover .card-icon {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card.updated:hover .amount-value {
+      transform: scale(1.05);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .stat-card.updated:hover .updated-badge {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .stat-card.updated:hover .amount-label {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .stat-card.updated:hover .adjustment.negative {
+      color: #fecaca;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card.updated .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card.updated .card-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      color: white;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stat-card.updated .card-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      flex-grow: 1;
+      letter-spacing: 0.01em;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .stat-card.updated .card-percentage {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.1rem 0.4rem;
+      border-radius: 10px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+    }
+
+    .stat-card.updated .amount-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .stat-card.updated .original-amount {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.25rem 0.4rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .stat-card.updated .amount-label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .stat-card.updated .amount-value {
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-family: 'Roboto Mono', monospace;
+      letter-spacing: -0.02em;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stat-card.updated .updated-amount {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 0.35rem 0.4rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+
+    .stat-card.updated .updated-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.1rem 0.4rem;
+      border-radius: 10px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      width: fit-content;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: white;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stat-card.updated .updated-badge i {
+      color: #34d399;
+      font-size: 0.75rem;
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+    }
+
+    .stat-card.updated .adjustment {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      font-family: 'Roboto Mono', monospace;
+      letter-spacing: -0.01em;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .stat-card.updated .adjustment.negative {
+      color: #fecaca;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 
 <body>
@@ -280,30 +452,30 @@
                 <!-- Stats Grid -->
                 <div class="stats-grid">
                   <!-- Primary Stats -->
-                  <div class="stat-card primary has-action" data-category="inscope">
-                    <div class="card-icon">
-                      <i class="bi bi-cash-coin"></i>
+                  <div class="stat-card primary updated" data-category="inscope">
+                    <div class="card-header">
+                      <div class="card-icon">
+                        <i class="bi bi-cash-coin"></i>
+                      </div>
+                      <div class="card-title">InScope Charges</div>
+                      <div class="card-percentage">61.5%</div>
                     </div>
                     <div class="card-content">
-                      <div class="card-title">InScope Charges</div>
-                      <div class="card-value">$2,752,670</div>
-                      <div class="card-percentage">61.5%</div>
-                      <div class="card-trend negative">
-                        <div class="trend-icon">
-                          <i class="bi bi-arrow-down"></i>
+                      <div class="amount-section">
+                        <div class="original-amount">
+                          <span class="amount-label">Original</span>
+                          <span class="amount-value">$2,752,670</span>
                         </div>
-                        <div class="trend-content">
-                          <span class="trend-label">Overbilled</span>
-                          <span class="trend-value">$41,800</span>
-                        </div>
-                        <div class="trend-indicator">
-                          <div class="indicator-bar" style="height: 65%"></div>
+                        <div class="updated-amount">
+                          <div class="updated-badge">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span>Updated</span>
+                          </div>
+                          <span class="amount-value">$2,710,870</span>
+                          <span class="adjustment negative">-$41,800</span>
                         </div>
                       </div>
                     </div>
-                    <button class="card-action-btn" data-category="inscope">
-                      <i class="bi bi-arrow-right"></i>
-                    </button>
                   </div>
 
                   <div class="stat-card info">
