@@ -301,13 +301,188 @@
 
 /* Table wrapper styles */
 .table-responsive-xl {
-  margin: 0 -1rem;
-  padding: 0 1rem;
+  margin: 0 0;
+  padding: 0 0;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  position: relative;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 1px #e5e7eb;
 }
 
-/* Ensure horizontal scrollbar is visible */
+/* Table base styles */
+.dashboard-table {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0;
+  white-space: nowrap;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* First column (checkbox) styles */
+.dashboard-table th:first-child,
+.dashboard-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  text-align: center;
+}
+
+/* Last column (actions) styles */
+.dashboard-table th:last-child,
+.dashboard-table td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background: #fff;
+  border-left: 1px solid #e5e7eb;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  text-align: center;
+}
+
+/* Header styles */
+.dashboard-table thead th {
+  position: sticky;
+  top: 0;
+  background: #f8fafc;
+  z-index: 3;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Ensure header cells have proper background */
+.dashboard-table thead th:first-child,
+.dashboard-table thead th:last-child {
+  z-index: 4;
+}
+
+/* Middle columns styles */
+.dashboard-table th:not(:first-child):not(:last-child),
+.dashboard-table td:not(:first-child):not(:last-child) {
+  position: relative;
+  background: #fff;
+}
+
+/* Column widths for middle columns */
+.dashboard-table th[data-column="part"],
+.dashboard-table td:nth-child(2) {
+  min-width: 120px;
+}
+
+.dashboard-table th[data-column="module"],
+.dashboard-table td:nth-child(3) {
+  min-width: 100px;
+}
+
+.dashboard-table th[data-column="class"],
+.dashboard-table td:nth-child(4) {
+  min-width: 80px;
+}
+
+.dashboard-table th[data-column="description"],
+.dashboard-table td:nth-child(5) {
+  min-width: 200px;
+}
+
+.dashboard-table th[data-column="qty"],
+.dashboard-table td:nth-child(6) {
+  min-width: 60px;
+}
+
+.dashboard-table th[data-column="unitValue"],
+.dashboard-table td:nth-child(7) {
+  min-width: 100px;
+}
+
+.dashboard-table th[data-column="total"],
+.dashboard-table td:nth-child(8) {
+  min-width: 100px;
+}
+
+.dashboard-table th[data-column="status"],
+.dashboard-table td:nth-child(9) {
+  min-width: 100px;
+}
+
+.dashboard-table th[data-column="insights"],
+.dashboard-table td:nth-child(10) {
+  min-width: 150px;
+}
+
+.dashboard-table th[data-column="group"],
+.dashboard-table td:nth-child(11) {
+  min-width: 100px;
+}
+
+/* Shadow effects for fixed columns */
+.dashboard-table th:first-child::after,
+.dashboard-table td:first-child::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.05), transparent);
+  pointer-events: none;
+}
+
+.dashboard-table th:last-child::before,
+.dashboard-table td:last-child::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.05), transparent);
+  pointer-events: none;
+}
+
+/* Hover effects */
+.dashboard-table tbody tr:hover td {
+  background: #f8fafc;
+}
+
+.dashboard-table tbody tr:hover td:first-child,
+.dashboard-table tbody tr:hover td:last-child {
+  background: #f8fafc;
+}
+
+/* Cell padding and alignment */
+.dashboard-table th,
+.dashboard-table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+  transition: background-color 0.2s ease;
+}
+
+/* Border radius handling */
+.dashboard-table th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+.dashboard-table th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+.dashboard-table tr:last-child td:first-child {
+  border-bottom-left-radius: 0.5rem;
+}
+
+.dashboard-table tr:last-child td:last-child {
+  border-bottom-right-radius: 0.5rem;
+}
+
+/* Scrollbar styling */
 .table-responsive-xl::-webkit-scrollbar {
   height: 8px;
 }
