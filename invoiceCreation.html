@@ -775,65 +775,65 @@
                   <tr>
                     <td>In-Scope CharBEs</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
                   </tr>
                   <tr>
                     <td>Out-Of-Scope LLPs Replacement</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
                   </tr>
                   <tr>
                     <td>Out-Of Scope QEC & LRU Replacement</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
                   </tr>
                   <tr>
                     <td>Out-of-Scope Material & Repair</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
-                      </tr>
-                      <tr>
+                  </tr>
+                  <tr>
                     <td>Out-of-Scope PMA & DER</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
-                      </tr>
-                      <tr>
+                  </tr>
+                  <tr>
                     <td>Out-Of Scope Missing Items</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
-                      </tr>
-                      <tr>
+                  </tr>
+                  <tr>
                     <td>Out-Of Scope Service Bulletin</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
-                      </tr>
-                      <tr>
+                  </tr>
+                  <tr>
                     <td>Stand repair</td>
                     <td class="right amount">$427.00</td>
-                      </tr>
-                      <tr>
+                  </tr>
+                  <tr>
                     <td>Excluded Material Transportation</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
-                      </tr>
-                      <tr>
+                  </tr>
+                  <tr>
                     <td>Taxes</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input" placeholder="Enter amount">
+                      <input type="number" class="form-control form-control-sm amount-input" placeholder="Enter amount" step="0.01" min="0">
                     </td>
-                      </tr>
-                      <tr>
+                  </tr>
+                  <tr>
                     <td>TAT remedy</td>
                     <td class="right amount negative">- $3,000.00</td>
-                      </tr>
+                  </tr>
                   <tr>
                     <td colspan="2">
                       <div class="status-badge">
@@ -844,10 +844,10 @@
                   <tr class="total-row">
                     <td class="total-label">Total Amount</td>
                     <td class="right">
-                      <input type="text" class="form-control form-control-sm amount-input total-amount" placeholder="Enter total">
+                      <span class="total-amount">$0.00</span>
                     </td>
-                      </tr>
-                  </table>
+                  </tr>
+                </table>
 
                 <p class="note">***All Values are demonstrated in US Dollars</p>
               </div>
@@ -874,6 +874,56 @@
   <script src="src/js/script.js"></script>
   <script src="src/js/invoice.js"></script>
   <script src="src/js/header.js"></script>
+  <script>
+    // Function to format currency
+    function formatCurrency(amount) {
+      if (!amount && amount !== 0) return '$0.00';
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount);
+    }
+
+    // Function to calculate total
+    function calculateTotal() {
+      const amountInputs = document.querySelectorAll('.amount-input');
+      const fixedAmounts = document.querySelectorAll('.amount:not(.amount-input)');
+      let total = 0;
+
+      // Calculate from input fields
+      amountInputs.forEach(input => {
+        const value = parseFloat(input.value) || 0;
+        total += value;
+      });
+
+      // Calculate from fixed amounts
+      fixedAmounts.forEach(amount => {
+        const value = parseFloat(amount.textContent.replace(/[^0-9.-]+/g, '')) || 0;
+        total += value;
+      });
+
+      // Update total amount display
+      const totalAmount = document.querySelector('.total-amount');
+      if (totalAmount) {
+        totalAmount.textContent = formatCurrency(total);
+      }
+    }
+
+    // Add event listeners to amount inputs
+    document.addEventListener('DOMContentLoaded', function() {
+      const amountInputs = document.querySelectorAll('.amount-input');
+      
+      amountInputs.forEach(input => {
+        // Handle input event
+        input.addEventListener('input', calculateTotal);
+      });
+
+      // Initial calculation
+      calculateTotal();
+    });
+  </script>
 </body>
 
 </html>
