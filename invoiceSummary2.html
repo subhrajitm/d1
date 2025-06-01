@@ -244,7 +244,7 @@
       display: flex;
       align-items: center;
       gap: 0.35rem;
-      margin-bottom: 0.5rem;
+      margin-bottom:0;
       position: relative;
     }
 
@@ -402,6 +402,35 @@
       color: #fecaca;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
+
+    .list-view .stat-card.updated .card-header{
+      padding: 0;
+      border: 0;
+    }
+
+    .list-view .stat-card.updated .amount-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.75rem;
+    }
+
+    .list-view .stat-card.updated .original-amount {
+      padding: 0.25rem 0.4rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .list-view .stat-card.updated .updated-amount {
+      padding: 0.35rem 0.4rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+      border-radius: 4px;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      flex-direction: row;
+    }
+
   </style>
 </head>
 
@@ -676,8 +705,8 @@
                     </div>
                     <div class="card-content">
                       <div class="amount-section">
-                        <div class="original-amount">
-                          <span class="amount-label">Original</span>
+                        <div class="original-amount" style="display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 0.75rem; padding-left: 0.5rem;">
+                          <span class="amount-label"><i class="bi bi-clock-history" style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.95); filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));"></i></span>
                           <span class="amount-value">$2,752,670</span>
                         </div>
                         <div class="updated-amount">
