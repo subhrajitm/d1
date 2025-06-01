@@ -412,4 +412,66 @@ function initializePage() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded');
     initializePage();
+    
+    // Initial render
+    renderTableContent('allPartsBody', currentPage);
+    
+    // Add event listener for items per page change
+    const itemsPerPageSelect = document.getElementById('itemsPerPage');
+    if (itemsPerPageSelect) {
+        itemsPerPageSelect.addEventListener('change', function() {
+            itemsPerPage = parseInt(this.value);
+            currentPage = 1; // Reset to first page when changing items per page
+            const activeTable = document.querySelector('.tab-pane.active');
+            const tableBody = activeTable.querySelector('tbody');
+            if (tableBody) {
+                renderTableContent(tableBody.id, currentPage);
+            }
+        });
+    }
+
+    // Add event listeners for pagination buttons
+    document.getElementById('firstPage').addEventListener('click', () => {
+        if (currentPage !== 1) {
+            currentPage = 1;
+            const activeTable = document.querySelector('.tab-pane.active');
+            const tableBody = activeTable.querySelector('tbody');
+            if (tableBody) {
+                renderTableContent(tableBody.id, currentPage);
+            }
+        }
+    });
+
+    document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            const activeTable = document.querySelector('.tab-pane.active');
+            const tableBody = activeTable.querySelector('tbody');
+            if (tableBody) {
+                renderTableContent(tableBody.id, currentPage);
+            }
+        }
+    });
+
+    document.getElementById('nextPage').addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            const activeTable = document.querySelector('.tab-pane.active');
+            const tableBody = activeTable.querySelector('tbody');
+            if (tableBody) {
+                renderTableContent(tableBody.id, currentPage);
+            }
+        }
+    });
+
+    document.getElementById('lastPage').addEventListener('click', () => {
+        if (currentPage !== totalPages) {
+            currentPage = totalPages;
+            const activeTable = document.querySelector('.tab-pane.active');
+            const tableBody = activeTable.querySelector('tbody');
+            if (tableBody) {
+                renderTableContent(tableBody.id, currentPage);
+            }
+        }
+    });
 }); 
