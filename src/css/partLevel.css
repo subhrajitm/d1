@@ -218,59 +218,112 @@
 
 .dashboard-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: #fff;
-  font-size: 0.875rem;
-  border-radius: 0.8rem;
-  box-shadow: none;
   margin-bottom: 0;
+  white-space: nowrap;
 }
 
-.dashboard-table th, .dashboard-table td {
-  border: none;
-  padding: 0.5rem;
+.dashboard-table th,
+.dashboard-table td {
+  padding: 0.75rem;
   vertical-align: middle;
 }
 
-.dashboard-table th:first-child {
-  border-top-left-radius: 0.8rem;
-}
-.dashboard-table th:last-child {
-  border-top-right-radius: 0.8rem;
-}
-.dashboard-table tr:last-child td:first-child {
-  border-bottom-left-radius: 0.8rem;
-}
-.dashboard-table tr:last-child td:last-child {
-  border-bottom-right-radius: 0.8rem;
+/* Column widths */
+.dashboard-table th[data-column="part"],
+.dashboard-table td:nth-child(2) {
+  min-width: 120px;
 }
 
-/* Remove double borders and align table perfectly in card */
-.dashboard-table th, .dashboard-table td {
-  padding: 0.35rem 0.5rem;
-  font-size: 0.82rem;
-  line-height: 1.2;
-  background: #fff;
+.dashboard-table th[data-column="module"],
+.dashboard-table td:nth-child(3) {
+  min-width: 100px;
 }
 
-/* Responsive: ensure table stays flush in card */
-@media (max-width: 768px) {
-  .dashboard-card, .table-responsive {
-    border-radius: 0.6rem;
+.dashboard-table th[data-column="class"],
+.dashboard-table td:nth-child(4) {
+  min-width: 80px;
+}
+
+.dashboard-table th[data-column="description"],
+.dashboard-table td:nth-child(5) {
+  min-width: 200px;
+}
+
+.dashboard-table th[data-column="qty"],
+.dashboard-table td:nth-child(6) {
+  min-width: 60px;
+}
+
+.dashboard-table th[data-column="unitValue"],
+.dashboard-table td:nth-child(7) {
+  min-width: 100px;
+}
+
+.dashboard-table th[data-column="total"],
+.dashboard-table td:nth-child(8) {
+  min-width: 100px;
+}
+
+.dashboard-table th[data-column="status"],
+.dashboard-table td:nth-child(9) {
+  min-width: 100px;
+}
+
+.dashboard-table th[data-column="insights"],
+.dashboard-table td:nth-child(10) {
+  min-width: 150px;
+}
+
+.dashboard-table th[data-column="group"],
+.dashboard-table td:nth-child(11) {
+  min-width: 100px;
+}
+
+.dashboard-table th[data-column="actions"],
+.dashboard-table td:nth-child(12) {
+  min-width: 100px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+  .dashboard-table th[data-column="description"],
+  .dashboard-table td:nth-child(5) {
+    min-width: 150px;
   }
-  .dashboard-table th:first-child {
-    border-top-left-radius: 0.6rem;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-table th[data-column="description"],
+  .dashboard-table td:nth-child(5) {
+    min-width: 120px;
   }
-  .dashboard-table th:last-child {
-    border-top-right-radius: 0.6rem;
-  }
-  .dashboard-table tr:last-child td:first-child {
-    border-bottom-left-radius: 0.6rem;
-  }
-  .dashboard-table tr:last-child td:last-child {
-    border-bottom-right-radius: 0.6rem;
-  }
+}
+
+/* Table wrapper styles */
+.table-responsive-xl {
+  margin: 0 -1rem;
+  padding: 0 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure horizontal scrollbar is visible */
+.table-responsive-xl::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive-xl::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.table-responsive-xl::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.table-responsive-xl::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .dashboard-table th {
