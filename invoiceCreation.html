@@ -859,7 +859,7 @@
               <i class="bi bi-arrow-left"></i>
               Previous
             </button>
-            <button class="step-btn primary" onclick="nextStep()">
+            <button class="step-btn primary" onclick="nextStep()" id="nextStepBtn">
               Next
               <i class="bi bi-arrow-right"></i>
             </button>
@@ -909,6 +909,164 @@
       if (totalAmount) {
         totalAmount.textContent = formatCurrency(total);
       }
+    }
+
+    // Function to handle next step
+    function nextStep() {
+      const nextBtn = document.getElementById('nextStepBtn');
+      const currentStep = document.querySelector('.step-content.active');
+      const nextStep = document.getElementById('step2');
+      
+      if (currentStep && nextStep) {
+        // Show loading state
+        nextBtn.disabled = true;
+        nextBtn.innerHTML = `
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span class="ms-2">Processing...</span>
+        `;
+        
+        // Simulate processing delay
+        setTimeout(() => {
+          // Update step content
+          currentStep.classList.remove('active');
+          nextStep.classList.add('active');
+          
+          // Update process steps
+          const currentProcessStep = document.querySelector('.process-step.active');
+          const nextProcessStep = document.querySelector('.process-step[data-step="2"]');
+          
+          if (currentProcessStep && nextProcessStep) {
+            // Mark current step as completed
+            currentProcessStep.classList.remove('active');
+            currentProcessStep.classList.add('completed');
+            
+            // Activate next step
+            nextProcessStep.classList.add('active');
+            
+            // Update step numbers to show completion
+            const currentStepNumber = currentProcessStep.querySelector('.step-number');
+            if (currentStepNumber) {
+              currentStepNumber.innerHTML = '<i class="bi bi-check"></i>';
+            }
+          }
+          
+          // Update step indicator
+          const stepIndicator = document.querySelector('.current-step');
+          if (stepIndicator) {
+            stepIndicator.textContent = '2';
+          }
+          
+          // Update content title
+          const titleText = document.querySelector('.title-text');
+          if (titleText) {
+            titleText.textContent = 'Draft Invoice';
+          }
+          
+          // Update buttons
+          const prevBtn = document.querySelector('.step-btn.secondary');
+          if (prevBtn) {
+            prevBtn.disabled = false;
+          }
+          
+          // Update next button to submit
+          nextBtn.disabled = false;
+          nextBtn.innerHTML = 'Accept Invoice <i class="bi bi-arrow-right"></i>';
+          nextBtn.onclick = submitInvoice;
+        }, 1000);
+      }
+    }
+
+    // Function to handle previous step
+    function prevStep() {
+      const currentStep = document.querySelector('.step-content.active');
+      const prevStep = document.getElementById('step1');
+      
+      if (currentStep && prevStep) {
+        // Update step content
+        currentStep.classList.remove('active');
+        prevStep.classList.add('active');
+        
+        // Update process steps
+        const currentProcessStep = document.querySelector('.process-step.active');
+        const prevProcessStep = document.querySelector('.process-step[data-step="1"]');
+        
+        if (currentProcessStep && prevProcessStep) {
+          // Remove active from current step
+          currentProcessStep.classList.remove('active');
+          
+          // Reset and activate previous step
+          prevProcessStep.classList.remove('completed');
+          prevProcessStep.classList.add('active');
+          
+          // Reset step numbers
+          const currentStepNumber = currentProcessStep.querySelector('.step-number');
+          const prevStepNumber = prevProcessStep.querySelector('.step-number');
+          
+          if (currentStepNumber) {
+            currentStepNumber.textContent = '2';
+          }
+          if (prevStepNumber) {
+            prevStepNumber.textContent = '1';
+          }
+        }
+        
+        // Update step indicator
+        const stepIndicator = document.querySelector('.current-step');
+        if (stepIndicator) {
+          stepIndicator.textContent = '1';
+        }
+        
+        // Update content title
+        const titleText = document.querySelector('.title-text');
+        if (titleText) {
+          titleText.textContent = 'Billing Inputs';
+        }
+        
+        // Update buttons
+        const prevBtn = document.querySelector('.step-btn.secondary');
+        if (prevBtn) {
+          prevBtn.disabled = true;
+        }
+        
+        const nextBtn = document.getElementById('nextStepBtn');
+        if (nextBtn) {
+          nextBtn.innerHTML = 'Next <i class="bi bi-arrow-right"></i>';
+          nextBtn.onclick = nextStep;
+        }
+      }
+    }
+
+    // Function to handle invoice submission
+    function submitInvoice() {
+      const nextBtn = document.getElementById('nextStepBtn');
+      
+      // Show loading state
+      nextBtn.disabled = true;
+      nextBtn.innerHTML = `
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="ms-2">Processing...</span>
+      `;
+      
+      // Simulate submission delay
+      setTimeout(() => {
+        // Mark final step as completed
+        const currentProcessStep = document.querySelector('.process-step.active');
+        if (currentProcessStep) {
+          currentProcessStep.classList.remove('active');
+          currentProcessStep.classList.add('completed');
+          
+          const stepNumber = currentProcessStep.querySelector('.step-number');
+          if (stepNumber) {
+            stepNumber.innerHTML = '<i class="bi bi-check"></i>';
+          }
+        }
+        
+        alert('Invoice accepted successfully!');
+        // Redirect to revisedInvoice.html after a short delay
+        setTimeout(() => {
+          window.location.href = 'revisedInvoice.html';
+        }, 500);
+      }, 1500);
     }
 
     // Add event listeners to amount inputs
