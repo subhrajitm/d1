@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 recommendationSection.style.opacity = '1';
               }, 50);
             }, 300);
-          }, 2000);
+          }, 20000);
         }, 50);
       }, 300);
     });
