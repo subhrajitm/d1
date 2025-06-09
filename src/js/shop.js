@@ -56,10 +56,51 @@ const shopDetailsData = [
   }
 ];
 
+// Function to update operation status in the loader
+function updateLoaderOperation(index, status = 'complete') {
+    const operationList = document.getElementById('loader-operation-list');
+    if (!operationList) return;
+    
+    const operations = operationList.querySelectorAll('.operation-item');
+    if (index < 0 || index >= operations.length) return;
+    
+    const operation = operations[index];
+    const statusElement = operation.querySelector('.operation-status');
+    
+    if (statusElement) {
+        statusElement.classList.remove('pending', 'complete');
+        statusElement.classList.add(status);
+        
+        // Update the icon based on status
+        if (status === 'complete') {
+            statusElement.innerHTML = '<i class="bi bi-check-circle-fill"></i>';
+        } else {
+            statusElement.innerHTML = '<i class="bi bi-hourglass-split"></i>';
+        }
+    }
+}
+
+// Function to reset all operations to pending
+function resetLoaderOperations() {
+    const operationList = document.getElementById('loader-operation-list');
+    if (!operationList) return;
+    
+    const operations = operationList.querySelectorAll('.operation-item');
+    operations.forEach(operation => {
+        const statusElement = operation.querySelector('.operation-status');
+        if (statusElement) {
+            statusElement.classList.remove('complete');
+            statusElement.classList.add('pending');
+            statusElement.innerHTML = '<i class="bi bi-hourglass-split"></i>';
+        }
+    });
+}
+
 // Function to show loader
 function showLoader() {
-    const loader = document.getElementById('table-loader');
+    const loader = document.getElementById('global-loader');
     if (loader) {
+        resetLoaderOperations();
         loader.classList.add('active');
         console.log('Showing loader');
     }
@@ -67,17 +108,26 @@ function showLoader() {
 
 // Function to hide loader
 function hideLoader() {
-    const loader = document.getElementById('table-loader');
+    const loader = document.getElementById('global-loader');
     if (loader) {
         loader.classList.remove('active');
         console.log('Hiding loader');
     }
 }
 
-// Function to simulate loading with a delay
+// Function to simulate loading with a delay and sequential operation updates
 function simulateLoading(callback, delay = 1000) {
     console.log('Starting loading simulation');
     showLoader();
+    
+    // Update operations sequentially
+    const operationDelays = [200, 400, 600, 800];
+    operationDelays.forEach((opDelay, index) => {
+        setTimeout(() => {
+            updateLoaderOperation(index, 'complete');
+        }, opDelay);
+    });
+    
     setTimeout(() => {
         hideLoader();
         if (callback) callback();
