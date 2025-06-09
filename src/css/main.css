@@ -667,8 +667,9 @@ body {
 .process-container {
   display: block;
   padding: 0;
-  height: calc(100vh - var(--header-height) - 2.5rem); /* Account for main-content padding */
-  overflow: hidden;
+  height: auto; /* Changed from fixed height to auto */
+  min-height: calc(100vh - var(--header-height) - 2.5rem); /* Use min-height instead */
+  overflow: visible; /* Changed from hidden to visible */
   position: relative;
 }
 
@@ -826,12 +827,12 @@ body {
   background: var(--card-bg);
   border-radius: var(--compact-border-radius);
   border: 1px solid var(--border-color);
-  height: 100%;
+  height: auto; /* Changed from 100% to auto */
   display: flex;
   flex-direction: column;
   flex: 1;
   min-width: 0;
-  overflow: hidden; /* Contain overflow within the content area */
+  overflow: visible; /* Changed from hidden to visible */
 }
 
 .content-header {
@@ -861,8 +862,8 @@ body {
 .content-body {
   padding: var(--compact-padding);
   flex: 1;
-  overflow-y: auto;
-  min-height: 0; /* Allow content to scroll within container */
+  overflow-y: visible;
+  min-height: auto; /* Changed to allow proper content display */
 }
 
 .content-footer {
