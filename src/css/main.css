@@ -665,8 +665,7 @@ body {
 
 /* Process Steps Styles */
 .process-container {
-  display: flex;
-  gap: 1.5rem;
+  display: block;
   padding: 0;
   height: calc(100vh - var(--header-height) - 2.5rem); /* Account for main-content padding */
   overflow: hidden;
@@ -674,27 +673,32 @@ body {
 }
 
 .process-sidebar {
-  width: 280px;
-  flex-shrink: 0;
-  overflow-y: auto;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  margin-bottom: 0.75rem;
 }
 
 .process-steps {
   background: var(--card-bg);
-  border-radius: 16px;
-  padding: 1.25rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
   position: relative;
   border: 1px solid var(--border-color);
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
 }
 
 .process-step {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 12px;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 0;
+  border-radius: 6px;
   background: var(--background-color);
   transition: all 0.3s ease;
   position: relative;
@@ -708,10 +712,10 @@ body {
 .process-step:not(:last-child)::after {
   content: '';
   position: absolute;
-  left: 24px;
-  bottom: -1rem;
-  width: 1px;
-  height: 1rem;
+  right: -0.25rem;
+  top: 50%;
+  width: 0.25rem;
+  height: 1px;
   background: var(--primary-color);
   opacity: 0.2;
 }
@@ -786,16 +790,16 @@ body {
 }
 
 .step-number {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   background: var(--primary-light);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   flex-shrink: 0;
   transition: all 0.3s ease;
 }
@@ -807,16 +811,14 @@ body {
 
 .step-title {
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
   font-size: 0.875rem;
-  transition: color 0.3s ease;
+  color: var(--text-primary);
+  margin-bottom: 0.125rem;
 }
 
 .step-description {
   font-size: 0.75rem;
   color: var(--text-secondary);
-  transition: color 0.3s ease;
 }
 
 /* Process Content Styles */
@@ -912,15 +914,13 @@ body {
 /* Responsive Styles */
 @media (max-width: 991.98px) {
   .process-container {
-    flex-direction: column;
     height: auto;
     min-height: calc(100vh - var(--header-height) - 2.5rem);
-    gap: 1rem;
   }
 
   .process-sidebar {
     width: 100%;
-    overflow: visible;
+    overflow-x: auto;
   }
 
   .process-content {
@@ -966,12 +966,12 @@ body {
 
   .process-steps {
     display: flex;
-    gap: 1rem;
-    padding: 1rem;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-padding: 1rem;
+    padding: 1rem;
+    gap: 1rem;
     scroll-snap-type: x mandatory;
+    width: max-content;
+    min-width: 100%;
   }
 
   .process-step {
@@ -1824,6 +1824,8 @@ body {
   display: flex;
   align-items: center;
 }
+
+
 
 .view-btn {
   display: inline-flex;
