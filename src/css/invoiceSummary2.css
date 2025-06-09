@@ -42,7 +42,7 @@
   .upload-card {
     background: var(--background-color);
     border-radius: 0.75rem;
-    padding: 1.5rem;
+    padding: 1rem;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -90,7 +90,7 @@
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1rem;
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
     position: relative;
     z-index: 1;
@@ -353,7 +353,7 @@
   .loader-content {
     text-align: center;
     max-width: 320px;
-    padding: 1.5rem;
+    padding: 1rem;
     background: white;
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -440,7 +440,7 @@
     height: 4px;
     background: var(--background-light);
     border-radius: 2px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     overflow: hidden;
     position: relative;
   }
@@ -759,7 +759,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     padding: 1.25rem;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
@@ -965,7 +965,7 @@
   .risk-indicator {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     min-width: 200px;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.95);
@@ -1044,7 +1044,7 @@
   }
   
   .ring-value {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.2;
@@ -1434,7 +1434,7 @@
   }
   
   .total-amount {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
     font-family: 'Roboto Mono', monospace;
     margin-bottom: 0.5rem;
@@ -2149,7 +2149,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     padding: 0.5rem 0;
   }
   
@@ -2518,7 +2518,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(226, 232, 240, 0.5);
     position: relative;
@@ -2659,7 +2659,7 @@
   }
   
   .savings-value {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
     letter-spacing: -0.025em;
     line-height: 1.2;
@@ -2932,11 +2932,11 @@
   .review-content {
     flex: 1;
     overflow-y: auto;
-    padding: 1.5rem;
+    padding: 1rem;
   }
   
   .review-header {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1rem;
     border-bottom: 1px solid #e5e7eb;
     display: flex;
     justify-content: space-between;
@@ -3137,7 +3137,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     font-size: 0.9375rem;
     font-weight: 500;
@@ -3451,9 +3451,9 @@
   .invoice-summary-line-section {
     background: #f9fafb;
     border: 2.5px solid #e0e7ef;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     box-shadow: 0 4px 16px rgba(56, 189, 248, 0.07);
-    padding: 1.1rem 1.5rem 1rem 1.5rem;
+    padding: 1.1rem 1rem 1rem 1rem;
     margin-bottom: 1.2rem;
     display: flex;
     flex-wrap: wrap;
@@ -3597,7 +3597,7 @@
     /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     color: var(--dark);
     margin: 0;
-    padding: 1.5rem;
+    padding: 1rem;
     line-height: 1.4;
     border-radius: 12px;
     box-shadow: 
@@ -3797,7 +3797,7 @@
   /* Stat Card Styles */
   .stat-card {
     position: relative;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 0.75rem;
     background: var(--card-bg, #fff);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -4146,7 +4146,7 @@
     flex: 1;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
   }
   
   .stats-grid.list-view .card-title {
@@ -5111,8 +5111,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 1rem;
     border: none;
     background: transparent;
     color: #64748b;
@@ -5170,7 +5170,7 @@
   
   .modal-header {
     border-bottom: 1px solid #e2e8f0;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1rem;
   }
   
   .modal-title {
@@ -5180,12 +5180,12 @@
   }
   
   .modal-body {
-    padding: 1.5rem;
+    padding: 1rem;
   }
   
   .modal-footer {
     border-top: 1px solid #e2e8f0;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1rem;
   }
   
   .file-upload-container {
@@ -5338,7 +5338,7 @@
     }
   
     .file-upload-area {
-      padding: 1.5rem;
+      padding: 1rem;
     }
   
     .file-item {

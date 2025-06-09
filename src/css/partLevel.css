@@ -29,7 +29,7 @@
   color: #6b7280;
   font-size: 0.85rem;
   font-weight: 400;
-  margin-left: 1.5rem;
+  margin-left: 1rem;
   margin-top: 0.1rem;
 }
 @media (max-width: 600px) {
@@ -80,7 +80,7 @@
   box-shadow: 0 2px 12px #0072ce11 !important;
   border: 1px solid #e5e7eb;
   background: #fafdff;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .modern-invoice-controls {
@@ -95,7 +95,7 @@
 
 .modern-invoice-controls .btn {
   font-size: 1rem;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 1px 4px #0072ce11;
 }
@@ -181,7 +181,7 @@
   font-weight: 500;
   color: #4f46e5;
   padding: 0.4rem 0.9rem;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   transition: all 0.2s ease;
   font-size: 0.9rem;
 }
@@ -666,7 +666,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .stat-card {
@@ -720,7 +720,7 @@
 }
 
 .stat-value {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #1f2937;
   line-height: 1.2;
@@ -927,13 +927,13 @@
 
 .dashboard-table td {
     vertical-align: middle;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1rem;
 }
 
 .dashboard-table th {
     font-weight: 600;
     color: #374151;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1rem;
     border-bottom: 2px solid #e5e7eb;
     background-color: #f8fafc;
 }
@@ -1225,7 +1225,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1rem;
   margin-bottom: 1rem;
   flex-wrap: wrap;
 }
