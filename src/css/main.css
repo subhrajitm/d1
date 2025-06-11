@@ -863,7 +863,7 @@ body {
   padding: var(--compact-padding);
   flex: 1;
   overflow-y: visible;
-  min-height: auto; /* Changed to allow proper content display */
+  min-height: calc(100vh - 330px); /* Changed to allow proper content display */
 }
 
 .content-footer {
