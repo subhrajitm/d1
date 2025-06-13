@@ -215,37 +215,79 @@
       <!-- Loader Section -->
       <div id="loaderSection" class="loader-section">
         <div class="loader-content">
-          <div class="loader-icon">
-            <div class="icon-wrapper">
-              <i class="bi bi-file-text"></i>
-              <div class="icon-pulse"></div>
-            </div>
-          </div>
           <div class="loader-text">
             <h3>Processing Invoice</h3>
-            <p>Analyzing document for insights and recommendations...</p>
+            <div class="progress-indicator">
+              <div class="progress-circle">
+                <svg viewBox="0 0 100 100">
+                  <circle class="progress-circle-bg" cx="50" cy="50" r="45"></circle>
+                  <circle class="progress-circle-progress" cx="50" cy="50" r="45"></circle>
+                </svg>
+                <div class="progress-text">
+                  <span class="progress-percentage">45%</span>
+                  <span class="progress-label">Complete</span>
+                </div>
+              </div>
+            </div>
+            <p class="processing-status">Analyzing document for insights and recommendations...</p>
+            <div class="processing-details">
+              <div class="detail-item completed">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                <span>Document validation complete</span>
+                <span class="detail-percentage">100%</span>
+              </div>
+              <div class="detail-item in-progress">
+                <i class="bi bi-arrow-repeat text-primary"></i>
+                <span>Extracting invoice data...</span>
+                <span class="detail-percentage">75%</span>
+              </div>
+              <div class="detail-item pending">
+                <i class="bi bi-hourglass-split text-warning"></i>
+                <span>Running compliance checks...</span>
+                <span class="detail-percentage">45%</span>
+              </div>
+              <div class="detail-item pending">
+                <i class="bi bi-hourglass-split text-warning"></i>
+                <span>Generating recommendations...</span>
+                <span class="detail-percentage">0%</span>
+              </div>
+            </div>
           </div>
           <div class="loader-progress">
             <div class="progress-track">
               <div class="progress-fill"></div>
             </div>
             <div class="progress-steps">
-              <div class="step active">
+              <div class="step active completed">
                 <div class="step-icon">
                   <i class="bi bi-cloud-arrow-up"></i>
                 </div>
                 <div class="step-content">
                   <span class="step-label">Upload</span>
-                  <span class="step-status">In Progress</span>
+                  <span class="step-status">Completed</span>
+                  <span class="step-time">2s</span>
+                  <div class="step-progress">
+                    <div class="step-progress-bar">
+                      <div class="step-progress-fill" style="width: 100%"></div>
+                    </div>
+                    <span class="step-progress-text">100%</span>
+                  </div>
                 </div>
               </div>
-              <div class="step">
+              <div class="step active">
                 <div class="step-icon">
                   <i class="bi bi-gear"></i>
                 </div>
                 <div class="step-content">
                   <span class="step-label">Process</span>
-                  <span class="step-status">Pending</span>
+                  <span class="step-status">In Progress</span>
+                  <span class="step-time">15s</span>
+                  <div class="step-progress">
+                    <div class="step-progress-bar">
+                      <div class="step-progress-fill" style="width: 75%"></div>
+                    </div>
+                    <span class="step-progress-text">75%</span>
+                  </div>
                 </div>
               </div>
               <div class="step">
@@ -255,6 +297,13 @@
                 <div class="step-content">
                   <span class="step-label">Analyze</span>
                   <span class="step-status">Pending</span>
+                  <span class="step-time">-</span>
+                  <div class="step-progress">
+                    <div class="step-progress-bar">
+                      <div class="step-progress-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="step-progress-text">0%</span>
+                  </div>
                 </div>
               </div>
               <div class="step">
@@ -264,20 +313,17 @@
                 <div class="step-content">
                   <span class="step-label">Complete</span>
                   <span class="step-status">Pending</span>
+                  <span class="step-time">-</span>
+                  <div class="step-progress">
+                    <div class="step-progress-bar">
+                      <div class="step-progress-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="step-progress-text">0%</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="loader-status">
-            <div class="status-item">
-              <i class="bi bi-clock"></i>
-              <span>30s</span>
-            </div>
-            <div class="status-item">
-              <i class="bi bi-shield-check"></i>
-              <span>Secure</span>
-            </div>
-          </div>
+          </div>  
         </div>
       </div>
 
