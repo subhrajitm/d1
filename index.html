@@ -597,6 +597,40 @@
   <script src="src/js/script.js"></script>
   <script src="src/js/index.js"></script>
   <script src="src/js/chatbot.js"></script>
+
+  <!-- Initial Action Popup -->
+  <div id="initialActionPopup" class="modal-backdrop" style="display: flex;">
+    <div class="modal-popup">
+      <div class="modal-icon">
+        <i class="bi bi-alarm-fill"></i>
+      </div>
+      <div class="modal-title">Following Items need your immediate action</div>
+      <ul class="modal-list">
+        <li>
+          5 Shop Visits worth ~$12M Rev will be upcoming for generating the Invoice<br>
+          <span class="modal-list-detail">[1-Initial, 1- Progressive, 3-Actual]</span>
+        </li>
+        <li>
+          2 Shop Visits worth ~$7M Rev became past due for generating the Invoice<br>
+          <span class="modal-list-detail">[0-Initial, 2-Actual]</span>
+        </li>
+      </ul>
+      <button id="closeInitialPopup" class="modal-close-btn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Show popup on load, close on button click
+    document.addEventListener('DOMContentLoaded', function() {
+      const popup = document.getElementById('initialActionPopup');
+      const closeBtn = document.getElementById('closeInitialPopup');
+      if (closeBtn) {
+        closeBtn.onclick = function() {
+          popup.style.display = 'none';
+        };
+      }
+    });
+  </script>
 </body>
 
 </html>
