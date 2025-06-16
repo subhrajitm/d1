@@ -24,6 +24,33 @@ $(document).ready(function () {
   initializeCharts();
 });
 
+// Headlines Section
+document.addEventListener('DOMContentLoaded', function() {
+  const headlinesSection = document.getElementById('topHeadlines');
+  const headlinesClose = document.getElementById('headlinesClose');
+  const wrapper = document.querySelector('.wrapper');
+
+  // Initialize headlines visibility
+  function initializeHeadlines() {
+    if (headlinesSection) {
+      // Always show headlines on page load
+      headlinesSection.classList.remove('hidden');
+      wrapper.classList.add('has-headlines');
+    }
+  }
+
+  // Handle close button click
+  if (headlinesClose) {
+    headlinesClose.addEventListener('click', function() {
+      headlinesSection.classList.add('hidden');
+      wrapper.classList.remove('has-headlines');
+    });
+  }
+
+  // Initialize headlines on page load
+  initializeHeadlines();
+});
+
 // Charts Initialization
 function initializeCharts() {
   // Delay Reasons Analysis Chart
