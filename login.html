@@ -36,7 +36,7 @@
 
         .left-section {
             flex: 1;
-            background: linear-gradient(135deg, var(--primary-color), var(--success-color));
+            background: linear-gradient(135deg, #dc3545 0%, #4f46e5 100%);
             padding: 2rem;
             display: flex;
             flex-direction: column;
@@ -276,7 +276,7 @@
         .login-button {
             width: 100%;
             padding: 0.75rem;
-            background: var(--primary-color);
+            background: linear-gradient(135deg, #dc3545 0%, #4f46e5 100%);
             color: white;
             border: none;
             border-radius: 0.375rem;
@@ -284,11 +284,38 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .login-button:hover {
-            background: var(--primary-hover);
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #bb2d3b 0%, #4338ca 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-button:hover::before {
+            opacity: 1;
+        }
+
+        .login-button span {
+            position: relative;
+            z-index: 1;
         }
 
         .form-footer {
@@ -423,7 +450,7 @@
                     </div>
                     <a href="#" class="forgot-password">Forgot Password?</a>
                 </div>
-                <button type="submit" class="login-button">Login</button>
+                <button type="submit" class="login-button"><span>Login</span></button>
             </form>
 
             <!-- Registration Form -->
@@ -473,7 +500,7 @@
                         I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
                     </label>
                 </div>
-                <button type="submit" class="login-button">Create Account</button>
+                <button type="submit" class="login-button"><span>Create Account</span></button>
             </form>
         </div>
     </div>
@@ -482,25 +509,38 @@
         function toggleForm(formType) {
             const loginForm = document.getElementById('loginForm');
             const registerForm = document.getElementById('registerForm');
-            const toggleBtns = document.querySelectorAll('.toggle-btn');
-            const loginHeader = document.querySelector('.login-header');
+            const loginBtn = document.querySelector('.toggle-btn:first-child');
+            const registerBtn = document.querySelector('.toggle-btn:last-child');
 
             if (formType === 'login') {
                 loginForm.classList.add('active');
                 registerForm.classList.remove('active');
-                toggleBtns[0].classList.add('active');
-                toggleBtns[1].classList.remove('active');
-                loginHeader.querySelector('.login-title').textContent = 'Login';
-                loginHeader.querySelector('.login-subtitle').textContent = 'Welcome back! Please login to your account.';
+                loginBtn.classList.add('active');
+                registerBtn.classList.remove('active');
             } else {
                 loginForm.classList.remove('active');
                 registerForm.classList.add('active');
-                toggleBtns[0].classList.remove('active');
-                toggleBtns[1].classList.add('active');
-                loginHeader.querySelector('.login-title').textContent = 'Create Account';
-                loginHeader.querySelector('.login-subtitle').textContent = 'Please fill in the form to create your account.';
+                loginBtn.classList.remove('active');
+                registerBtn.classList.add('active');
             }
         }
+
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically validate the credentials
+            // For now, we'll just redirect to index.html
+            window.location.href = 'index.html';
+        });
+
+        // Handle registration form submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically handle the registration
+            // For now, we'll just show an alert
+            alert('Registration successful! Please login.');
+            toggleForm('login');
+        });
 
         // Password validation
         const passwordInput = document.getElementById('registerPassword');
@@ -522,7 +562,7 @@
                 requirements.length.classList.remove('valid');
                 requirements.length.querySelector('i').className = 'bi bi-circle';
             }
-
+            
             // Check uppercase
             if (/[A-Z]/.test(password)) {
                 requirements.uppercase.classList.add('valid');
@@ -531,7 +571,7 @@
                 requirements.uppercase.classList.remove('valid');
                 requirements.uppercase.querySelector('i').className = 'bi bi-circle';
             }
-
+            
             // Check number
             if (/[0-9]/.test(password)) {
                 requirements.number.classList.add('valid');
@@ -540,7 +580,7 @@
                 requirements.number.classList.remove('valid');
                 requirements.number.querySelector('i').className = 'bi bi-circle';
             }
-
+            
             // Check special character
             if (/[!@#$%^&*]/.test(password)) {
                 requirements.special.classList.add('valid');
