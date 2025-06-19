@@ -36,7 +36,10 @@
 
         .left-section {
             flex: 1;
-            background: linear-gradient(135deg, #dc3545 0%, #4f46e5 100%);
+            background:
+                linear-gradient(135deg, #dc3545 0%, #4f46e5 100%),
+                url('src/assets/aero1.jpg') center center / cover no-repeat;
+            background-blend-mode: overlay;
             padding: 2rem;
             display: flex;
             flex-direction: column;
@@ -44,6 +47,79 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+        }
+
+        .airplane-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .airplane {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            animation: fly 15s linear infinite;
+            opacity: 0.8;
+        }
+
+        .airplane svg {
+            width: 100%;
+            height: 100%;
+            fill: white;
+            transform: rotate(45deg);
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translate(-100px, 100vh) rotate(45deg);
+            }
+            100% {
+                transform: translate(calc(100vw + 100px), -100px) rotate(45deg);
+            }
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
+        }
+
+        .cloud:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .cloud:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 40%;
+            left: 30%;
+            animation-delay: -5s;
+        }
+
+        .cloud:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            left: 50%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100%));
+            }
         }
 
         .left-section::before {
@@ -400,6 +476,16 @@
 <body>
     <div class="split-layout">
         <div class="left-section">
+            <div class="airplane-container">
+                <div class="airplane">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21,16V14L13,9V3.5C13,2.67 12.33,2 11.5,2C10.67,2 10,2.67 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
+                    </svg>
+                </div>
+                <div class="cloud"></div>
+                <div class="cloud"></div>
+                <div class="cloud"></div>
+            </div>
             <div class="logo-container">
                 <img src="src/assets/genpact-logo.svg" alt="Genpact Logo" class="logo">
             </div>
