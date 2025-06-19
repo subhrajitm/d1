@@ -58,28 +58,23 @@
             pointer-events: none;
         }
 
-        .airplane {
+        .bubble {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            animation: fly 15s linear infinite;
-            opacity: 0.8;
+            bottom: -100px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: bubble-float 12s linear infinite;
         }
-
-        .airplane svg {
-            width: 100%;
-            height: 100%;
-            fill: white;
-            transform: rotate(45deg);
-        }
-
-        @keyframes fly {
-            0% {
-                transform: translate(-100px, 100vh) rotate(45deg);
-            }
-            100% {
-                transform: translate(calc(100vw + 100px), -100px) rotate(45deg);
-            }
+        .bubble.b1 { left: 10%; width: 40px; height: 40px; animation-delay: 0s; }
+        .bubble.b2 { left: 30%; width: 25px; height: 25px; animation-delay: 2s; }
+        .bubble.b3 { left: 50%; width: 60px; height: 60px; animation-delay: 4s; }
+        .bubble.b4 { left: 70%; width: 30px; height: 30px; animation-delay: 1s; }
+        .bubble.b5 { left: 85%; width: 50px; height: 50px; animation-delay: 3s; }
+        @keyframes bubble-float {
+            0% { transform: translateY(0) scale(1); opacity: 0.7; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-90vh) scale(1.2); opacity: 0; }
         }
 
         .cloud {
@@ -477,11 +472,11 @@
     <div class="split-layout">
         <div class="left-section">
             <div class="airplane-container">
-                <div class="airplane">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M21,16V14L13,9V3.5C13,2.67 12.33,2 11.5,2C10.67,2 10,2.67 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
-                    </svg>
-                </div>
+                <div class="bubble b1"></div>
+                <div class="bubble b2"></div>
+                <div class="bubble b3"></div>
+                <div class="bubble b4"></div>
+                <div class="bubble b5"></div>
                 <div class="cloud"></div>
                 <div class="cloud"></div>
                 <div class="cloud"></div>
