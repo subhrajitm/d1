@@ -311,6 +311,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     setupStepperNavigation();
+    
+    // Set up Past Due button event listeners
+    setupPastDueButtonListeners();
 });
 
 // Stepper navigation: allow clicking or pressing Enter/Space on completed steps
@@ -863,4 +866,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-}); 
+});
+
+// Function to set up Past Due button event listeners
+function setupPastDueButtonListeners() {
+    document.querySelectorAll('.proceed-btn[data-bs-title="View past due details"]').forEach(btn => {
+        // Remove existing listeners to prevent duplicates
+        btn.removeEventListener('click', handlePastDueClick);
+        btn.addEventListener('click', handlePastDueClick);
+    });
+}
+
+// Handler function for Past Due button clicks
+function handlePastDueClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    // Find shop name from the row
+    const shopName = this.closest('tr').querySelector('.shop-name').textContent.trim();
+    showShopDetails(shopName);
+} 
