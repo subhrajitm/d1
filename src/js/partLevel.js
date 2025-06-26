@@ -29,6 +29,45 @@ let currentPage = 1;
 let itemsPerPage = 10;
 let totalPages = Math.ceil(invoiceData.length / itemsPerPage);
 
+// Mini loader for quick operations
+function showMiniLoader(container) {
+    if (!container) return;
+    
+    const loader = document.createElement('div');
+    loader.className = 'mini-loader';
+    loader.innerHTML = `
+        <div class="mini-spinner"></div>
+        <span>Loading...</span>
+    `;
+    loader.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: #6366f1;
+    `;
+    
+    container.style.position = 'relative';
+    container.appendChild(loader);
+    
+    return loader;
+}
+
+function hideMiniLoader(loader) {
+    if (loader && loader.parentNode) {
+        loader.parentNode.removeChild(loader);
+    }
+}
+
 // Utility for formatting currency
 function formatCurrency(num) {
   return '$' + num.toLocaleString();
@@ -79,21 +118,31 @@ function renderTableContent(tableId, page) {
         return;
     }
     
-    tbody.innerHTML = pageData.map((row, idx) => createTableRow(row, start + idx)).join('');
+    // Show mini loader
+    const tableContainer = tbody.closest('.table-responsive-xl');
+    const miniLoader = showMiniLoader(tableContainer);
     
-    // Add event listeners for checkboxes
-    const checkboxes = tbody.querySelectorAll('.invoice-checkbox');
+    // Simulate a small delay for better UX (remove in production)
+    setTimeout(() => {
+        tbody.innerHTML = pageData.map((row, idx) => createTableRow(row, start + idx)).join('');
+        
+        // Add event listeners for checkboxes
+        const checkboxes = tbody.querySelectorAll('.invoice-checkbox');
         checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateSelectedActions);
-    });
+            checkbox.addEventListener('change', updateSelectedActions);
+        });
 
-    // Update pagination info
-    updatePaginationInfo(data.length);
-    
-    // Initialize tooltips and attach event listeners
-    initializeTooltips();
-    attachViewDetailsListeners();
-        }
+        // Update pagination info
+        updatePaginationInfo(data.length);
+        
+        // Initialize tooltips and attach event listeners
+        initializeTooltips();
+        attachViewDetailsListeners();
+        
+        // Hide mini loader
+        hideMiniLoader(miniLoader);
+    }, 800);
+}
 
 // Update pagination info
 function updatePaginationInfo(totalItems) {
@@ -393,7 +442,7 @@ function initializePage() {
         if (tableBody) {
             console.log(`Rendering table for category: ${category}`);
             renderTableContent(tableBody.id, 1);
-}
+    }
     });
 
     // Force render the active tab's content
@@ -406,7 +455,7 @@ function initializePage() {
             renderTableContent(tableBody.id, 1);
         }
     }
-    }
+}
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
