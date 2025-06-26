@@ -406,6 +406,28 @@
     </main>
   </div>
 
+  <!-- Download Loading Overlay -->
+  <div id="downloadLoader" class="download-loader-overlay" style="display: none;">
+    <div class="download-loader-content">
+      <div class="download-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+      </div>
+      <div class="download-text">
+        <h4>Preparing Excel File</h4>
+        <p id="downloadProgress">Initializing download...</p>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0%</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- SheetJS for Excel -->
@@ -414,105 +436,164 @@
   <script src="src/js/revisedInvoice.js"></script>
   <script>
     function downloadExcel() {
-      // Get all tables
-      const tables = document.querySelectorAll('.invoice-view table');
+      // Show download loader
+      const loader = document.getElementById('downloadLoader');
+      const progressText = document.getElementById('progressText');
+      const progressFill = document.getElementById('progressFill');
+      const downloadProgress = document.getElementById('downloadProgress');
       
-      // Create workbook
-      const wb = XLSX.utils.book_new();
+      loader.style.display = 'flex';
       
-      // Define styles
-      const headerStyle = {
-        font: { bold: true, color: { rgb: "FFFFFF" } },
-        fill: { fgColor: { rgb: "4F46E5" } },
-        alignment: { horizontal: "center", vertical: "center" },
-        border: {
-          top: { style: "thin", color: { rgb: "FFFFFF" } },
-          bottom: { style: "thin", color: { rgb: "FFFFFF" } },
-          left: { style: "thin", color: { rgb: "FFFFFF" } },
-          right: { style: "thin", color: { rgb: "FFFFFF" } }
-        }
-      };
-
-      const cellStyle = {
-        alignment: { vertical: "center" },
-        border: {
-          top: { style: "thin", color: { rgb: "E5E7EB" } },
-          bottom: { style: "thin", color: { rgb: "E5E7EB" } },
-          left: { style: "thin", color: { rgb: "E5E7EB" } },
-          right: { style: "thin", color: { rgb: "E5E7EB" } }
-        }
-      };
-
-      const amountStyle = {
-        ...cellStyle,
-        alignment: { horizontal: "right", vertical: "center" },
-        numFmt: '"$"#,##0.00'
-      };
-
-      const totalStyle = {
-        ...headerStyle,
-        font: { bold: true, color: { rgb: "4F46E5" } },
-        fill: { fgColor: { rgb: "F8FAFC" } }
-      };
+      // Progress steps
+      const steps = [
+        { progress: 10, message: 'Collecting invoice data...' },
+        { progress: 25, message: 'Processing table information...' },
+        { progress: 40, message: 'Applying formatting styles...' },
+        { progress: 60, message: 'Generating Excel workbook...' },
+        { progress: 80, message: 'Finalizing file structure...' },
+        { progress: 95, message: 'Preparing download...' },
+        { progress: 100, message: 'Download complete!' }
+      ];
       
-      // Process each table
-      tables.forEach((table, index) => {
-        // Convert table to worksheet
-        const ws = XLSX.utils.table_to_sheet(table, { raw: true });
-        
-        // Get range of data
-        const range = XLSX.utils.decode_range(ws['!ref']);
-        
-        // Apply styles
-        for(let R = range.s.r; R <= range.e.r; ++R) {
-          for(let C = range.s.c; C <= range.e.c; ++C) {
-            const cell_address = {c: C, r: R};
-            const cell_ref = XLSX.utils.encode_cell(cell_address);
-            
-            if(!ws[cell_ref]) continue;
-            
-            // Apply header style to first row
-            if(R === 0) {
-              ws[cell_ref].s = headerStyle;
-            } 
-            // Apply amount style to cells in last column
-            else if(C === range.e.c && ws[cell_ref].v !== undefined) {
-              ws[cell_ref].s = amountStyle;
-            }
-            // Apply total style to total row
-            else if(R === range.e.r && ws[cell_ref].v !== undefined) {
-              ws[cell_ref].s = totalStyle;
-            }
-            // Apply default cell style
-            else {
-              ws[cell_ref].s = cellStyle;
-            }
+      let currentStep = 0;
+      
+      function updateProgress() {
+        if (currentStep < steps.length) {
+          const step = steps[currentStep];
+          progressFill.style.width = step.progress + '%';
+          progressText.textContent = step.progress + '%';
+          downloadProgress.textContent = step.message;
+          
+          currentStep++;
+          
+          if (currentStep < steps.length) {
+            setTimeout(updateProgress, 300 + Math.random() * 200); // Random delay between 300-500ms
+          } else {
+            // Final step - generate and download the file
+            setTimeout(() => {
+              generateAndDownloadExcel();
+            }, 500);
           }
         }
+      }
+      
+      function generateAndDownloadExcel() {
+        // Get all tables
+        const tables = document.querySelectorAll('.invoice-view table');
         
-        // Set column widths
-        const colWidths = [];
-        for(let C = range.s.c; C <= range.e.c; ++C) {
-          let maxWidth = 10;
+        // Create workbook
+        const wb = XLSX.utils.book_new();
+        
+        // Define styles
+        const headerStyle = {
+          font: { bold: true, color: { rgb: "FFFFFF" } },
+          fill: { fgColor: { rgb: "4F46E5" } },
+          alignment: { horizontal: "center", vertical: "center" },
+          border: {
+            top: { style: "thin", color: { rgb: "FFFFFF" } },
+            bottom: { style: "thin", color: { rgb: "FFFFFF" } },
+            left: { style: "thin", color: { rgb: "FFFFFF" } },
+            right: { style: "thin", color: { rgb: "FFFFFF" } }
+          }
+        };
+
+        const cellStyle = {
+          alignment: { vertical: "center" },
+          border: {
+            top: { style: "thin", color: { rgb: "E5E7EB" } },
+            bottom: { style: "thin", color: { rgb: "E5E7EB" } },
+            left: { style: "thin", color: { rgb: "E5E7EB" } },
+            right: { style: "thin", color: { rgb: "E5E7EB" } }
+          }
+        };
+
+        const amountStyle = {
+          ...cellStyle,
+          alignment: { horizontal: "right", vertical: "center" },
+          numFmt: '"$"#,##0.00'
+        };
+
+        const totalStyle = {
+          ...headerStyle,
+          font: { bold: true, color: { rgb: "4F46E5" } },
+          fill: { fgColor: { rgb: "F8FAFC" } }
+        };
+        
+        // Process each table
+        tables.forEach((table, index) => {
+          // Convert table to worksheet
+          const ws = XLSX.utils.table_to_sheet(table, { raw: true });
+          
+          // Get range of data
+          const range = XLSX.utils.decode_range(ws['!ref']);
+          
+          // Apply styles
           for(let R = range.s.r; R <= range.e.r; ++R) {
-            const cell = ws[XLSX.utils.encode_cell({c: C, r: R})];
-            if(cell && cell.v) {
-              const cellWidth = String(cell.v).length;
-              maxWidth = Math.max(maxWidth, cellWidth);
+            for(let C = range.s.c; C <= range.e.c; ++C) {
+              const cell_address = {c: C, r: R};
+              const cell_ref = XLSX.utils.encode_cell(cell_address);
+              
+              if(!ws[cell_ref]) continue;
+              
+              // Apply header style to first row
+              if(R === 0) {
+                ws[cell_ref].s = headerStyle;
+              } 
+              // Apply amount style to cells in last column
+              else if(C === range.e.c && ws[cell_ref].v !== undefined) {
+                ws[cell_ref].s = amountStyle;
+              }
+              // Apply total style to total row
+              else if(R === range.e.r && ws[cell_ref].v !== undefined) {
+                ws[cell_ref].s = totalStyle;
+              }
+              // Apply default cell style
+              else {
+                ws[cell_ref].s = cellStyle;
+              }
             }
           }
-          colWidths.push({ wch: maxWidth + 2 });
-        }
-        ws['!cols'] = colWidths;
+          
+          // Set column widths
+          const colWidths = [];
+          for(let C = range.s.c; C <= range.e.c; ++C) {
+            let maxWidth = 10;
+            for(let R = range.s.r; R <= range.e.r; ++R) {
+              const cell = ws[XLSX.utils.encode_cell({c: C, r: R})];
+              if(cell && cell.v) {
+                const cellWidth = String(cell.v).length;
+                maxWidth = Math.max(maxWidth, cellWidth);
+              }
+            }
+            colWidths.push({ wch: maxWidth + 2 });
+          }
+          ws['!cols'] = colWidths;
+          
+          // Add worksheet to workbook with descriptive name
+          const sheetNames = ['Address_Info', 'Invoice_Details', 'Cost_Breakdown'];
+          XLSX.utils.book_append_sheet(wb, ws, sheetNames[index] || `Sheet${index + 1}`);
+        });
         
-        // Add worksheet to workbook with descriptive name
-        const sheetNames = ['Address_Info', 'Invoice_Details', 'Cost_Breakdown'];
-        XLSX.utils.book_append_sheet(wb, ws, sheetNames[index] || `Sheet${index + 1}`);
-      });
+        // Generate Excel file
+        const fileName = `Invoice_${new Date().toISOString().split('T')[0]}.xlsx`;
+        XLSX.writeFile(wb, fileName);
+        
+        // Hide loader after a short delay
+        setTimeout(() => {
+          loader.classList.add('hidden');
+          setTimeout(() => {
+            loader.style.display = 'none';
+            loader.classList.remove('hidden');
+            // Reset progress
+            progressFill.style.width = '0%';
+            progressText.textContent = '0%';
+            downloadProgress.textContent = 'Initializing download...';
+          }, 300);
+        }, 1000);
+      }
       
-      // Generate Excel file
-      const fileName = `Invoice_${new Date().toISOString().split('T')[0]}.xlsx`;
-      XLSX.writeFile(wb, fileName);
+      // Start progress updates
+      setTimeout(updateProgress, 200);
     }
   </script>
 </body>
