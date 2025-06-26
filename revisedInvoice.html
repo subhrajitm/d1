@@ -407,23 +407,50 @@
   </div>
 
   <!-- Download Loading Overlay -->
-  <div id="downloadLoader" class="download-loader-overlay" style="display: none;">
-    <div class="download-loader-content">
-      <div class="download-spinner">
-        <div class="spinner-ring"></div>
-        <div class="spinner-ring"></div>
-        <div class="spinner-ring"></div>
-        <div class="spinner-ring"></div>
+  <div id="downloadLoader" class="loader-section" style="display: none;">
+    <div class="loader-content">
+      <div class="loader-text">
+        <h3>Generating Excel File</h3>
+        <div class="progress-indicator">
+          <div class="progress-circle">
+            <svg viewBox="0 0 100 100">
+              <circle class="progress-circle-bg" cx="50" cy="50" r="45"></circle>
+              <circle class="progress-circle-progress" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="progress-text">
+              <span class="progress-percentage" id="progressPercentage">45%</span>
+              <span class="progress-label">Complete</span>
+            </div>
+          </div>
+        </div>
+        <p class="processing-status" id="processingStatus">Preparing Excel workbook with invoice data...</p>
+        <div class="processing-details">
+          <div class="detail-item completed">
+            <i class="bi bi-check-circle-fill text-success"></i>
+            <span>Invoice data collected</span>
+            <span class="detail-percentage">100%</span>
+          </div>
+          <div class="detail-item in-progress">
+            <i class="bi bi-arrow-repeat text-primary"></i>
+            <span>Processing table data...</span>
+            <span class="detail-percentage">75%</span>
+          </div>
+          <div class="detail-item pending">
+            <i class="bi bi-hourglass-split text-warning"></i>
+            <span>Applying Excel formatting...</span>
+            <span class="detail-percentage">45%</span>
+          </div>
+          <div class="detail-item pending">
+            <i class="bi bi-hourglass-split text-warning"></i>
+            <span>Finalizing workbook...</span>
+            <span class="detail-percentage">0%</span>
+          </div>
+        </div>
       </div>
-      <div class="download-text">
-        <h4>Preparing Excel File</h4>
-        <p id="downloadProgress">Initializing download...</p>
-      </div>
-      <div class="progress-container">
-        <div class="progress-bar">
+      <div class="loader-progress">
+        <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
         </div>
-        <div class="progress-text" id="progressText">0%</div>
       </div>
     </div>
   </div>
@@ -438,21 +465,21 @@
     function downloadExcel() {
       // Show download loader
       const loader = document.getElementById('downloadLoader');
-      const progressText = document.getElementById('progressText');
+      const progressPercentage = document.getElementById('progressPercentage');
       const progressFill = document.getElementById('progressFill');
-      const downloadProgress = document.getElementById('downloadProgress');
+      const processingStatus = document.getElementById('processingStatus');
       
       loader.style.display = 'flex';
       
-      // Progress steps
+      // Progress steps for Excel generation
       const steps = [
-        { progress: 10, message: 'Collecting invoice data...' },
-        { progress: 25, message: 'Processing table information...' },
-        { progress: 40, message: 'Applying formatting styles...' },
-        { progress: 60, message: 'Generating Excel workbook...' },
-        { progress: 80, message: 'Finalizing file structure...' },
-        { progress: 95, message: 'Preparing download...' },
-        { progress: 100, message: 'Download complete!' }
+        { progress: 10, message: 'Collecting invoice data from tables...' },
+        { progress: 25, message: 'Processing table structure and content...' },
+        { progress: 40, message: 'Applying Excel formatting and styles...' },
+        { progress: 60, message: 'Creating workbook with multiple sheets...' },
+        { progress: 80, message: 'Setting column widths and cell formats...' },
+        { progress: 95, message: 'Preparing file for download...' },
+        { progress: 100, message: 'Excel file ready for download!' }
       ];
       
       let currentStep = 0;
@@ -460,9 +487,15 @@
       function updateProgress() {
         if (currentStep < steps.length) {
           const step = steps[currentStep];
+          
+          // Update progress fill
           progressFill.style.width = step.progress + '%';
-          progressText.textContent = step.progress + '%';
-          downloadProgress.textContent = step.message;
+          
+          // Update progress percentage
+          progressPercentage.textContent = step.progress + '%';
+          
+          // Update processing status
+          processingStatus.textContent = step.message;
           
           currentStep++;
           
@@ -580,15 +613,11 @@
         
         // Hide loader after a short delay
         setTimeout(() => {
-          loader.classList.add('hidden');
-          setTimeout(() => {
-            loader.style.display = 'none';
-            loader.classList.remove('hidden');
-            // Reset progress
-            progressFill.style.width = '0%';
-            progressText.textContent = '0%';
-            downloadProgress.textContent = 'Initializing download...';
-          }, 300);
+          loader.style.display = 'none';
+          // Reset progress
+          progressFill.style.width = '0%';
+          progressPercentage.textContent = '0%';
+          processingStatus.textContent = 'Preparing Excel workbook...';
         }, 1000);
       }
       
