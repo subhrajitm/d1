@@ -214,7 +214,7 @@
               <table class="dashboard-table table table-sm table-hover">
               <thead>
                 <tr>
-                  <th width="40"><input type="checkbox" id="selectAllInvoices" class="form-check-input"></th>
+                  <th width="40"><input type="checkbox" id="selectAllInvoices" class="form-check-input select-all-checkbox"></th>
                   <th data-column="part" data-sortable="true">Part</th>
                   <th data-column="module" data-sortable="true">Module</th>
                   <th data-column="class" data-sortable="true">Class</th>
@@ -241,7 +241,7 @@
               <table class="dashboard-table table table-sm table-hover">
                 <thead>
                 <tr>
-                    <th width="40"><input type="checkbox" class="form-check-input"></th>
+                    <th width="40"><input type="checkbox" id="selectAllEngine" class="form-check-input select-all-checkbox"></th>
                     <th data-column="part" data-sortable="true">Part</th>
                     <th data-column="module" data-sortable="true">Module</th>
                     <th data-column="class" data-sortable="true">Class</th>
@@ -268,7 +268,7 @@
               <table class="dashboard-table table table-sm table-hover">
                 <thead>
                   <tr>
-                    <th width="40"><input type="checkbox" class="form-check-input"></th>
+                    <th width="40"><input type="checkbox" id="selectAllTransmission" class="form-check-input select-all-checkbox"></th>
                     <th data-column="part" data-sortable="true">Part</th>
                     <th data-column="module" data-sortable="true">Module</th>
                     <th data-column="class" data-sortable="true">Class</th>
@@ -295,7 +295,7 @@
               <table class="dashboard-table table table-sm table-hover">
                 <thead>
                   <tr>
-                    <th width="40"><input type="checkbox" class="form-check-input"></th>
+                    <th width="40"><input type="checkbox" id="selectAllElectrical" class="form-check-input select-all-checkbox"></th>
                     <th data-column="part" data-sortable="true">Part</th>
                     <th data-column="module" data-sortable="true">Module</th>
                     <th data-column="class" data-sortable="true">Class</th>
@@ -322,7 +322,7 @@
               <table class="dashboard-table table table-sm table-hover">
                 <thead>
                   <tr>
-                    <th width="40"><input type="checkbox" class="form-check-input"></th>
+                    <th width="40"><input type="checkbox" id="selectAllBody" class="form-check-input select-all-checkbox"></th>
                     <th data-column="part" data-sortable="true">Part</th>
                     <th data-column="module" data-sortable="true">Module</th>
                     <th data-column="class" data-sortable="true">Class</th>
@@ -392,6 +392,20 @@
   <script src="src/js/script.js"></script>
   <script src="src/js/header.js"></script>
   <script src="src/js/partLevel.js"></script>
+
+  <!-- Toast Container for Notifications -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+    <div id="submitToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="bi bi-check-circle-fill text-success me-2"></i>
+        <strong class="me-auto">Submission Status</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        <span id="toastMessage">Items submitted successfully!</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Details Modal -->
   <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true" style="display: none;">

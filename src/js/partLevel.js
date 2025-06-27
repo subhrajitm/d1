@@ -73,6 +73,26 @@ function formatCurrency(num) {
   return '$' + num.toLocaleString();
 }
 
+// Show toast notification
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('submitToast');
+  const toastMessage = document.getElementById('toastMessage');
+  const toastIcon = toast.querySelector('.bi');
+  
+  if (toastMessage) {
+    toastMessage.textContent = message;
+  }
+  
+  // Update icon based on type
+  if (toastIcon) {
+    toastIcon.className = type === 'success' ? 'bi bi-check-circle-fill text-success me-2' : 'bi bi-exclamation-circle-fill text-danger me-2';
+  }
+  
+  // Show the toast
+  const bsToast = new bootstrap.Toast(toast);
+  bsToast.show();
+}
+
 // Function to create table row HTML
 function createTableRow(row, index) {
     return `
@@ -129,7 +149,10 @@ function renderTableContent(tableId, page) {
         // Add event listeners for checkboxes
         const checkboxes = tbody.querySelectorAll('.invoice-checkbox');
         checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateSelectedActions);
+            checkbox.addEventListener('change', () => {
+                updateSelectedActions();
+                updateSelectAllState(tableContainer);
+            });
         });
 
         // Update pagination info
@@ -328,24 +351,105 @@ function updateSelectedActions() {
     }
 }
 
+// Update select all checkbox state
+function updateSelectAllState(tableContainer) {
+    const table = tableContainer.querySelector('table');
+    const selectAllCheckbox = table.querySelector('.select-all-checkbox');
+    const checkboxes = table.querySelectorAll('.invoice-checkbox');
+    const checkedCheckboxes = table.querySelectorAll('.invoice-checkbox:checked');
+    
+    if (selectAllCheckbox && checkboxes.length > 0) {
+        if (checkedCheckboxes.length === 0) {
+            selectAllCheckbox.checked = false;
+            selectAllCheckbox.indeterminate = false;
+        } else if (checkedCheckboxes.length === checkboxes.length) {
+            selectAllCheckbox.checked = true;
+            selectAllCheckbox.indeterminate = false;
+        } else {
+            selectAllCheckbox.checked = false;
+            selectAllCheckbox.indeterminate = true;
+        }
+    }
+}
+
 // Submit selected
 function submitSelected(selectedIds) {
     console.log('Submitting selected IDs:', selectedIds);
-    // Here you would typically make an API call to submit the selected items
-    alert(`Successfully submitted ${selectedIds.length} items!`);
     
-    // Reset checkboxes
-    const activeTable = document.querySelector('.tab-pane.active');
-    const checkboxes = activeTable.querySelectorAll('.invoice-checkbox');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
+    // Get the submit button
+    const submitButton = document.getElementById('submitSelected');
+    const originalContent = submitButton.innerHTML;
     
-    // Hide selected actions
-    const selectedActions = document.querySelector('.selected-actions');
-    if (selectedActions) {
-        selectedActions.style.display = 'none';
-    }
+    // Show loader state
+    submitButton.innerHTML = `
+        <div class="spinner-border spinner-border-sm me-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        Submitting...
+    `;
+    submitButton.disabled = true;
+    
+    // Simulate API call with delay
+    setTimeout(() => {
+        try {
+            // Here you would typically make an API call to submit the selected items
+            console.log(`Successfully submitted ${selectedIds.length} items!`);
+            
+            // Show success message
+            submitButton.innerHTML = `
+                <i class="bi bi-check-circle me-1"></i>
+                Submitted Successfully!
+            `;
+            submitButton.classList.remove('btn-primary');
+            submitButton.classList.add('btn-success');
+            
+            // Show toast notification
+            showToast(`Successfully submitted ${selectedIds.length} item${selectedIds.length > 1 ? 's' : ''}!`, 'success');
+            
+        } catch (error) {
+            console.error('Error submitting items:', error);
+            
+            // Show error state
+            submitButton.innerHTML = `
+                <i class="bi bi-exclamation-circle me-1"></i>
+                Submission Failed
+            `;
+            submitButton.classList.remove('btn-primary');
+            submitButton.classList.add('btn-danger');
+            
+            // Show error toast
+            showToast('Failed to submit items. Please try again.', 'error');
+        }
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+            submitButton.innerHTML = originalContent;
+            submitButton.disabled = false;
+            submitButton.classList.remove('btn-success', 'btn-danger');
+            submitButton.classList.add('btn-primary');
+            
+            // Reset checkboxes
+            const activeTable = document.querySelector('.tab-pane.active');
+            const checkboxes = activeTable.querySelectorAll('.invoice-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            // Reset select all checkboxes
+            const selectAllCheckboxes = document.querySelectorAll('.select-all-checkbox');
+            selectAllCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.indeterminate = false;
+            });
+            
+            // Hide selected actions
+            const selectedActions = document.querySelector('.selected-actions');
+            if (selectedActions) {
+                selectedActions.style.display = 'none';
+            }
+        }, 2000);
+        
+    }, 2000); // Simulate 2 second API call
 }
 
 // Initialize tooltips
@@ -399,18 +503,19 @@ function initializePage() {
     // Initialize table sorting
     initializeTableSorting();
 
-    // Handle select all checkbox
-    const selectAllCheckbox = document.getElementById('selectAllInvoices');
-    if (selectAllCheckbox) {
+    // Handle select all checkboxes for all tabs
+    const selectAllCheckboxes = document.querySelectorAll('.select-all-checkbox');
+    selectAllCheckboxes.forEach(selectAllCheckbox => {
         selectAllCheckbox.addEventListener('change', () => {
-            const activeTable = document.querySelector('.tab-pane.active');
-            const checkboxes = activeTable.querySelectorAll('.invoice-checkbox');
+            const table = selectAllCheckbox.closest('table');
+            const checkboxes = table.querySelectorAll('.invoice-checkbox');
             checkboxes.forEach(checkbox => {
                 checkbox.checked = selectAllCheckbox.checked;
             });
+            selectAllCheckbox.indeterminate = false;
             updateSelectedActions();
         });
-    }
+    });
 
     // Add submit button event listener
     const submitButton = document.getElementById('submitSelected');

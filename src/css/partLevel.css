@@ -762,13 +762,24 @@
 
 /* Form Controls */
 .form-check-input, .dashboard-table input[type="checkbox"] {
-  width: 0.85rem;
-  height: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .form-check-input:checked {
-  background-color: #4f46e5;
-  border-color: #4f46e5;
+  background-color: #6366f1;
+  border-color: #6366f1;
+}
+
+.form-check-input:indeterminate {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
+}
+
+.form-check-input:hover {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
 }
 
 /* Button Styles */
@@ -1797,24 +1808,24 @@
 }
 
 .submit-selected {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border-radius: 0.4rem;
-    background: #4f46e5;
-    color: #fff;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
     border: none;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(79, 70, 229, 0.2);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .submit-selected:hover {
-    background: #4338ca;
     transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, #5b5beb 0%, #4338ca 100%);
 }
 
 .submit-selected:active {
@@ -1823,6 +1834,57 @@
 
 .submit-selected i {
     font-size: 1.1em;
+}
+
+/* Submit button loader states */
+.submit-selected:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submit-selected .spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+}
+
+.submit-selected.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.submit-selected.btn-success:hover {
+    background: linear-gradient(135deg, #0ea371 0%, #047857 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.submit-selected.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.submit-selected.btn-danger:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Smooth transitions for button state changes */
+.submit-selected {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.submit-selected .spinner-border {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1906,3 +1968,65 @@
 .dashboard-table tbody tr:nth-child(8) { animation-delay: 0.45s; }
 .dashboard-table tbody tr:nth-child(9) { animation-delay: 0.5s; }
 .dashboard-table tbody tr:nth-child(10) { animation-delay: 0.55s; } 
+
+/* Toast Notifications */
+.toast-container {
+  z-index: 1055;
+}
+
+.toast {
+  background: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  border-left: 4px solid #10b981;
+}
+
+.toast-header {
+  background: rgba(16, 185, 129, 0.05);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+  border-radius: 0.75rem 0.75rem 0 0;
+  padding: 0.75rem 1rem;
+}
+
+.toast-body {
+  padding: 1rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.toast .btn-close {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.toast .btn-close:hover {
+  opacity: 1;
+}
+
+/* Error toast variant */
+.toast.error {
+  border-left-color: #ef4444;
+}
+
+.toast.error .toast-header {
+  background: rgba(239, 68, 68, 0.05);
+  border-bottom-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Toast animation */
+.toast.show {
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+} 
