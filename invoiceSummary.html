@@ -180,36 +180,129 @@
       <!-- Upload Section -->
       <section id="uploadSection" class="d-flex flex-column align-items-center justify-content-center">
         <div class="upload-container">
-          <div class="upload-card">
-            <div class="upload-icon">
-              <div class="icon-wrapper">
-                <i class="bi bi-cloud-arrow-up"></i>
+          <!-- Enhanced Upload Card -->
+          <div class="upload-card enhanced">
+            <!-- Upload Header with Compact Stats -->
+            <div class="upload-header">
+              <div class="header-left">
+                <div class="upload-stats">
+                  <div class="stat-item">
+                    <span class="stat-value">1,247</span>
+                    <span class="stat-label">Processed</span>
               </div>
-              <div class="icon-pulse"></div>
+                  <div class="stat-item">
+                    <span class="stat-value">98.5%</span>
+                    <span class="stat-label">Accuracy</span>
             </div>
-            <div class="upload-content">
-              <h3 class="upload-title">Upload Your Invoice</h3>
-              <p class="upload-subtitle">Drag & drop your file or click to browse</p>
-              <div class="upload-form">
-                <input type="file" id="invoiceFile" class="upload-input" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
-                <label for="invoiceFile" class="upload-label">
-                  <span class="label-text">Choose File</span>
-                  <i class="bi bi-folder2-open"></i>
-                </label>
-                <button id="uploadBtn" class="upload-button">
-                  <span>Analyze Now</span>
-                  <i class="bi bi-arrow-right"></i>
-                </button>
+                  <div class="stat-item">
+                    <span class="stat-value">$2.4M</span>
+                    <span class="stat-label">Saved</span>
+                  </div>
+                </div>
               </div>
-              <div class="upload-hint">
-                <i class="bi bi-info-circle"></i>
-                <span>Supported formats: PDF, JPG, PNG, DOC, DOCX</span>
+            </div>
+
+            <!-- Prominent Upload Area -->
+            <div class="upload-area">
+              <div id="uploadZone" class="upload-zone">
+                <div class="zone-content">
+                  <div class="zone-icon">
+                    <i class="bi bi-cloud-arrow-up-fill"></i>
+                  </div>
+                  <h4>Upload Invoice for Analysis</h4>
+                  <p>Drag & drop your invoice files here or click to browse</p>
+                  <div class="supported-formats">
+                    <span class="format-badge">PDF</span>
+                    <span class="format-badge">JPG</span>
+                    <span class="format-badge">PNG</span>
+                    <span class="format-badge">DOC</span>
+                    <span class="format-badge">DOCX</span>
+                  </div>
+                  <div class="upload-actions">
+                    <button type="button" class="upload-button primary" id="uploadBtn">
+                      <i class="bi bi-upload"></i>
+                      Upload Invoice
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <input type="file" id="invoiceFile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display: none;">
+            </div>
+
+            <!-- Compact Recent Uploads -->
+            <div class="recent-uploads">
+              <div class="section-header">
+                <h5>Recent Uploads</h5>
+                <button class="view-all-btn">View All</button>
+              </div>
+              <div class="uploads-list">
+                <div class="upload-item">
+                  <div class="item-icon">
+                    <i class="bi bi-file-earmark-pdf"></i>
+                  </div>
+                  <div class="item-content">
+                    <div class="item-name">Invoice_2024_001.pdf</div>
+                    <div class="item-meta">
+                      <span class="airline">American Airlines</span>
+                      <span class="amount">$12,450</span>
+                      <span class="status success">Completed</span>
+                    </div>
+                  </div>
+                  <div class="item-actions">
+                    <button class="action-btn" title="View Details">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="action-btn" title="Download">
+                      <i class="bi bi-download"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="upload-item">
+                  <div class="item-icon">
+                    <i class="bi bi-file-earmark-image"></i>
+                  </div>
+                  <div class="item-content">
+                    <div class="item-name">Invoice_2024_002.jpg</div>
+                    <div class="item-meta">
+                      <span class="airline">Delta Airlines</span>
+                      <span class="amount">$8,920</span>
+                      <span class="status warning">Processing</span>
+                    </div>
+                  </div>
+                  <div class="item-actions">
+                    <button class="action-btn" title="View Details">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="action-btn" title="Download">
+                      <i class="bi bi-download"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="upload-item">
+                  <div class="item-icon">
+                    <i class="bi bi-file-earmark-word"></i>
+                  </div>
+                  <div class="item-content">
+                    <div class="item-name">Invoice_2024_003.docx</div>
+                    <div class="item-meta">
+                      <span class="airline">United Airlines</span>
+                      <span class="amount">$15,680</span>
+                      <span class="status success">Completed</span>
+                    </div>
+                  </div>
+                  <div class="item-actions">
+                    <button class="action-btn" title="View Details">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="action-btn" title="Download">
+                      <i class="bi bi-download"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-
       </section>
 
       <!-- Loader Section -->
@@ -346,19 +439,25 @@
                     </div>
                     <h2>Invoice Summary</h2>
                   </div>
-                  <div class="view-toggle">
-                    <button class="toggle-btn active" data-view="grid">
-                      <i class="bi bi-grid-3x3"></i>
-                      <span>Grid</span>
+                  <div class="header-actions">
+                    <button id="backToUploadBtn" class="action-button back">
+                      <i class="bi bi-arrow-left"></i>
+                      <span>Back to Upload</span>
                     </button>
-                    <button class="toggle-btn" data-view="list">
-                      <i class="bi bi-list-ul"></i>
-                      <span>List</span>
-                    </button>
-                    <button class="toggle-btn" data-view="invoice">
-                      <i class="bi bi-file-earmark-text"></i>
-                      <span>Invoice</span>
-                    </button>
+                    <div class="view-toggle">
+                      <button class="toggle-btn active" data-view="grid">
+                        <i class="bi bi-grid-3x3"></i>
+                        <span>Grid</span>
+                      </button>
+                      <button class="toggle-btn" data-view="list">
+                        <i class="bi bi-list-ul"></i>
+                        <span>List</span>
+                      </button>
+                      <button class="toggle-btn" data-view="invoice">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span>Invoice</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
 

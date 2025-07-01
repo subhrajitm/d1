@@ -1,5 +1,12 @@
 // Initialize Bootstrap tooltips and sections
+let isInitialized = false;
 document.addEventListener('DOMContentLoaded', function() {
+  if (isInitialized) {
+    console.log('Already initialized, skipping...');
+    return;
+  }
+  isInitialized = true;
+  console.log('Initializing invoice summary page...');
   // Initialize all tooltips
   const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
   tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -13,13 +20,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const loaderSection = document.getElementById('loaderSection');
   const recommendationSection = document.getElementById('recommendationSection');
   const backToUploadBtn = document.getElementById('backToUpload');
-  const uploadArea = document.querySelector('.upload-card');
+  const uploadZone = document.getElementById('uploadZone');
   const viewToggle = document.querySelector('.view-toggle');
   const toggleButtons = viewToggle ? viewToggle.querySelectorAll('.toggle-btn') : [];
   const statsGrid = document.querySelector('.stats-grid');
   const invoiceView = document.querySelector('.invoice-view');
   const summaryLineSection = document.querySelector('.invoice-summary-line-section');
   const totalSummaryCard = document.querySelector('.total-summary-card');
+
+  // Enhanced Upload Section Elements
+  const uploadStats = document.querySelectorAll('.stat-item');
+  const viewAllBtn = document.querySelector('.view-all-btn');
+  const uploadItems = document.querySelectorAll('.upload-item');
 
   // Initialize sections
   function initializeSections() {
@@ -39,247 +51,294 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize sections on page load
   initializeSections();
 
+  // Enhanced Upload Zone Functionality
+  if (uploadZone) {
+    // Drag and drop functionality
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('dragover');
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+      uploadZone.classList.remove('dragover');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFileUpload(files[0]);
+      }
+    });
+
+    // Click to browse - removed to prevent double upload
+    // uploadZone.addEventListener('click', () => {
+    //   fileInput.click();
+    // });
+  }
+
   // Handle file selection
   if (fileInput) {
     fileInput.addEventListener('change', function(e) {
+      console.log('File input change event triggered');
       if (this.files.length > 0) {
-        const fileName = this.files[0].name;
-        const labelText = document.querySelector('.label-text');
-        if (labelText) {
-          labelText.textContent = fileName;
-        }
+        console.log('File selected:', this.files[0].name);
+        updateFileDisplay(this.files);
+        // Start the upload process
+        handleFileUpload(this.files[0]);
       }
     });
   }
 
-  // Handle upload button click
-  if (uploadBtn && uploadSection && loaderSection && recommendationSection) {
-    uploadBtn.addEventListener('click', function() {
-      // Hide upload section with transition
-      uploadSection.style.opacity = '0';
-      setTimeout(() => {
-        uploadSection.style.display = 'none';
-        
-        // Show loader
-        loaderSection.style.display = 'flex';
-        setTimeout(() => {
-          loaderSection.style.opacity = '1';
-          
-          // Start loader animation
-          animateLoaderSteps();
-          
-          // Simulate processing delay
-          setTimeout(() => {
-            // Hide loader with transition
-            loaderSection.style.opacity = '0';
-            setTimeout(() => {
-              loaderSection.style.display = 'none';
-              
-              // Remove d-flex class from upload section
-              uploadSection.classList.remove('d-flex');
-              
-              // Show recommendation section
-              recommendationSection.style.display = 'block';
-              setTimeout(() => {
-                recommendationSection.style.opacity = '1';
-              }, 50);
-            }, 300);
-          }, 2000);
-        }, 50);
-      }, 300);
-    });
-  }
-
-  // Handle back to upload button
-  if (backToUploadBtn && fileInput && uploadSection && recommendationSection) {
-    backToUploadBtn.addEventListener('click', function() {
-      // Reset file input
-      fileInput.value = '';
-      const labelText = document.querySelector('.label-text');
-      if (labelText) {
-        labelText.textContent = 'Choose File';
-      }
+  // Update file display in upload zone
+  function updateFileDisplay(files) {
+    const zoneContent = uploadZone.querySelector('.zone-content');
+    if (zoneContent && files.length > 0) {
+      const file = files[0];
+      const fileName = file.name;
+      const fileSize = (file.size / 1024 / 1024).toFixed(2); // Convert to MB
       
-      // Hide recommendation section with transition
-      recommendationSection.style.opacity = '0';
-      setTimeout(() => {
-        recommendationSection.style.display = 'none';
-        
-        // Add d-flex class back to upload section
-        uploadSection.classList.add('d-flex');
-        
-        // Show upload section
-        uploadSection.style.display = 'flex';
-        setTimeout(() => {
-          uploadSection.style.opacity = '1';
-        }, 50);
-      }, 300);
+      zoneContent.innerHTML = `
+        <i class="bi bi-file-earmark-text zone-icon"></i>
+        <h4>${fileName}</h4>
+        <p>${fileSize} MB • Ready to analyze</p>
+        <div class="supported-formats">
+          <span class="format-badge">PDF</span>
+          <span class="format-badge">JPG</span>
+          <span class="format-badge">PNG</span>
+          <span class="format-badge">DOC</span>
+          <span class="format-badge">DOCX</span>
+        </div>
+      `;
+    }
+  }
+
+  // Recent Uploads Functionality
+  if (viewAllBtn) {
+    viewAllBtn.addEventListener('click', () => {
+      // Navigate to uploads history page
+      console.log('Navigate to uploads history');
     });
   }
 
-  // Handle drag and drop
-  if (uploadArea) {
-    uploadArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      uploadArea.classList.add('drag-over');
-    });
-
-    uploadArea.addEventListener('dragleave', () => {
-      uploadArea.classList.remove('drag-over');
-    });
-
-    uploadArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      uploadArea.classList.remove('drag-over');
-      
-      if (e.dataTransfer.files.length) {
-        fileInput.files = e.dataTransfer.files;
-        fileInput.dispatchEvent(new Event('change'));
-      }
-    });
-  }
-
-  // Recommendation Filtering
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const recommendationCards = document.querySelectorAll('.rec-card');
-
-  if (filterButtons.length > 0 && recommendationCards.length > 0) {
-    filterButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        this.classList.add('active');
-
-        const priority = this.dataset.priority;
-
-        // Filter cards
-        recommendationCards.forEach(card => {
-          if (priority === 'all') {
-            card.style.display = 'block';
-          } else {
-            card.style.display = card.classList.contains(priority) ? 'block' : 'none';
-          }
+  if (uploadItems.length > 0) {
+    uploadItems.forEach(item => {
+      const actionBtns = item.querySelectorAll('.action-btn');
+      actionBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const title = this.getAttribute('title');
+          handleUploadAction(title, item);
         });
       });
     });
   }
 
-  // View Toggle Functionality
-  if (toggleButtons.length) {
-    toggleButtons.forEach(button => {
-      button.addEventListener('click', function() {
+  function handleUploadAction(action, item) {
+    const fileName = item.querySelector('.item-name').textContent;
+    const status = item.querySelector('.status').textContent;
+    
+    switch(action) {
+      case 'View Details':
+        console.log(`Viewing details for ${fileName}`);
+        showToast(`Opening details for ${fileName}`, 'success');
+        break;
+      case 'Download':
+        console.log(`Downloading ${fileName}`);
+        showToast(`Downloading ${fileName}`, 'info');
+        break;
+    }
+  }
+
+  // Toast notification function
+  function showToast(message, type = 'info') {
+    // Create toast container if it doesn't exist
+    let toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+      toastContainer = document.createElement('div');
+      toastContainer.id = 'toast-container';
+      toastContainer.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      `;
+      document.body.appendChild(toastContainer);
+    }
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 300px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      border-left: 4px solid ${getToastColor(type)};
+    `;
+
+    const icon = document.createElement('i');
+    icon.className = getToastIcon(type);
+    icon.style.color = getToastColor(type);
+
+    const messageEl = document.createElement('span');
+    messageEl.textContent = message;
+    messageEl.style.fontSize = '14px';
+    messageEl.style.color = '#374151';
+
+    toast.appendChild(icon);
+    toast.appendChild(messageEl);
+
+    // Add close button
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '&times;';
+    closeBtn.style.cssText = `
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #9ca3af;
+      cursor: pointer;
+      margin-left: auto;
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `;
+    closeBtn.onclick = () => removeToast(toast);
+    toast.appendChild(closeBtn);
+
+    toastContainer.appendChild(toast);
+
+    // Animate in
+    setTimeout(() => {
+      toast.style.transform = 'translateX(0)';
+    }, 100);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+      removeToast(toast);
+    }, 5000);
+  }
+
+  function removeToast(toast) {
+    toast.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+    }, 300);
+  }
+
+  function getToastColor(type) {
+    switch(type) {
+      case 'success': return '#10b981';
+      case 'error': return '#ef4444';
+      case 'warning': return '#f59e0b';
+      case 'info': 
+      default: return '#3b82f6';
+    }
+  }
+
+  function getToastIcon(type) {
+    switch(type) {
+      case 'success': return 'bi bi-check-circle-fill';
+      case 'error': return 'bi bi-x-circle-fill';
+      case 'warning': return 'bi bi-exclamation-triangle-fill';
+      case 'info': 
+      default: return 'bi bi-info-circle-fill';
+    }
+  }
+
+  // Upload button click handler
+  if (uploadBtn) {
+    uploadBtn.addEventListener('click', () => {
+      console.log('Upload button clicked');
+      fileInput.click();
+    });
+  }
+
+  // Back to upload button functionality
+  if (backToUploadBtn) {
+    backToUploadBtn.addEventListener('click', () => {
+      if (uploadSection && loaderSection && recommendationSection) {
+        uploadSection.style.display = 'flex';
+        uploadSection.style.opacity = '1';
+        loaderSection.style.display = 'none';
+        loaderSection.style.opacity = '0';
+        recommendationSection.style.display = 'none';
+        recommendationSection.style.opacity = '0';
+      }
+    });
+  }
+
+  // View toggle functionality
+  if (viewToggle && toggleButtons.length > 0) {
+    toggleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
         // Remove active class from all buttons
-        toggleButtons.forEach(btn => btn.classList.remove('active'));
+        toggleButtons.forEach(b => b.classList.remove('active'));
         // Add active class to clicked button
-        this.classList.add('active');
-        // Toggle views
-        if (this.dataset.view === 'list') {
-          statsGrid && statsGrid.classList.add('list-view');
-          statsGrid && (statsGrid.style.display = '');
-          invoiceView && (invoiceView.style.display = 'none');
-          summaryLineSection && (summaryLineSection.style.display = '');
-          totalSummaryCard && (totalSummaryCard.style.display = '');
-        } else if (this.dataset.view === 'grid') {
-          statsGrid && statsGrid.classList.remove('list-view');
-          statsGrid && (statsGrid.style.display = '');
-          invoiceView && (invoiceView.style.display = 'none');
-          summaryLineSection && (summaryLineSection.style.display = '');
-          totalSummaryCard && (totalSummaryCard.style.display = '');
-        } else if (this.dataset.view === 'invoice') {
-          statsGrid && (statsGrid.style.display = 'none');
-          invoiceView && (invoiceView.style.display = 'block');
-          summaryLineSection && (summaryLineSection.style.display = 'none');
-          totalSummaryCard && (totalSummaryCard.style.display = 'none');
+        btn.classList.add('active');
+        
+        // Toggle grid/list view
+        if (statsGrid) {
+          if (btn.getAttribute('data-view') === 'list') {
+            statsGrid.classList.add('list-view');
+          } else {
+            statsGrid.classList.remove('list-view');
+          }
         }
       });
     });
   }
 
-  // Remove any existing click handlers from stat cards
-  const statCards = document.querySelectorAll('.stat-card');
-  statCards.forEach(card => {
-    card.style.cursor = 'default';
-    card.onclick = null;
-  });
-
-  // Initialize other components
+  // Initialize other sections
   initializeCharts();
   initializeRiskFactors();
   initializeRecommendations();
+  initializeModal();
 });
 
-// Loader animation function
+// Loader animation functions
 function animateLoaderSteps() {
-  const steps = document.querySelectorAll('.loader-step');
-  const stepDuration = 1000; // 1 second per step
+  const steps = document.querySelectorAll('.progress-steps .step');
   let currentStep = 0;
-  const progressIndicator = document.querySelector('.loader-progress-indicator .progress-text');
 
-  // Reset all steps
-  steps.forEach(step => {
-    step.classList.remove('active', 'completed');
-    const progressBar = step.querySelector('.progress-bar');
-    const statusEl = step.querySelector('.step-status');
-    if (progressBar) {
-      progressBar.style.width = '0%';
-    }
-    if (statusEl) {
-      statusEl.textContent = 'Waiting';
-      statusEl.classList.remove('in-progress', 'completed');
-    }
-  });
-
-  // Animate each step
   function animateStep() {
-    if (currentStep >= steps.length) {
-      return;
-    }
-
-    // Update progress indicator
-    const progressPercentage = Math.round(((currentStep + 1) / steps.length) * 100);
-    if (progressIndicator) {
-      progressIndicator.textContent = `${progressPercentage}% Complete`;
-    }
-
-    // Mark previous steps as completed
-    for (let i = 0; i < currentStep; i++) {
-      const prevStep = steps[i];
-      prevStep.classList.remove('active');
-      prevStep.classList.add('completed');
+    if (currentStep < steps.length) {
+      // Remove active from all steps
+      steps.forEach(step => step.classList.remove('active'));
       
-      const prevStatusEl = prevStep.querySelector('.step-status');
-      if (prevStatusEl) {
-        prevStatusEl.textContent = 'Completed';
-        prevStatusEl.classList.remove('in-progress');
-        prevStatusEl.classList.add('completed');
+      // Add active to current step
+      steps[currentStep].classList.add('active');
+      
+      // Add completed to previous steps
+      for (let i = 0; i < currentStep; i++) {
+        steps[i].classList.add('completed');
       }
-    }
-
-    // Animate current step
-    const step = steps[currentStep];
-    step.classList.add('active');
-    
-    const statusEl = step.querySelector('.step-status');
-    if (statusEl) {
-      statusEl.textContent = 'In progress';
-      statusEl.classList.add('in-progress');
-    }
-    
-    const progressBar = step.querySelector('.progress-bar');
-    if (progressBar) {
-      // Animate progress bar
-      let width = 0;
-      const animationInterval = setInterval(() => {
-        if (width >= 100) {
-          clearInterval(animationInterval);
-          currentStep++;
-          setTimeout(animateStep, 300); // Small delay between steps
-        } else {
-          width += 2;
-          progressBar.style.width = width + '%';
-        }
-      }, 20);
+      
+      currentStep++;
+      
+      // Continue to next step after delay
+      setTimeout(animateStep, 2000);
+    } else {
+      // All steps completed, show recommendations
+      setTimeout(() => {
+        hideLoader();
+        showRecommendations();
+      }, 1000);
     }
   }
 
@@ -288,160 +347,94 @@ function animateLoaderSteps() {
 
 // Initialize charts
 function initializeCharts() {
-  // Chart initialization code here
+  // Chart initialization code would go here
+  console.log('Charts initialized');
 }
 
 // Initialize risk factors
 function initializeRiskFactors() {
-  // Risk factors initialization code here
+  // Risk factors initialization code would go here
+  console.log('Risk factors initialized');
 }
 
 // Initialize recommendations
 function initializeRecommendations() {
-  // Recommendations initialization code here
+  // Recommendations initialization code would go here
+  console.log('Recommendations initialized');
 }
 
-// Initialize modal functionality
+// Initialize modal
 function initializeModal() {
-  // Get all card action buttons
-  const actionButtons = document.querySelectorAll('.card-action-btn');
-  const reviewSection = document.getElementById('invoiceReviewSection');
-  const closeButton = document.getElementById('closeReview');
-
-  // Remove any existing click handlers from stat cards
-  const statCards = document.querySelectorAll('.stat-card');
-  statCards.forEach(card => {
-    card.style.cursor = 'default';
-    card.onclick = null;
-    card.style.pointerEvents = 'none'; // Disable pointer events on the card itself
-  });
-
-  // Enable pointer events only on the action button
-  actionButtons.forEach(button => {
-    button.style.pointerEvents = 'auto';
-    button.onclick = null; // Remove any existing handlers
-    
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      const category = this.getAttribute('data-category');
-      const card = this.closest('.stat-card');
-      const cardTitle = card.querySelector('.card-title').textContent;
-      
-      // Update modal title with selected category
-      const reviewTitle = reviewSection.querySelector('.review-title');
-      reviewTitle.textContent = `Invoice Review - ${cardTitle}`;
-      
-      // Show the review section
-      reviewSection.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  // Close button functionality
-  closeButton.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    reviewSection.classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
-  // Close modal when clicking outside
-  reviewSection.addEventListener('click', function(e) {
-    if (e.target === reviewSection) {
-      reviewSection.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-
-  // Close modal when pressing Escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && reviewSection.classList.contains('active')) {
-      reviewSection.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
+  // Modal initialization code would go here
+  console.log('Modal initialized');
 }
 
-// Initialize everything when the page loads
-window.addEventListener('load', function() {
-  // Initialize other components
-  initializeCharts();
-  initializeRiskFactors();
-  initializeRecommendations();
-  initializeModal();
-});
-
-// Handle view options
-const viewOptions = document.querySelectorAll('.view-option');
-viewOptions.forEach(option => {
-  option.addEventListener('click', () => {
-    viewOptions.forEach(opt => opt.classList.remove('active'));
-    option.classList.add('active');
-    // Add logic here to change the view based on the selected option
-  });
-});
-
-// Handle action buttons
-const exportBtn = document.querySelector('.action-btn.primary');
-const printBtn = document.querySelector('.action-btn.secondary');
-
-if (exportBtn) {
-  exportBtn.addEventListener('click', () => {
-    // Add export functionality here
-    console.log('Export clicked');
-  });
-}
-
-if (printBtn) {
-  printBtn.addEventListener('click', () => {
-    // Add print functionality here
-    console.log('Print clicked');
-  });
-}
-
+// Open invoice review modal
 function openInvoiceReview(category) {
-  const modal = document.getElementById('invoiceReviewSection');
+  const modal = document.getElementById('invoiceReviewModal');
   if (modal) {
-    modal.classList.add('active');
-    // Update modal content based on category
     updateModalContent(category);
+    modal.classList.add('active');
   }
 }
 
+// Update modal content based on category
 function updateModalContent(category) {
-  // Update modal title and content based on category
-  const title = document.querySelector('.review-title');
-  if (title) {
-    title.textContent = category === 'inscope' ? 'In-Scope CharBEs Review' : 'Service Bulletin Review';
-  }
-  
-  // Update recommendations tab content based on category
-  const recommendationsTab = document.getElementById('recommendations');
-  if (recommendationsTab) {
-    // You can update the recommendations content here based on the category
-    // This is just a placeholder - you'll need to implement the actual content update logic
-    recommendationsTab.innerHTML = `
-      <div class="review-recommendations">
-        <div class="recommendations-header">
-          <div class="header-left">
-            <h4>Recommendations</h4>
-            <span class="issue-count">3 Issues Found</span>
-          </div>
-        </div>
-        <div class="recommendations-list">
-          <!-- Recommendations will be dynamically populated based on category -->
-        </div>
-      </div>
-    `;
+  const modalContent = document.querySelector('.review-content');
+  if (modalContent) {
+    // Update modal content based on category
+    console.log('Updating modal content for category:', category);
   }
 }
 
-// Close modal function
-document.getElementById('closeReview')?.addEventListener('click', () => {
-  const modal = document.getElementById('invoiceReviewSection');
-  if (modal) {
-    modal.classList.remove('active');
+// File upload handler
+function handleFileUpload(file) {
+  console.log('handleFileUpload called for:', file.name);
+  showLoader();
+  // Simulate file upload process
+  setTimeout(() => {
+    animateLoaderSteps();
+  }, 1000);
+}
+
+// Show loader
+function showLoader() {
+  const loaderSection = document.getElementById('loaderSection');
+  const uploadSection = document.getElementById('uploadSection');
+  
+  if (loaderSection && uploadSection) {
+    // Hide upload section
+    uploadSection.style.opacity = '0';
+    setTimeout(() => {
+      uploadSection.style.display = 'none';
+      
+      // Show loader section
+      loaderSection.style.display = 'flex';
+      setTimeout(() => {
+        loaderSection.style.opacity = '1';
+      }, 50);
+    }, 300);
   }
-});
+}
+
+// Hide loader
+function hideLoader() {
+  const loaderSection = document.getElementById('loaderSection');
+  if (loaderSection) {
+    loaderSection.style.opacity = '0';
+    setTimeout(() => {
+      loaderSection.style.display = 'none';
+    }, 300);
+  }
+}
+
+// Show recommendations
+function showRecommendations() {
+  const recommendationSection = document.getElementById('recommendationSection');
+  if (recommendationSection) {
+    recommendationSection.style.display = 'block';
+    setTimeout(() => {
+      recommendationSection.style.opacity = '1';
+    }, 50);
+  }
+}
