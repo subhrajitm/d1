@@ -558,8 +558,29 @@
       <div class="chatbot-title">
         <i class="bi bi-chat-dots"></i>
         <span>SMBA Assistant</span>
+        <div class="language-selector">
+          <select id="language-select" class="language-select">
+            <option value="en">🇺🇸 English</option>
+            <option value="pt">🇵🇹 Portuguese</option>
+            <option value="es">🇪🇸 Spanish</option>
+            <option value="es-mx">🇲🇽 Mexican Spanish</option>
+            <option value="ms">🇲🇾 Malay</option>
+            <option value="zh">🇨🇳 Chinese</option>
+            <option value="fr">🇫🇷 French</option>
+            <option value="de">🇩🇪 German</option>
+            <option value="it">🇮🇹 Italian</option>
+            <option value="ja">🇯🇵 Japanese</option>
+            <option value="ko">🇰🇷 Korean</option>
+            <option value="ar">🇸🇦 Arabic</option>
+            <option value="hi">🇮🇳 Hindi</option>
+            <option value="ru">🇷🇺 Russian</option>
+          </select>
+        </div>
       </div>
       <div class="chatbot-actions">
+        <button id="voice-toggle" class="chatbot-action-btn" title="Voice Assistant">
+          <i class="bi bi-mic"></i>
+        </button>
         <button id="chatbot-maximize" class="chatbot-action-btn" title="Maximize">
           <i class="bi bi-arrows-angle-expand"></i>
         </button>
@@ -581,10 +602,21 @@
         </div>
       </div>
       <div class="chatbot-input-container">
-        <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type your message...">
+        <div class="input-wrapper">
+          <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type your message...">
+          <button id="voice-input" class="voice-input-btn" title="Voice Input">
+            <i class="bi bi-mic"></i>
+          </button>
+        </div>
         <button id="chatbot-send" class="chatbot-send-btn">
           <i class="bi bi-send"></i>
         </button>
+      </div>
+      <div class="voice-status" id="voice-status" style="display: none;">
+        <div class="voice-indicator">
+          <i class="bi bi-mic-fill"></i>
+          <span>Listening...</span>
+        </div>
       </div>
     </div>
   </div>
