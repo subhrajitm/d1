@@ -162,7 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
             recognition.onresult = function(event) {
                 const transcript = event.results[0][0].transcript;
                 chatbotInput.value = transcript;
-                sendMessage();
+                // Focus on input field after voice recognition
+                chatbotInput.focus();
             };
 
             recognition.onerror = function(event) {
